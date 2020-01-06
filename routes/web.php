@@ -1,6 +1,7 @@
 <?php
 
 Route::get('/', function () {
+
     return view('welcome');
 });
 
@@ -10,5 +11,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function () {
-//    Route::get('/', 'Backend\BackendController@index')->name('backend');
+    Route::get('/', 'Backend\BackendController@index')->name('index-backend');
 });

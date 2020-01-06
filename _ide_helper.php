@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 6.6.0 on 2020-01-06 20:21:48.
+ * Generated for Laravel 6.9.0 on 2020-01-06 21:16:52.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -10200,8 +10200,8 @@ namespace Illuminate\Support\Facades {
          * Retrieve an input item from the request.
          *
          * @param string|null $key
-         * @param string|array|null $default
-         * @return string|array|null 
+         * @param mixed $default
+         * @return mixed 
          * @static 
          */ 
         public static function input($key = null, $default = null)
@@ -10671,20 +10671,6 @@ namespace Illuminate\Support\Facades {
      * @see \Illuminate\Routing\Router
      */ 
     class Route {
-        
-        /**
-         * Register a new HEAD route with the router.
-         *
-         * @param string $uri
-         * @param \Closure|array|string|callable|null $action
-         * @return \Illuminate\Routing\Route 
-         * @static 
-         */ 
-        public static function head($uri, $action = null)
-        {
-                        /** @var \Illuminate\Routing\Router $instance */
-                        return $instance->head($uri, $action);
-        }
         
         /**
          * Register a new GET route with the router.
@@ -11665,6 +11651,18 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
                         return $instance->getAllTables();
+        }
+        
+        /**
+         * Get all of the view names for the database.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getAllViews()
+        {
+                        /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
+                        return $instance->getAllViews();
         }
         
         /**
@@ -15075,7 +15073,7 @@ namespace  {
             /**
              * Execute the query as a "select" statement.
              *
-             * @param array $columns
+             * @param array|string $columns
              * @return \Illuminate\Database\Eloquent\Collection|static[] 
              * @static 
              */ 
@@ -15088,7 +15086,7 @@ namespace  {
             /**
              * Get the hydrated models without eager loading.
              *
-             * @param array $columns
+             * @param array|string $columns
              * @return \Illuminate\Database\Eloquent\Model[]|static[] 
              * @static 
              */ 
@@ -15460,7 +15458,7 @@ namespace  {
             /**
              * Execute the query and get the first result.
              *
-             * @param array $columns
+             * @param array|string $columns
              * @return \Illuminate\Database\Eloquent\Model|object|static|null 
              * @static 
              */ 
