@@ -37,7 +37,6 @@ sudo hostnamectl set-hostname silkroad-laravel.de
 sudo sendmailconfig
 
 # Setup database
-#echo "DROP DATABASE IF EXISTS DB_SHISHA" | mysql -uroot -proot
 echo mysql_upgrade -u root -proot --force
 echo "CREATE DATABASE DB_SILKROAD" | mysql -uroot -proot
 echo "FLUSH PRIVILEGES" | mysql -uroot -proot
