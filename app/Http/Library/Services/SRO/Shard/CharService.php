@@ -12,11 +12,7 @@ class CharService
      */
     public function getChar($charId)
     {
-        $char = Char::select('_Char.*', 'SRO_VT_PROXY.dbo._Players.cur_status' )->
-        leftJoin('SRO_VT_PROXY.dbo._Players', '_Char.CharName16', '=', 'SRO_VT_PROXY.dbo._Players.CharName16')
-            ->where('CharID', '=', $charId)
-            ->get();
-        return $char;
+        return null;
     }
 
     /**

@@ -38,9 +38,10 @@ sudo sendmailconfig
 
 # Setup database
 #echo "DROP DATABASE IF EXISTS DB_SHISHA" | mysql -uroot -proot
+echo mysql_upgrade -u root -proot --force
 echo "CREATE DATABASE DB_SILKROAD" | mysql -uroot -proot
 echo "FLUSH PRIVILEGES" | mysql -uroot -proot
-echo mysql_upgrade -u root -proot --force
+echo "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';"
 
 # php.ini
 sudo sed -i.bak 's/^;cgi.fix_pathinfo.*$/cgi.fix_pathinfo = 1/g' /etc/php/7.3/fpm/php.ini
