@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Model\SRO\Account\SmcLog;
 use App\Model\SRO\Account\TbUser;
 use App\User;
+use Yajra\DataTables\DataTables;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 
@@ -21,5 +23,18 @@ class BackendController extends Controller
             'userCount' => User::count(),
             'playerCount' => TbUser::count()
         ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function smclogIndex()
+    {
+        return view('backend.smc.index');
+    }
+
+    public function smclogDatatables()
+    {
+        return DataTables::of(SmcLog::query())->make(true);
     }
 }
