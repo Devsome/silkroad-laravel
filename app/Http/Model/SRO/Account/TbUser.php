@@ -59,7 +59,7 @@ class TbUser extends Model
      * @var array
      */
     protected $hidden = [
-        'JID', 'password'
+        'password'
     ];
 
     /**

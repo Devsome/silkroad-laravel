@@ -9,6 +9,10 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class BackendController
+ * @package App\Http\Controllers\Backend
+ */
 class BackendController extends Controller
 {
 
@@ -33,6 +37,10 @@ class BackendController extends Controller
         return view('backend.smc.index');
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     public function smclogDatatables()
     {
         return DataTables::of(SmcLog::query())->make(true);

@@ -15,7 +15,7 @@
     <hr class="sidebar-divider">
 
     <div class="sidebar-heading">
-        {{ __('backend/menu.main') }}
+        {{ __('backend/menu.web') }}
     </div>
 
     <li class="nav-item">
@@ -24,6 +24,18 @@
             <span>Link</span>
         </a>
     </li>
+
+    <div class="sidebar-heading">
+        {{ __('backend/menu.silkroad') }}
+    </div>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('index-sro-user-backend') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>{{ __('backend/menu.tbuser') }}</span>
+        </a>
+    </li>
+
 
     <div class="sidebar-heading">
         {{ __('backend/menu.log') }}
