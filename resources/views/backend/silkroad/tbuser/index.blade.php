@@ -14,10 +14,11 @@
                         <thead class="thead-dark">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">{{ __('backend/tbuser.table.struserid') }}</th>
-                            <th scope="col">{{ __('backend/tbuser.table.email') }}</th>
-                            <th scope="col">{{ __('backend/tbuser.table.gmrank') }}</th>
-                            <th scope="col">{{ __('backend/tbuser.table.regtime') }}</th>
+                            <th scope="col">{{ __('backend/tbuser.struserid') }}</th>
+                            <th scope="col">{{ __('backend/tbuser.email') }}</th>
+                            <th scope="col">{{ __('backend/tbuser.gmrank') }}</th>
+                            <th scope="col">{{ __('backend/tbuser.regtime') }}</th>
+                            <th scope="col">{{ __('backend/tbuser.table.action') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -45,6 +46,12 @@
                     { data: 'Email', name: 'Email' },
                     { data: 'GMrank', name: 'GMrank' },
                     { data: 'regtime', name: 'regtime', searchable: false },
+                    { data: function ( row ) {
+                            let url = '{{ route("sro-user-edit-backend", ['user' =>  ':user' ]) }}';
+                            url = url.replace(':user', row.JID);
+                            return `<a href='${url}' class="btn btn-primary btn-circle btn-sm"><i class="fa fa-pen"></i></a>`;
+                        }, orderable: false, searchable: false
+                    }
                 ],
                 "order": [[ 0, "desc" ]],
                 "lengthMenu": [[10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('backend/datatables.show-all') }}"]],

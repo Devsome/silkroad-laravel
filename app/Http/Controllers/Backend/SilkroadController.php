@@ -29,4 +29,12 @@ class SilkroadController extends Controller
     {
         return DataTables::of(TbUser::query())->make(true);
     }
+
+    public function sroUserEdit($jid)
+    {
+        $tbuser = TbUser::with('getShardUser')->findOrFail($jid);
+        return view('backend.silkroad.tbuser.edit', [
+           'tbuser' => $tbuser
+        ]);
+    }
 }

@@ -30,7 +30,7 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('index-sro-user-backend') }}">
+        <a class="nav-link" href="{{ route('sro-user-index-user-backend') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>{{ __('backend/menu.tbuser') }}</span>
         </a>
@@ -42,7 +42,7 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('smclog-backend') }}">
+        <a class="nav-link" href="{{ route('smclog-index-backend') }}">
             <i class="fas fa-fw fa-table"></i>
             <span>{{ __('backend/menu.smc-log') }}</span>
         </a>
