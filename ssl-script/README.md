@@ -1,4 +1,6 @@
-### Führe aus
+## For generating a local ssl cert
+
+### Run this commands
 
 ```bash
 # create a root authority cert
@@ -10,29 +12,32 @@
 ./create_certificate_for_domain.sh MEINESEITE
 ```
 
-oder 
+or this for none wildcards
 
 ````bash
 # or create a cert for www.mysite.com, no wildcards
 ./create_certificate_for_domain.sh www.mysite.com www.mysite.com
 ````
 
-Passe die v3.ext an
+Edit the v3.ext file and change it to your site name.
 
 ```text
 [alt_names]
 DNS.1 = MEINESEITE
 ```
 
-Rufe die Seite auf & downloade dir das Zertifikat.
-Füge es danach in den Keystore und truste es.
+Open local your site and download the certificate.
+Put it to your local Keystore and trust it, because you generated it.
 
-Oder führe folgendes in der Console aus:
+Or run this command in the console:
 
 ```text
 sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain MEINESEITE.crt
 ```
 
-## Fürs Handy
+## Want to watch the site from your cellphone?
 
-Einfach die .pem Datei auf dein Handy kopieren. (Beachte, nicht in den Download Ordner sonst erkennt das Handy die Datei nicht)
+Put the .pem File to your cellphone. (Attention! Do not put it into the normal Download folder, because you can't see / install it from there)
+Then open and install it to your device.
+
+Have fun.
