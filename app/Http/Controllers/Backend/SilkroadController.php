@@ -32,9 +32,12 @@ class SilkroadController extends Controller
 
     public function sroUserEdit($jid)
     {
-        $tbuser = TbUser::with('getShardUser')->findOrFail($jid);
+        $tbuser = TbUser::with('getShardUser')
+            ->with('getPunishmentUser')
+            ->with('getSkSilk')
+            ->findOrFail($jid);
         return view('backend.silkroad.tbuser.edit', [
-           'tbuser' => $tbuser
+            'tbuser' => $tbuser
         ]);
     }
 }

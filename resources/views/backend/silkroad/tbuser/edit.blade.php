@@ -7,7 +7,6 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">{{ __('backend/tbuser.title') }}</h1>
         </div>
-
         <div class="row">
             <div class="col-12">
                 <div class="card shadow mb-4">
@@ -106,5 +105,87 @@
             </div>
         </div>
 
+        <div class="card mb-4">
+            <div class="card-header">
+                {{ __('backend/tbuser.edit.punishment') }}
+            </div>
+            @if($tbuser->getpunishmentuser->isEmpty())
+                <div class="card-body">
+                    {{ __('backend/tbuser.edit.punishment-empty') }}
+                </div>
+            @else
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable">
+                            <thead>
+                            <tr>
+                                <th>{{ __('backend/tbuser.edit.jid') }}</th>
+                                <th>{{ __('backend/tbuser.edit.charname') }}</th>
+                                <th>{{ __('backend/tbuser.edit.guide') }}</th>
+                                <th>{{ __('backend/tbuser.edit.description') }}</th>
+                                <th>{{ __('backend/tbuser.edit.blockstarttime') }}</th>
+                                <th>{{ __('backend/tbuser.edit.blockendtime') }}</th>
+                                <th>{{ __('backend/tbuser.edit.status') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($tbuser->getpunishmentuser as $punishment)
+                                <tr>
+                                    <td>{{ $punishment->UserJID }}</td>
+                                    <td>{{ $punishment->CharName }}</td>
+                                    <td>{{ $punishment->Guide }}</td>
+                                    <td>{{ $punishment->Description }}</td>
+                                    <td>{{ $punishment->BlockStartTime }}</td>
+                                    <td>{{ $punishment->BlockEndTime }}</td>
+                                    <td>{{ $punishment->Status }}</td>
+                                </tr>
+                            @empty
+                                {{ __('backend/tbuser.edit.punishment-empty') }}
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @endif
+        </div>
+
     </div>
 @endsection
+@push('css')
+    <link href="{{ asset('css/backend/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+@endpush
+@push('javascript')
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                "order": [[0, "desc"]],
+                "lengthMenu": [[5, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('backend/datatables.show-all') }}"]],
+                "language": {
+                    "search": "{{ __('backend/datatables.search') }}",
+                    "lengthMenu": "{{ __('backend/datatables.length') }}",
+                    "zeroRecords": "{{ __('backend/datatables.zero') }}",
+                    "info": "{{ __('backend/datatables.info') }}",
+                    "infoEmpty": "{{ __('backend/datatables.empty') }}",
+                    "infoFiltered": "{{ __('backend/datatables.info-filtered') }}",
+                    "paginate": {
+                        "first": "{{ __('backend/datatables.first') }}",
+                        "last": "{{ __('backend/datatables.last') }}",
+                        "next": "{{ __('backend/datatables.next') }}",
+                        "previous": "{{ __('backend/datatables.prev') }}"
+                    }
+                },
+                "classes": {
+                    "sPageButton": "button small",
+                    "sPageButtonActive": "green",
+                    "sPageButtonDisabled": "helper hide"
+                },
+                "select": {
+                    "style": "os",
+                    "className": "row-selected"
+                }
+            });
+            $('div.dataTables_filter input').addClass('search-input form-control');
+            $('select').addClass('search-input form-control');
+        });
+    </script>
+@endpush

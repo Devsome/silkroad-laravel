@@ -17,14 +17,25 @@ return [
     'edit' => [
         'title' => 'Account edit',
         'gm' => 'Gamemaster',
-        'email-info' => 'We are not giving any Information to the user',
+        'email-info' => 'We are not giving any Information to the user.',
         'accounts' => 'Characters from the User',
         'level' => 'Level',
         'gold' => 'Gold',
         'health' => 'Health:',
         'mana' => 'Mana:',
         'sp' => 'Skillpoints:',
-        'no-char' => 'Account does not have any Characters created',
+        'no-char' => 'Account does not have any Characters created.',
+
+        'punishment' => 'Punishment',
+        'punishment-empty' => 'This user does not have any punishment.',
+
+        'jid' => 'JID',
+        'charname' => 'Character',
+        'guide' => 'Title',
+        'description' => 'Description',
+        'blockstarttime' => 'Start date',
+        'blockendtime' => 'End date',
+        'status' => 'Status',
     ],
 
 

@@ -77,4 +77,12 @@ class TbUser extends Model
     {
         return $this->belongsToMany(Char::class, '_User', 'UserJID', 'CharID');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getPunishmentUser()
+    {
+        return $this->hasMany(Punishment::class, 'UserJID', 'JID');
+    }
 }

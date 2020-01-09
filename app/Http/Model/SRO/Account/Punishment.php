@@ -28,13 +28,6 @@ class Punishment extends Model
     protected $table = 'dbo._Punishment';
 
     /**
-     * The primary Key for the table
-     *
-     * @var string SerialNo
-     */
-    protected $primaryKey = 'SerialNo';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
