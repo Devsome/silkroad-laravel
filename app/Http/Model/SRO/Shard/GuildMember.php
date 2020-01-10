@@ -2,10 +2,9 @@
 
 namespace App\Model\SRO\Shard;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class Char extends Model
+class GuildMember extends Model
 {
     /**
      * The Database connection name for the model.
@@ -26,14 +25,14 @@ class Char extends Model
      *
      * @var string
      */
-    protected $table = 'dbo._Char';
+    protected $table = 'dbo._GuildMember';
 
     /**
      * The table primary Key
      *
      * @var string
      */
-    protected $primaryKey = 'CharID';
+    protected $primaryKey = 'GuildID';
 
     /**
      * The attributes that are mass assignable.
@@ -41,12 +40,7 @@ class Char extends Model
      * @var array
      */
     protected $fillable = [
-        'CharID',
-        'Deleted',
-        'RefObjID',
-        'CharName16',
-        'NickName16',
-        'LastLogout'
+
     ];
 
     /**
@@ -55,26 +49,8 @@ class Char extends Model
      * @var array
      */
     protected $dates = [
-        'LastLogout'
+        'JoinDate'
     ];
 
     protected $dateFormat = 'Y-m-d H:i:s';
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function getGuildMemberUser()
-    {
-        return $this->hasOne(GuildMember::class, 'CharID', 'CharID');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function getGuildUser()
-    {
-        $query = $this->hasOne(Guild::class, 'ID', 'GuildID');
-        $query->where('ID', '!=', 0);
-        return $query;
-    }
 }

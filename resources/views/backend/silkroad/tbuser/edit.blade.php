@@ -61,14 +61,9 @@
                 {{ __('backend/tbuser.edit.accounts') }}
             </div>
             <div class="card-body">
-                @forelse($tbuser->getsharduser as $tbUserChar)
-                    <div class="container mt-2">
-                        <div class="row">
-                            <div class="col-2">
-                                <img src="{{ asset('image/chars/') }}/{{ $tbUserChar->RefObjID }}.gif"
-                                     class="brand-item-image d-none d-md-block" width="100px"
-                                     height="150px">
-                            </div>
+                <div class="container mt-2">
+                    <div class="row">
+                        @forelse($tbuser->getsharduser as $tbUserChar)
                             <div class="col-2">
                                 <ul class="list-group list-group-flush small">
                                     <li class="list-group-item font-weight-bold">
@@ -80,28 +75,19 @@
                                         {{ __('backend/tbuser.edit.level') }} {{ $tbUserChar->CurLevel }}
                                     </li>
                                     <li class="list-group-item">
-                                        {{ __('backend/tbuser.edit.gold') }} {{ number_format($tbUserChar->RemainGold,0) }}
+                                        {{ __('backend/tbuser.edit.guild') }} {{ $tbUserChar->getGuildUser ? $tbUserChar->getGuildUser->Name : '' }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        {{ __('backend/tbuser.edit.guild-nickname') }} {{ $tbUserChar->getGuildMemberUser ? $tbUserChar->getGuildMemberUser->Nickname : '' }}
                                     </li>
                                 </ul>
                             </div>
-                            <div class="col-2">
-                                <ul class="list-group list-group-flush small">
-                                    <li class="list-group-item">
-                                        {{ __('backend/tbuser.edit.health') }} {{ $tbUserChar->HP }}
-                                    </li>
-                                    <li class="list-group-item">
-                                        {{ __('backend/tbuser.edit.mana') }} {{ $tbUserChar->MP }}
-                                    </li>
-                                    <li class="list-group-item">
-                                        {{ __('backend/tbuser.edit.sp') }} {{ $tbUserChar->RemainSkillPoint }}
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+
+                        @empty
+                            {{ __('backend/tbuser.edit.no-char') }}
+                        @endforelse
                     </div>
-                @empty
-                    {{ __('backend/tbuser.edit.no-char') }}
-                @endforelse
+                </div>
             </div>
         </div>
 

@@ -230,6 +230,7 @@ return [
          * Packages
          */
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 
