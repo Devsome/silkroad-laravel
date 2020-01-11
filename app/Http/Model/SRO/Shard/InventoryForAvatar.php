@@ -4,7 +4,7 @@ namespace App\Model\SRO\Shard;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Items extends Model
+class InventoryForAvatar extends Model
 {
     /**
      * The Database connection name for the model.
@@ -25,14 +25,14 @@ class Items extends Model
      *
      * @var string
      */
-    protected $table = 'dbo._Items';
+    protected $table = 'dbo._InventoryForAvatar';
 
     /**
      * The table primary Key
      *
      * @var string
      */
-    protected $primaryKey = 'ID64';
+    protected $primaryKey = 'CharID';
 
     /**
      * The attributes that are mass assignable.
@@ -40,22 +40,24 @@ class Items extends Model
      * @var array
      */
     protected $fillable = [
-        'ID64'
+        'CharID',
+        'slot',
+        'ItemID'
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function getBindingOptionWithItem()
+    public function getChar()
     {
-        return $this->hasOne(BindingOptionWithItem::class,'nItemDBID');
+        return $this->hasMany(Char::class, 'CharID');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function getRefObjCommon()
+    public function getItem()
     {
-        return $this->hasOne(RefObjCommon::class, 'ID', 'RefItemID');
+        return $this->belongsTo(Items::class,'ItemID', 'ID64');
     }
 }

@@ -77,4 +77,40 @@ class Char extends Model
         $query->where('ID', '!=', 0);
         return $query;
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getInventoryUser()
+    {
+        return $this->hasMany(Inventory::class, 'CharID', 'CharID');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function getInventoryItemUser()
+    {
+        $query = $this->belongsToMany(Items::class, Inventory::class, 'CharID', 'ItemID', '', 'ID64');
+        $query->where('ItemID', '!=', 0);
+        return $query;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getAvatarInventoryUser()
+    {
+        return $this->hasMany(InventoryForAvatar::class, 'CharID', 'CharID');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function getAvatarInventoryItemUser()
+    {
+        $query = $this->belongsToMany(Items::class, InventoryForAvatar::class, 'CharID', 'ItemID', '', 'ID64');
+        $query->where('ItemID', '!=', 0);
+        return $query;
+    }
 }

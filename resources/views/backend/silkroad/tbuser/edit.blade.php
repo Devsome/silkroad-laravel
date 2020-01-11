@@ -20,22 +20,31 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
+                                <p>{{ $tbuser->getIsBlockedUser->isEmpty() ? '' : __('backend/tbuser.blocked', ['date' => $tbuser->getIsBlockedUser[0]->timeEnd]) }}</p>
+                            </div>
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="inputStrUserId">{{ __('backend/tbuser.struserid') }}</label>
                                     <input type="text" class="form-control" id="inputStrUserId"
-                                           value="{{ $tbuser->StrUserID}}" disabled>
+                                           value="{{ $tbuser->StrUserID}}" disabled aria-describedby="strUserIdHelp">
+                                    <small id="strUserIdHelp" class="form-text text-muted">
+                                        {{ __('backend/tbuser.edit.email-info') }}
+                                    </small>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="inputEmail">{{ __('backend/tbuser.email') }}</label>
                                     <input type="email" class="form-control" id="inputEmail"
-                                           aria-describedby="emailHelp"
                                            value="{{ $tbuser->Email }}" disabled>
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        {{ __('backend/tbuser.edit.email-info') }}
-                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form group">
+                                    <label for="silk">{{ __('backend/tbuser.silk') }}</label>
+                                    <input type="text" class="form-control" id="silk"
+                                           value="{{ $tbuser->getSkSilk ? $tbuser->getSkSilk->silk_own : '0' }}" disabled>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -67,7 +76,7 @@
                             <div class="col-2">
                                 <ul class="list-group list-group-flush small">
                                     <li class="list-group-item font-weight-bold">
-                                        <a href="{{ url('player', $tbUserChar->pivot->CharID) }}">
+                                        <a href="{{ route("sro-players-edit-backend", ['char' =>  $tbUserChar->pivot->CharID ]) }}">
                                             {{ $tbUserChar->CharName16 }}
                                         </a>
                                     </li>

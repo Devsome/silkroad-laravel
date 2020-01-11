@@ -17,6 +17,10 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
         Route::get('/user', 'Backend\SilkroadController@indexSroUser')->name('sro-user-index-user-backend');
         Route::get('/user-datatables', 'Backend\SilkroadController@sroUserDatatables')->name('sro-user-datatables-backend');
         Route::get('/user/{user}/edit', 'Backend\SilkroadController@sroUserEdit')->name('sro-user-edit-backend');
+
+        Route::get('/players', 'Backend\SilkroadController@indexSroPlayer')->name('sro-players-index-backend');
+        Route::get('/players-datatables', 'Backend\SilkroadController@SroPlayerDatatables')->name('sro-players-datatables-backend');
+        Route::get('/players/{char}/edit', 'Backend\SilkroadController@sroPlayerEdit')->name('sro-players-edit-backend');
     });
 
     // Logging

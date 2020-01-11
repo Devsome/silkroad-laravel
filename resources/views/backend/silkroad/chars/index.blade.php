@@ -5,7 +5,7 @@
 
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/tbuser.title') }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/chars.title') }}</h1>
         </div>
         <div class="row">
             <div class="container">
@@ -14,11 +14,10 @@
                         <thead class="thead-dark">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">{{ __('backend/tbuser.struserid') }}</th>
-                            <th scope="col">{{ __('backend/tbuser.email') }}</th>
-                            <th scope="col">{{ __('backend/tbuser.gmrank') }}</th>
-                            <th scope="col">{{ __('backend/tbuser.regtime') }}</th>
-                            <th scope="col">{{ __('backend/tbuser.table.action') }}</th>
+                            <th scope="col">{{ __('backend/chars.charname') }}</th>
+                            <th scope="col">{{ __('backend/chars.level') }}</th>
+                            <th scope="col">{{ __('backend/chars.gold') }}</th>
+                            <th scope="col">{{ __('backend/chars.table.action') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -39,23 +38,19 @@
             $('#users').DataTable( {
                 "processing": true,
                 "serverSide": true,
-                "ajax": '{{ route('sro-user-datatables-backend') }}',
+                "ajax": '{{ route('sro-players-datatables-backend') }}',
                 "columns": [
-                    { data: 'JID', name: 'JID' },
-                    { data: 'StrUserID', name: 'StrUserID' },
-                    { data: 'Email', name: 'Email' },
+                    { data: 'CharID', name: 'CharID' },
+                    { data: 'CharName16', name: 'CharName16' },
+                    { data: 'CurLevel', name: 'CurLevel' },
                     { data: function ( row ) {
-                            if(row.sec_primary === '1' && row.sec_content === '1') {
-                                return '<span class="badge badge-danger">{{ __('backend/tbuser.table.gm') }}</span>';
-                            } else {
-                                return '<span class="badge badge-secondary">{{ __('backend/tbuser.table.gm-no') }}</span>';
-                            }
+                        return row.RemainGold.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         }, orderable: true, searchable: false
                     },
-                    { data: 'regtime', name: 'regtime', searchable: false },
+                    // { data: 'RemainGold', name: 'RemainGold', searchable: false },
                     { data: function ( row ) {
-                            let url = '{{ route("sro-user-edit-backend", ['user' =>  ':user' ]) }}';
-                            url = url.replace(':user', row.JID);
+                            let url = '{{ route("sro-players-edit-backend", ['char' =>  ':char' ]) }}';
+                            url = url.replace(':char', row.CharID);
                             return `<a href='${url}' class="btn btn-primary btn-circle btn-sm"><i class="fa fa-pen"></i></a>`;
                         }, orderable: false, searchable: false
                     }

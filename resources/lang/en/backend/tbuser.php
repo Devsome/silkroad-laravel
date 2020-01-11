@@ -7,11 +7,15 @@ return [
     'struserid' => 'StrUserID',
     'gmrank' => 'GM Rank',
     'email' => 'E-Mail',
+    'silk' => 'Silk',
     'regtime' => 'Register Time',
     'accplaytime' => 'Play time',
+    'blocked' => 'User is blocked until :date',
 
     'table' => [
         'action' => 'Action',
+        'gm' => 'Yes',
+        'gm-no' => 'No',
     ],
 
     'edit' => [

@@ -3,6 +3,7 @@
 namespace App\Model\SRO\Account;
 
 use App\Model\SRO\Shard\Char;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class TbUser extends Model
@@ -67,7 +68,7 @@ class TbUser extends Model
      */
     public function getSkSilk()
     {
-        return $this->belongsTo(SkSilk::class,'JID', 'JID');
+        return $this->belongsTo(SkSilk::class, 'JID', 'JID');
     }
 
     /**
@@ -84,5 +85,12 @@ class TbUser extends Model
     public function getPunishmentUser()
     {
         return $this->hasMany(Punishment::class, 'UserJID', 'JID');
+    }
+
+    public function getIsBlockedUser()
+    {
+        $query = $this->hasMany(BlockedUser::class, 'UserJID', 'JID');
+        $query->where('timeEnd', '>', Carbon::now()->format('Y-m-d H:i:s'))->first();
+        return $query;
     }
 }

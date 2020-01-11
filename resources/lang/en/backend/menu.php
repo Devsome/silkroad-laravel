@@ -11,7 +11,8 @@ return [
     'launcher-news' => 'Launcher news',
     'web-news' => 'Web news',
 
-    'tbuser' => 'Silkroad Accounts',
+    'tbuser' => 'Accounts',
+    'chars' => 'Characters',
     'user' => 'Accounts',
 
     'smc-log' => 'SMC Logging',
