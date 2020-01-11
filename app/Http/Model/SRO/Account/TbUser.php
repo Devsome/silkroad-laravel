@@ -3,6 +3,8 @@
 namespace App\Model\SRO\Account;
 
 use App\Model\SRO\Shard\Char;
+use App\Model\SRO\Shard\Chest;
+use App\Model\SRO\Shard\Items;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -87,10 +89,31 @@ class TbUser extends Model
         return $this->hasMany(Punishment::class, 'UserJID', 'JID');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function getIsBlockedUser()
     {
         $query = $this->hasMany(BlockedUser::class, 'UserJID', 'JID');
         $query->where('timeEnd', '>', Carbon::now()->format('Y-m-d H:i:s'))->first();
+        return $query;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getAvatarInventoryUser()
+    {
+        return $this->hasMany(Chest::class, 'UserJID', 'JID');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function getAvatarInventoryItemUser()
+    {
+        $query = $this->belongsToMany(Items::class, Chest::class, 'UserJID', 'ItemID', '', 'ID64');
+        $query->where('ItemID', '!=', 0);
         return $query;
     }
 }

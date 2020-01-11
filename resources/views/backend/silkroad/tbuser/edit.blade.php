@@ -106,7 +106,9 @@
             </div>
             @if($tbuser->getpunishmentuser->isEmpty())
                 <div class="card-body">
-                    {{ __('backend/tbuser.edit.punishment-empty') }}
+                    <div class="container mt-2">
+                        {{ __('backend/tbuser.edit.punishment-empty') }}
+                    </div>
                 </div>
             @else
                 <div class="card-body">
@@ -143,11 +145,53 @@
                 </div>
             @endif
         </div>
-
+        <div class="card mb-4">
+            <div class="card-header">
+                {{ __('backend/tbuser.edit.storage') }}
+            </div>
+            @if($tbuser->getAvatarInventoryItemUser->isEmpty())
+                <div class="card-body">
+                    <div class="container mt-2">
+                        {{ __('backend/tbuser.edit.storage-empty') }}
+                    </div>
+                </div>
+            @else
+                <div class="container mt-2">
+                    <div class="row">
+                        @foreach($tbuser->getAvatarInventoryItemUser as $item)
+                            <div class="col-4">
+                                @php
+                                    $refregObjCommon = $item->getRefObjCommon;
+                                @endphp
+                                + {{ $item->OptLevel }}  [{{ $refregObjCommon->CodeName128 }}]
+                                <div class="image"
+                                     style="background:url('{{
+                                                asset('/image/icon/' .
+                                                str_replace(['ddj', '\\'], ['PNG', '/'], $refregObjCommon->AssocFileIcon128))
+                                             }}');">
+                                    @if (strpos($item->NameStrID128, 'RARE') !== false)
+                                        <img src="{{ asset('/image/sox.gif') }}" width="32" height="32" alt="Seal of X">
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+        </div>
     </div>
 @endsection
 @push('css')
     <link href="{{ asset('css/backend/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <style>
+        .image {
+            width: 32px;
+            height: 32px;
+            margin: 3px;
+            padding: 0;
+            color: #fff;
+        }
+    </style>
 @endpush
 @push('javascript')
     <script>

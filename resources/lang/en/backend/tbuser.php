@@ -35,6 +35,9 @@ return [
         'punishment' => 'Punishment',
         'punishment-empty' => 'This user does not have any punishment.',
 
+        'storage' => 'Storage',
+        'storage-empty' => 'This user does not have any item in the storage.',
+
         'jid' => 'JID',
         'charname' => 'Character',
         'guide' => 'Title',
