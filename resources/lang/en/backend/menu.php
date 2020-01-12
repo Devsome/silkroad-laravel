@@ -10,6 +10,7 @@ return [
     // Menus
     'launcher-news' => 'Launcher news',
     'web-news' => 'Web news',
+    'downloads' => 'Downloads',
 
     'tbuser' => 'Accounts',
     'chars' => 'Characters',

@@ -19,9 +19,9 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Link</span>
+        <a class="nav-link" href="{{ route('downloads-index-backend') }}">
+            <i class="fas fa-fw fa-download"></i>
+            <span>{{ __('backend/menu.downloads') }}</span>
         </a>
     </li>
 

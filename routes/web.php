@@ -23,6 +23,10 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
         Route::get('/players/{char}/edit', 'Backend\SilkroadController@sroPlayerEdit')->name('sro-players-edit-backend');
     });
 
+    Route::group(['prefix' => 'web'], function () {
+        Route::get('/downloads', 'Backend\DownloadsController@index')->name('downloads-index-backend');
+    });
+
     // Logging
     Route::get('/smc-log', 'Backend\BackendController@smclogIndex')->name('smclog-index-backend');
     Route::get('/smc-log-datatables', 'Backend\BackendController@smclogDatatables')->name('smclog-datatables-backend');
