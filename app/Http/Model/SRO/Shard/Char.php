@@ -2,6 +2,7 @@
 
 namespace App\Model\SRO\Shard;
 
+use DB;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -92,7 +93,22 @@ class Char extends Model
     public function getInventoryItemUser()
     {
         $query = $this->belongsToMany(Items::class, Inventory::class, 'CharID', 'ItemID', '', 'ID64');
-        $query->where('ItemID', '!=', 0);
+        $query->whereNotBetween('_Inventory.Slot', [0, 12])
+            ->where('ItemID', '!=', 0);
+        return $query;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function getEquipmentUser()
+    {
+        $query = $this->belongsToMany(Items::class, Inventory::class, 'CharID', 'ItemID', '', 'ID64');
+        $query->select('*')
+            ->whereBetween('_Inventory.Slot', [0, 12])
+            ->where('_Items.RefItemID', '!=', 2)
+            ->where('_Inventory.Slot', '!=', 8)
+            ->orderBy('_Inventory.Slot', 'ASC');
         return $query;
     }
 

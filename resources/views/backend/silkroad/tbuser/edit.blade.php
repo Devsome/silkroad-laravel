@@ -145,31 +145,36 @@
                 </div>
             @endif
         </div>
+
+
         <div class="card mb-4">
             <div class="card-header">
                 {{ __('backend/tbuser.edit.storage') }}
             </div>
-            @if($tbuser->getAvatarInventoryItemUser->isEmpty())
-                <div class="card-body">
-                    <div class="container mt-2">
-                        {{ __('backend/tbuser.edit.storage-empty') }}
-                    </div>
-                </div>
-            @else
+            <div class="card-body">
                 <div class="container mt-2">
                     <div class="row">
-                        @foreach($tbuser->getAvatarInventoryItemUser as $item)
-                            <div class="col-4">
-                                @php
-                                    $refregObjCommon = $item->getRefObjCommon;
-                                @endphp
-                                + {{ $item->OptLevel }}  [{{ $refregObjCommon->CodeName128 }}]
+                        @if($tbuser->getChestItemUser->isEmpty())
+                            <div class="card-body">
+                                <div class="container mt-2">
+                                    {{ __('backend/tbuser.edit.storage-empty') }}
+                                </div>
+                            </div>
+                        @else
+
+                        @endif
+                        @foreach($tbuser->getChestItemUser as $item)
+                            @php
+                                $refregObjCommon = $item->getRefObjCommon;
+                            @endphp
+                            <div class="col-3">
+                                {{ $refregObjCommon->CodeName128 }}
                                 <div class="image"
                                      style="background:url('{{
-                                                asset('/image/icon/' .
-                                                str_replace(['ddj', '\\'], ['PNG', '/'], $refregObjCommon->AssocFileIcon128))
-                                             }}');">
-                                    @if (strpos($item->NameStrID128, 'RARE') !== false)
+                                            asset('/image/icon/' .
+                                            str_replace(['ddj', '\\'], ['PNG', '/'], $refregObjCommon->AssocFileIcon128))
+                                        }}');">
+                                    @if (strpos($refregObjCommon->NameStrID128, 'RARE') !== false)
                                         <img src="{{ asset('/image/sox.gif') }}" width="32" height="32" alt="Seal of X">
                                     @endif
                                 </div>
@@ -177,7 +182,7 @@
                         @endforeach
                     </div>
                 </div>
-            @endif
+            </div>
         </div>
     </div>
 @endsection

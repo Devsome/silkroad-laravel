@@ -17,6 +17,8 @@ return [
         'mana' => 'Mana',
         'skillpoints' => 'Skillpoints',
         'level' => 'Level',
+        'equipment' => 'Equipment',
+        'inventory' => 'Inventory',
     ],
 
 

@@ -102,15 +102,17 @@ class TbUser extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function getAvatarInventoryUser()
+    public function getChestUser()
     {
-        return $this->hasMany(Chest::class, 'UserJID', 'JID');
+        $query = $this->hasMany(Chest::class, 'UserJID', 'JID');
+        $query->where('ItemID','!=', 0);
+        return $query;
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function getAvatarInventoryItemUser()
+    public function getChestItemUser()
     {
         $query = $this->belongsToMany(Items::class, Chest::class, 'UserJID', 'ItemID', '', 'ID64');
         $query->where('ItemID', '!=', 0);
