@@ -25,6 +25,15 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
 
     Route::group(['prefix' => 'web'], function () {
         Route::get('/downloads', 'Backend\DownloadsController@index')->name('downloads-index-backend');
+        Route::get('/downloads/add', 'Backend\DownloadsController@create')->name('downloads-create-backend');
+
+        Route::get('/downloads/create', 'Backend\DownloadsController@show')->name('downloads-show-backend');
+        Route::post('/downloads/create', 'Backend\DownloadsController@create')->name('downloads-create-backend');
+
+        Route::get('/downloads/{download}/edit', 'Backend\DownloadsController@edit')->name('downloads-edit-backend');
+        Route::patch('/downloads/{download}/update', 'Backend\DownloadsController@update')->name('downloads-update-backend');
+
+        Route::post('/downloads/{download}/destroy', 'Backend\DownloadsController@destroy')->name('downloads-destroy-backend');
     });
 
     // Logging

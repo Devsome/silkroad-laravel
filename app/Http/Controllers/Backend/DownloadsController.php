@@ -16,7 +16,7 @@ class DownloadsController extends Controller
     public function index()
     {
         return view('backend.downloads.index', [
-            'downloads' => Download::all()
+            'downloads' => Download::paginate(15)
         ]);
     }
 
@@ -25,31 +25,28 @@ class DownloadsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function show()
     {
-        //
+        return view('backend.downloads.create', [
+            'download' => null
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
-        //
-    }
+        $data = $request->validate([
+            'name' => 'required|max:150',
+            'link' => 'required|max:250',
+            'file_size' => 'required'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        Download::create($data);
+
+        return redirect()->back()->with('success', __('backend/notification.form-submit.success'));
     }
 
     /**
@@ -60,7 +57,9 @@ class DownloadsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('backend.downloads.edit', [
+            'download' => Download::findOrFail($id)
+        ]);
     }
 
     /**
@@ -72,7 +71,16 @@ class DownloadsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|max:150',
+            'link' => 'required|max:250',
+            'file_size' => 'required'
+        ]);
+
+        $download = Download::findOrFail($id);
+        $download->update($data);
+
+        return redirect()->back()->with('success', __('backend/notification.form-submit.success'));
     }
 
     /**
@@ -83,6 +91,8 @@ class DownloadsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $download = Download::findOrFail($id);
+        $download->delete();
+        return back()->with('success', __('backend/notification.form-submit.success'));
     }
 }

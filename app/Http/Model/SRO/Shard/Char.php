@@ -107,7 +107,6 @@ class Char extends Model
         $query->select('*')
             ->whereBetween('_Inventory.Slot', [0, 12])
             ->where('_Items.RefItemID', '!=', 2)
-            ->where('_Inventory.Slot', '!=', 8)
             ->orderBy('_Inventory.Slot', 'ASC');
         return $query;
     }
