@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Backend;
 
 use App\Download;
 use App\Http\Controllers\Controller;
+use App\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class DownloadsController extends Controller
 {
@@ -35,14 +38,17 @@ class DownloadsController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function create(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|max:150',
-            'link' => 'required|max:250',
-            'file_size' => 'required'
+            'name' => 'required|max:150|min:5',
+            'link' => 'required|max:250|min:10',
+            'file_size' => 'required|max:100',
+            'image_id' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
+        $data['image_id'] = $this->imageUpload($request);
 
         Download::create($data);
 
@@ -94,5 +100,25 @@ class DownloadsController extends Controller
         $download = Download::findOrFail($id);
         $download->delete();
         return back()->with('success', __('backend/notification.form-submit.success'));
+    }
+
+    /**
+     * @param $request Request
+     * @return int
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    private function imageUpload($request)
+    {
+        $requestImage = $request->file('image_id');
+        $filename = 'd' . time() . '.' . $requestImage->getClientOriginalExtension();
+        Storage::disk('downloads')->put($filename,  File::get($requestImage));
+
+        $image = new Image();
+        $image->filename = $filename;
+        $image->mime = $requestImage->getClientOriginalExtension();
+        $image->original_filename = $requestImage->getClientOriginalName();
+        $image->save();
+
+        return $image->id;
     }
 }

@@ -28,9 +28,9 @@
                             <form method="POST" action="{{ route('downloads-update-backend', ['download' => $download->id]) }}">
                                 @method('PATCH')
                                 @csrf
-                                <div class="form-row">
-                                    <div class="form-group col-6">
-                                        <div class="form-group">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-6">
                                             <label for="name">{{ __('backend/downloads.name') }}</label>
                                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                                    aria-describedby="nameHelp" name="name"
@@ -43,6 +43,9 @@
                                                     {{ $errors->first('name') }}
                                                 </div>
                                             @endif
+                                        </div>
+                                        <div class="col-2">
+                                            <img class="img-fluid" src="{{ asset('storage/web/downloads/' . $download->image->filename) }}">
                                         </div>
                                     </div>
                                 </div>

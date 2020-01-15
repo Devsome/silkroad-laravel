@@ -64,6 +64,14 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        // Custom Filesystem
+        'downloads' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/web/downloads'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
     ],
 
 ];

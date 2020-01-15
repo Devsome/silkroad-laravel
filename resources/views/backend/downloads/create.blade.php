@@ -25,14 +25,16 @@
                                 </div>
                             @endif
 
-                            <form method="POST" action="{{ route('downloads-create-backend') }}" class="form">
+                            <form method="POST" action="{{ route('downloads-create-backend') }}" class="form"
+                                  enctype="multipart/form-data">
                                 @method('POST')
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-6">
                                         <div class="form-group">
                                             <label for="name">{{ __('backend/downloads.name') }}</label>
-                                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                                   id="name"
                                                    aria-describedby="nameHelp" name="name"
                                                    value="{{ Request::old('name') }}">
                                             <small id="nameHelp" class="form-text text-muted">
@@ -50,7 +52,8 @@
                                     <div class="form-group col-6">
                                         <div class="form-group">
                                             <label for="link">{{ __('backend/downloads.link') }}</label>
-                                            <input type="text" class="form-control @error('link') is-invalid @enderror" id="link"
+                                            <input type="text" class="form-control @error('link') is-invalid @enderror"
+                                                   id="link"
                                                    aria-describedby="linkHelp" name="link"
                                                    value="{{ Request::old('link') }}">
                                             <small id="linkHelp" class="form-text text-muted">
@@ -68,7 +71,9 @@
                                     <div class="form-group col-6">
                                         <div class="form-group">
                                             <label for="file_size">{{ __('backend/downloads.table.file-size') }}</label>
-                                            <input type="text" class="form-control @error('file_size') is-invalid @enderror" id="file_size"
+                                            <input type="text"
+                                                   class="form-control @error('file_size') is-invalid @enderror"
+                                                   id="file_size"
                                                    aria-describedby="fileSizeHelp" name="file_size"
                                                    value="{{ Request::old('file_size') }}">
                                             <small id="fileSizeHelp" class="form-text text-muted">
@@ -83,8 +88,32 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="custom-file">
+                                                <input type="file" name="image_id" class="custom-file-input @error('image_id') is-invalid @enderror"
+                                                       id="image_id">
+                                                <label class="custom-file-label"
+                                                       for="image_id">{{ __('backend/downloads.image') }}
+                                                </label>
+                                                @if($errors->has('image_id'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('image_id') }}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="container-fluid mt-3">
+                                            <img src="" id="img-tag" width="200px"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
                                     <div class="form-group col-12">
-                                        <input class="btn btn-primary" type="submit" value="{{ __('backend/downloads.submit') }}">
+                                        <input class="btn btn-primary" type="submit"
+                                               value="{{ __('backend/downloads.submit') }}">
                                     </div>
                                 </div>
                             </form>
@@ -95,3 +124,24 @@
         </div>
     </div>
 @endsection
+
+@push('javascript')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    let reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#img-tag').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#image_id").change(function () {
+                readURL(this);
+            });
+        });
+    </script>
+@endpush

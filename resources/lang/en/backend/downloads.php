@@ -19,6 +19,7 @@ return [
     'name' => 'Name',
     'link' => 'Download link',
     'size' => 'File size',
+    'image' => 'Image',
 
     'name-help' => 'The shown download title',
     'link-help' => 'This is the download url of the file',

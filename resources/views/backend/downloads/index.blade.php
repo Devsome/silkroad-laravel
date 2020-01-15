@@ -33,7 +33,10 @@
                         @foreach ($downloads as $download)
                             <tr>
                                 <td>{{ $download->name }}</td>
-                                <td>{{ $download->link }}</td>
+                                <td>{{ $download->link }}
+                                    <a href="{{ $download->link }}" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a></td>
                                 <td>{{ $download->file_size }}</td>
                                 <td>
                                     <div class="row">
