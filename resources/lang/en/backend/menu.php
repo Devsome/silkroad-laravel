@@ -10,6 +10,7 @@ return [
     // Menus
     'launcher-news' => 'Launcher news',
     'web-news' => 'Web news',
+    'news' => 'News',
     'downloads' => 'Downloads',
     'images' => 'Images',
 

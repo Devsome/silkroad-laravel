@@ -18,6 +18,12 @@
         {{ __('backend/menu.web') }}
     </div>
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('backend-news.news.index') }}">
+            <i class="fas fa-fw fa-newspaper"></i>
+            <span>{{ __('backend/menu.news') }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('downloads-index-backend') }}">
             <i class="fas fa-fw fa-download"></i>
             <span>{{ __('backend/menu.downloads') }}</span>

@@ -39,6 +39,10 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
             Route::post('/create', 'Backend\ImagesController@create')->name('images-create-backend');
             Route::post('/{image}/destroy', 'Backend\ImagesController@destroy')->name('images-destroy-backend');
         });
+
+        Route::resource('/news', 'Backend\NewsController', [
+            'as' => 'backend-news'
+        ]);
     });
 
     // Logging
