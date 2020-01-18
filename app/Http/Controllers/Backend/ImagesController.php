@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ImagesController extends Controller
 {
@@ -14,39 +17,47 @@ class ImagesController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.image.index', [
+            'images' => Image::paginate(25)
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'model' => 'required',
+            'image_id' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $requestImage = $request->file('image_id');
+        $filename = time() . '.' . $requestImage->getClientOriginalExtension();
+        Storage::disk('images')->put($filename,  File::get($requestImage));
+
+        $image = new Image();
+        $image->filename = $filename;
+        $image->mime = $requestImage->getClientOriginalExtension();
+        $image->model = $request->get('model');
+        $image->original_filename = $requestImage->getClientOriginalName();
+        $image->save();
+
+        return redirect()->back()->with('success', __('backend/notification.form-submit.success'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        return view('backend.image.create', [
+            'models' => Image::$models
+        ]);
     }
 
     /**
@@ -78,8 +89,10 @@ class ImagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $image = Image::findOrFail($id);
+        $image->delete();
+        return back()->with('success', __('backend/notification.form-submit.success'));
     }
 }

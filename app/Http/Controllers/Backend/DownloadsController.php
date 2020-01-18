@@ -24,18 +24,6 @@ class DownloadsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show()
-    {
-        return view('backend.downloads.create', [
-            'download' => null
-        ]);
-    }
-
-    /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -56,6 +44,18 @@ class DownloadsController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show()
+    {
+        return view('backend.downloads.create', [
+            'images' => Image::where('model', Download::class)->get(),
+        ]);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -64,7 +64,8 @@ class DownloadsController extends Controller
     public function edit($id)
     {
         return view('backend.downloads.edit', [
-            'download' => Download::findOrFail($id)
+            'download' => Download::findOrFail($id),
+            'images' => Image::where('model', Download::class)->get(),
         ]);
     }
 
@@ -80,7 +81,8 @@ class DownloadsController extends Controller
         $data = $request->validate([
             'name' => 'required|max:150',
             'link' => 'required|max:250',
-            'file_size' => 'required'
+            'file_size' => 'required',
+            'image_id' => 'required'
         ]);
 
         $download = Download::findOrFail($id);
@@ -110,12 +112,13 @@ class DownloadsController extends Controller
     private function imageUpload($request)
     {
         $requestImage = $request->file('image_id');
-        $filename = 'd' . time() . '.' . $requestImage->getClientOriginalExtension();
-        Storage::disk('downloads')->put($filename,  File::get($requestImage));
+        $filename = time() . '.' . $requestImage->getClientOriginalExtension();
+        Storage::disk('images')->put($filename,  File::get($requestImage));
 
         $image = new Image();
         $image->filename = $filename;
         $image->mime = $requestImage->getClientOriginalExtension();
+        $image->model = Download::class;
         $image->original_filename = $requestImage->getClientOriginalName();
         $image->save();
 

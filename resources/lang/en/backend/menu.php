@@ -11,6 +11,7 @@ return [
     'launcher-news' => 'Launcher news',
     'web-news' => 'Web news',
     'downloads' => 'Downloads',
+    'images' => 'Images',
 
     'tbuser' => 'Accounts',
     'chars' => 'Characters',

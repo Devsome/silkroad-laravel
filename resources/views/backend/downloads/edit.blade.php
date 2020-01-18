@@ -17,14 +17,12 @@
                     </div>
                     <div class="card-body">
                         <div class="container">
-
                             @if ($message = Session::get('success'))
                                 <div class="alert alert-success alert-block">
                                     <button type="button" class="close" data-dismiss="alert">×</button>
                                     <strong>{{ $message }}</strong>
                                 </div>
                             @endif
-
                             <form method="POST" action="{{ route('downloads-update-backend', ['download' => $download->id]) }}">
                                 @method('PATCH')
                                 @csrf
@@ -43,9 +41,6 @@
                                                     {{ $errors->first('name') }}
                                                 </div>
                                             @endif
-                                        </div>
-                                        <div class="col-2">
-                                            <img class="img-fluid" src="{{ asset('storage/web/downloads/' . $download->image->filename) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -86,6 +81,30 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
+                                    <div class="form-group col-6">
+                                        <div class="form-group">
+                                            <label for="image_id">{{ __('backend/downloads.image-select') }}</label>
+                                            <select class="form-control" name="image_id" id="image_id"
+                                                    aria-describedby="image_idHelper">
+                                                @foreach($images as $image)
+                                                    {{ $image->id }} - {{ $download->image_id }}
+                                                    @if($image->id === $download->image_id)
+                                                        <option value="{{ $image->id }}"
+                                                                data-href="{{ asset('storage/web/images/' . $image->filename) }}"
+                                                                selected="selected">{{ $image->original_filename }}</option>
+                                                    @else
+                                                        <option value="{{ $image->id }}"
+                                                                data-href="{{ asset('storage/web/images/' . $image->filename) }}">{{ $image->original_filename }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <img src="" id="previewImage" width="200px"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
                                     <div class="form-group col-12">
                                         <input class="btn btn-primary" type="submit" value="{{ __('backend/downloads.submit') }}">
                                     </div>
@@ -98,3 +117,26 @@
         </div>
     </div>
 @endsection
+@push('javascript')
+    <script>
+        $(document).ready(function () {
+            let image = $('#image_id').find(':selected').attr('data-href');
+            $("#image_id").change(function () {
+                let image = $('#image_id').find(':selected').attr('data-href');
+                $('#previewImage').attr('src', image);
+                showHide(image);
+            });
+
+            function showHide(image) {
+                if (image) {
+                    $('#previewImage').show();
+                } else {
+                    $('#previewImage').hide();
+                }
+            }
+
+            showHide(image);
+            $('#previewImage').attr('src', $('#image_id').find(':selected').attr('data-href'));
+        });
+    </script>
+@endpush

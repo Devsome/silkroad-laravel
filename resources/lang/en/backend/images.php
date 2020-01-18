@@ -1,18 +1,19 @@
 <?php
 
 return [
-    'title' => 'Downloads',
-    'title-edit' => 'Downloads edit',
-    'title-create' => 'Downloads create',
-    'all-downloads' => 'Showing all downloads',
-    'create' => 'Create a download',
-    'edit' => 'Edit this download',
+    'title' => 'Images',
+    'title-edit' => 'Images edit',
+    'title-create' => 'Images create',
+    'all-images' => 'Showing all images',
+    'create' => 'Create a image',
+    'edit' => 'Edit this image',
     'delete-title' => 'Delete',
     'delete-message' => 'Are you sure you wanna delete that download?',
     'table' => [
-        'name' => 'Name',
-        'link' => 'Link',
-        'file-size' => 'File size',
+        'filename' => 'Filename',
+        'model' => 'Model',
+        'original_filename' => 'Original Filename',
+        'created_at' => 'Created at',
         'action' => 'Action'
     ],
 
@@ -20,7 +21,6 @@ return [
     'link' => 'Download link',
     'size' => 'File size',
     'image' => 'Image',
-    'image-select' => 'Image selector',
 
     'name-help' => 'The shown download title',
     'link-help' => 'This is the download url of the file',

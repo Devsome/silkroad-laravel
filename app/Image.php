@@ -13,6 +13,13 @@ class Image extends Model
      * @var array
      */
     protected $fillable = [
-        'filename', 'alt', 'mime', 'original_filename'
+        'filename', 'mime', 'model', 'original_filename'
+    ];
+
+    /**
+     * @var array
+     */
+    public static $models = [
+        Download::class,
     ];
 }

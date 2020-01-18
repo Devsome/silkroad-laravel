@@ -17,18 +17,22 @@
     <div class="sidebar-heading">
         {{ __('backend/menu.web') }}
     </div>
-
     <li class="nav-item">
         <a class="nav-link" href="{{ route('downloads-index-backend') }}">
             <i class="fas fa-fw fa-download"></i>
             <span>{{ __('backend/menu.downloads') }}</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('images-index-backend') }}">
+            <i class="fas fa-fw fa-images"></i>
+            <span>{{ __('backend/menu.images') }}</span>
+        </a>
+    </li>
 
     <div class="sidebar-heading">
         {{ __('backend/menu.silkroad') }}
     </div>
-
     <li class="nav-item">
         <a class="nav-link" href="{{ route('sro-user-index-user-backend') }}">
             <i class="fas fa-fw fa-user"></i>
@@ -46,7 +50,6 @@
     <div class="sidebar-heading">
         {{ __('backend/menu.log') }}
     </div>
-
     <li class="nav-item">
         <a class="nav-link" href="{{ route('smclog-index-backend') }}">
             <i class="fas fa-fw fa-table"></i>

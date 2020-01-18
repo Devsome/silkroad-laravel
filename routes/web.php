@@ -24,16 +24,21 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
     });
 
     Route::group(['prefix' => 'web'], function () {
-        Route::get('/downloads', 'Backend\DownloadsController@index')->name('downloads-index-backend');
-        Route::get('/downloads/add', 'Backend\DownloadsController@create')->name('downloads-create-backend');
-
-        Route::get('/downloads/create', 'Backend\DownloadsController@show')->name('downloads-show-backend');
-        Route::post('/downloads/create', 'Backend\DownloadsController@create')->name('downloads-create-backend');
-
-        Route::get('/downloads/{download}/edit', 'Backend\DownloadsController@edit')->name('downloads-edit-backend');
-        Route::patch('/downloads/{download}/update', 'Backend\DownloadsController@update')->name('downloads-update-backend');
-
-        Route::post('/downloads/{download}/destroy', 'Backend\DownloadsController@destroy')->name('downloads-destroy-backend');
+        Route::group(['prefix' => 'downloads'], function () {
+            Route::get('/', 'Backend\DownloadsController@index')->name('downloads-index-backend');
+            Route::get('/add', 'Backend\DownloadsController@create')->name('downloads-create-backend');
+            Route::get('/create', 'Backend\DownloadsController@show')->name('downloads-show-backend');
+            Route::post('/create', 'Backend\DownloadsController@create')->name('downloads-create-backend');
+            Route::get('/{download}/edit', 'Backend\DownloadsController@edit')->name('downloads-edit-backend');
+            Route::patch('/{download}/update', 'Backend\DownloadsController@update')->name('downloads-update-backend');
+            Route::post('/{download}/destroy', 'Backend\DownloadsController@destroy')->name('downloads-destroy-backend');
+        });
+        Route::group(['prefix' => 'images'], function () {
+            Route::get('/', 'Backend\ImagesController@index')->name('images-index-backend');
+            Route::get('/add', 'Backend\ImagesController@show')->name('images-show-backend');
+            Route::post('/create', 'Backend\ImagesController@create')->name('images-create-backend');
+            Route::post('/{image}/destroy', 'Backend\ImagesController@destroy')->name('images-destroy-backend');
+        });
     });
 
     // Logging

@@ -17,6 +17,7 @@ class CreateImagesTable extends Migration
             $table->increments('id');
             $table->string('filename');
             $table->string('mime');
+            $table->string('model');
             $table->string('original_filename');
             $table->timestamps();
         });
