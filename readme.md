@@ -1,6 +1,47 @@
 ## Silkroad Laravel
 
-Documentation comming soon.
+A free and open-source project for the MMORPG Silkroad Online.
+
+### Downloading
+
+1. First you need to clone the repo on your computer.
+    ```
+    git clone git@github.com:Devsome/silkroad-laravel.git
+    ```
+2. If you want to use vagrant.
+    ```
+    vagarnt up
+    ``` 
+3. Go with `vagrant ssh` into your VM and run the following commands from the `/var/www`
+    1. Composer
+        ```
+        composer install
+        ```
+    2. Laravel stuff
+        ```bash
+        php artisan storage:link && php artisan key:generate && php artisan migrate --seed && php artisan storage:link
+        ```
+4. (Optional) You can generate a ssh key for your local maschine. Just read the [ssl-script README.md](/ssl-script/README.md)
+5. Add to your hosts file the following:
+    ```
+    50.51.52.53 silkroad-laravel
+    ```
+6. If you want to connect to the local mysql Database
+    1. SSH Host: `50.51.52.53`
+    2. Username: `vagrant`
+    3. Password: `vagrant`
+    4. MySQL Host: `127.0.0.1`
+    5: Username: `root`
+    6. Password: `root`
+    
+    Also in the Vagrantfile.
+
+7. Edit the `.env.example` to `.env` and change your credentials.
+
+
+##### Hopefully you are good to go with that. 
+    
+     
 
 License
 ===
