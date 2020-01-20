@@ -49,6 +49,7 @@ class TbUser extends Model
         'Status',
         'GMrank',
         'Email',
+        'regtime',
         'reg_ip',
         'sec_primary',
         'sec_content',

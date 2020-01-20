@@ -34,7 +34,7 @@ class BackendController extends Controller
      */
     public function smclogIndex()
     {
-        return view('backend.smc.index');
+        return view('backend.logging.smc');
     }
 
     /**

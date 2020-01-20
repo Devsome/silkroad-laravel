@@ -48,4 +48,6 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
     // Logging
     Route::get('/smc-log', 'Backend\BackendController@smclogIndex')->name('smclog-index-backend');
     Route::get('/smc-log-datatables', 'Backend\BackendController@smclogDatatables')->name('smclog-datatables-backend');
+
+    Route::get('/users-created-counts', 'Backend\UsersCreatedCounts@index')->name('users-created-counts-backend');
 });

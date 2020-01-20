@@ -5,7 +5,7 @@
 
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/smc.title') }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/logging.smc.title') }}</h1>
         </div>
         <div class="row">
             <div class="container">
@@ -13,10 +13,10 @@
                     <table id="users" class="table table-striped table-hover dataTable">
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">{{ __('backend/smc.table.szuserid') }}</th>
-                            <th scope="col">{{ __('backend/smc.table.catagory') }}</th>
-                            <th scope="col">{{ __('backend/smc.table.szlog') }}</th>
-                            <th scope="col">{{ __('backend/smc.table.dlogdate') }}</th>
+                            <th scope="col">{{ __('backend/logging.smc.table.szuserid') }}</th>
+                            <th scope="col">{{ __('backend/logging.smc.table.catagory') }}</th>
+                            <th scope="col">{{ __('backend/logging.smc.table.szlog') }}</th>
+                            <th scope="col">{{ __('backend/logging.smc.table.dlogdate') }}</th>
                         </tr>
                         </thead>
                         <tbody>

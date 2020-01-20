@@ -19,4 +19,5 @@ return [
     'user' => 'Accounts',
 
     'smc-log' => 'SMC Logging',
+    'users-created' => 'Users created',
 ];

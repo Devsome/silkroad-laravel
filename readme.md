@@ -38,6 +38,14 @@ A free and open-source project for the MMORPG Silkroad Online.
 
 7. Edit the `.env.example` to `.env` and change your credentials.
 
+8. Setting up your Cronjobs
+    ```bash
+    crontab -e
+    ```
+    Then paste this and put it on the last line.
+    ```bash
+    5 0 * * * php /var/www/artisan schedule:run
+    ```
 
 ##### Hopefully you are good to go with that. 
     
