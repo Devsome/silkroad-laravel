@@ -44,7 +44,7 @@ A free and open-source project for the MMORPG Silkroad Online.
     ```
     Then paste this and put it on the last line.
     ```bash
-    5 0 * * * php /var/www/artisan schedule:run
+    * * * * * php /var/www/artisan schedule:run
     ```
 
 ##### Hopefully you are good to go with that. 
