@@ -8,9 +8,12 @@ use Illuminate\Support\Carbon;
 class UsersCreatedCounts extends Controller
 {
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
+     */
     public function index()
     {
-
         $start = new Carbon('first day of this month');
         $start = $start->startOfMonth();
         $end = new Carbon('last day of this month');

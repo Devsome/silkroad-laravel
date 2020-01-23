@@ -116,8 +116,11 @@
                         mode: 'index',
                         caretPadding: 10,
                         callbacks: {
+                            title: function() {
+                                return '{{ __('backend/logging.chart.tooltip-title') }}';
+                            },
                             label: function(tooltipItem, chart) {
-                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                                let datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
                                 return datasetLabel + ': ' + tooltipItem.yLabel;
                             }
                         }
