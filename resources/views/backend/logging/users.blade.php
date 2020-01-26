@@ -29,7 +29,6 @@
 
 @endsection
 @push('javascript')
-    <script src="{{ asset('js/backend/chart.js/Chart.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -127,9 +126,6 @@
                     }
                 }
             });
-
-
-
         });
     </script>
 @endpush

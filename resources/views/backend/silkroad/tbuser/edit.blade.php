@@ -184,7 +184,6 @@
     </div>
 @endsection
 @push('css')
-    <link href="{{ asset('css/backend/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <style>
         .image {
             width: 32px;

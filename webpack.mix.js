@@ -11,5 +11,17 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+
+// Backend css
+mix.styles([
+    'resources/css/backend/dataTables.bootstrap4.css',
+    'resources/css/backend/sb-admin-2.css',
+    'resources/css/backend/summernote-bs4.css',
+], 'public/css/backend/all.css');
+
+// Backend Javascript
+mix.scripts([
+    'resources/js/backend/all.js',
+    'resources/js/backend/chart.js/Chart.min.js',
+], 'public/js/backend/all.js');
+

@@ -91,9 +91,7 @@
         </div>
     </div>
 @endsection
-@push('css')
-    <link href="{{ asset('css/backend/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-@endpush
+
 @push('javascript')
     <script>
         $(document).ready(function() {

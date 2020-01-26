@@ -46,7 +46,34 @@ A free and open-source project for the MMORPG Silkroad Online.
     ```bash
     * * * * * php /var/www/artisan schedule:run
     ```
+    
+    
+### Chaning Javascript / CSS styling
 
+1. Install npm
+    ```bash
+    npm install
+    ``` 
+2. Check the `webpack.mix.js` file for the compiling files and destination
+3. If you want to run in production.
+    ```bash
+    // Run all Mix tasks and minify output...
+    npm run production
+    ```
+    
+    Want to debug your compiling stuff?
+    ```bash
+    npm run dev
+    ```
+    
+    You can also watch all your changes in dev mode.
+    ```bash
+    npm run watch
+    ```
+
+If you want some help, check the [Laravel Compiling Assets (Mix)](https://laravel.com/docs/6.x/mix)
+
+<br><br>
 ##### Hopefully you are good to go with that. 
     
      
