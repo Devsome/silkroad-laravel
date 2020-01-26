@@ -47,7 +47,7 @@
                             } else {
                                 return '<span class="badge badge-secondary">{{ __('backend/tbuser.table.gm-no') }}</span>';
                             }
-                        }, orderable: true, searchable: false
+                        }, orderable: false, searchable: false
                     },
                     { data: 'regtime', name: 'regtime', searchable: false },
                     { data: function ( row ) {

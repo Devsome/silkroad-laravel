@@ -1,0 +1,31 @@
+// Import Custom SB Admin 2 Variables (Overrides Default Bootstrap Variables)
+@import "variables.scss";
+
+// Import Bootstrap
+@import "../../../vendor/bootstrap/scss/bootstrap.scss";
+
+// Import Custom SB Admin 2 Mixins and Components
+@import "mixins.scss";
+@import "global.scss";
+@import "utilities.scss";
+
+// Custom Components
+@import "dropdowns.scss";
+@import "navs.scss";
+@import "buttons.scss";
+@import "cards.scss";
+@import "charts.scss";
+@import "login.scss";
+@import "error.scss";
+@import "footer.scss";
+
+// Import dataTables and Summernote for News
+@import "../dataTables.bootstrap4.css";
+@import "../summernote-bs4.css";
+
+// Import Font-Awesome
+@import "../../../vendor/fontawesome-free/scss/fontawesome.scss";
+@import "../../../vendor/fontawesome-free/scss/regular.scss";
+@import "../../../vendor/fontawesome-free/scss/brands.scss";
+@import "../../../vendor/fontawesome-free/scss/solid.scss";
+@import "../../../vendor/fontawesome-free/scss/v4-shims.scss";

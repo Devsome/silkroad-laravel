@@ -42,9 +42,8 @@
                     { data: 'CurLevel', name: 'CurLevel' },
                     { data: function ( row ) {
                         return row.RemainGold.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                        }, orderable: true, searchable: false
+                        }, orderable: true, searchable: false, name: 'RemainGold'
                     },
-                    // { data: 'RemainGold', name: 'RemainGold', searchable: false },
                     { data: function ( row ) {
                             let url = '{{ route("sro-players-edit-backend", ['char' =>  ':char' ]) }}';
                             url = url.replace(':char', row.CharID);

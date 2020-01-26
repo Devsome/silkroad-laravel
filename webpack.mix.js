@@ -13,15 +13,15 @@ const mix = require('laravel-mix');
 
 
 // Backend css
-mix.styles([
-    'resources/css/backend/dataTables.bootstrap4.css',
-    'resources/css/backend/sb-admin-2.css',
-    'resources/css/backend/summernote-bs4.css',
-], 'public/css/backend/all.css');
+mix.sass(
+    'resources/css/backend/scss/sb-admin-2.scss',
+ 'public/css/backend/all.css');
 
 // Backend Javascript
 mix.scripts([
-    'resources/js/backend/all.js',
-    'resources/js/backend/chart.js/Chart.min.js',
+    'resources/js/vendor/bootstrap/js/bootstrap.js',
+    'resources/js/vendor/datatables/dataTables.bootstrap4.js',
+    'resources/js/vendor/datatables/jquery.dataTables.js',
+    'resources/js/backend/sb-admin.js',
 ], 'public/js/backend/all.js');
 
