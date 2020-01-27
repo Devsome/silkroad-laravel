@@ -68,6 +68,12 @@
             <span>{{ __('backend/menu.users-created') }}</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('users-blocked-backend') }}">
+            <i class="fas fa-fw fa-ban"></i>
+            <span>{{ __('backend/menu.users-blocked') }}</span>
+        </a>
+    </li>
 
 
     <hr class="sidebar-divider d-none d-md-block">

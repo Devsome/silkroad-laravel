@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Model\SRO\Account\Punishment;
 use App\Model\SRO\Account\SmcLog;
 use App\Model\SRO\Account\TbUser;
 use App\User;
@@ -44,5 +45,22 @@ class BackendController extends Controller
     public function smclogDatatables()
     {
         return DataTables::of(SmcLog::query())->make(true);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function blockedAccountsIndex()
+    {
+        return view('backend.logging.blocked');
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function blockedAccountsDatatables()
+    {
+        return DataTables::of(Punishment::query())->make(true);
     }
 }

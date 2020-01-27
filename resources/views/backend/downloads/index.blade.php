@@ -66,7 +66,6 @@
                     </table>
                     {{ $downloads->links() }}
                 </div>
-
             </div>
         </div>
     </div>

@@ -5,19 +5,21 @@
 
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/chars.title') }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/logging.blocked.title') }}</h1>
         </div>
         <div class="row">
             <div class="container">
                 <div class="table-responsive">
-                    <table id="users" class="table table-striped table-hover dataTable">
+                    <table class="table table-striped table-hover dataTable" id="blocked">
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">{{ __('backend/chars.charname') }}</th>
-                            <th scope="col">{{ __('backend/chars.level') }}</th>
-                            <th scope="col">{{ __('backend/chars.gold') }}</th>
-                            <th scope="col">{{ __('backend/chars.table.action') }}</th>
+                            <th>{{ __('backend/logging.blocked.table.jid') }}</th>
+                            <th>{{ __('backend/logging.blocked.table.charname') }}</th>
+                            <th>{{ __('backend/logging.blocked.table.guide') }}</th>
+                            <th>{{ __('backend/logging.blocked.table.description') }}</th>
+                            <th>{{ __('backend/logging.blocked.table.blockstarttime') }}</th>
+                            <th>{{ __('backend/logging.blocked.table.blockendtime') }}</th>
+                            <th>{{ __('backend/logging.blocked.table.status') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -27,31 +29,29 @@
             </div>
         </div>
     </div>
-
 @endsection
 @push('javascript')
     <script>
         $(document).ready(function() {
-            $('#users').DataTable( {
+            $('#blocked').DataTable( {
                 "processing": true,
                 "serverSide": true,
-                "ajax": '{{ route('sro-players-datatables-backend') }}',
+                "ajax": '{{ route('users-blocked-datatables-backend') }}',
                 "columns": [
-                    { data: 'CharID', name: 'CharID' },
-                    { data: 'CharName16', name: 'CharName16' },
-                    { data: 'CurLevel', name: 'CurLevel' },
                     { data: function ( row ) {
-                        return row.RemainGold.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                        }, orderable: true, searchable: false, name: 'RemainGold'
+                            let url = '{{ route("sro-user-edit-backend", ['user' =>  ':user' ]) }}';
+                            url = url.replace(':user', row.UserJID);
+                            return `<a href='${url}' target="_blank">`+ row.UserJID + `</a>`;
+                        }, orderable: true, searchable: true
                     },
-                    { data: function ( row ) {
-                            let url = '{{ route("sro-user-edit-backend", ['user' =>  ':char' ]) }}';
-                            url = url.replace(':char', row.CharID);
-                            return `<a href='${url}' class="btn btn-primary btn-circle btn-sm"><i class="fa fa-pen"></i></a>`;
-                        }, orderable: false, searchable: false
-                    }
+                    { data: 'CharName', name: 'CharName' },
+                    { data: 'Guide', name: 'Guide' },
+                    { data: 'Description', name: 'Description' },
+                    { data: 'BlockStartTime', name: 'BlockStartTime' },
+                    { data: 'BlockEndTime', name: 'BlockEndTime' },
+                    { data: 'Status', name: 'Status' },
                 ],
-                "order": [[ 0, "desc" ]],
+                "order": [[ 5, "desc" ]],
                 "lengthMenu": [[10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('backend/datatables.show-all') }}"]],
                 "language": {
                     "search": "{{ __('backend/datatables.search') }}",

@@ -17,6 +17,20 @@ return [
         'info' => 'At every night there runs a job for getting the newest created accounts.',
     ],
 
+    'blocked' => [
+        'title' => 'Blocked accounts',
+        'table' => [
+            'jid' => 'JID',
+            'charname' => 'Character',
+            'guide' => 'Title',
+            'description' => 'Description',
+            'blockstarttime' => 'Start date',
+            'blockendtime' => 'End date',
+            'status' => 'Status',
+            'empty' => '',
+        ]
+    ],
+
     'chart' => [
         'tooltip-title' => 'Accounts',
     ]

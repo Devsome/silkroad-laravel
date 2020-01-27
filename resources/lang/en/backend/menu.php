@@ -20,4 +20,5 @@ return [
 
     'smc-log' => 'SMC Logging',
     'users-created' => 'Users created',
+    'users-blocked' => 'Blocked users',
 ];
