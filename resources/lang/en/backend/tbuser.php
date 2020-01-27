@@ -7,8 +7,11 @@ return [
     'struserid' => 'StrUserID',
     'gmrank' => 'GM Rank',
     'email' => 'E-Mail',
-    'silk' => 'Silk',
-    'regtime' => 'Register Time',
+    'silk' => 'Silk own',
+    'silk-add' => 'Add',
+    'silk-add-button' => 'Submit',
+    'regtime' => 'Register Date',
+    'regip' => 'Register IP',
     'accplaytime' => 'Play time',
     'blocked' => 'User is blocked until :date',
 
@@ -20,6 +23,7 @@ return [
 
     'edit' => [
         'title' => 'Account edit',
+        'title-silk' => 'Account Silk',
         'gm' => 'Gamemaster',
         'email-info' => 'We are not giving any Information to the user.',
         'accounts' => 'Characters from the User',

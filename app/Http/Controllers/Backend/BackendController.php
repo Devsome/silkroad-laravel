@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Model\SRO\Account\Punishment;
+use App\Model\SRO\Account\SkSilk;
 use App\Model\SRO\Account\SmcLog;
 use App\Model\SRO\Account\TbUser;
 use App\User;
@@ -26,7 +27,8 @@ class BackendController extends Controller
     {
         return view('backend.index', [
             'userCount' => User::count(),
-            'playerCount' => TbUser::count()
+            'playerCount' => TbUser::count(),
+            'silkCount' => SkSilk::all()->sum('silk_own')
         ]);
     }
 

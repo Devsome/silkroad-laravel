@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Model\SRO\Account\SkSilk;
 use App\Model\SRO\Account\TbUser;
 use App\Model\SRO\Shard\Char;
+use Illuminate\Http\Request;
+use Validator;
 use Yajra\DataTables\DataTables;
 
 /**
@@ -73,5 +76,25 @@ class SilkroadController extends Controller
         return view('backend.silkroad.chars.edit', [
             'char' => $char
         ]);
+    }
+
+    public function sroUserSilkAdd($jid, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'silk' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        SkSilk::where('JID', $jid)
+            ->increment(
+                'silk_own', $request->get('silk')
+            );
+
+        return back()->with('success', trans('backend/notification.form-submit.success'));
     }
 }

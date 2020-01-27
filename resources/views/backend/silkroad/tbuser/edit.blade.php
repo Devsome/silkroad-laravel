@@ -8,7 +8,7 @@
             <h1 class="h3 mb-0 text-gray-800">{{ __('backend/tbuser.title') }}</h1>
         </div>
         <div class="row">
-            <div class="col-12">
+            <div class="col-8">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
@@ -23,43 +23,95 @@
                             <div class="col-12">
                                 <p>{{ $tbuser->getIsBlockedUser->isEmpty() ? '' : __('backend/tbuser.blocked', ['date' => $tbuser->getIsBlockedUser[0]->timeEnd]) }}</p>
                             </div>
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="inputStrUserId">{{ __('backend/tbuser.struserid') }}</label>
-                                    <input type="text" class="form-control" id="inputStrUserId"
-                                           value="{{ $tbuser->StrUserID}}" disabled aria-describedby="strUserIdHelp">
-                                    <small id="strUserIdHelp" class="form-text text-muted">
-                                        {{ __('backend/tbuser.edit.email-info') }}
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="inputEmail">{{ __('backend/tbuser.email') }}</label>
-                                    <input type="email" class="form-control" id="inputEmail"
-                                           value="{{ $tbuser->Email }}" disabled>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="form group">
-                                    <label for="silk">{{ __('backend/tbuser.silk') }}</label>
-                                    <input type="text" class="form-control" id="silk"
-                                           value="{{ $tbuser->getSkSilk ? $tbuser->getSkSilk->silk_own : '0' }}" disabled>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label for="inputPlayTime">{{ __('backend/tbuser.accplaytime') }}</label>
-                                    @php
-                                        $d = floor ($tbuser->AccPlayTime / 1440);
-                                        $h = floor (($tbuser->AccPlayTime - $d * 1440) / 60);
-                                        $m = $tbuser->AccPlayTime - ($d * 1440) - ($h * 60);
-                                    @endphp
-                                    <input type="text" class="form-control" id="inputPlayTime"
-                                           value="{{ "{$d} Days {$h} Hours {$m} Minutes" }}" disabled>
+
+                            @php
+                                $d = floor ($tbuser->AccPlayTime / 1440);
+                                $h = floor (($tbuser->AccPlayTime - $d * 1440) / 60);
+                                $m = $tbuser->AccPlayTime - ($d * 1440) - ($h * 60);
+                            @endphp
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless table-striped">
+                                        <tbody>
+                                        <tr>
+                                            <td>{{ __('backend/tbuser.struserid') }}</td>
+                                            <td>{{ $tbuser->StrUserID }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('backend/tbuser.email') }}</td>
+                                            <td>{{ $tbuser->Email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('backend/tbuser.accplaytime') }}</td>
+                                            <td>{{ "{$d} Days {$h} Hours {$m} Minutes" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('backend/tbuser.regip') }}</td>
+                                            <td>{{ $tbuser->reg_ip }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('backend/tbuser.accplaytime') }}</td>
+                                            <td>{{ $tbuser->AccPlayTime }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            {{ __('backend/tbuser.edit.title-silk') }}
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('sro-user-silk-add-backend', ['user' => $tbuser->JID]) }}">
+                            @csrf
+                            <div class="row">
+                                <div class="col-4">
+                                    {{ __('backend/tbuser.silk') }}
+                                </div>
+                                <div class="col-8">
+                                    {{ $tbuser->getSkSilk ? $tbuser->getSkSilk->silk_own : '0' }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label for="silk">
+                                        {{ __('backend/tbuser.silk-add') }}
+                                    </label>
+                                </div>
+                                <div class="col-6">
+                                    <input id="silk" type="number" class="form-control form-control-sm @error('silk') is-invalid @enderror"
+                                           name="silk" value="{{ old('silk') }}">
+                                    @error('silk')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <div class="col-6 offset-4">
+                                    <button type="submit" class="btn btn-sm btn-primary">
+                                        {{ __('backend/tbuser.silk-add-button') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        @if ($message = Session::get('success'))
+                        <div class="py-3 mt-2">
+                            <div class="alert alert-success alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>{{ $message }}</strong>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -171,7 +223,8 @@
                                             str_replace(['ddj', '\\'], ['PNG', '/'], $refregObjCommon->AssocFileIcon128))
                                         }}');">
                                         @if (strpos($refregObjCommon->NameStrID128, 'RARE') !== false)
-                                            <img src="{{ asset('/image/sox.gif') }}" width="32" height="32" alt="Seal of X">
+                                            <img src="{{ asset('/image/sox.gif') }}" width="32" height="32"
+                                                 alt="Seal of X">
                                         @endif
                                     </div>
                                 </div>
