@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Model\SRO\Account\SkSilk;
+use App\Model\SRO\Account\SkSilkBuyList;
 use App\Model\SRO\Account\TbUser;
 use App\Model\SRO\Shard\Char;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Validator;
 use Yajra\DataTables\DataTables;
@@ -94,6 +96,21 @@ class SilkroadController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+
+        SkSilkBuyList::create([
+            'UserJID' => $jid,
+            'Silk_Type' => SkSilkBuyList::SilkTypeWeb,
+            'Silk_Reason' => SkSilkBuyList::SilkReasonWeb,
+            'Silk_Offset' => SkSilk::where('JID', $jid)->pluck('silk_own')->first(),
+            'Silk_Remain' => SkSilk::where('JID', $jid)->pluck('silk_own')->first() + $request->get('silk'),
+            'ID' => $jid,
+            'BuyQuantity' => $request->get('silk'),
+            'OrderNumber' => 0,
+            'AuthDate' => Carbon::now()->format('Y-m-d H:i:s'),
+            'SlipPaper' => 'dunno',
+            'IP' => $request->ip(),
+            'RegDate' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
 
         SkSilk::where('JID', $jid)
             ->increment(
