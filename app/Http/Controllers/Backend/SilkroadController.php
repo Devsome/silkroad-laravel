@@ -78,6 +78,11 @@ class SilkroadController extends Controller
         ]);
     }
 
+    /**
+     * @param $jid
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function sroUserSilkAdd($jid, Request $request)
     {
         $validator = Validator::make($request->all(), [
