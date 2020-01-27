@@ -93,54 +93,6 @@
 @endsection
 
 @push('javascript')
-    <script>
-        $(document).ready(function() {
-            $('#news').DataTable( {
-                "order": [[ 0, "desc" ]],
-                "lengthMenu": [[10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('backend/datatables.show-all') }}"]],
-                "language": {
-                    "search": "{{ __('backend/datatables.search') }}",
-                    "lengthMenu": "{{ __('backend/datatables.length') }}",
-                    "zeroRecords": "{{ __('backend/datatables.zero') }}",
-                    "info": "{{ __('backend/datatables.info') }}",
-                    "infoEmpty": "{{ __('backend/datatables.empty') }}",
-                    "infoFiltered": "{{ __('backend/datatables.info-filtered') }}",
-                    "paginate": {
-                        "first": "{{ __('backend/datatables.first') }}",
-                        "last": "{{ __('backend/datatables.last') }}",
-                        "next": "{{ __('backend/datatables.next') }}",
-                        "previous": "{{ __('backend/datatables.prev') }}"
-                    }
-                },
-                "classes": {
-                    "sPageButton": "button small",
-                    "sPageButtonActive": "green",
-                    "sPageButtonDisabled": "helper hide"
-                },
-                "select": {
-                    "style": "os",
-                    "className": "row-selected"
-                },
-                "columnDefs": [
-                    {
-                        "targets": [ 3 ],
-                        "searchable": false
-                    },
-                    {
-                        "targets": [ 4 ],
-                        "searchable": false
-                    },
-                    {
-                        "targets": [ 5 ],
-                        "searchable": false,
-                        "orderable": false
-                    }
-                ]
-            } );
-            $('div.dataTables_filter input').addClass('search-input form-control');
-            $('select').addClass('search-input form-control');
-        });
-    </script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#imageModal').on('show.bs.modal', function (e) {
