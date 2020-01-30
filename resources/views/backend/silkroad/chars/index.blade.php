@@ -45,7 +45,7 @@
                         }, orderable: true, searchable: false, name: 'RemainGold'
                     },
                     { data: function ( row ) {
-                            let url = '{{ route("sro-user-edit-backend", ['user' =>  ':char' ]) }}';
+                            let url = '{{ route("sro-players-edit-backend", ['char' =>  ':char' ]) }}';
                             url = url.replace(':char', row.CharID);
                             return `<a href='${url}' class="btn btn-primary btn-circle btn-sm"><i class="fa fa-pen"></i></a>`;
                         }, orderable: false, searchable: false

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Model\SRO\Account\Punishment;
 use App\Model\SRO\Account\SkSilk;
 use App\Model\SRO\Account\SkSilkBuyList;
 use App\Model\SRO\Account\TbUser;
@@ -116,6 +117,46 @@ class SilkroadController extends Controller
             ->increment(
                 'silk_own', $request->get('silk')
             );
+
+        return back()->with('success', trans('backend/notification.form-submit.success'));
+    }
+
+    /**
+     * @param $jid
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function sroUserBlockAdd($jid, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'block' => 'required|date',
+            'title' => 'required|min:1|max:512',
+            'description' => 'required|min:1|max:1024',
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        Punishment::create([
+            'UserJID' => $jid,
+            'Type' => 1, // Block login
+            'Executor' => 'Webinterface',
+            'Shard' => 3,
+            'CharInfo' => $jid,
+            'PosInfo' => ' ',
+            'Guide' => $request->get('title'),
+            'Description' => $request->get('description'),
+            'RaiseTime' => Carbon::now()->format('Y-m-d H:i:s'),
+            'BlockStartTime' => Carbon::now()->format('Y-m-d H:i:s'),
+            'BlockEndTime' => Carbon::parse(
+                $request->get('block')
+            )->format('Y-m-d H:i:s'),
+            'PunishTime' => Carbon::now()->format('Y-m-d H:i:s'),
+            'Status' => 0
+        ]);
 
         return back()->with('success', trans('backend/notification.form-submit.success'));
     }

@@ -8,7 +8,7 @@
             <h1 class="h3 mb-0 text-gray-800">{{ __('backend/chars.title') }}</h1>
         </div>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-8 col-xl-8">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
@@ -73,57 +73,63 @@
             </div>
         </div>
 
-        <div class="card mb-4">
-            <div class="card-header">
-                {{ __('backend/chars.edit.equipment') }}
-            </div>
-            <div class="card-body">
-                <div class="container mt-2">
-                    <div class="row">
-                        @foreach($char->getEquipmentUser as $item)
-                            @php
-                                $refregObjCommon = $item->getRefObjCommon;
-                            @endphp
-                                <div class="col-3">
-                                    <div class="image"
-                                        style="background:url('{{
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {{ __('backend/chars.edit.equipment') }}
+                    </div>
+                    <div class="card-body">
+                        <div class="container mt-2">
+                            <div class="row">
+                                @foreach($char->getEquipmentUser as $item)
+                                    @php
+                                        $refregObjCommon = $item->getRefObjCommon;
+                                    @endphp
+                                    <div class="col-4">
+                                        <div class="image"
+                                             style="background:url('{{
                                             asset('/image/icon/' .
                                             str_replace(['ddj', '\\'], ['PNG', '/'], $refregObjCommon->AssocFileIcon128))
                                         }}');">
-                                    @if (strpos($refregObjCommon->NameStrID128, 'RARE') !== false)
-                                        <img src="{{ asset('/image/sox.gif') }}" width="32" height="32" alt="Seal of X">
-                                    @endif
+                                            @if (strpos($refregObjCommon->NameStrID128, 'RARE') !== false)
+                                                <img src="{{ asset('/image/sox.gif') }}" width="32" height="32" alt="Seal of X">
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                        @endforeach
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="card mb-4">
-            <div class="card-header">
-                {{ __('backend/chars.edit.inventory') }}
-            </div>
-            <div class="card-body">
-                <div class="container mt-2">
-                    <div class="row">
-                        @foreach($char->getInventoryItemUser as $item)
-                            @php
-                                $refregObjCommon = $item->getRefObjCommon;
-                            @endphp
-                            <div class="col-3">
-                                <div class="image"
-                                     style="background:url('{{
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {{ __('backend/chars.edit.inventory') }}
+                    </div>
+                    <div class="card-body">
+                        <div class="container mt-2">
+                            <div class="row">
+                                @foreach($char->getInventoryItemUser as $item)
+                                    @php
+                                        $refregObjCommon = $item->getRefObjCommon;
+                                    @endphp
+                                    <div class="col-3">
+                                        <div class="image"
+                                             style="background:url('{{
                                             asset('/image/icon/' .
                                             str_replace(['ddj', '\\'], ['PNG', '/'], $refregObjCommon->AssocFileIcon128))
                                          }}');">
-                                    @if (strpos($refregObjCommon->NameStrID128, 'RARE') !== false)
-                                        <img src="{{ asset('/image/sox.gif') }}" width="32" height="32" alt="Seal of X">
-                                    @endif
-                                </div>
+                                            @if (strpos($refregObjCommon->NameStrID128, 'RARE') !== false)
+                                                <img src="{{ asset('/image/sox.gif') }}" width="32" height="32" alt="Seal of X">
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
+                        </div>
                     </div>
                 </div>
             </div>

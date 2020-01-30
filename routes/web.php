@@ -20,6 +20,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
 
         // Patching
         Route::post('/user/{user}/silk/add', 'Backend\SilkroadController@sroUserSilkAdd')->name('sro-user-silk-add-backend');
+        Route::post('/user/{user}/block/add', 'Backend\SilkroadController@sroUserBlockAdd')->name('sro-user-block-add-backend');
 
         Route::get('/players', 'Backend\SilkroadController@indexSroPlayer')->name('sro-players-index-backend');
         Route::get('/players-datatables', 'Backend\SilkroadController@SroPlayerDatatables')->name('sro-players-datatables-backend');
