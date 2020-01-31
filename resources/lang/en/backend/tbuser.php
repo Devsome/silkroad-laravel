@@ -13,6 +13,10 @@ return [
     'block-add' => 'Expire',
     'block-title' => 'Title',
     'block-guide' => 'Description',
+    'block-type' => 'Type',
+    'block-type-login' => 'Login',
+    'block-type-p2p' => 'P2P Exchange',
+    'block-type-chat' => 'Whole Chat',
     'block-add-button' => 'Block!',
     'regtime' => 'Register Date',
     'regip' => 'Register IP',
@@ -53,7 +57,9 @@ return [
         'description' => 'Description',
         'blockstarttime' => 'Start date',
         'blockendtime' => 'End date',
-        'status' => 'Status',
+        'action' => 'Action',
+        'delete-modal-title' => 'Delete Punishment',
+        'delete-modal-body' => 'Are you sure you wanna delete that punishment?',
     ],
 
 

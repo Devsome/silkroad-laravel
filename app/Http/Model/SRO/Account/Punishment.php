@@ -49,4 +49,19 @@ class Punishment extends Model
         'PunishTime',
         'Status'
     ];
+
+    /**
+     * Blocking the login from the Char
+     */
+    const TYPE_BLOCK_LOGIN = 1;
+
+    /**
+     * Currently not workling
+     */
+    const TYPE_BLOCK_P2P_TRADE = 3;
+
+    /**
+     * Currently not working
+     */
+    const TYPE_BLOCK_WHOLE_CHAT = 4;
 }

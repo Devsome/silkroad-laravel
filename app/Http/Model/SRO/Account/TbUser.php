@@ -87,7 +87,9 @@ class TbUser extends Model
      */
     public function getPunishmentUser()
     {
-        return $this->hasMany(Punishment::class, 'UserJID', 'JID');
+        $query = $this->hasMany(Punishment::class, 'UserJID', 'JID');
+        $query->where('BlockEndTime', '>', Carbon::now()->format('Y-m-d H:i:s'));
+        return $query;
     }
 
     /**

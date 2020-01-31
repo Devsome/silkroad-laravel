@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Model\SRO\Account\BlockedUser;
 use App\Model\SRO\Account\Punishment;
 use App\Model\SRO\Account\SkSilk;
 use App\Model\SRO\Account\SkSilkBuyList;
@@ -10,6 +11,7 @@ use App\Model\SRO\Account\TbUser;
 use App\Model\SRO\Shard\Char;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use Yajra\DataTables\DataTables;
 
@@ -132,6 +134,7 @@ class SilkroadController extends Controller
             'block' => 'required|date',
             'title' => 'required|min:1|max:512',
             'description' => 'required|min:1|max:1024',
+            'type' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -140,12 +143,14 @@ class SilkroadController extends Controller
                 ->withInput();
         }
 
-        Punishment::create([
+        $StrUserID = TbUser::where('JID', $jid)->pluck('StrUserID')->first();
+
+        $serialNo = Punishment::create([
             'UserJID' => $jid,
-            'Type' => 1, // Block login
+            'Type' => $request->get('type'),
             'Executor' => 'Webinterface',
             'Shard' => 3,
-            'CharInfo' => $jid,
+            'CharInfo' => $StrUserID,
             'PosInfo' => ' ',
             'Guide' => $request->get('title'),
             'Description' => $request->get('description'),
@@ -157,6 +162,40 @@ class SilkroadController extends Controller
             'PunishTime' => Carbon::now()->format('Y-m-d H:i:s'),
             'Status' => 0
         ]);
+
+        BlockedUser::create([
+            'UserJID' => $jid,
+            'UserID' => $StrUserID,
+            'Type' => $request->get('type'),
+            'SerialNo' => $serialNo->id,
+            'timeBegin' => Carbon::now()->format('Y-m-d H:i:s'),
+            'timeEnd' => Carbon::parse(
+                $request->get('block')
+            )->format('Y-m-d H:i:s'),
+        ]);
+
+        return back()->with('success', trans('backend/notification.form-submit.success'));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function sroUserBlockDestory(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'serialno' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        Punishment::where('SerialNo', $request->get('serialno'))->delete();
+
+        BlockedUser::where('SerialNo', $request->get('serialno'))->delete();
 
         return back()->with('success', trans('backend/notification.form-submit.success'));
     }
