@@ -4,10 +4,10 @@
     @include('backend.layouts.navbar')
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/news.title') }}</h1>
-            <a href="{{ route('backend-news.news.create') }}"
+            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/notice.title') }}</h1>
+            <a href="{{ route('sro-notice-create-backend') }}"
                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-download fa-sm text-white-50"></i> {{ __('backend/news.create') }}
+                <i class="fas fa-download fa-sm text-white-50"></i> {{ __('backend/notice.create') }}
             </a>
         </div>
         <div class="row">
@@ -23,35 +23,33 @@
                         <thead class="thead-dark">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">{{ __('backend/news.table.title') }}</th>
-                            <th scope="col">{{ __('backend/news.table.slug') }}</th>
-                            <th scope="col">{{ __('backend/news.table.published_at') }}</th>
-                            <th scope="col">{{ __('backend/news.table.action') }}</th>
+                            <th scope="col">{{ __('backend/notice.table.title') }}</th>
+                            <th scope="col">{{ __('backend/notice.table.published_at') }}</th>
+                            <th scope="col">{{ __('backend/notice.table.action') }}</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($news as $new)
+                        @foreach($notices as $notice)
                             <tr>
-                                <th scope="row">{{ $new->id }}</th>
-                                <td>{{ $new->title }}</td>
-                                <td>{{ $new->slug }}</td>
-                                <td>{{ Carbon\Carbon::parse($new->published_at)->format('d.m.Y H:i \U\h\r') }}</td>
+                                <th scope="row">{{ $notice->ID }}</th>
+                                <td>{{ $notice->Subject }}</td>
+                                <td>{{ Carbon\Carbon::parse($notice->EditDate)->format('d.m.Y H:i \U\h\r') }}</td>
                                 <td>
                                     <div class="row">
                                         <div class="col-3">
-                                            <a href="{{ route('backend-news.news.edit', ['news' => $new->id]) }}"
+                                            <a href="{{ route('sro-notice-edit-backend', ['id' => $notice->ID]) }}"
                                                class="btn btn-primary btn-circle btn-sm">
                                                 <i class="fa fa-pen"></i>
                                             </a>
                                         </div>
                                         <div class="col-3">
                                             <form method="POST" data-form="deleteForm"
-                                                  action="{{ route('backend-news.news.destroy', ['news' => $new->id]) }}">
+                                                  action="{{ route('sro-notice-edit-destroy', ['id' => $notice->ID]) }}">
                                                 @method('DELETE')
                                                 @csrf
-                                                <span data-toggle="modal" data-target="#newsModalDelete"
-                                                      data-title="{{ __('backend/news.delete-title') }} {{ $new->id }}"
-                                                      data-message="{{ __('backend/news.delete-message') }}"
+                                                <span data-toggle="modal" data-target="#noticeModalDelete"
+                                                      data-title="{{ __('backend/notice.delete-title') }} {{ $notice->ID }}"
+                                                      data-message="{{ __('backend/notice.delete-message') }}"
                                                       class="btn btn-danger btn-circle btn-sm" style="cursor: pointer">
                                                     <i class="fa fa-trash"></i>
                                                 </span>
@@ -68,7 +66,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="newsModalDelete" role="dialog" aria-labelledby="newsModalDeleteLabel"
+    <div class="modal fade" id="noticeModalDelete" role="dialog" aria-labelledby="noticeModalDeleteLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -95,10 +93,10 @@
 @push('javascript')
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#newsModalDelete').find('.modal-footer #confirm').on('click', function () {
+            $('#noticeModalDelete').find('.modal-footer #confirm').on('click', function () {
                 $(this).data('form').submit();
             });
-            $('#newsModalDelete').on('show.bs.modal', function (e) {
+            $('#noticeModalDelete').on('show.bs.modal', function (e) {
                 $(this).find('.modal-body p').text($(e.relatedTarget).attr('data-message'));
                 $(this).find('.modal-title').text($(e.relatedTarget).attr('data-title'));
 

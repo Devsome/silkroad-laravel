@@ -14,6 +14,7 @@ return [
     'downloads' => 'Downloads',
     'images' => 'Images',
 
+    'notice' => 'Launcher notice',
     'tbuser' => 'Accounts',
     'chars' => 'Characters',
     'user' => 'Accounts',

@@ -43,6 +43,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Silkroad Stuff
+    |--------------------------------------------------------------------------
+    |
+    | Here are only some Silkroad config variables for that application.
+    | If you do not know what to change, check the README.md
+    | vsro is for 22
+    |
+    */
+
+    'sro_content_id' => env('APP_SRO_CONTENT_ID', 22),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
     |

@@ -11,7 +11,6 @@ use App\Model\SRO\Account\TbUser;
 use App\Model\SRO\Shard\Char;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Validator;
 use Yajra\DataTables\DataTables;
 
@@ -21,6 +20,7 @@ use Yajra\DataTables\DataTables;
  */
 class SilkroadController extends Controller
 {
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

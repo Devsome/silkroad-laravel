@@ -14,6 +14,13 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
 
     // Silkroad
     Route::group(['prefix' => 'silkroad'], function () {
+        Route::get('/notice', 'Backend\SilkroadNoticeController@noticeIndex')->name('sro-notice-index-backend');
+        Route::get('/notice/create', 'Backend\SilkroadNoticeController@noticeCreate')->name('sro-notice-create-backend');
+        Route::post('/notice/save', 'Backend\SilkroadNoticeController@noticeSave')->name('sro-notice-save-backend');
+        Route::get('/notice/{id}/edit', 'Backend\SilkroadNoticeController@noticeEdit')->name('sro-notice-edit-backend');
+        Route::post('/notice/{id}/update', 'Backend\SilkroadNoticeController@noticeEditPatch')->name('sro-notice-patch-backend');
+        Route::delete('/notice/{id}/destroy', 'Backend\SilkroadNoticeController@noticeDestroy')->name('sro-notice-edit-destroy');
+
         Route::get('/user', 'Backend\SilkroadController@indexSroUser')->name('sro-user-index-user-backend');
         Route::get('/user-datatables', 'Backend\SilkroadController@sroUserDatatables')->name('sro-user-datatables-backend');
         Route::get('/user/{user}/edit', 'Backend\SilkroadController@sroUserEdit')->name('sro-user-edit-backend');

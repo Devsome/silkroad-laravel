@@ -40,6 +40,12 @@
         {{ __('backend/menu.silkroad') }}
     </div>
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('sro-notice-index-backend') }}">
+            <i class="far fa-fw fa-newspaper"></i>
+            <span>{{ __('backend/menu.notice') }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('sro-user-index-user-backend') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>{{ __('backend/menu.tbuser') }}</span>
