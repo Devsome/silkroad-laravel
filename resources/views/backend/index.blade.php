@@ -89,11 +89,23 @@
             <div class="col-lg-6 mb-6">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Text</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">{{ __('backend/index.recent-news-title') }}</h6>
                     </div>
                     <div class="card-body">
-                        <p>Any Text</p>
-                        <a target="_blank" rel="nofollow" href="#">visit &rarr;</a>
+
+                        <div class="list-group mb-3">
+                            @forelse($notices as $notice)
+                            <a href="{{ route('sro-notice-edit-backend', ['id' => $notice->ID]) }}" class="list-group-item list-group-item-action ">
+                                [{{ $notice->ID }}] {{ $notice->Subject }}
+                            </a>
+                            @empty
+                                {{ __('backend/index.recent-news-empty') }}
+                            @endforelse
+                        </div>
+
+                        <a href="{{ route('sro-notice-create-backend') }}">
+                            {{ __('backend/index.recent-news-create-link') }} &rarr;
+                        </a>
                     </div>
                 </div>
             </div>

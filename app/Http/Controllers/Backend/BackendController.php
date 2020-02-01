@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Model\SRO\Account\Notice;
 use App\Model\SRO\Account\Punishment;
 use App\Model\SRO\Account\SkSilk;
 use App\Model\SRO\Account\SmcLog;
@@ -28,7 +29,8 @@ class BackendController extends Controller
         return view('backend.index', [
             'userCount' => User::count(),
             'playerCount' => TbUser::count(),
-            'silkCount' => SkSilk::all()->sum('silk_own')
+            'silkCount' => SkSilk::all()->sum('silk_own'),
+            'notices' => Notice::orderBy('ID', 'DESC')->get()
         ]);
     }
 

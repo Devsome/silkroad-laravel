@@ -29,7 +29,13 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <p>{{ $tbuser->getIsBlockedUser->isEmpty() ? '' : __('backend/tbuser.blocked', ['date' => $tbuser->getIsBlockedUser[0]->timeEnd]) }}</p>
+                                @if(!$tbuser->getIsBlockedUser->isEmpty())
+                                <div class="card mb-4 py-3 border-left-danger">
+                                    <div class="card-body">
+                                        {{ $tbuser->getIsBlockedUser->isEmpty() ? '' : __('backend/tbuser.blocked', ['date' => $tbuser->getIsBlockedUser[0]->timeEnd]) }}
+                                    </div>
+                                </div>
+                                @endif
                             </div>
 
                             @php
