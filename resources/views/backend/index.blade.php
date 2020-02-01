@@ -18,7 +18,7 @@
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $userCount }}</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-users fa-2x text-gray-300"></i>
+                                <i class="fas fa-user-circle fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $playerCount }}</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-cube fa-2x text-gray-300"></i>
+                                <i class="fas fa-users fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -92,7 +92,6 @@
                         <h6 class="m-0 font-weight-bold text-primary">{{ __('backend/index.recent-news-title') }}</h6>
                     </div>
                     <div class="card-body">
-
                         <div class="list-group mb-3">
                             @forelse($notices as $notice)
                             <a href="{{ route('sro-notice-edit-backend', ['id' => $notice->ID]) }}" class="list-group-item list-group-item-action ">
@@ -113,13 +112,25 @@
             <div class="col-lg-6 mb-6">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Titel</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">{{ __('backend/index.recent-created-chars') }}</h6>
                     </div>
                     <div class="card-body">
-                        <p>Lorem Impsum</p>
-                        <p class="mb-0">
-                            More
-                        </p>
+                        <div class="list-group mb-3">
+                            @forelse($chars as $char)
+                                <a href="{{ route('sro-players-edit-backend', ['char' => $char->CharID]) }}" class="list-group-item list-group-item-action ">
+                                    {{ __('backend/index.recent-created-chars-list', [
+                                        'char' => $char->CharName16,
+                                        'level' => $char->CurLevel
+                                    ]) }}
+                                </a>
+                            @empty
+                                {{ __('backend/index.recent-news-empty') }}
+                            @endforelse
+                        </div>
+
+                        <a href="{{ route('sro-notice-create-backend') }}">
+                            {{ __('backend/index.recent-news-create-link') }} &rarr;
+                        </a>
                     </div>
                 </div>
             </div>

@@ -7,6 +7,7 @@ use App\Model\SRO\Account\Punishment;
 use App\Model\SRO\Account\SkSilk;
 use App\Model\SRO\Account\SmcLog;
 use App\Model\SRO\Account\TbUser;
+use App\Model\SRO\Shard\Char;
 use App\User;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Response;
@@ -30,7 +31,8 @@ class BackendController extends Controller
             'userCount' => User::count(),
             'playerCount' => TbUser::count(),
             'silkCount' => SkSilk::all()->sum('silk_own'),
-            'notices' => Notice::orderBy('ID', 'DESC')->get()
+            'notices' => Notice::orderBy('ID', 'DESC')->take(5)->get(),
+            'chars' => Char::orderBy('CharID','DESC')->take(5)->get()
         ]);
     }
 
