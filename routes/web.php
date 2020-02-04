@@ -33,6 +33,8 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
         Route::get('/players', 'Backend\SilkroadController@indexSroPlayer')->name('sro-players-index-backend');
         Route::get('/players-datatables', 'Backend\SilkroadController@SroPlayerDatatables')->name('sro-players-datatables-backend');
         Route::get('/players/{char}/edit', 'Backend\SilkroadController@sroPlayerEdit')->name('sro-players-edit-backend');
+
+        Route::post('/players/{char}/unstuck', 'Backend\SilkroadController@sroUnstuckChar')->name('sro-players-unstuck');
     });
 
     Route::group(['prefix' => 'web'], function () {

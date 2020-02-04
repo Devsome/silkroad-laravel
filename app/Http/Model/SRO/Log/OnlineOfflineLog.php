@@ -4,7 +4,7 @@ namespace App\Model\SRO\Account;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OnlineOffline extends Model
+class OnlineOfflineLog extends Model
 {
 
     /*

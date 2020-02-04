@@ -2,8 +2,7 @@
 
 namespace App\Model\SRO\Shard;
 
-use DB;
-use Illuminate\Database\Eloquent\Collection;
+use App\Model\SRO\Account\OnlineOfflineLog;
 use Illuminate\Database\Eloquent\Model;
 
 class Char extends Model
@@ -127,5 +126,13 @@ class Char extends Model
         $query = $this->belongsToMany(Items::class, InventoryForAvatar::class, 'CharID', 'ItemID', '', 'ID64');
         $query->where('ItemID', '!=', 0);
         return $query;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function getCharOnlineOffline()
+    {
+        return $this->belongsTo(OnlineOfflineLog::class, 'CharID', 'CharID');
     }
 }

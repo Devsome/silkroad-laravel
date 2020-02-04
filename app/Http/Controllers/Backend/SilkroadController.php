@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Library\Services\SRO\Shard\CharService;
+use App\Library\Services\SRO\Shard\InventoryService;
 use App\Model\SRO\Account\BlockedUser;
+use App\Model\SRO\Account\OnlineOffline;
+use App\Model\SRO\Account\OnlineOfflineLog;
 use App\Model\SRO\Account\Punishment;
 use App\Model\SRO\Account\SkSilk;
 use App\Model\SRO\Account\SkSilkBuyList;
@@ -197,6 +201,53 @@ class SilkroadController extends Controller
 
         BlockedUser::where('SerialNo', $request->get('serialno'))->delete();
 
+        return back()->with('success', trans('backend/notification.form-submit.success'));
+    }
+
+    /**
+     * @param $charId
+     * @param Request $request
+     * @param CharService $charService
+     * @param InventoryService $inventoryService
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function sroUnstuckChar(
+        $charId,
+        Request $request,
+        CharService $charService,
+        InventoryService $inventoryService
+    )
+    {
+        $validator = Validator::make($request->all(), [
+            '_token' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $getChar = Char::where('CharID', $charId)->firstOrFail();
+
+        if($getChar->getCharOnlineOffline) {
+            if($getChar->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_IN)
+            {
+                return back()->with('error', trans('backend/notification.form-submit.still-logged-in'));
+            } else if($getChar->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_OUT)
+            {
+                $jobItem = $inventoryService->getInventorySlot($charId, 8);
+
+                if($jobItem) {
+                    return back()->with('error', trans('backend/notification.form-submit.error-job'));
+                } else {
+                    $charService->setCharUnstuckNewPosition($charId);
+                    return back()->with('success', trans('backend/notification.form-submit.success'));
+                }
+            }
+        } else {
+            return back()->with('error', trans('backend/notification.form-submit.no-online-offline'));
+        }
         return back()->with('success', trans('backend/notification.form-submit.success'));
     }
 }
