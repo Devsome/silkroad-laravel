@@ -61,6 +61,25 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="col-md-8 offset-md-4">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input{{ $errors->has('rules') ? ' is-invalid' : '' }}"
+                                           type="checkbox" name="rules"
+                                           id="rules" {{ old('rules') ? 'checked' : '' }}>
+                                    @if ($errors->has('rules'))
+                                        <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('rules') }}</strong>
+                                </span>
+                                    @endif
+                                    <label class="custom-control-label" for="rules">
+                                        <a href="#">{{ __('auth.accept') }}</a>
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
