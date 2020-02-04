@@ -1,6 +1,12 @@
 ## Silkroad Laravel
 
 A free and open-source project for the MMORPG Silkroad Online.
+Feel free to create isses or contribute to that project. If you have any questions, just ask!
+
+#### Discord
+We now have a Discord [server](https://discord.gg/MNjY4By) for questions, feedback or chit-chat.
+
+<hr>
 
 ### Downloading
 
@@ -17,7 +23,21 @@ A free and open-source project for the MMORPG Silkroad Online.
         ```
         composer install
         ```
-    2. Laravel stuff
+    2. Editing the `_AddLogChar` mssql Procedure. After all the `set` variables you need to paste this stuff.
+        ```sql
+        BEGIN
+            SET NOCOUNT ON;
+               IF EXISTS (SELECT 1 FROM onlineofflinelog WHERE CharID = @CharID)
+                    UPDATE onlineofflinelog
+                    SET    status = @EventID
+                    WHERE  CharID = @CharID
+               ELSE
+                   INSERT INTO onlineofflinelog ([CharID],  [status])
+                   VALUES  (@CharID, @EventID)
+        END
+        ```
+        That inserts a record into the `SRO_VT_LOG.onlineofflinelog`. If you think, that you are missing that table. Do the next step and the Table exist.
+    3. Laravel stuff
         ```bash
         php artisan storage:link && php artisan key:generate && php artisan migrate --seed && php artisan storage:link
         ```
@@ -73,10 +93,11 @@ A free and open-source project for the MMORPG Silkroad Online.
 
 If you want some help, check the [Laravel Compiling Assets (Mix)](https://laravel.com/docs/6.x/mix)
 
-<br><br>
-##### Hopefully you are good to go with that. 
-    
-     
+
+Hopefully you are good to go with that. 
+<hr>
+
+If you want to help me, you can buy a [Coffee](https://www.buymeacoffee.com/Mi0v2sB) for me.     
 
 License
 ===

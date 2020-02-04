@@ -55,7 +55,14 @@
                                         </tr>
                                         <tr>
                                             <td>{{ __('backend/chars.edit.guild') }}</td>
-                                            <td>{{ $char->getGuildUser ? $char->getGuildUser->Name : '' }}</td>
+                                            <td>
+                                                @if($char->getGuildUser)
+                                                    <a href="{{ route('sro-guild-edit-backend', ['guild' => $char->getGuildUser->ID]) }}"
+                                                       target="_blank">
+                                                        {{ $char->getGuildUser->Name }}
+                                                    </a>
+                                                @endif
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
