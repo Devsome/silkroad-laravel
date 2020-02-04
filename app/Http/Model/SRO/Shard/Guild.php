@@ -52,5 +52,16 @@ class Guild extends Model
         'FoundationDate'
     ];
 
+    /**
+     * @var string
+     */
     protected $dateFormat = 'Y-m-d H:i:s';
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getGuildMembers()
+    {
+        return $this->hasMany(GuildMember::class, 'ID', 'GuildID');
+    }
 }

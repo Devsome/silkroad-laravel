@@ -57,6 +57,12 @@
             <span>{{ __('backend/menu.chars') }}</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('sro-guild-index-backend') }}">
+            <i class="fas fa-fw fa-compress"></i>
+            <span>{{ __('backend/menu.guild') }}</span>
+        </a>
+    </li>
 
 
     <div class="sidebar-heading">

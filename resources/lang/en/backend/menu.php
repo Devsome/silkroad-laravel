@@ -17,6 +17,7 @@ return [
     'notice' => 'Launcher notice',
     'tbuser' => 'Accounts',
     'chars' => 'Characters',
+    'guild' => 'Guilds',
     'user' => 'Accounts',
 
     'smc-log' => 'SMC Logging',

@@ -47,7 +47,7 @@
                                         </tr>
                                         <tr>
                                             <td>{{ __('backend/chars.edit.gold') }}</td>
-                                            <td>{!! preg_replace('/\B(?=(\d{3})+(?!\d))/', ',', $char->RemainGold) !!}</td>
+                                            <td>{!! preg_replace('/\B(?=(\d{3})+(?!\d))/', '.', $char->RemainGold) !!}</td>
                                         </tr>
                                         <tr>
                                             <td>{{ __('backend/chars.edit.last-logout') }}</td>
