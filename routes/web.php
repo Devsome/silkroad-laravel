@@ -12,14 +12,37 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function () {
     Route::get('/', 'Backend\BackendController@index')->name('index-backend');
 
+    Route::group(['prefix' => 'ticket'], function () {
+        Route::get('/', 'TicketController@index')->name('ticket-index-backend');
+        Route::get('/datatables', 'TicketController@indexDatatables')->name('ticket-index-datatables-backend');
+
+        Route::group(['prefix' => 'category'], function () {
+            Route::match(['get', 'post'], '/create', 'TicketController@categoryCreate')->name('ticket-category-create');
+            Route::match(['get', 'post'], '/{id}', 'TicketController@categoryUpdate')->name('ticket-category-update');
+            Route::post('/delete/{id}', 'TicketController@categoryDelete')->name('ticket-category-delete');
+        });
+        Route::group(['prefix' => 'priority'], function () {
+            Route::match(['get', 'post'], '/create', 'TicketController@priorityCreate')->name('ticket-priority-create');
+            Route::match(['get', 'post'], '/{id}', 'TicketController@priorityUpdate')->name('ticket-priority-update');
+            Route::post('/delete/{id}', 'TicketController@priorityDelete')->name('ticket-priority-delete');
+        });
+        Route::group(['prefix' => 'status'], function () {
+            Route::match(['get', 'post'], '/create', 'TicketController@statusCreate')->name('ticket-status-create');
+            Route::match(['get', 'post'],'/{id}', 'TicketController@statusUpdate')->name('ticket-status-update');
+            Route::post('/delete/{id}', 'TicketController@statusDelete')->name('ticket-status-delete');
+        });
+    });
+
     // Silkroad
     Route::group(['prefix' => 'silkroad'], function () {
-        Route::get('/notice', 'Backend\SilkroadNoticeController@noticeIndex')->name('sro-notice-index-backend');
-        Route::get('/notice/create', 'Backend\SilkroadNoticeController@noticeCreate')->name('sro-notice-create-backend');
-        Route::post('/notice/save', 'Backend\SilkroadNoticeController@noticeSave')->name('sro-notice-save-backend');
-        Route::get('/notice/{id}/edit', 'Backend\SilkroadNoticeController@noticeEdit')->name('sro-notice-edit-backend');
-        Route::post('/notice/{id}/update', 'Backend\SilkroadNoticeController@noticeEditPatch')->name('sro-notice-patch-backend');
-        Route::delete('/notice/{id}/destroy', 'Backend\SilkroadNoticeController@noticeDestroy')->name('sro-notice-edit-destroy');
+        Route::group(['prefix' => 'notice'], function () {
+            Route::get('/', 'Backend\SilkroadNoticeController@noticeIndex')->name('sro-notice-index-backend');
+            Route::get('/create', 'Backend\SilkroadNoticeController@noticeCreate')->name('sro-notice-create-backend');
+            Route::post('/save', 'Backend\SilkroadNoticeController@noticeSave')->name('sro-notice-save-backend');
+            Route::get('/{id}/edit', 'Backend\SilkroadNoticeController@noticeEdit')->name('sro-notice-edit-backend');
+            Route::post('/{id}/update', 'Backend\SilkroadNoticeController@noticeEditPatch')->name('sro-notice-patch-backend');
+            Route::delete('/{id}/destroy', 'Backend\SilkroadNoticeController@noticeDestroy')->name('sro-notice-edit-destroy');
+        });
 
         Route::get('/user', 'Backend\SilkroadController@indexSroUser')->name('sro-user-index-user-backend');
         Route::get('/user-datatables', 'Backend\SilkroadController@sroUserDatatables')->name('sro-user-datatables-backend');

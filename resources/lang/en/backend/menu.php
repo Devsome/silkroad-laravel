@@ -13,6 +13,7 @@ return [
     'news' => 'News',
     'downloads' => 'Downloads',
     'images' => 'Images',
+    'tickets' => 'Tickets',
 
     'notice' => 'Launcher notice',
     'tbuser' => 'Accounts',
