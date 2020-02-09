@@ -199,6 +199,7 @@ class TicketController extends Controller
         {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|min:2|max:100',
+                'color' => 'required',
                 '_token' => 'required'
             ]);
 
@@ -209,6 +210,7 @@ class TicketController extends Controller
             }
 
             $priority->name = $request->get('name');
+            $priority->color = $request->get('color');
             $priority->save();
 
             return response('saved', 200);
@@ -216,6 +218,7 @@ class TicketController extends Controller
 
         return view('backend.tickets.update-priority-modal', [
             'priority' => $priority,
+            'colors' => TicketPrioritys::COLORS
         ]);
     }
 
@@ -228,6 +231,7 @@ class TicketController extends Controller
         if ($request->getMethod() === 'POST') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|min:2|max:100',
+                'color' => 'required',
                 '_token' => 'required'
             ]);
 
@@ -239,12 +243,14 @@ class TicketController extends Controller
 
             TicketPrioritys::create([
                 'name' => $request->get('name'),
+                'color' => $request->get('color'),
             ]);
 
             return response('saved', 200);
         }
         return view('backend.tickets.update-priority-modal', [
             'priority' => null,
+            'colors' => TicketPrioritys::COLORS
         ]);
     }
 

@@ -28,6 +28,25 @@
                 </div>
             @endif
         </div>
+        <div class="form-group">
+            <label for="inp-color">
+                {{ __('backend/tickets.update-modal.color') }}
+            </label>
+            <select class="form-control @error('color') is-invalid @enderror" name="color" id="inp-color" name="type">
+                @forelse($colors as $key => $color)
+                    <option value="{{ $key }}" @if($priority)@if($priority->color === $key) selected @endif @endif>
+                        {{ $color }}
+                    </option>
+                @empty
+                    {{ __('backend/tickets.update-modal.empty-color') }}
+                @endforelse
+            </select>
+            @if($errors->has('color'))
+                <div class="invalid-feedback">
+                    {{ $errors->first('color') }}
+                </div>
+            @endif
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">

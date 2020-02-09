@@ -107,7 +107,9 @@
                                 <ul class="list-group list-group-flush">
                                     @forelse($prioritys as $data)
                                         <li class="list-group-item">
-                                            {{ $data->name }}
+                                            <span class="badge badge-{{ $data->color }}">
+                                                {{ $data->name }}
+                                            </span>
                                             <span class="float-right">
                                                 <a href="#" class="btn btn-sm btn-primary btn-circle ajax-modal"
                                                    data-spinner="fa-circle-notch"
