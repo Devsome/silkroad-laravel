@@ -26,6 +26,20 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="silkroad_id" class="col-md-4 col-form-label text-md-right">{{ __('Silkroad Id') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="silkroad_id" type="text" class="form-control @error('silkroad_id') is-invalid @enderror" name="silkroad_id" value="{{ old('silkroad_id') }}" required autocomplete="off" autofocus>
+
+                                @error('silkroad_id')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">

@@ -26,11 +26,6 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
             Route::match(['get', 'post'], '/{id}', 'TicketController@priorityUpdate')->name('ticket-priority-update');
             Route::post('/delete/{id}', 'TicketController@priorityDelete')->name('ticket-priority-delete');
         });
-        Route::group(['prefix' => 'status'], function () {
-            Route::match(['get', 'post'], '/create', 'TicketController@statusCreate')->name('ticket-status-create');
-            Route::match(['get', 'post'],'/{id}', 'TicketController@statusUpdate')->name('ticket-status-update');
-            Route::post('/delete/{id}', 'TicketController@statusDelete')->name('ticket-status-delete');
-        });
     });
 
     // Silkroad

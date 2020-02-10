@@ -39,7 +39,7 @@ We now have a Discord [server](https://discord.gg/MNjY4By) for questions, feedba
         That inserts a record into the `SRO_VT_LOG.onlineofflinelog`. If you think, that you are missing that table. Do the next step and the Table exist.
     3. Laravel stuff
         ```bash
-        php artisan storage:link && php artisan key:generate && php artisan migrate --seed && php artisan storage:link
+        php artisan storage:link && php artisan key:generate && php artisan migrate --seed
         ```
 4. (Optional) You can generate a ssh key for your local maschine. Just read the [ssl-script README.md](/ssl-script/README.md)
 5. Add to your hosts file the following:

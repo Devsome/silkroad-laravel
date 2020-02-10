@@ -50,9 +50,7 @@ class SilkroadGuildController extends Controller
      */
     public function sroGuildEditDatatables($guildId)
     {
-        return DataTables::of(
-            GuildMember::where('GuildID', $guildId)
-        )->make(true);
+        return DataTables::of(GuildMember::where('GuildID', $guildId))->make(true);
     }
 
 }

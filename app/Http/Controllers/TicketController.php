@@ -32,85 +32,14 @@ class TicketController extends Controller
      */
     public function indexDatatables()
     {
-        return DataTables::of(Ticket::query())->make(true);
-    }
+        $tickets = Ticket::with('getUserName')
+            ->with('getCategoryName')
+            ->with('getPriorityName')
+            ->with('getStatusName')
+            ->select('tickets.*');
 
-    /**
-     * @param $id
-     * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\View\View
-     */
-    public function statusUpdate($id, Request $request)
-    {
-        $status = TicketStatus::find($id);
-
-        if ($request->getMethod() === 'POST') {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required|min:2|max:100',
-                'color' => 'required',
-                '_token' => 'required'
-            ]);
-
-            if ($validator->fails()) {
-                return Redirect::action('TicketController@statusUpdate', ['id' => $id])
-                    ->withInput()
-                    ->withErrors($validator);
-            }
-
-            $status->name = $request->get('name');
-            $status->color = $request->get('color');
-            $status->save();
-
-            return response('saved', 200);
-        }
-
-        return view('backend.tickets.update-status-modal', [
-            'status' => $status,
-            'colors' => TicketStatus::COLORS
-        ]);
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\View\View
-     */
-    public function statusCreate(Request $request)
-    {
-        if ($request->getMethod() === 'POST') {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required|min:2|max:100',
-                'color' => 'required',
-                '_token' => 'required'
-            ]);
-
-            if ($validator->fails()) {
-                return Redirect::action('TicketController@statusCreate')
-                    ->withInput()
-                    ->withErrors($validator);
-            }
-
-            TicketStatus::create([
-                'name' => $request->get('name'),
-                'color' => $request->get('color')
-            ]);
-
-            return response('saved', 200);
-        }
-        return view('backend.tickets.update-status-modal', [
-            'status' => null,
-            'colors' => TicketStatus::COLORS
-        ]);
-    }
-
-    /**
-     * @param $id
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function statusDelete($id, Request $request)
-    {
-        TicketStatus::findOrFail($id)->delete();
-        return back()->with('success', trans('backend/notification.form-submit.success'));
+        return Datatables::of($tickets)
+            ->make(true);
     }
 
     /**

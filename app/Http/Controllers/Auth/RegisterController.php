@@ -52,7 +52,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'min:6', 'max:16', 'unique:users'],
+            'name' => ['required', 'string', 'min:6', 'max:16'],
+            'silkroad_id' => ['required', 'string', 'alpha_num', 'min:6', 'max:16', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'rules' => ['required'],
@@ -68,7 +69,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $tbUser = TbUser::create([
-            'StrUserID' => strtolower($data['name']),
+            'StrUserID' => strtolower($data['silkroad_id']),
+            'Name' => $data['name'],
             'password' => md5($data['password']),
             'Status' => 1,
             'GMrank' => 0,
@@ -88,6 +90,7 @@ class RegisterController extends Controller
 
         return User::create([
             'name' => $data['name'],
+            'silkroad_id' => $data['silkroad_id'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

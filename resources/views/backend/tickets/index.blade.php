@@ -9,7 +9,7 @@
         </div>
 
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
@@ -37,9 +37,10 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                <!-- Categories -->
+        </div>
+        <div class="row">
+            <!-- Categories -->
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
@@ -93,8 +94,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Prioritys -->
+            <!-- Prioritys -->
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
@@ -107,49 +110,51 @@
                                 <ul class="list-group list-group-flush">
                                     @forelse($prioritys as $data)
                                         <li class="list-group-item">
-                                            <span class="badge badge-{{ $data->color }}">
-                                                {{ $data->name }}
-                                            </span>
+                                                <span class="badge badge-{{ $data->color }}">
+                                                    {{ $data->name }}
+                                                </span>
                                             <span class="float-right">
-                                                <a href="#" class="btn btn-sm btn-primary btn-circle ajax-modal"
-                                                   data-spinner="fa-circle-notch"
-                                                   data-url="{{ route('ticket-priority-update', ['id' => $data->id]) }}"
-                                                   data-centered="true">
-                                                    <span class="icon">
-                                                        <i class="fas fa-pen"></i>
-                                                    </span>
-                                                </a>
-                                                <button data-text="{{ __('backend/tickets.priority.delete-text', ['category' => $data->name]) }}"
-                                                        class="btn btn-danger btn-circle btn-sm delete-btn">
-                                                    <span class="icon">
-                                                        <i class="fas fa-trash"></i>
-                                                    </span>
-                                                    <form method="post"
-                                                          action="{{ route('ticket-priority-delete', ['id' => $data->id]) }}">
-                                                        @csrf
-                                                    </form>
-                                                </button>
-                                            </span>
+                                                    <a href="#" class="btn btn-sm btn-primary btn-circle ajax-modal"
+                                                       data-spinner="fa-circle-notch"
+                                                       data-url="{{ route('ticket-priority-update', ['id' => $data->id]) }}"
+                                                       data-centered="true">
+                                                        <span class="icon">
+                                                            <i class="fas fa-pen"></i>
+                                                        </span>
+                                                    </a>
+                                                    <button data-text="{{ __('backend/tickets.priority.delete-text', ['category' => $data->name]) }}"
+                                                            class="btn btn-danger btn-circle btn-sm delete-btn">
+                                                        <span class="icon">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                        <form method="post"
+                                                              action="{{ route('ticket-priority-delete', ['id' => $data->id]) }}">
+                                                            @csrf
+                                                        </form>
+                                                    </button>
+                                                </span>
                                         </li>
                                     @empty
                                         {{ __('backend/tickets.priority.empty') }}
                                     @endforelse
                                 </ul>
                                 <span class="float-right py-3">
-                                    <a href="#"
-                                       class="btn btn-sm btn-primary pull-left ajax-modal"
-                                       data-spinner="fa-circle-notch"
-                                       data-url="{{ route('ticket-priority-create') }}"
-                                       data-centered="true">
-                                        {{ __('backend/tickets.priority.add_button') }}
-                                    </a>
-                                </span>
+                                        <a href="#"
+                                           class="btn btn-sm btn-primary pull-left ajax-modal"
+                                           data-spinner="fa-circle-notch"
+                                           data-url="{{ route('ticket-priority-create') }}"
+                                           data-centered="true">
+                                            {{ __('backend/tickets.priority.add_button') }}
+                                        </a>
+                                    </span>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Status -->
+            <!-- Status -->
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
@@ -159,62 +164,25 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <ul class="list-group list-group-flush">
-                                    @forelse($status as $data)
-                                        <li class="list-group-item">
-                                            <span class="badge badge-{{ $data->color }}">
-                                                {{ $data->name }}
-                                            </span>
-                                            <span class="float-right">
-                                                <a href="#" class="btn btn-sm btn-primary btn-circle ajax-modal"
-                                                   data-spinner="fa-circle-notch"
-                                                   data-url="{{ route('ticket-status-update', ['id' => $data->id]) }}"
-                                                   data-centered="true">
-                                                    <span class="icon">
-                                                        <i class="fas fa-pen"></i>
-                                                    </span>
-                                                </a>
-                                                <button data-text="{{ __('backend/tickets.status.delete-text', ['status' => $data->name]) }}"
-                                                        class="btn btn-danger btn-circle btn-sm delete-btn">
-                                                    <span class="icon">
-                                                        <i class="fas fa-trash"></i>
-                                                    </span>
-                                                    <form method="post"
-                                                          action="{{ route('ticket-status-delete', ['id' => $data->id]) }}">
-                                                        @csrf
-                                                    </form>
-                                                </button>
-                                            </span>
-                                        </li>
-                                    @empty
-                                        <li class="list-group-item">
-                                            {{ __('backend/tickets.status.empty') }}
-                                        </li>
-                                    @endforelse
-                                </ul>
-                                <span class="float-right py-3">
-                                <a href="#"
-                                   class="btn btn-sm btn-primary pull-left ajax-modal"
-                                   data-spinner="fa-circle-notch"
-                                   data-url="{{ route('ticket-status-create') }}"
-                                   data-centered="true">
-                                    {{ __('backend/tickets.status.add_button') }}
-                                </a>
-                                </span>
+                                @forelse($status as $data)
+                                    <span class="badge badge-{{ $data->color }}">
+                                            {{ $data->name }}
+                                        </span>
+                                @empty
+                                    {{ __('backend/tickets.status.empty') }}
+                                @endforelse
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
 
     <div class="modal fade" id="ajaxModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-
             </div>
         </div>
     </div>
@@ -230,7 +198,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -254,16 +221,22 @@
                     "serverSide": true,
                     "ajax": '{{ route('ticket-index-datatables-backend') }}',
                     "columns": [
-                        { data: 'id', name: 'id' },
-                        { data: 'user_id', name: 'user_id' },
-                        { data: 'ticket_prioritys_id', name: 'ticket_prioritys_id' },
-                        { data: 'ticket_categories_id', name: 'ticket_categories_id' },
-                        { data: 'title', name: 'title' },
-                        { data: 'ticket_status_id', name: 'ticket_status_id' },
-                        { data: 'created_at', name: 'created_at' },
+                        { data: 'id', name: 'tickets.id' },
+                        { data: 'get_user_name.name', name: 'get_user_name.name' },
+                        { data: function ( row ) {
+                                return `<span class="badge badge-${row.get_priority_name.color}">${row.get_priority_name.name}</a>`;
+                            }
+                        },
+                        { data: 'get_category_name.name', name: 'get_category_name.name' },
+                        { data: 'title', name: 'tickets.title' },
+                        { data: function ( row ) {
+                                return `<span class="badge badge-${row.get_status_name.color}">${row.get_status_name.name}</a>`;
+                            }
+                        },
+                        { data: 'created_at', name: 'tickets.created_at', searchable: false },
                     ],
                     "order": [[ 0, "desc" ]],
-                    "lengthMenu": [[10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('backend/datatables.show-all') }}"]],
+                    "lengthMenu": [[15, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('backend/datatables.show-all') }}"]],
                     "language": {
                         "search": "{{ __('backend/datatables.search') }}",
                         "lengthMenu": "{{ __('backend/datatables.length') }}",

@@ -45,6 +45,7 @@ class TbUser extends Model
      */
     protected $fillable = [
         'StrUserID',
+        'Name',
         'password',
         'Status',
         'GMrank',

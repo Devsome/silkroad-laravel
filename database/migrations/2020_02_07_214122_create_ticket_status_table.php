@@ -17,6 +17,7 @@ class CreateTicketStatusTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->enum('color', ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']);
+            $table->integer('status_id')->nullable();
             $table->timestamps();
         });
     }
