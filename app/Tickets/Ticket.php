@@ -45,4 +45,12 @@ class Ticket extends Model
     {
         return $this->belongsTo(TicketStatus::class, 'ticket_status_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getAnswers()
+    {
+        return $this->hasMany(TicketAnswer::class, 'ticket_id', 'id');
+    }
 }

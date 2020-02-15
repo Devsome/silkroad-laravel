@@ -14,6 +14,7 @@ return [
     'downloads' => 'Downloads',
     'images' => 'Images',
     'tickets' => 'Tickets',
+    'tickets-settings' => 'Tickets Settings',
 
     'notice' => 'Launcher notice',
     'tbuser' => 'Accounts',

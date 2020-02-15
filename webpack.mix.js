@@ -29,5 +29,6 @@ mix.scripts([
     'resources/vendor/jquery-easing/jquery.easing.min.js',
     'resources/vendor/datatables/dataTables.bootstrap4.min.js',
     'resources/vendor/chart.js/Chart.bundle.min.js',
+    'resources/js/backend/moment.js',
 ], 'public/js/backend/all.js');
 

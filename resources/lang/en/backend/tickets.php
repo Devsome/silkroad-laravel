@@ -2,8 +2,24 @@
 
 return [
     'title' => 'Ticket Dashboard',
+    'headline' => 'Showing all Tickets from the Users',
     'categories' => 'Categories',
     'priorities' => 'Priorities',
+
+    'show' => [
+        'title' => 'Ticket',
+    ],
+
+    'settings' => [
+        'title' => 'Ticket Settings',
+    ],
+
+    'chat' => [
+        'recent' => 'Newest Tickets',
+        'from-user' => 'From: :user',
+        'priority' => 'Priority:',
+        'status' => 'Status:',
+    ],
 
     'table' => [
         'from' => 'From User',
@@ -13,6 +29,7 @@ return [
         'priority' => 'Priority',
         'status' => 'Status',
         'created_at' => 'Created at',
+        'action' => 'Action',
     ],
 
     'category' => [

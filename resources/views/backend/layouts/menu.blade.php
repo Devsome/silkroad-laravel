@@ -41,6 +41,13 @@
             <span>{{ __('backend/menu.tickets') }}</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('ticket-settings-backend') }}">
+            <i class="fas fa-fw fa-cogs"></i>
+            <span>{{ __('backend/menu.tickets-settings') }}</span>
+        </a>
+    </li>
+
 
     <div class="sidebar-heading">
         {{ __('backend/menu.silkroad') }}

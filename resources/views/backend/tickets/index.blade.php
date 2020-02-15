@@ -9,313 +9,85 @@
         </div>
 
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="col-12">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">
-                            Body
+                        <h6 class="m-0 font-weight-bold">
+                            {{ __('backend/tickets.headline') }}
                         </h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="tickets" class="table table-striped table-hover dataTable">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">{{ __('backend/tickets.table.from') }}</th>
-                                    <th scope="col">{{ __('backend/tickets.table.priority') }}</th>
-                                    <th scope="col">{{ __('backend/tickets.table.category') }}</th>
-                                    <th scope="col">{{ __('backend/tickets.table.title') }}</th>
-                                    <th scope="col">{{ __('backend/tickets.table.status') }}</th>
-                                    <th scope="col">{{ __('backend/tickets.table.created_at') }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <!-- Categories -->
-            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">
-                            {{ __('backend/tickets.categories') }}
-                        </h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <ul class="list-group list-group-flush">
-                                    @forelse($categories as $data)
-                                        <li class="list-group-item">
-                                            {{ $data->name }}
-                                            <span class="float-right">
-                                                <a href="#" class="btn btn-sm btn-primary btn-circle ajax-modal"
-                                                   data-spinner="fa-circle-notch"
-                                                   data-url="{{ route('ticket-category-update', ['id' => $data->id]) }}"
-                                                   data-centered="true">
-                                                    <span class="icon">
-                                                        <i class="fas fa-pen"></i>
-                                                    </span>
-                                                </a>
-                                                <button data-text="{{ __('backend/tickets.category.delete-text', ['category' => $data->name]) }}"
-                                                        class="btn btn-danger btn-circle btn-sm delete-btn">
-                                                    <span class="icon">
-                                                        <i class="fas fa-trash"></i>
-                                                    </span>
-                                                    <form method="post"
-                                                          action="{{ route('ticket-category-delete', ['id' => $data->id]) }}">
-                                                        @csrf
-                                                    </form>
+                        <div id="custom-chat">
+                            <div class="messaging">
+                                <div class="inbox_msg">
+                                    <div class="inbox_people">
+                                        <div class="headind_srch">
+                                            <div class="recent_heading">
+                                                <h4>
+                                                    {{ __('backend/tickets.chat.recent') }}
+                                                </h4>
+                                            </div>
+                                        </div>
+                                        <div class="inbox_chat h-100 scroll">
+{{--                                            @include('backend.tickets.chat-tickets')--}}
+                                        </div>
+                                    </div>
+                                    <div class="mesgs">
+                                        <div class="msg_history">
+
+                                            {{--                                            @includeIf('backend.tickets.message-tickets', ['answers' => []])--}}
+
+                                        </div>
+
+                                        <div class="type_msg">
+                                            <div class="input_msg_write">
+                                                <input type="text" class="write_msg" placeholder="Type a message"/>
+                                                <button class="msg_send_btn" type="button">
+                                                    <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
                                                 </button>
-                                            </span>
-                                        </li>
-                                    @empty
-                                        <li class="list-group-item">
-                                            {{ __('backend/tickets.category.empty') }}
-                                        </li>
-                                    @endforelse
-                                </ul>
-                                <span class="float-right py-3">
-                                    <a href="#"
-                                       class="btn btn-sm btn-primary pull-left ajax-modal"
-                                       data-spinner="fa-circle-notch"
-                                       data-url="{{ route('ticket-category-create') }}"
-                                       data-centered="true">
-                                        {{ __('backend/tickets.category.add_button') }}
-                                    </a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                            </div>
+                                        </div>
 
-            <!-- Prioritys -->
-            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">
-                            {{ __('backend/tickets.priorities') }}
-                        </h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <ul class="list-group list-group-flush">
-                                    @forelse($prioritys as $data)
-                                        <li class="list-group-item">
-                                                <span class="badge badge-{{ $data->color }}">
-                                                    {{ $data->name }}
-                                                </span>
-                                            <span class="float-right">
-                                                    <a href="#" class="btn btn-sm btn-primary btn-circle ajax-modal"
-                                                       data-spinner="fa-circle-notch"
-                                                       data-url="{{ route('ticket-priority-update', ['id' => $data->id]) }}"
-                                                       data-centered="true">
-                                                        <span class="icon">
-                                                            <i class="fas fa-pen"></i>
-                                                        </span>
-                                                    </a>
-                                                    <button data-text="{{ __('backend/tickets.priority.delete-text', ['category' => $data->name]) }}"
-                                                            class="btn btn-danger btn-circle btn-sm delete-btn">
-                                                        <span class="icon">
-                                                            <i class="fas fa-trash"></i>
-                                                        </span>
-                                                        <form method="post"
-                                                              action="{{ route('ticket-priority-delete', ['id' => $data->id]) }}">
-                                                            @csrf
-                                                        </form>
-                                                    </button>
-                                                </span>
-                                        </li>
-                                    @empty
-                                        {{ __('backend/tickets.priority.empty') }}
-                                    @endforelse
-                                </ul>
-                                <span class="float-right py-3">
-                                        <a href="#"
-                                           class="btn btn-sm btn-primary pull-left ajax-modal"
-                                           data-spinner="fa-circle-notch"
-                                           data-url="{{ route('ticket-priority-create') }}"
-                                           data-centered="true">
-                                            {{ __('backend/tickets.priority.add_button') }}
-                                        </a>
-                                    </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Status -->
-            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">
-                            {{ __('backend/tickets.status.title') }}
-                        </h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                @forelse($status as $data)
-                                    <span class="badge badge-{{ $data->color }}">
-                                            {{ $data->name }}
-                                        </span>
-                                @empty
-                                    {{ __('backend/tickets.status.empty') }}
-                                @endforelse
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-
-    <div class="modal fade" id="ajaxModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"
-                        id="exampleModalCenterTitle">{{ __('backend/tickets.modal-delete-title') }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        <i class="fas fa-reply"></i> {{ __('backend/tickets.update-modal.cancel') }}
-                    </button>
-                    <button type="button" class="btn btn-danger deleteBtn">
-                        <i class="fas fa-trash"></i> {{ __('backend/tickets.update-modal.delete') }}
-                    </button>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
 
 @push('javascript')
     <script>
         $(document).ready(function () {
-            $(document).ready(function() {
-                $('#tickets').DataTable( {
-                    "processing": true,
-                    "serverSide": true,
-                    "ajax": '{{ route('ticket-index-datatables-backend') }}',
-                    "columns": [
-                        { data: 'id', name: 'tickets.id' },
-                        { data: 'get_user_name.name', name: 'get_user_name.name' },
-                        { data: function ( row ) {
-                                return `<span class="badge badge-${row.get_priority_name.color}">${row.get_priority_name.name}</a>`;
-                            }
-                        },
-                        { data: 'get_category_name.name', name: 'get_category_name.name' },
-                        { data: 'title', name: 'tickets.title' },
-                        { data: function ( row ) {
-                                return `<span class="badge badge-${row.get_status_name.color}">${row.get_status_name.name}</a>`;
-                            }
-                        },
-                        { data: 'created_at', name: 'tickets.created_at', searchable: false },
-                    ],
-                    "order": [[ 0, "desc" ]],
-                    "lengthMenu": [[15, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('backend/datatables.show-all') }}"]],
-                    "language": {
-                        "search": "{{ __('backend/datatables.search') }}",
-                        "lengthMenu": "{{ __('backend/datatables.length') }}",
-                        "zeroRecords": "{{ __('backend/datatables.zero') }}",
-                        "info": "{{ __('backend/datatables.info') }}",
-                        "infoEmpty": "{{ __('backend/datatables.empty') }}",
-                        "infoFiltered": "{{ __('backend/datatables.info-filtered') }}",
-                        "paginate": {
-                            "first": "{{ __('backend/datatables.first') }}",
-                            "last": "{{ __('backend/datatables.last') }}",
-                            "next": "{{ __('backend/datatables.next') }}",
-                            "previous": "{{ __('backend/datatables.prev') }}"
-                        }
-                    },
-                    "classes": {
-                        "sPageButton": "button small",
-                        "sPageButtonActive": "green",
-                        "sPageButtonDisabled": "helper hide"
-                    },
-                    "select": {
-                        "style": "os",
-                        "className": "row-selected"
-                    },
-                } );
-                $('div.dataTables_filter input').addClass('search-input form-control');
-                $('select').addClass('search-input form-control');
+            // Pagination
+            $(document).on('click', '.pagination a', function (event) {
+                event.preventDefault();
+
+                $('li').removeClass('active');
+                $(this).parent('li').addClass('active');
+
+                getData($(this).attr('href').split('page=')[1]);
             });
 
-            $('.ajax-modal').click(function () {
-                let $btn = $(this);
-                let $ajaxModal = $('#ajaxModal');
-
-                let centered = $btn.data('centered');
-                let spinner = $btn.data('spinner');
-                let size = '';
-
-                if ($btn.data('size') != '') {
-                    size = $btn.data('size');
-                }
-
-                $ajaxModal.find('.modal-dialog')
-                    .removeClass('modal-sm')
-                    .removeClass('modal-lg')
-                    .removeClass('modal-xl')
-                    .removeClass(!centered ? 'modal-dialog-centered' : '')
-                    .addClass(size ? 'modal-' + size : '')
-                    .addClass(centered ? 'modal-dialog-centered' : '');
-
-                let oldIcon = $btn.find('.icon i').attr('class');
-                if (spinner != '') {
-                    $btn.find('.icon i').attr('class', 'fas fa-spin ' + spinner);
-                }
-
-                $.get($btn.data('url'))
-                    .done(function (data, e) {
-                        $ajaxModal.find('.modal-content').html(data);
-                        $ajaxModal.modal({backdrop: 'static', keyboard: false});
-                    })
-                    .fail(function (err) {
-                        console.error(err.responseJSON);
-                    })
-                    .always(function () {
-                        if (spinner != '') {
-                            $btn.find('.icon i').attr('class', oldIcon);
-                        }
-                    });
-
-
-            });
-
-            $('.delete-btn').click(function () {
-                let $this = $(this);
-                let $deleteModal = $('#deleteModal');
-                $deleteModal.find('.modal-body').text($this.data('text'));
-                $deleteModal.modal('show');
-                $deleteModal.find('.deleteBtn').one('click', function () {
-                    $this.find('form').submit();
+            function getData(page) {
+                $.ajax({
+                    url: '?page=' + page,
+                    type: 'get',
+                    datatype: 'html'
+                }).done(function (data) {
+                    $(".inbox_chat").empty().html(data);
+                    location.hash = page;
+                }).fail(function () {
+                    console.log('Ticket Pagination error');
                 });
-            });
+            }
         });
+
     </script>
 @endpush
