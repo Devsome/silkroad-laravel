@@ -19,7 +19,7 @@
                     <div class="card-body">
                         <div id="custom-chat">
                             <div class="row conversations">
-                                <div class="col-5 col-sm-6 col-lg-3 border-right h-100 scroll">
+                                <div class="col-5 col-sm-6 col-lg-3 h-100 scroll">
                                     <div class="list-group inbox_chat">
                                         @include('backend.tickets.conversations.conversations', [
                                             'conversations' => $conversations,

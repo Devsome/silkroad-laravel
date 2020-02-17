@@ -16,7 +16,7 @@ return [
 
     'chat' => [
         'recent' => 'Newest Tickets',
-        'from-user' => 'From: :user',
+        'from-user' => ':user',
         'priority' => 'Priority:',
         'status' => 'Status:',
     ],
