@@ -36,7 +36,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('ticket-index-backend') }}">
+        <a class="nav-link" href="{{ route('ticket-index-list') }}">
             <i class="fas fa-fw fa-ticket-alt"></i>
             <span>{{ __('backend/menu.tickets') }}</span>
         </a>

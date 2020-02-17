@@ -19,6 +19,7 @@ return [
         'from-user' => ':user',
         'priority' => 'Priority:',
         'status' => 'Status:',
+        'send-placeholder' => 'Your answer',
     ],
 
     'table' => [

@@ -37,18 +37,9 @@
                                             'ticket' => $currentConversation
                                         ])
                                     </div>
-                                    <div class="input-group" style="height: 38px;">
-
-{{--                                        <div class="type_msg">--}}
-{{--                                            <div class="input_msg_write">--}}
-{{--                                                <input type="text" class="write_msg" placeholder="Type a message"/>--}}
-{{--                                                <button class="msg_send_btn" type="button" id="send">--}}
-{{--                                                    <i class="fa fa-paper-plane-o" aria-hidden="true"></i>--}}
-{{--                                                </button>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-                                        <input type="text" class="form-control" placeholder="{{__('conversations.text')}}"
+                                    <div class="input-group chat-send">
+                                        <input type="text" class="form-control"
+                                               placeholder="{{ __('backend/tickets.chat.send-placeholder') }}"
                                                id="text">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button" id="send">
@@ -79,7 +70,7 @@
 
             function fetchMessages() {
                 $.get({
-                    url: '{{ route('conversations.fetch') }}',
+                    url: '{{ route('ticket-fetch-backend') }}',
                     data: {
                         lastMessage: lastMessage,
                         conversationId: conversationId,
@@ -96,7 +87,7 @@
 
             function loadConversations() {
                 $.get({
-                    url: '{{ route('conversations.conversations') }}',
+                    url: '{{ route('ticket-conversations-backend') }}',
                     data: {
                         conversationId: conversationId,
                     }
@@ -110,7 +101,7 @@
                 conversationId = id;
 
                 $.get({
-                    url: '{{ route('conversations.fetch') }}',
+                    url: '{{ route('ticket-fetch-backend') }}',
                     data: {
                         conversationId: conversationId,
                     },
@@ -159,7 +150,7 @@
                 console.log($text.val());
 
                 $.post({
-                    url: '{{ route('conversations.send') }}',
+                    url: '{{ route('ticket-send-backend') }}',
                     data: {
                         conversationId: conversationId,
                         text: $text.val(),

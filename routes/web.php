@@ -13,19 +13,11 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
     Route::get('/', 'Backend\BackendController@index')->name('index-backend');
 
     Route::group(['prefix' => 'ticket'], function () {
-        Route::get('/', 'TicketController@index')->name('ticket-index-backend');
+        Route::get('/{conversation?}', 'TicketController@list')->name('ticket-index-list')->where(['conversation' => '[0-9]+']);
+        Route::get('/fetch', 'TicketController@fetch')->name('ticket-fetch-backend');
+        Route::post('/send', 'TicketController@send')->name('ticket-send-backend');
+        Route::get('/conversations', 'TicketController@fetchConversations')->name('ticket-conversations-backend');
         Route::get('/settings', 'TicketController@settings')->name('ticket-settings-backend');
-        Route::get('/datatables', 'TicketController@indexDatatables')->name('ticket-index-datatables-backend');
-        Route::post('/show', 'TicketController@showTicket')->name('ticket-show-backend');
-
-
-        Route::group(['prefix' => 'conversations'], function () {
-            Route::get('/{conversation?}', 'TicketController@list')->name('conversations.list')->where(['conversation' => '[0-9]+']);
-            Route::get('/fetch', 'TicketController@fetch')->name('conversations.fetch');
-            Route::post('/send', 'TicketController@send')->name('conversations.send');
-            Route::get('/conversations', 'TicketController@fetchConversations')->name('conversations.conversations');
-        });
-
         Route::group(['prefix' => 'category'], function () {
             Route::match(['get', 'post'], '/create', 'TicketController@categoryCreate')->name('ticket-category-create');
             Route::match(['get', 'post'], '/{id}', 'TicketController@categoryUpdate')->name('ticket-category-update');

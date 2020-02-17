@@ -17,46 +17,6 @@ use Yajra\DataTables\DataTables;
 
 class TicketController extends Controller
 {
-    /**
-     * @param Request $request
-     * @return Factory|\Illuminate\View\View
-     */
-    public function index(Request $request)
-    {
-        $tickets = Ticket::with('getUserName')
-            ->with('getCategoryName')
-            ->with('getPriorityName')
-            ->with('getStatusName')
-            ->orderBy('updated_at', 'DESC')
-            ->paginate(1);
-
-        if ($request->ajax()) {
-            return view('backend.tickets.chat-tickets', [
-                'tickets' => $tickets,
-            ]);
-        }
-
-        return view('backend.tickets.index', [
-            'tickets' => $tickets,
-            'ticket-count' => Ticket::count()
-        ]);
-    }
-
-    /**
-     * @return mixed
-     * @throws \Exception
-     */
-    public function indexDatatables()
-    {
-        $tickets = Ticket::with('getUserName')
-            ->with('getCategoryName')
-            ->with('getPriorityName')
-            ->with('getStatusName')
-            ->select('tickets.*');
-
-        return Datatables::of($tickets)
-            ->make(true);
-    }
 
     /**
      * @return Factory|\Illuminate\View\View
@@ -68,17 +28,6 @@ class TicketController extends Controller
             'prioritys' => TicketPrioritys::all(),
             'status' => TicketStatus::all()
         ]);
-    }
-
-
-    public function showTicket(Request $request)
-    {
-        $ticketAnswer = TicketAnswer::where('ticket_id', '=', $request->get('id'));
-
-        return view('backend.tickets.message-tickets', [
-            'answers' => $ticketAnswer
-        ]);
-
     }
 
     /**
@@ -231,12 +180,10 @@ class TicketController extends Controller
         return back()->with('success', trans('backend/notification.form-submit.success'));
     }
 
-
-
-    /*
-     * Chit Chat
+    /**
+     * @param Ticket|null $ticket
+     * @return mixed
      */
-
     protected function getConversationsInOrder(Ticket $ticket = null)
     {
         $query = TicketAnswer::select(['ticket_id', DB::raw('MAX(created_at) as created_at')])
@@ -244,14 +191,8 @@ class TicketController extends Controller
             ->with('conversation')
             ->groupBy('ticket_id');
 
-//        dd(
-//            $query->get(),
-//            $query->get()->pluck('ticket_id'),
-//            $ticket
-//        );
-
-        if(!is_null($ticket))
-            $query->whereHas('conversation', function ($query) use($ticket) {
+        if (!is_null($ticket))
+            $query->whereHas('conversation', function ($query) use ($ticket) {
                 $query->where('ticket_id', $ticket->id);
             });
 
@@ -259,22 +200,30 @@ class TicketController extends Controller
 
     }
 
+    /**
+     * @param Ticket|null $ticket
+     * @return Factory|\Illuminate\View\View
+     */
     public function list(Ticket $ticket = null)
     {
         $conversations = $this->getConversationsInOrder($ticket);
-        if (is_null($ticket))
+        if (is_null($ticket)) {
             $currentTicket = $conversations->first();
-        else
+        } else {
             $currentTicket = $ticket;
+        }
 
-
-//        dd($conversations,$currentTicket, $ticket);
         return view('backend.tickets.conversations.list', [
             'conversations' => $conversations,
             'currentConversation' => $currentTicket,
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Ticket|null $ticket
+     * @return Factory|\Illuminate\View\View
+     */
     public function fetchConversations(Request $request, Ticket $ticket = null)
     {
         $conversations = $this->getConversationsInOrder($ticket);
@@ -284,11 +233,17 @@ class TicketController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Ticket|null $ticket
+     * @return array
+     * @throws \Throwable
+     */
     public function fetch(Request $request, Ticket $ticket = null)
     {
         $conversation = Ticket::find($request->conversationId);
 
-        if(!is_null($ticket) && $conversation->project_id != $ticket->id)
+        if (!is_null($ticket) && $conversation->project_id != $ticket->id)
             return ['success' => false];
 
         if (is_null($conversation))
@@ -310,11 +265,16 @@ class TicketController extends Controller
         ];
     }
 
+    /**
+     * @param Request $request
+     * @param Ticket|null $ticket
+     * @return array
+     */
     public function send(Request $request, Ticket $ticket = null)
     {
         $conversation = Ticket::find($request->conversationId);
 
-        if(!is_null($ticket) && $conversation->project_id != $ticket->id)
+        if (!is_null($ticket) && $conversation->project_id != $ticket->id)
             return ['success' => false];
 
         if (is_null($conversation) || !$request->has('text') || is_null($request->text))
@@ -326,18 +286,6 @@ class TicketController extends Controller
             'user_id' => \Auth::id(),
             'body' => $request->text
         ]);
-
-//        $job = new InstagramJob();
-//        $job->type = InstagramJob::TypeMessageSend;
-//        $job->data = json_encode($data);
-//        $job->save();
-
         return ['success' => true];
     }
-
-//    public function projectList(Project $project, Ticket $conversation = null)
-//    {
-//        return $this->list($conversation, $project);
-//    }
-
 }
