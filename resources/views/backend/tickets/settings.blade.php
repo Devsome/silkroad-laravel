@@ -7,6 +7,22 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">{{ __('backend/tickets.settings.title') }}</h1>
         </div>
+        @if ($error = Session::get('error'))
+            <div class="py-3 mt-2">
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $error }}</strong>
+                </div>
+            </div>
+        @endif
+        @if ($message = Session::get('success'))
+            <div class="py-3 mt-2">
+                <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            </div>
+        @endif
         <div class="row">
             <!-- Categories -->
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
@@ -91,7 +107,7 @@
                                                             <i class="fas fa-pen"></i>
                                                         </span>
                                                     </a>
-                                                    <button data-text="{{ __('backend/tickets.priority.delete-text', ['category' => $data->name]) }}"
+                                                    <button data-text="{{ __('backend/tickets.priority.delete-text', ['priority' => $data->name]) }}"
                                                             class="btn btn-danger btn-circle btn-sm delete-btn">
                                                         <span class="icon">
                                                             <i class="fas fa-trash"></i>

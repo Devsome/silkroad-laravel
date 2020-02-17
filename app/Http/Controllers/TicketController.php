@@ -98,8 +98,16 @@ class TicketController extends Controller
      */
     public function categoryDelete($id, Request $request)
     {
-        TicketCategories::findOrFail($id)->delete();
-        return back()->with('success', trans('backend/notification.form-submit.success'));
+        $ticketsWithPriority = Ticket::where('ticket_categories_id', '=', $id)->get();
+
+        if($ticketsWithPriority->count() > 0) {
+            return back()->with('error', trans('backend/notification.form-submit.category-exist'));
+        } else {
+            TicketCategories::findOrFail($id)->delete();
+            return back()->with('success', trans('backend/notification.form-submit.success'));
+        }
+
+
     }
 
     /**
@@ -176,8 +184,14 @@ class TicketController extends Controller
      */
     public function priorityDelete($id, Request $request)
     {
-        TicketPrioritys::findOrFail($id)->delete();
-        return back()->with('success', trans('backend/notification.form-submit.success'));
+        $ticketsWithPriority = Ticket::where('ticket_prioritys_id', '=', $id)->get();
+
+        if($ticketsWithPriority->count() > 0) {
+            return back()->with('error', trans('backend/notification.form-submit.priority-exist'));
+        } else {
+            TicketPrioritys::findOrFail($id)->delete();
+            return back()->with('success', trans('backend/notification.form-submit.success'));
+        }
     }
 
     /**
