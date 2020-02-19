@@ -46,7 +46,6 @@
   .chat_ib h5 {
     font-size: 15px;
     color: #464646;
-    margin: 0 0 8px 0;
   }
 
   .chat_ib h5 span {
@@ -73,19 +72,13 @@
   .chat_list {
     border-bottom: 1px solid #c4c4c4;
     margin: 0;
-    padding: 18px 16px 10px;
+    padding: 10px 10px 5px;
     cursor: pointer;
   }
 
   .inbox_chat {
     height: 550px;
     overflow-y: scroll;
-    border-right: 1px solid;
-    border-color: #c4c4c4;
-  }
-
-  .active_chat {
-    background: #ebebeb;
   }
 
   .received_msg {
@@ -123,7 +116,7 @@
   }
 
   .sent_msg p {
-    background: #05728f none repeat scroll 0 0;
+    background: $primary none repeat scroll 0 0;
     border-radius: 3px;
     font-size: 14px;
     margin: 0;
@@ -178,8 +171,8 @@
 
 
 .conversations {
-  height: calc(100vh - 230px);
-  min-height: calc(100vh - 230px);
+  height: calc(100vh - 200px);
+  min-height: calc(100vh - 200px);
 
   .scroll {
     overflow-y: scroll;

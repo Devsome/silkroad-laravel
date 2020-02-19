@@ -34,9 +34,6 @@ class TicketStatus extends Model
 
     const STATUS_NEW = 1;
     const STATUS_PENDING = 2;
-    const STATUS_DECLINED = 3;
-    const STATUS_CLOSED = 4;
-    const STATUS_CLOSED_BY_USER = 5;
-    const STATUS_CLOSED_BY_ADMIN = 6;
+    const STATUS_CLOSED = 3;
 
 }

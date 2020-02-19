@@ -300,6 +300,10 @@ class TicketController extends Controller
             'user_id' => \Auth::id(),
             'body' => $request->text
         ]);
+
+        Ticket::findOrFail($request->conversationId)->update([
+            'ticket_status_id' => TicketStatus::where('status_id', '=', TicketStatus::STATUS_PENDING)->get()->first()->id
+        ]);
         return ['success' => true];
     }
 }

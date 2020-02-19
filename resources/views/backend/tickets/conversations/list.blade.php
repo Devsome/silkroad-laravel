@@ -4,10 +4,6 @@
     @include('backend.layouts.navbar')
 
     <div class="container-fluid">
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/tickets.title') }}</h1>
-        </div>
-
         <div class="row">
             <div class="col-12">
                 <div class="card shadow mb-4">
@@ -17,9 +13,37 @@
                         </h6>
                     </div>
                     <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4>
+                                    {{ __('backend/tickets.conversation') }}
+                                </h4>
+                                <div class="mb-0 float-right mt-2 mb-2">
+                                    <span class="pr-3">
+                                        {{ __('backend/tickets.from') }}
+                                        <span class="account-id">
+
+                                        </span>
+                                    </span>
+                                    <button data-text="dasdsa"
+                                            data-toggle="tooltip"
+                                            data-placement="right"
+                                            title=""
+                                            class="btn btn-danger delete-btn btn-sm mr-1 "
+                                            data-original-title="Alle Produkte löschen.">
+									<span class="icon">
+										<i class="fas fa-trash"></i>
+                                        Close Ticket
+									</span>
+                                        <form method="post" action="https://sharemedia.esy.io/3/excel/view/delete-all">
+                                            <input type="hidden" name="_token" value="DfjGIgcJKCc3pQHMt9e0ElhVgBQv3nbJXZIfEsKf">
+                                        </form>
+                                    </button>
+                                </div>
+
+                            </div>
                         <div id="custom-chat">
                             <div class="row conversations">
-                                <div class="col-5 col-sm-6 col-lg-3 h-100 scroll">
+                                <div class="col-6 col-sm-6 col-lg-4 h-100 scroll">
                                     <div class="list-group inbox_chat">
                                         @include('backend.tickets.conversations.conversations', [
                                             'conversations' => $conversations,
@@ -27,7 +51,7 @@
                                         ])
                                     </div>
                                 </div>
-                                <div class="col-7 col-sm-6 col-lg-9 h-100 chat">
+                                <div class="col-5 col-sm-6 col-lg-8 h-100 chat">
                                     <div class="spinner" hidden>
                                         <i class="fas fa-circle-notch fa-10x fa-spin"></i>
                                     </div>
@@ -67,6 +91,9 @@
             let conversationId = {{$currentConversation->id}};
             let $chatContent = $('.chatContent');
             let csrf = '{{csrf_token()}}';
+
+            let textContainer = $('#text');
+            let sendContainer = $('#send');
 
             function fetchMessages() {
                 $.get({
@@ -125,8 +152,8 @@
                     let id = $this.data('id');
                     $('.spinner').removeAttr('hidden');
                     loadConversation(id);
-                    $('.chatButtons').removeClass('active_chat');
-                    $('#btn-' + id).addClass('active_chat')
+                    $('.chatButtons').removeClass('bg-gray-200');
+                    $('#btn-' + id).addClass('bg-gray-200')
 
                 });
             }
@@ -140,8 +167,8 @@
             }
 
             function send() {
-                $text = $('#text');
-                $sendBtn = $('#send');
+                $text = textContainer;
+                $sendBtn = sendContainer;
                 let btnText = $sendBtn.html();
                 $sendBtn.html('<i class="fas fa-circle-notch fa-spin"></i>');
 
@@ -161,6 +188,9 @@
                 }).done(function (d) {
                     $text.removeAttr('disabled').val('');
                     $sendBtn.html(btnText);
+                    checkDate();
+                    fetchMessages();
+                    loadConversations();
                 });
             }
 
@@ -171,9 +201,9 @@
             setInterval(fetchMessages, 10000);
             setInterval(loadConversations, 30000);
 
-            $('#send').click(send);
-            $('#text').on('keypress', function (e) {
-                if (e.which == 13) {
+            sendContainer.click(send);
+            textContainer.on('keypress', function (e) {
+                if (e.which === 13) {
                     send();
                 }
             });

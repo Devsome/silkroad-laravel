@@ -4,6 +4,7 @@
             <div class="received_msg">
                 <div class="received_withd_msg">
                     <p>
+                        <span>{{ $message->getUserName->name }}:<br></span>
                         {{ $message->body }}
                     </p>
                     <span class="time_date" data-date="{{ $message->created_at->toIso8601String() }}">

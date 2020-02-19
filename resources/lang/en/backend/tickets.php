@@ -5,6 +5,8 @@ return [
     'headline' => 'Showing all Tickets from the Users',
     'categories' => 'Categories',
     'priorities' => 'Priorities',
+    'conversation' => 'Conversations',
+    'from' => 'Account ID:',
 
     'show' => [
         'title' => 'Ticket',
