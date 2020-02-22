@@ -45,6 +45,15 @@ return [
         'guild-nickname' => 'Guild Nickname:',
         'no-char' => 'Account does not have any Characters created.',
 
+        'silk-history-empty' => 'This user does not have any silk history',
+        'silk-type' => 'Type',
+        'silk-reason' => 'Reason',
+        'silk-remain' => 'Remain',
+        'buy-quantity' => 'Quantity',
+        'auth-date' => 'Auth date',
+        'silk-ip' => 'IP',
+
+
         'punishment' => 'Punishment',
         'punishment-empty' => 'This user does not have any punishment.',
 

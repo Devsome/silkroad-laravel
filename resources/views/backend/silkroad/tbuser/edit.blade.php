@@ -74,6 +74,56 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0">
+                            Silk History
+                        </h6>
+                    </div>
+                    @if($tbuser->getsksilkhistory->isEmpty())
+                        <div class="card-body">
+                            <div class="container mt-2">
+                                <div class="row">
+                                    {{ __('backend/tbuser.edit.silk-history-empty') }}
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable">
+                                    <thead>
+                                    <tr>
+                                        <th>{{ __('backend/tbuser.edit.buy-quantity') }}</th>
+                                        <th>{{ __('backend/tbuser.edit.silk-remain') }}</th>
+                                        <th>{{ __('backend/tbuser.edit.silk-reason') }}</th>
+                                        <th>{{ __('backend/tbuser.edit.silk-type') }}</th>
+                                        <th>{{ __('backend/tbuser.edit.auth-date') }}</th>
+                                        <th>{{ __('backend/tbuser.edit.silk-ip') }}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @forelse($tbuser->getsksilkhistory as $silk)
+                                        <tr>
+                                            <td>{{ $silk->BuyQuantity }}</td>
+                                            <td>{{ $silk->Silk_Remain }}</td>
+                                            <td>{{ $silk->Silk_Reason }}</td>
+                                            <td>{{ $silk->Silk_Type }}</td>
+                                            <td>{{ $silk->AuthDate }}</td>
+                                            <td>{{ $silk->IP }}</td>
+                                        </tr>
+                                    @empty
+                                        {{ __('backend/tbuser.edit.silk-history-empty') }}
+                                    @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @endif
+
+                </div>
+
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                 <div class="card shadow mb-4">
@@ -343,24 +393,22 @@
 @push('javascript')
     <script>
         $(document).ready(function () {
-            $(document).ready(function () {
-                $('#punishmentModalDelete').find('.modal-footer #confirm').on('click', function () {
-                    $(this).data('form').submit();
-                });
-                $('#punishmentModalDelete').on('show.bs.modal', function (e) {
-                    $(this).find('.modal-body p').text($(e.relatedTarget).attr('data-message'));
-                    $(this).find('.modal-title').text($(e.relatedTarget).attr('data-title'));
+            $('#punishmentModalDelete').find('.modal-footer #confirm').on('click', function () {
+                $(this).data('form').submit();
+            });
+            $('#punishmentModalDelete').on('show.bs.modal', function (e) {
+                $(this).find('.modal-body p').text($(e.relatedTarget).attr('data-message'));
+                $(this).find('.modal-title').text($(e.relatedTarget).attr('data-title'));
 
-                    let form = $(e.relatedTarget).closest('form');
-                    $(this).find('.modal-footer #confirm').data('form', form);
-                });
-                $('form[data-form="deleteForm"]').on('click', '.form-delete', function (e) {
-                    e.preventDefault();
-                    $('#confirm').modal({backdrop: 'static', keyboard: false})
-                        .on('click', '#delete-btn', function () {
-                            $('form[data-form="deleteForm"]').submit();
-                        });
-                });
+                let form = $(e.relatedTarget).closest('form');
+                $(this).find('.modal-footer #confirm').data('form', form);
+            });
+            $('form[data-form="deleteForm"]').on('click', '.form-delete', function (e) {
+                e.preventDefault();
+                $('#confirm').modal({backdrop: 'static', keyboard: false})
+                    .on('click', '#delete-btn', function () {
+                        $('form[data-form="deleteForm"]').submit();
+                    });
             });
             $('#dataTable').DataTable({
                 "order": [[0, "desc"]],
