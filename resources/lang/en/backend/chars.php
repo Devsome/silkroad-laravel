@@ -19,6 +19,8 @@ return [
         'level' => 'Level',
         'jobname' => 'Job name',
         'last-logout' => 'Last logout',
+        'account-id' => 'Account',
+        'visit-account' => 'Show account',
         'guild' => 'Guild',
         'gold' => 'Remain Gold',
         'equipment' => 'Equipment',

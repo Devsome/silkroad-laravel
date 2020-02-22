@@ -54,6 +54,14 @@
                                             <td>{{ $char->LastLogout }}</td>
                                         </tr>
                                         <tr>
+                                            <td>{{ __('backend/chars.edit.account-id') }}</td>
+                                            <td>
+                                                <a href="{{ route('sro-user-edit-backend', ['user' => $tbUser]) }}" target="_blank">
+                                                    {{ __('backend/chars.edit.visit-account') }} <i class="fas fa-external-link-alt"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>{{ __('backend/chars.edit.guild') }}</td>
                                             <td>
                                                 @if($char->getGuildUser)

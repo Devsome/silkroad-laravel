@@ -28,19 +28,12 @@ class User extends Model
     protected $table = 'dbo._User';
 
     /**
-     * The table primary Key
-     *
-     * @var string
-     */
-    protected $primaryKey = 'UserJID';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-
+        'UserJID', 'CharID'
     ];
 
 }

@@ -13,6 +13,7 @@ use App\Model\SRO\Account\SkSilk;
 use App\Model\SRO\Account\SkSilkBuyList;
 use App\Model\SRO\Account\TbUser;
 use App\Model\SRO\Shard\Char;
+use App\Model\SRO\Shard\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Validator;
@@ -83,9 +84,12 @@ class SilkroadController extends Controller
     {
         $char = Char::findOrFail($char);
         $loggedInHistory = LoginHistoryLog::where('CharID', $char->CharID)->get();
+        $tbUser = User::where('CharID', $char->CharID)->get()->first();
+
         return view('backend.silkroad.chars.edit', [
             'char' => $char,
-            'loggedInHistory' => $loggedInHistory
+            'loggedInHistory' => $loggedInHistory,
+            'tbUser' => $tbUser->UserJID
         ]);
     }
 
