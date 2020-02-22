@@ -2,6 +2,7 @@
 
 namespace App\Model\SRO\Shard;
 
+use App\Model\SRO\Account\LoginHistoryLog;
 use App\Model\SRO\Account\OnlineOfflineLog;
 use Illuminate\Database\Eloquent\Model;
 
@@ -134,5 +135,13 @@ class Char extends Model
     public function getCharOnlineOffline()
     {
         return $this->belongsTo(OnlineOfflineLog::class, 'CharID', 'CharID');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getLoggedInHistory()
+    {
+        return $this->hasMany(LoginHistoryLog::class, 'CharID', 'CharID');
     }
 }

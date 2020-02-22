@@ -32,6 +32,15 @@ return [
             'modal-title' => 'Unstuck',
             'modal-body' => 'Are you sure you wanna Unstuck :char?',
             'submit' => 'Unstuck!',
+        ],
+
+        'logged-history' => [
+            'title' => 'Logged in history',
+            'state' => 'State',
+            'in' => 'Logged in',
+            'out' => 'Logged out',
+            'date' => 'Date',
+            'empty' => 'Still not logged in our out',
         ]
     ],
 

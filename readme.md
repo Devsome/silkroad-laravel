@@ -27,6 +27,9 @@ We now have a Discord [server](https://discord.gg/MNjY4By) for questions, feedba
         ```sql
         BEGIN
             SET NOCOUNT ON;
+               INSERT INTO loginhistory ([CharID], [status])
+               VALUES (@CharID, @EventId)
+
                IF EXISTS (SELECT 1 FROM onlineofflinelog WHERE CharID = @CharID)
                     UPDATE onlineofflinelog
                     SET    status = @EventID
@@ -36,7 +39,7 @@ We now have a Discord [server](https://discord.gg/MNjY4By) for questions, feedba
                    VALUES  (@CharID, @EventID)
         END
         ```
-        That inserts a record into the `SRO_VT_LOG.onlineofflinelog`. If you think, that you are missing that table. Do the next step and the Table exist.
+        That inserts a record into the `SRO_VT_LOG.onlineofflinelog` & `SRO_VT_LOG.loginhistory`. If you think, that you are missing that table. Do the next step and the Table exist.
     3. Laravel stuff
         ```bash
         php artisan storage:link && php artisan key:generate && php artisan migrate --seed

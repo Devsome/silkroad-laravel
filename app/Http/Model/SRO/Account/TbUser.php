@@ -75,6 +75,9 @@ class TbUser extends Model
         return $this->belongsTo(SkSilk::class, 'JID', 'JID');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function getSkSilkHistory()
     {
         return $this->hasMany(SkSilkBuyList::class, 'UserJID', 'JID');

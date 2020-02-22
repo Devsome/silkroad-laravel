@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Model\SRO\Account;
+namespace App\Model\SRO\Log;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OnlineOfflineLog extends Model
+class LoginHistoryLog extends Model
 {
 
     /*
@@ -13,6 +13,8 @@ class OnlineOfflineLog extends Model
         BEGIN
 	      -- SET NOCOUNT ON added to prevent extra result sets from
 	      SET NOCOUNT ON;
+            INSERT INTO loginhistory ([CharID], [status])
+			VALUES (@CharID, @EventId)
 	      IF EXISTS (SELECT 1 FROM onlineofflinelog WHERE CharID = @CharID)
 	        UPDATE onlineofflinelog
 	        SET    status = @EventID
@@ -42,7 +44,7 @@ class OnlineOfflineLog extends Model
      *
      * @var string
      */
-    protected $table = 'dbo.onlineofflinelog';
+    protected $table = 'dbo.loginhistory';
 
     /**
      * The attributes that are mass assignable.

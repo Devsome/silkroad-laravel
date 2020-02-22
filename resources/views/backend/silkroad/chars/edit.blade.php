@@ -75,7 +75,7 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">
+                        <h6 class="m-0">
                             {{ __('backend/chars.edit.unstuck.title') }}
                         </h6>
                     </div>
@@ -117,7 +117,41 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
 
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0">
+                            {{ __('backend/chars.edit.logged-history.title') }}
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive table-borderless">
+                            <table id="loggedInHistory" class="table table-hover dataTable">
+                                <thead>
+                                <tr>
+                                    <th scope="col">{{ __('backend/chars.edit.logged-history.state') }}</th>
+                                    <th scope="col">{{ __('backend/chars.edit.logged-history.date') }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @forelse($loggedInHistory as $log)
+                                    <tr>
+                                        <td>
+                                            {{ $log->status == 4 ? __('backend/chars.edit.logged-history.in') :
+                                            __('backend/chars.edit.logged-history.out') }}
+                                        </td>
+                                        <td>{{ $log->created_at }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td>{{ __('backend/chars.edit.logged-history.empty') }}</td>
+                                    </tr>
+                                @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -243,6 +277,23 @@
                         $('form[data-form="deleteForm"]').submit();
                     });
             });
+
+
+            $('#loggedInHistory').DataTable({
+                bLengthChange: false,
+                columnDefs: [
+                    {
+                        "targets": 1,
+                        "orderable": false,
+                        "searchable": false,
+                    }
+                ],
+                order: [
+                    [1, 'desc']
+                ],
+                dom: 'btrp',
+            });
+
         });
     </script>
 @endpush

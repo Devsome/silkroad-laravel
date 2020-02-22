@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Library\Services\SRO\Shard\CharService;
 use App\Library\Services\SRO\Shard\InventoryService;
 use App\Model\SRO\Account\BlockedUser;
+use App\Model\SRO\Log\LoginHistoryLog;
 use App\Model\SRO\Account\OnlineOfflineLog;
 use App\Model\SRO\Account\Punishment;
 use App\Model\SRO\Account\SkSilk;
@@ -81,8 +82,10 @@ class SilkroadController extends Controller
     public function sroPlayerEdit($char)
     {
         $char = Char::findOrFail($char);
+        $loggedInHistory = LoginHistoryLog::where('CharID', $char->CharID)->get();
         return view('backend.silkroad.chars.edit', [
-            'char' => $char
+            'char' => $char,
+            'loggedInHistory' => $loggedInHistory
         ]);
     }
 
