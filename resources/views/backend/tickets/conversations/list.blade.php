@@ -13,45 +13,35 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h4>
-                                    {{ __('backend/tickets.conversation') }}
-                                </h4>
-                                <div class="mb-0 float-right mt-2 mb-2">
-                                    <span class="pr-3">
-                                        {{ __('backend/tickets.from') }}
-                                        <span class="account-id">
-
-                                        </span>
+                        <div class="d-flex justify-content-between align-items-center ticket-actions">
+                            <h4>
+                                {{ __('backend/tickets.conversation') }}
+                            </h4>
+                            <div class="mb-0 float-right mt-2 mb-2">
+                                <form method="POST" data-form="deleteForm">
+                                    @csrf
+                                    <span data-toggle="modal" data-target="#ticketModalDelete"
+                                          data-title="{{ __('backend/tickets.close-title') }}"
+                                          data-message="{{ __('backend/tickets.close-message') }}"
+                                          class="btn btn-danger btn-sm mr-1" style="cursor: pointer">
+                                        <i class="fa fa-trash"></i> {{ __('backend/tickets.close-btn') }}
                                     </span>
-                                    <button data-text="dasdsa"
-                                            data-toggle="tooltip"
-                                            data-placement="right"
-                                            title=""
-                                            class="btn btn-danger delete-btn btn-sm mr-1 "
-                                            data-original-title="Alle Produkte löschen.">
-									<span class="icon">
-										<i class="fas fa-trash"></i>
-                                        Close Ticket
-									</span>
-                                        <form method="post" action="https://sharemedia.esy.io/3/excel/view/delete-all">
-                                            <input type="hidden" name="_token" value="DfjGIgcJKCc3pQHMt9e0ElhVgBQv3nbJXZIfEsKf">
-                                        </form>
-                                    </button>
-                                </div>
-
+                                </form>
                             </div>
+                        </div>
                         <div id="custom-chat">
                             <div class="row conversations">
-                                <div class="col-6 col-sm-6 col-lg-4 h-100 scroll">
-                                    <div class="list-group inbox_chat">
+                                <div class="col-4 col-4 col-md-5 col-lg-5 h-100 scroll">
+                                    <div class="inbox_chat support-content">
+                                        <ul class="list-group fa-padding">
                                         @include('backend.tickets.conversations.conversations', [
                                             'conversations' => $conversations,
                                             'conversationId' => $currentConversation->id,
                                         ])
+                                        </ul>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-6 col-lg-8 h-100 chat">
+                                <div class="col-8 col-sm-8 col-md-7 col-lg-7 h-100 chat">
                                     <div class="spinner" hidden>
                                         <i class="fas fa-circle-notch fa-10x fa-spin"></i>
                                     </div>
@@ -80,6 +70,29 @@
         </div>
     </div>
 
+    <div class="modal fade" id="ticketModalDelete" role="dialog" aria-labelledby="ticketModalDeleteLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary"
+                            data-dismiss="modal">{{ __('backend/notification.modal.return') }}</button>
+                    <button type="button" class="btn btn-sm btn-danger"
+                            id="confirm">{{ __('backend/notification.modal.submit') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @push('javascript')
@@ -94,6 +107,32 @@
 
             let textContainer = $('#text');
             let sendContainer = $('#send');
+
+            $('#ticketModalDelete').find('.modal-footer #confirm').on('click', function () {
+                $.post({
+                    url: '{{ route('ticket-close-backend') }}',
+                    data: {
+                        conversationId: conversationId
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': csrf,
+                    },
+                }).done(function (d) {
+                    $('#ticketModalDelete').modal('toggle');
+                    checkDate();
+                    fetchMessages();
+                    loadConversations();
+                });
+
+            });
+            $('#ticketModalDelete').on('show.bs.modal', function (e) {
+                console.log(2);
+                $(this).find('.modal-body p').text($(e.relatedTarget).attr('data-message'));
+                $(this).find('.modal-title').text($(e.relatedTarget).attr('data-title'));
+
+                let form = $(e.relatedTarget).closest('form');
+                $(this).find('.modal-footer #confirm').data('form', form);
+            });
 
             function fetchMessages() {
                 $.get({
@@ -173,8 +212,6 @@
                 $sendBtn.html('<i class="fas fa-circle-notch fa-spin"></i>');
 
                 $text.attr('disabled', 'disabled');
-
-                console.log($text.val());
 
                 $.post({
                     url: '{{ route('ticket-send-backend') }}',

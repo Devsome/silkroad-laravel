@@ -3,77 +3,11 @@
 
 #custom-chat {
 
+  font-size: 12.6px;
+
   .container {
     max-width: 1170px;
     margin: auto;
-  }
-
-  img {
-    max-width: 100%;
-  }
-
-  .inbox_people {
-    background: #f8f8f8 none repeat scroll 0 0;
-    float: left;
-    overflow: hidden;
-    width: 40%;
-    border-right: 1px solid #c4c4c4;
-  }
-
-  .inbox_msg {
-    border: 1px solid #c4c4c4;
-    clear: both;
-    overflow: hidden;
-  }
-
-
-  .recent_heading {
-    float: left;
-  }
-
-  .headind_srch {
-    padding: 10px 29px 10px 20px;
-    overflow: hidden;
-    border-bottom: 1px solid #c4c4c4;
-  }
-
-  .recent_heading h4 {
-    color: $primary;
-    font-size: 19px;
-    margin: auto;
-  }
-
-  .chat_ib h5 {
-    font-size: 15px;
-    color: #464646;
-  }
-
-  .chat_ib h5 span {
-    font-size: 13px;
-    float: right;
-  }
-
-  .chat_ib p {
-    font-size: 14px;
-    color: #989898;
-    margin: auto
-  }
-
-  .chat_ib {
-    float: left;
-    width: 100%;
-  }
-
-  .chat_people {
-    overflow: hidden;
-    clear: both;
-  }
-
-  .chat_list {
-    border-bottom: 1px solid #c4c4c4;
-    margin: 0;
-    padding: 10px 10px 5px;
-    cursor: pointer;
   }
 
   .inbox_chat {
@@ -109,12 +43,6 @@
     width: 57%;
   }
 
-  .mesgs {
-    float: left;
-    padding: 30px 15px 0 25px;
-    width: 60%;
-  }
-
   .sent_msg p {
     background: $primary none repeat scroll 0 0;
     border-radius: 3px;
@@ -135,44 +63,45 @@
     width: 46%;
   }
 
-  .input_msg_write input {
-    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-    border: medium none;
-    color: #4c4c4c;
-    font-size: 15px;
-    min-height: 48px;
-    width: 100%;
+  .chatButtons {
+    margin-bottom: 10px;
   }
 
-  .type_msg {
-    border-top: 1px solid #c4c4c4;
-    position: relative;
+  .support-content h2 {
+    margin-top: 5px;
   }
 
-  .msg_send_btn {
-    background: #05728f none repeat scroll 0 0;
-    border: medium none;
-    border-radius: 50%;
-    color: #fff;
+  .support-content .list-group li {
+    padding: 15px 20px 12px 20px;
     cursor: pointer;
-    font-size: 17px;
-    height: 33px;
-    position: absolute;
-    right: 0;
-    top: 11px;
-    width: 33px;
   }
 
-  .messaging {
-    padding: 0 0 50px 0;
+  .support-content .list-group li:hover {
+    background: #eee;
+  }
+
+  .support-content .fa-padding .fa {
+    padding-top: 5px;
+    width: 1.5em;
+  }
+
+  .support-content .info {
+    color: #777;
+    margin: 0px;
   }
 
 }
 
+.ticket-actions {
+  -webkit-box-shadow: 0 10px 3px -8px rgba(0,0,0,0.56);
+  -moz-box-shadow: 0 10px 3px -8px rgba(0,0,0,0.56);
+  box-shadow: 0 10px 3px -8px rgba(0,0,0,0.56);
+  margin-bottom: 10px;
+}
 
 .conversations {
-  height: calc(100vh - 200px);
-  min-height: calc(100vh - 200px);
+  height: calc(100vh - 250px);
+  min-height: calc(100vh - 250px);
 
   .scroll {
     overflow-y: scroll;

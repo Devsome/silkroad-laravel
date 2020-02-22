@@ -7,6 +7,12 @@ return [
     'priorities' => 'Priorities',
     'conversation' => 'Conversations',
     'from' => 'Account ID:',
+    'opened-by-user' => 'Opened by',
+    'close-btn' => 'Close Ticket',
+    'close-title' => 'Closing the ticket',
+    'close-message' => 'Are you sure you want to close that Ticket and inform that user via E-Mail?',
+
+    'category-name' => 'Category: :name',
 
     'show' => [
         'title' => 'Ticket',

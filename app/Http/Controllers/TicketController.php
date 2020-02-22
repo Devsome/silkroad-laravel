@@ -31,6 +31,26 @@ class TicketController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return array
+     */
+    public function close(Request $request)
+    {
+        $ticket = Ticket::find($request->conversationId);
+
+        if($ticket->ticket_status_id === TicketStatus::STATUS_CLOSED) {
+            $state = TicketStatus::STATUS_FINAL_CLOSE;
+        } else {
+            $state = TicketStatus::STATUS_CLOSED;
+        }
+        $ticket->update([
+            'ticket_status_id' => $state
+        ]);
+
+        return ['success' => true];
+    }
+
+    /**
      * @param $id
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\View\View
@@ -288,12 +308,25 @@ class TicketController extends Controller
     {
         $conversation = Ticket::find($request->conversationId);
 
+        if($conversation->ticket_status_id === TicketStatus::STATUS_FINAL_CLOSE) {
+            return ['success' => false];
+        }
+
         if (!is_null($ticket) && $conversation->project_id != $ticket->id)
             return ['success' => false];
 
         if (is_null($conversation) || !$request->has('text') || is_null($request->text))
             return ['success' => false];
 
+        if($conversation->ticket_status_id === TicketStatus::STATUS_CLOSED) {
+            Ticket::findOrFail($request->conversationId)->update([
+                'ticket_status_id' => TicketStatus::STATUS_REOPEN
+            ]);
+        } else {
+            Ticket::findOrFail($request->conversationId)->update([
+                'ticket_status_id' => TicketStatus::STATUS_PENDING
+            ]);
+        }
 
         TicketAnswer::create([
             'ticket_id' => $request->conversationId,
@@ -301,9 +334,7 @@ class TicketController extends Controller
             'body' => $request->text
         ]);
 
-        Ticket::findOrFail($request->conversationId)->update([
-            'ticket_status_id' => TicketStatus::where('status_id', '=', TicketStatus::STATUS_PENDING)->get()->first()->id
-        ]);
+
         return ['success' => true];
     }
 }

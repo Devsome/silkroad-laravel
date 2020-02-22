@@ -35,5 +35,7 @@ class TicketStatus extends Model
     const STATUS_NEW = 1;
     const STATUS_PENDING = 2;
     const STATUS_CLOSED = 3;
+    const STATUS_REOPEN = 4;
+    const STATUS_FINAL_CLOSE = 5;
 
 }

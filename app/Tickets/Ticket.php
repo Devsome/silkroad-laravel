@@ -43,7 +43,7 @@ class Ticket extends Model
      */
     public function getStatusName()
     {
-        return $this->belongsTo(TicketStatus::class, 'ticket_status_id', 'id');
+        return $this->belongsTo(TicketStatus::class, 'ticket_status_id', 'status_id');
     }
 
     /**
