@@ -47,6 +47,12 @@
             <span>{{ __('backend/menu.tickets-settings') }}</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('voucher-index-backend') }}">
+            <i class="fas fa-fw fa-gift"></i>
+            <span>{{ __('backend/menu.voucher') }}</span>
+        </a>
+    </li>
 
 
     <div class="sidebar-heading">

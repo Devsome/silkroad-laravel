@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.3.8",
         "fideloper/proxy": "^4.0",
+        "frittenkeez/laravel-vouchers": "^0.1.8",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
         "spatie/laravel-permission": "^3.4",

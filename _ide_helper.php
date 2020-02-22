@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 6.9.0 on 2020-01-20 22:32:50.
+ * Generated for Laravel 6.9.0 on 2020-02-22 15:02:36.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -15517,6 +15517,153 @@ namespace Barryvdh\Debugbar {
  
 }
 
+namespace FrittenKeeZ\Vouchers\Facades { 
+
+    /**
+     * 
+     *
+     */ 
+    class Vouchers {
+        
+        /**
+         * Get current voucher config.
+         *
+         * @return \FrittenKeeZ\Vouchers\Config 
+         * @static 
+         */ 
+        public static function getConfig()
+        {
+                        /** @var \FrittenKeeZ\Vouchers\Vouchers $instance */
+                        return $instance->getConfig();
+        }
+        
+        /**
+         * Create an amount of vouchers.
+         * 
+         * Defaults to a single voucher if amount is absent.
+         *
+         * @param int $amount
+         * @return object|array 
+         * @static 
+         */ 
+        public static function create($amount = 1)
+        {
+                        /** @var \FrittenKeeZ\Vouchers\Vouchers $instance */
+                        return $instance->create($amount);
+        }
+        
+        /**
+         * Redeem a voucher code.
+         * 
+         * Returns whether redemption was successful.
+         *
+         * @param string $code
+         * @param \Illuminate\Database\Eloquent\Model $entity Redeemer entity.
+         * @param array $metadata Additional metadata for redeemer.
+         * @return bool 
+         * @throws \FrittenKeeZ\Vouchers\Exceptions\VoucherNotFoundException
+         * @throws \FrittenKeeZ\Vouchers\Exceptions\VoucherAlreadyRedeemedException
+         * @static 
+         */ 
+        public static function redeem($code, $entity, $metadata = [])
+        {
+                        /** @var \FrittenKeeZ\Vouchers\Vouchers $instance */
+                        return $instance->redeem($code, $entity, $metadata);
+        }
+        
+        /**
+         * Whether a voucher code is redeemable.
+         *
+         * @param string $code
+         * @return bool 
+         * @static 
+         */ 
+        public static function redeemable($code)
+        {
+                        /** @var \FrittenKeeZ\Vouchers\Vouchers $instance */
+                        return $instance->redeemable($code);
+        }
+        
+        /**
+         * Generate a batch a codes, using the mask and character list from the config.
+         * 
+         * Codes are checked against the database to ensure uniqueness.
+         *
+         * @param int $amount
+         * @return string[]|array 
+         * @static 
+         */ 
+        public static function batch($amount)
+        {
+                        /** @var \FrittenKeeZ\Vouchers\Vouchers $instance */
+                        return $instance->batch($amount);
+        }
+        
+        /**
+         * Generate a random code in the given mask format limited to the provided character list.
+         * 
+         * All asterisks (*) in the mask will be replaced by a random character.
+         * If no mask or character list is provided, defaults will be used from config.
+         *
+         * @param string|null $mask
+         * @param string|null $characters
+         * @return string 
+         * @static 
+         */ 
+        public static function generate($mask = null, $characters = null)
+        {
+                        /** @var \FrittenKeeZ\Vouchers\Vouchers $instance */
+                        return $instance->generate($mask, $characters);
+        }
+        
+        /**
+         * Wrap string in prefix and suffix with separator.
+         *
+         * @param string $str
+         * @param string|null $prefix
+         * @param string|null $suffix
+         * @param string $separator
+         * @return string 
+         * @static 
+         */ 
+        public static function wrap($str, $prefix, $suffix, $separator)
+        {
+                        /** @var \FrittenKeeZ\Vouchers\Vouchers $instance */
+                        return $instance->wrap($str, $prefix, $suffix, $separator);
+        }
+        
+        /**
+         * Whether the given code already exists.
+         * 
+         * Optionally check a given list of codes, before checking the database.
+         *
+         * @param string $code
+         * @param array $codes
+         * @return bool 
+         * @static 
+         */ 
+        public static function exists($code, $codes = [])
+        {
+                        /** @var \FrittenKeeZ\Vouchers\Vouchers $instance */
+                        return $instance->exists($code, $codes);
+        }
+        
+        /**
+         * Reset voucher options.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function reset()
+        {
+                        /** @var \FrittenKeeZ\Vouchers\Vouchers $instance */
+                        $instance->reset();
+        }
+         
+    }
+ 
+}
+
 
 namespace  { 
 
@@ -18382,6 +18529,8 @@ namespace  {
     class DataTables extends \Yajra\DataTables\Facades\DataTables {}
 
     class Debugbar extends \Barryvdh\Debugbar\Facade {}
+
+    class Vouchers extends \FrittenKeeZ\Vouchers\Facades\Vouchers {}
  
 }
 

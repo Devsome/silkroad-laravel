@@ -65,11 +65,11 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
         Route::post('/players/{char}/unstuck', 'Backend\SilkroadController@sroUnstuckChar')->name('sro-players-unstuck');
     });
 
+    // Web
     Route::group(['prefix' => 'web'], function () {
         Route::group(['prefix' => 'downloads'], function () {
             Route::get('/', 'Backend\DownloadsController@index')->name('downloads-index-backend');
             Route::get('/add', 'Backend\DownloadsController@create')->name('downloads-create-backend');
-            Route::get('/create', 'Backend\DownloadsController@show')->name('downloads-show-backend');
             Route::post('/create', 'Backend\DownloadsController@create')->name('downloads-create-backend');
             Route::get('/{download}/edit', 'Backend\DownloadsController@edit')->name('downloads-edit-backend');
             Route::patch('/{download}/update', 'Backend\DownloadsController@update')->name('downloads-update-backend');
@@ -85,6 +85,14 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
         Route::resource('/news', 'Backend\NewsController', [
             'as' => 'backend-news'
         ]);
+
+        Route::group(['prefix' => 'voucher'], function () {
+            Route::get('/', 'Backend\VoucherController@index')->name('voucher-index-backend');
+            Route::get('/datatables', 'Backend\VoucherController@indexDatatables')->name('voucher-index-datatables-backend');
+            Route::get('/add', 'Backend\VoucherController@addForm')->name('voucher-add-backend');
+            Route::post('/create', 'Backend\VoucherController@create')->name('voucher-create-backend');
+            Route::post('/{id}/destroy', 'Backend\VoucherController@destroy')->name('voucher-destroy-backend');
+        });
     });
 
     // Logging

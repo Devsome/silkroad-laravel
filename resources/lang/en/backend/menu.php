@@ -15,6 +15,7 @@ return [
     'images' => 'Images',
     'tickets' => 'Tickets',
     'tickets-settings' => 'Tickets Settings',
+    'voucher' => 'Voucher (E-PIN)',
 
     'notice' => 'Launcher notice',
     'tbuser' => 'Accounts',
