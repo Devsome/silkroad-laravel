@@ -20,7 +20,7 @@ class UsersCreatedCounts extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'You dont need to run it';
 
     /**
      * Create a new command instance.

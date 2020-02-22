@@ -2,8 +2,33 @@
 
 return [
     'title' => 'Ticket Dashboard',
+    'headline' => 'Showing all Tickets from the Users',
     'categories' => 'Categories',
     'priorities' => 'Priorities',
+    'conversation' => 'Conversations',
+    'from' => 'Account ID:',
+    'opened-by-user' => 'Opened by',
+    'close-btn' => 'Close Ticket',
+    'close-title' => 'Closing the ticket',
+    'close-message' => 'Are you sure you want to close that Ticket and inform that user via E-Mail?',
+
+    'category-name' => 'Category: :name',
+
+    'show' => [
+        'title' => 'Ticket',
+    ],
+
+    'settings' => [
+        'title' => 'Ticket Settings',
+    ],
+
+    'chat' => [
+        'recent' => 'Newest Tickets',
+        'from-user' => ':user',
+        'priority' => 'Priority:',
+        'status' => 'Status:',
+        'send-placeholder' => 'Your answer',
+    ],
 
     'table' => [
         'from' => 'From User',
@@ -13,6 +38,7 @@ return [
         'priority' => 'Priority',
         'status' => 'Status',
         'created_at' => 'Created at',
+        'action' => 'Action',
     ],
 
     'category' => [

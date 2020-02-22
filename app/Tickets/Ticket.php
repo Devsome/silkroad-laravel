@@ -11,7 +11,7 @@ class Ticket extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'user_assigned_id', 'ticket_categories_id', 'title', 'ticket_prioritys_id', 'body', 'ticket_status_id'
+        'user_id', 'user_assigned_id', 'ticket_categories_id', 'title', 'ticket_prioritys_id', 'ticket_status_id'
     ];
 
     /**
@@ -43,6 +43,14 @@ class Ticket extends Model
      */
     public function getStatusName()
     {
-        return $this->belongsTo(TicketStatus::class, 'ticket_status_id', 'id');
+        return $this->belongsTo(TicketStatus::class, 'ticket_status_id', 'status_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getAnswers()
+    {
+        return $this->hasMany(TicketAnswer::class, 'ticket_id', 'id');
     }
 }

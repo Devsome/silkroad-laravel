@@ -3,23 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Tickets\Ticket;
+use App\Tickets\TicketAnswer;
 use App\Tickets\TicketCategories;
 use App\Tickets\TicketPrioritys;
 use App\Tickets\TicketStatus;
+use DB;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
 use Yajra\DataTables\DataTables;
 
 class TicketController extends Controller
 {
+
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
-    public function index()
+    public function settings()
     {
-        return view('backend.tickets.index', [
-            'ticket-count' => Ticket::count(),
+        return view('backend.tickets.settings', [
             'categories' => TicketCategories::all(),
             'prioritys' => TicketPrioritys::all(),
             'status' => TicketStatus::all()
@@ -27,32 +31,35 @@ class TicketController extends Controller
     }
 
     /**
-     * @return mixed
-     * @throws \Exception
+     * @param Request $request
+     * @return array
      */
-    public function indexDatatables()
+    public function close(Request $request)
     {
-        $tickets = Ticket::with('getUserName')
-            ->with('getCategoryName')
-            ->with('getPriorityName')
-            ->with('getStatusName')
-            ->select('tickets.*');
+        $ticket = Ticket::find($request->conversationId);
 
-        return Datatables::of($tickets)
-            ->make(true);
+        if($ticket->ticket_status_id === TicketStatus::STATUS_CLOSED) {
+            $state = TicketStatus::STATUS_FINAL_CLOSE;
+        } else {
+            $state = TicketStatus::STATUS_CLOSED;
+        }
+        $ticket->update([
+            'ticket_status_id' => $state
+        ]);
+
+        return ['success' => true];
     }
 
     /**
      * @param $id
      * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function categoryUpdate($id, Request $request)
     {
         $category = TicketCategories::find($id);
 
-        if ($request->getMethod() === 'POST')
-        {
+        if ($request->getMethod() === 'POST') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|min:2|max:100',
                 '_token' => 'required'
@@ -77,7 +84,7 @@ class TicketController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function categoryCreate(Request $request)
     {
@@ -111,21 +118,28 @@ class TicketController extends Controller
      */
     public function categoryDelete($id, Request $request)
     {
-        TicketCategories::findOrFail($id)->delete();
-        return back()->with('success', trans('backend/notification.form-submit.success'));
+        $ticketsWithPriority = Ticket::where('ticket_categories_id', '=', $id)->get();
+
+        if($ticketsWithPriority->count() > 0) {
+            return back()->with('error', trans('backend/notification.form-submit.category-exist'));
+        } else {
+            TicketCategories::findOrFail($id)->delete();
+            return back()->with('success', trans('backend/notification.form-submit.success'));
+        }
+
+
     }
 
     /**
      * @param $id
      * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function priorityUpdate($id, Request $request)
     {
         $priority = TicketPrioritys::find($id);
 
-        if ($request->getMethod() === 'POST')
-        {
+        if ($request->getMethod() === 'POST') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|min:2|max:100',
                 'color' => 'required',
@@ -153,7 +167,7 @@ class TicketController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function priorityCreate(Request $request)
     {
@@ -190,7 +204,137 @@ class TicketController extends Controller
      */
     public function priorityDelete($id, Request $request)
     {
-        TicketPrioritys::findOrFail($id)->delete();
-        return back()->with('success', trans('backend/notification.form-submit.success'));
+        $ticketsWithPriority = Ticket::where('ticket_prioritys_id', '=', $id)->get();
+
+        if($ticketsWithPriority->count() > 0) {
+            return back()->with('error', trans('backend/notification.form-submit.priority-exist'));
+        } else {
+            TicketPrioritys::findOrFail($id)->delete();
+            return back()->with('success', trans('backend/notification.form-submit.success'));
+        }
+    }
+
+    /**
+     * @param Ticket|null $ticket
+     * @return mixed
+     */
+    protected function getConversationsInOrder(Ticket $ticket = null)
+    {
+        $query = TicketAnswer::select(['ticket_id', DB::raw('MAX(created_at) as created_at')])
+            ->orderBy('created_at', 'desc')
+            ->with('conversation')
+            ->groupBy('ticket_id');
+
+        if (!is_null($ticket))
+            $query->whereHas('conversation', function ($query) use ($ticket) {
+                $query->where('ticket_id', $ticket->id);
+            });
+
+        return $query->get()->pluck('conversation');
+
+    }
+
+    /**
+     * @param Ticket|null $ticket
+     * @return Factory|\Illuminate\View\View
+     */
+    public function list(Ticket $ticket = null)
+    {
+        $conversations = $this->getConversationsInOrder($ticket);
+        if (is_null($ticket)) {
+            $currentTicket = $conversations->first();
+        } else {
+            $currentTicket = $ticket;
+        }
+
+        return view('backend.tickets.conversations.list', [
+            'conversations' => $conversations,
+            'currentConversation' => $currentTicket,
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param Ticket|null $ticket
+     * @return Factory|\Illuminate\View\View
+     */
+    public function fetchConversations(Request $request, Ticket $ticket = null)
+    {
+        $conversations = $this->getConversationsInOrder($ticket);
+        return view('backend.tickets.conversations.conversations', [
+            'conversations' => $conversations,
+            'conversationId' => $request->conversationId,
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param Ticket|null $ticket
+     * @return array
+     * @throws \Throwable
+     */
+    public function fetch(Request $request, Ticket $ticket = null)
+    {
+        $conversation = Ticket::find($request->conversationId);
+
+        if (!is_null($ticket) && $conversation->project_id != $ticket->id)
+            return ['success' => false];
+
+        if (is_null($conversation))
+            return ['success' => false];
+
+        $query = $conversation->getAnswers()->where('ticket_id', $conversation->id)->orderBy('created_at', 'asc');
+        if ($request->has('lastMessage'))
+            $query->where('created_at', '>', Carbon::rawCreateFromFormat(Carbon::ISO8601, $request->lastMessage));
+        $messages = $query->get();
+
+        return [
+            'found' => $messages->count() != 0,
+            'lastMessage' => $messages->count() == 0 ? '' : $messages->last()->created_at->toIso8601String(),
+            'html' => view('backend.tickets.conversations.chat', [
+                'messages' => $messages,
+                'ticket' => $conversation
+            ])->render(),
+            'success' => true,
+        ];
+    }
+
+    /**
+     * @param Request $request
+     * @param Ticket|null $ticket
+     * @return array
+     */
+    public function send(Request $request, Ticket $ticket = null)
+    {
+        $conversation = Ticket::find($request->conversationId);
+
+        if($conversation->ticket_status_id === TicketStatus::STATUS_FINAL_CLOSE) {
+            return ['success' => false];
+        }
+
+        if (!is_null($ticket) && $conversation->project_id != $ticket->id)
+            return ['success' => false];
+
+        if (is_null($conversation) || !$request->has('text') || is_null($request->text))
+            return ['success' => false];
+
+        if($conversation->ticket_status_id === TicketStatus::STATUS_CLOSED) {
+            Ticket::findOrFail($request->conversationId)->update([
+                'ticket_status_id' => TicketStatus::STATUS_REOPEN
+            ]);
+        } else {
+            Ticket::findOrFail($request->conversationId)->update([
+                'ticket_status_id' => TicketStatus::STATUS_PENDING
+            ]);
+        }
+
+        TicketAnswer::create([
+            'ticket_id' => $request->conversationId,
+            'user_id' => \Auth::id(),
+            'body' => $request->text
+        ]);
+
+
+        return ['success' => true];
     }
 }

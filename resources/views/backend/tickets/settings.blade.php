@@ -5,39 +5,24 @@
 
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/tickets.title') }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/tickets.settings.title') }}</h1>
         </div>
-
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">
-                            Body
-                        </h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="tickets" class="table table-striped table-hover dataTable">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">{{ __('backend/tickets.table.from') }}</th>
-                                    <th scope="col">{{ __('backend/tickets.table.priority') }}</th>
-                                    <th scope="col">{{ __('backend/tickets.table.category') }}</th>
-                                    <th scope="col">{{ __('backend/tickets.table.title') }}</th>
-                                    <th scope="col">{{ __('backend/tickets.table.status') }}</th>
-                                    <th scope="col">{{ __('backend/tickets.table.created_at') }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+        @if ($error = Session::get('error'))
+            <div class="py-3 mt-2">
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $error }}</strong>
                 </div>
             </div>
-        </div>
+        @endif
+        @if ($message = Session::get('success'))
+            <div class="py-3 mt-2">
+                <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            </div>
+        @endif
         <div class="row">
             <!-- Categories -->
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
@@ -122,7 +107,7 @@
                                                             <i class="fas fa-pen"></i>
                                                         </span>
                                                     </a>
-                                                    <button data-text="{{ __('backend/tickets.priority.delete-text', ['category' => $data->name]) }}"
+                                                    <button data-text="{{ __('backend/tickets.priority.delete-text', ['priority' => $data->name]) }}"
                                                             class="btn btn-danger btn-circle btn-sm delete-btn">
                                                         <span class="icon">
                                                             <i class="fas fa-trash"></i>
@@ -179,7 +164,6 @@
         </div>
     </div>
 
-
     <div class="modal fade" id="ajaxModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -215,56 +199,6 @@
 @push('javascript')
     <script>
         $(document).ready(function () {
-            $(document).ready(function() {
-                $('#tickets').DataTable( {
-                    "processing": true,
-                    "serverSide": true,
-                    "ajax": '{{ route('ticket-index-datatables-backend') }}',
-                    "columns": [
-                        { data: 'id', name: 'tickets.id' },
-                        { data: 'get_user_name.name', name: 'get_user_name.name' },
-                        { data: function ( row ) {
-                                return `<span class="badge badge-${row.get_priority_name.color}">${row.get_priority_name.name}</a>`;
-                            }
-                        },
-                        { data: 'get_category_name.name', name: 'get_category_name.name' },
-                        { data: 'title', name: 'tickets.title' },
-                        { data: function ( row ) {
-                                return `<span class="badge badge-${row.get_status_name.color}">${row.get_status_name.name}</a>`;
-                            }
-                        },
-                        { data: 'created_at', name: 'tickets.created_at', searchable: false },
-                    ],
-                    "order": [[ 0, "desc" ]],
-                    "lengthMenu": [[15, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('backend/datatables.show-all') }}"]],
-                    "language": {
-                        "search": "{{ __('backend/datatables.search') }}",
-                        "lengthMenu": "{{ __('backend/datatables.length') }}",
-                        "zeroRecords": "{{ __('backend/datatables.zero') }}",
-                        "info": "{{ __('backend/datatables.info') }}",
-                        "infoEmpty": "{{ __('backend/datatables.empty') }}",
-                        "infoFiltered": "{{ __('backend/datatables.info-filtered') }}",
-                        "paginate": {
-                            "first": "{{ __('backend/datatables.first') }}",
-                            "last": "{{ __('backend/datatables.last') }}",
-                            "next": "{{ __('backend/datatables.next') }}",
-                            "previous": "{{ __('backend/datatables.prev') }}"
-                        }
-                    },
-                    "classes": {
-                        "sPageButton": "button small",
-                        "sPageButtonActive": "green",
-                        "sPageButtonDisabled": "helper hide"
-                    },
-                    "select": {
-                        "style": "os",
-                        "className": "row-selected"
-                    },
-                } );
-                $('div.dataTables_filter input').addClass('search-input form-control');
-                $('select').addClass('search-input form-control');
-            });
-
             $('.ajax-modal').click(function () {
                 let $btn = $(this);
                 let $ajaxModal = $('#ajaxModal');

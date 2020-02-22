@@ -16,14 +16,8 @@ class TicketStatusSeeder extends Seeder
             ],
             [
                 'name' => 'pending',
-                'color' => 'secondary',
+                'color' => 'info',
                 'status_id' => TicketStatus::STATUS_PENDING,
-                'created_at' => \Carbon\Carbon::now(),
-            ],
-            [
-                'name' => 'declined',
-                'color' => 'danger',
-                'status_id' => TicketStatus::STATUS_DECLINED,
                 'created_at' => \Carbon\Carbon::now(),
             ],
             [
@@ -33,17 +27,17 @@ class TicketStatusSeeder extends Seeder
                 'created_at' => \Carbon\Carbon::now(),
             ],
             [
-                'name' => 'closed by user',
-                'color' => 'light',
-                'status_id' => TicketStatus::STATUS_CLOSED_BY_USER,
+                'name' => 'reopen',
+                'color' => 'primary',
+                'status_id' => TicketStatus::STATUS_REOPEN,
                 'created_at' => \Carbon\Carbon::now(),
             ],
             [
-                'name' => 'closed by admin',
-                'color' => 'success',
-                'status_id' => TicketStatus::STATUS_CLOSED_BY_ADMIN,
+                'name' => 'final close',
+                'color' => 'danger',
+                'status_id' => TicketStatus::STATUS_FINAL_CLOSE,
                 'created_at' => \Carbon\Carbon::now(),
-            ]
+            ],
         ]);
     }
 }

@@ -18,12 +18,9 @@ class TicketPrioritys extends Model
      */
     const COLORS = [
         'primary' => 'Primary',
-        'secondary' => 'Secondary',
         'success' => 'Success',
         'danger' => 'Danger',
         'warning' => 'Warning',
         'info' => 'Info',
-        'light' => 'Light',
-        'dark' => 'Dark'
     ];
 }

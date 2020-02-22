@@ -8,6 +8,8 @@ return [
         'error-job' => 'This char is wearing a Job Suite, so no unstuck!',
         'still-logged-in' => 'This char is still logged in.',
         'no-online-offline' => 'This char has no OnlineOffline Status',
+        'priority-exist' => 'There are tickets with that priority',
+        'category-exist' => 'There are tickets with that category',
     ],
     'modal' => [
         'return' => 'Return',

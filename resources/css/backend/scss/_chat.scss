@@ -1,0 +1,166 @@
+// Custom Chat Styling
+
+
+#custom-chat {
+
+  font-size: 12.6px;
+
+  .container {
+    max-width: 1170px;
+    margin: auto;
+  }
+
+  .inbox_chat {
+    height: 550px;
+    overflow-y: scroll;
+  }
+
+  .received_msg {
+    display: inline-block;
+    padding: 0 0 0 10px;
+    vertical-align: top;
+    width: 92%;
+  }
+
+  .received_withd_msg p {
+    background: #ebebeb none repeat scroll 0 0;
+    border-radius: 3px;
+    color: #646464;
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+  }
+
+  .time_date {
+    color: #747474;
+    display: block;
+    font-size: 12px;
+    margin: 8px 0 0;
+  }
+
+  .received_withd_msg {
+    width: 57%;
+  }
+
+  .sent_msg p {
+    background: $primary none repeat scroll 0 0;
+    border-radius: 3px;
+    font-size: 14px;
+    margin: 0;
+    color: #fff;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+  }
+
+  .outgoing_msg {
+    overflow: hidden;
+    margin: 26px 0 26px;
+  }
+
+  .sent_msg {
+    float: right;
+    width: 46%;
+  }
+
+  .chatButtons {
+    margin-bottom: 10px;
+  }
+
+  .support-content h2 {
+    margin-top: 5px;
+  }
+
+  .support-content .list-group li {
+    padding: 15px 20px 12px 20px;
+    cursor: pointer;
+  }
+
+  .support-content .list-group li:hover {
+    background: #eee;
+  }
+
+  .support-content .fa-padding .fa {
+    padding-top: 5px;
+    width: 1.5em;
+  }
+
+  .support-content .info {
+    color: #777;
+    margin: 0px;
+  }
+
+}
+
+.ticket-actions {
+  -webkit-box-shadow: 0 10px 3px -8px rgba(0,0,0,0.56);
+  -moz-box-shadow: 0 10px 3px -8px rgba(0,0,0,0.56);
+  box-shadow: 0 10px 3px -8px rgba(0,0,0,0.56);
+  margin-bottom: 10px;
+}
+
+.conversations {
+  height: calc(100vh - 250px);
+  min-height: calc(100vh - 250px);
+
+  .scroll {
+    overflow-y: scroll;
+    -ms-overflow-style: scrollbar;
+  }
+
+  .chat-send {
+    height: 38px;
+  }
+
+  .chat {
+    position: relative;
+
+    .spinner {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9;
+    }
+
+    .input-group {
+      width: 100%;
+      height: 38px;
+    }
+  }
+}
+
+.chatContent {
+  width: 100%;
+  height: calc(100% - 38px);
+
+  .wrapper {
+    .message {
+      display: inline-block;
+      max-width: 80%;
+      min-width: 150px;
+
+      .content {
+        background-color: $gray-100;
+        padding: 0.5em;
+        border-radius: 10px;
+      }
+
+      .date {
+        text-align: right;
+      }
+    }
+
+    &.other {
+      display: flex;
+      justify-content: flex-end;
+
+      .date {
+        text-align: left;
+      }
+    }
+  }
+}
