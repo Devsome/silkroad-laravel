@@ -91,8 +91,8 @@
                         </div>
                     @else
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable">
+                            <div class="table-responsive table-borderless">
+                                <table class="table" id="silkHistory">
                                     <thead>
                                     <tr>
                                         <th>{{ __('backend/tbuser.edit.buy-quantity') }}</th>
@@ -121,7 +121,41 @@
                             </div>
                         </div>
                     @endif
+                </div>
 
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {{ __('backend/tbuser.edit.accounts') }}
+                    </div>
+                    <div class="card-body">
+                        <div class="container mt-2">
+                            <div class="row">
+                                @forelse($tbuser->getsharduser as $tbUserChar)
+                                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                        <ul class="list-group list-group-flush small">
+                                            <li class="list-group-item font-weight-bold">
+                                                <a href="{{ route("sro-players-edit-backend", ['char' =>  $tbUserChar->pivot->CharID ]) }}">
+                                                    {{ $tbUserChar->CharName16 }}
+                                                </a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                {{ __('backend/tbuser.edit.level') }} {{ $tbUserChar->CurLevel }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                {{ __('backend/tbuser.edit.guild') }} {{ $tbUserChar->getGuildUser ? $tbUserChar->getGuildUser->Name : '' }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                {{ __('backend/tbuser.edit.guild-nickname') }} {{ $tbUserChar->getGuildMemberUser ? $tbUserChar->getGuildMemberUser->Nickname : '' }}
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                @empty
+                                    {{ __('backend/tbuser.edit.no-char') }}
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -265,45 +299,6 @@
         </div>
 
         <div class="row">
-            <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        {{ __('backend/tbuser.edit.accounts') }}
-                    </div>
-                    <div class="card-body">
-                        <div class="container mt-2">
-                            <div class="row">
-                                @forelse($tbuser->getsharduser as $tbUserChar)
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-2">
-                                        <ul class="list-group list-group-flush small">
-                                            <li class="list-group-item font-weight-bold">
-                                                <a href="{{ route("sro-players-edit-backend", ['char' =>  $tbUserChar->pivot->CharID ]) }}">
-                                                    {{ $tbUserChar->CharName16 }}
-                                                </a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                {{ __('backend/tbuser.edit.level') }} {{ $tbUserChar->CurLevel }}
-                                            </li>
-                                            <li class="list-group-item">
-                                                {{ __('backend/tbuser.edit.guild') }} {{ $tbUserChar->getGuildUser ? $tbUserChar->getGuildUser->Name : '' }}
-                                            </li>
-                                            <li class="list-group-item">
-                                                {{ __('backend/tbuser.edit.guild-nickname') }} {{ $tbUserChar->getGuildMemberUser ? $tbUserChar->getGuildMemberUser->Nickname : '' }}
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                @empty
-                                    {{ __('backend/tbuser.edit.no-char') }}
-                                @endforelse
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card mb-4">
                     <div class="card-header">
@@ -319,8 +314,8 @@
                         </div>
                     @else
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable">
+                            <div class="table-responsive table-borderless">
+                                <table class="table" id="dataTable">
                                     <thead>
                                     <tr>
                                         <th>{{ __('backend/tbuser.edit.jid') }}</th>
@@ -410,8 +405,8 @@
                         $('form[data-form="deleteForm"]').submit();
                     });
             });
-            $('#dataTable').DataTable({
-                "order": [[0, "desc"]],
+            $('#silkHistory').DataTable({
+                "order": [[4, "desc"]],
                 "lengthMenu": [[5, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('backend/datatables.show-all') }}"]],
                 "language": {
                     "search": "{{ __('backend/datatables.search') }}",
@@ -435,7 +430,8 @@
                 "select": {
                     "style": "os",
                     "className": "row-selected"
-                }
+                },
+                "dom": "btrp"
             });
             $('div.dataTables_filter input').addClass('search-input form-control');
             $('select').addClass('search-input form-control');
