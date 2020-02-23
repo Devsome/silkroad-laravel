@@ -67,7 +67,7 @@
                                                 @if($char->getGuildUser)
                                                     <a href="{{ route('sro-guild-edit-backend', ['guild' => $char->getGuildUser->ID]) }}"
                                                        target="_blank">
-                                                        {{ $char->getGuildUser->Name }}
+                                                        {{ $char->getGuildUser->Name }} <i class="fas fa-external-link-alt"></i>
                                                     </a>
                                                 @endif
                                             </td>
