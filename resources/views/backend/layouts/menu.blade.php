@@ -82,6 +82,12 @@
             <span>{{ __('backend/menu.guild') }}</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('worldmap-index-backend') }}">
+            <i class="fas fa-fw fa-globe-americas"></i>
+            <span>{{ __('backend/menu.worldmap') }}</span>
+        </a>
+    </li>
 
 
     <div class="sidebar-heading">

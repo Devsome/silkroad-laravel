@@ -22,6 +22,7 @@ return [
     'chars' => 'Characters',
     'guild' => 'Guilds',
     'user' => 'Accounts',
+    'worldmap' => 'World map',
 
     'smc-log' => 'SMC Logging',
     'users-created' => 'Users created',

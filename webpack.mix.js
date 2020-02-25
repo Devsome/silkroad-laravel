@@ -32,3 +32,17 @@ mix.scripts([
     'resources/js/backend/moment.js',
 ], 'public/js/backend/all.js');
 
+// Word Map
+mix.styles([
+    'resources/css/leaflet/Leaflet.css',
+    'resources/css/leaflet/Leaflet.Easy-Button.css',
+    'resources/css/leaflet/Leaflet.Geoman.css',
+], 'public/css/leaflet.css');
+
+mix.scripts([
+    'resources/js/worldmap/Leaflet.min.js',
+    'resources/js/worldmap/Leaflet.Geoman.min.js',
+    'resources/js/worldmap/Leaflet.Easy-Button.js',
+    'resources/js/worldmap/xSROMap.js',
+    'resources/js/worldmap/main.js',
+], 'public/js/worldmap.min.js');

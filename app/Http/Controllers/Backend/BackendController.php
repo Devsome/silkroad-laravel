@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Model\SRO\Account\Notice;
+use App\Model\SRO\Account\OnlineOfflineLog;
 use App\Model\SRO\Account\Punishment;
 use App\Model\SRO\Account\SkSilk;
 use App\Model\SRO\Account\SmcLog;
@@ -67,5 +68,20 @@ class BackendController extends Controller
     public function blockedAccountsDatatables()
     {
         return DataTables::of(Punishment::query())->make(true);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function worldmapIndex()
+    {
+        $onlineCount = OnlineOfflineLog::where('status', OnlineOfflineLog::STATUS_LOGGED_IN)->count();
+
+        $onlineCharacters = OnlineOfflineLog::where('status', OnlineOfflineLog::STATUS_LOGGED_IN)
+            ->get();
+        return view('backend.worldmap.index',[
+            'count' => $onlineCount,
+            'characters' => $onlineCharacters
+        ]);
     }
 }

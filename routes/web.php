@@ -103,4 +103,6 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
 
     Route::get('/users-blocked', 'Backend\BackendController@blockedAccountsIndex')->name('users-blocked-backend');
     Route::get('/users-blocked-datatables', 'Backend\BackendController@blockedAccountsDatatables')->name('users-blocked-datatables-backend');
+
+    Route::get('/worldmap', 'Backend\BackendController@worldmapIndex')->name('worldmap-index-backend');
 });

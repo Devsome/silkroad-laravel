@@ -2,6 +2,7 @@
 
 namespace App\Model\SRO\Account;
 
+use App\Model\SRO\Shard\Char;
 use Illuminate\Database\Eloquent\Model;
 
 class OnlineOfflineLog extends Model
@@ -63,4 +64,12 @@ class OnlineOfflineLog extends Model
      * If the Char is logged out
      */
     const STATUS_LOGGED_OUT = 6;
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function getCharacter() {
+        return $this->belongsTo(Char::class, 'CharID', 'CharID')
+            ->select(array('CharName16', 'CurLevel', 'LatestRegion', 'PosX', 'PosY', 'PosZ'));
+    }
 }
