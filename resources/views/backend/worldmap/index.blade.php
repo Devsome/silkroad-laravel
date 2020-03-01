@@ -9,7 +9,6 @@
         </div>
         <div class="row">
             <div class="container" style="height: 500px;">
-
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0">{{ __('backend/worldmap.subtitle', ['count' => $count]) }}</h6>
@@ -23,18 +22,20 @@
                                         <input type="text" class="form-control"
                                                placeholder="{{ __('backend/worldmap.search-placeholder') }}" name="player">
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit">Go</button>
+                                            <button class="btn btn-primary" type="submit">
+                                                {{ __('backend/worldmap.submit') }}
+                                            </button>
                                         </div>
                                     </div>
-                                    <small id="playerHelper"
-                                           class="form-text text-muted">{{ __('backend/worldmap.search-helper') }}</small>
+                                    <small id="playerHelper" class="form-text text-muted">
+                                        {{ __('backend/worldmap.search-helper') }}
+                                    </small>
 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="card shadow mb-2">
                     <div class="card-body">
                         <div id="map"></div>
@@ -44,8 +45,6 @@
             </div>
         </div>
     </div>
-
-
 @endsection
 @push('javascript')
     <script src="{{ asset('js/worldmap.min.js') }}"></script>

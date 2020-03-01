@@ -38,7 +38,7 @@ class TicketController extends Controller
     {
         $ticket = Ticket::find($request->conversationId);
 
-        if($ticket->ticket_status_id === TicketStatus::STATUS_CLOSED) {
+        if ($ticket->ticket_status_id === TicketStatus::STATUS_CLOSED) {
             $state = TicketStatus::STATUS_FINAL_CLOSE;
         } else {
             $state = TicketStatus::STATUS_CLOSED;
@@ -120,14 +120,11 @@ class TicketController extends Controller
     {
         $ticketsWithPriority = Ticket::where('ticket_categories_id', '=', $id)->get();
 
-        if($ticketsWithPriority->count() > 0) {
+        if ($ticketsWithPriority->count() > 0) {
             return back()->with('error', trans('backend/notification.form-submit.category-exist'));
-        } else {
-            TicketCategories::findOrFail($id)->delete();
-            return back()->with('success', trans('backend/notification.form-submit.success'));
         }
-
-
+        TicketCategories::findOrFail($id)->delete();
+        return back()->with('success', trans('backend/notification.form-submit.success'));
     }
 
     /**
@@ -206,12 +203,11 @@ class TicketController extends Controller
     {
         $ticketsWithPriority = Ticket::where('ticket_prioritys_id', '=', $id)->get();
 
-        if($ticketsWithPriority->count() > 0) {
+        if ($ticketsWithPriority->count() > 0) {
             return back()->with('error', trans('backend/notification.form-submit.priority-exist'));
-        } else {
-            TicketPrioritys::findOrFail($id)->delete();
-            return back()->with('success', trans('backend/notification.form-submit.success'));
         }
+        TicketPrioritys::findOrFail($id)->delete();
+        return back()->with('success', trans('backend/notification.form-submit.success'));
     }
 
     /**
@@ -308,7 +304,7 @@ class TicketController extends Controller
     {
         $conversation = Ticket::find($request->conversationId);
 
-        if($conversation->ticket_status_id === TicketStatus::STATUS_FINAL_CLOSE) {
+        if ($conversation->ticket_status_id === TicketStatus::STATUS_FINAL_CLOSE) {
             return ['success' => false];
         }
 
@@ -318,7 +314,7 @@ class TicketController extends Controller
         if (is_null($conversation) || !$request->has('text') || is_null($request->text))
             return ['success' => false];
 
-        if($conversation->ticket_status_id === TicketStatus::STATUS_CLOSED) {
+        if ($conversation->ticket_status_id === TicketStatus::STATUS_CLOSED) {
             Ticket::findOrFail($request->conversationId)->update([
                 'ticket_status_id' => TicketStatus::STATUS_REOPEN
             ]);
@@ -333,7 +329,6 @@ class TicketController extends Controller
             'user_id' => \Auth::id(),
             'body' => $request->text
         ]);
-
 
         return ['success' => true];
     }
