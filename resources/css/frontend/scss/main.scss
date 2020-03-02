@@ -1,11 +1,10 @@
-// Import Custom SB Admin 2 Variables (Overrides Default Bootstrap Variables)
+// Import Custom own variables (Overrides Default Bootstrap Variables)
 @import "variables.scss";
 
 // Import Bootstrap
 @import "../../../vendor/bootstrap/scss/bootstrap.scss";
 
-// Import Custom SB Admin 2 Mixins and Components
-@import "global.scss";
+// Import Custom utilities
 @import "utilities.scss";
 
 // Custom Components
@@ -17,9 +16,6 @@
 @import "login.scss";
 @import "error.scss";
 @import "footer.scss";
-
-@import "chat.scss";
-@import "custom.scss";
 
 // Import dataTables and Summernote for News
 @import "../../../vendor/datatables/dataTables.bootstrap4.css";

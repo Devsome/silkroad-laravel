@@ -1,6 +1,8 @@
 {
-    "/css/backend/all.css": "/css/backend/all.css",
-    "/js/backend/all.js": "/js/backend/all.js",
+    "/css/backend/app.css": "/css/backend/app.css",
+    "/css/app.css": "/css/app.css",
     "/css/leaflet.css": "/css/leaflet.css",
-    "/js/worldmap.min.js": "/js/worldmap.min.js"
+    "/js/worldmap.min.js": "/js/worldmap.min.js",
+    "/js/backend/app.js": "/js/backend/app.js",
+    "/js/app.js": "/js/app.js"
 }
