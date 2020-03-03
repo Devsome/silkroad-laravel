@@ -32,5 +32,5 @@ jobs:
         run: |
           php -r "file_exists('.env') || copy('.env.example', '.env');"
           php artisan key:generate
-      - name: Run Tests
-        run: ./vendor/bin/phpunit
+#      - name: Run Feature & Unit Test
+#        run: ./vendor/bin/phpunit
