@@ -1,36 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="col-md-9 col-sm-12">
-        <div class="card">
-            <div class="card-body">
-                @forelse($news as $newsData)
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card-body">
-                                <div class="news-content">
-                                    <a href="{{ url('/news', $newsData->slug) }}"><h3>{{ $newsData->title }}</h3>
-                                    </a>
-                                    <p class="small">
-                                        {!! \Illuminate\Support\Str::words(strip_tags($newsData->body), 25, $end='...') !!}
-                                    </p>
-                                </div>
-                                <div class="news-footer">
-                                    <div class="news-author">
-                                        <ul class="list-inline list-unstyled">
-                                            <li class="list-inline-item text-secondary">
-                                                <i class="fa fa-calendar-day"></i>
-                                                {{ $newsData->published_at->format('Y-m-d') }}
-                                            </li>
-                                        </ul>
-                                    </div>
+    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 news-container">
+        <div class="latest-news container-fluid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="row-title">
+                            {{ __('index.latest-news') }}
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="main-btn-holder">
+                            <a href="#" class="hbtn hbtn-default">
+                                {{ __('index.show-all') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @forelse($news as $newsData)
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="post-box"
+                                 style="background-image: url('{{ Storage::disk('images')->url($newsData->image->filename) }}');">
+                                <div class="post-link">
+                                    <a href="#">{{ $newsData->title }}</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @empty
-                    Still no news written.
-                @endforelse
+                    @empty
+                    @endforelse
+                </div>
+
             </div>
         </div>
     </div>

@@ -1,0 +1,119 @@
+.news-container {
+
+  .hbtn {
+    position: relative;
+    display: inline-block;
+    margin-right: 5px;
+    padding: 8px 24px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #ffffff;
+    border-radius: 25px;
+    border: 0;
+    outline: 0;
+    overflow: hidden;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .hbtn.hbtn-default {
+    background-color: #333c4e;
+    color: #adadad;
+  }
+
+  .latest-news {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    //background-color: #eaf2fe;
+  }
+
+  .latest-news .row-title {
+    text-align: left;
+    font-size: 27px;
+    font-weight: 700;
+    color: #4d5666;
+    margin-bottom: 30px;
+  }
+
+  .latest-news .main-btn-holder {
+    text-align: right;
+    margin-bottom: 30px;
+  }
+
+  .latest-news .post-box {
+    position: relative;
+    border-radius: 15px;
+    padding: 115px 35px 40px 35px;
+    margin: 20px 0;
+    z-index: 1;
+    min-height: 270px;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.3s ease;
+  }
+
+  .post-link {
+    padding-top: 90px;
+  }
+
+  .latest-news .post-box .post-link a {
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 10px 14px;
+    color: #3e6077;
+    background-color: #ffffff;
+    border-radius: 5px;
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+
+  .latest-news .post-box .post-link a:hover {
+    color: $primary;
+  }
+
+  .post-box {
+    display: inline-block;
+    width: 100%;
+    max-width: 1070px;
+    margin-bottom: 80px;
+  }
+
+  @media (max-width: 992px) {
+    .latest-news .row-title {
+      font-size: 25px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .latest-news .row-title {
+      text-align: center;
+    }
+
+    .latest-news .main-btn-holder {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .latest-news {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+
+    .latest-news .row-title {
+      font-size: 25px;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+
+    .latest-news .main-btn-holder {
+      display: none;
+    }
+  }
+
+}

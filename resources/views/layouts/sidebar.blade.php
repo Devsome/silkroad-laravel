@@ -1,4 +1,4 @@
-<div class="col-3 d-none d-md-block">
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 d-none d-md-block">
     <div class="card">
         <div class="card-body">
             <p class="font-weight-light p-2 font-weight-bold">{{ __('sidebar.information.title') }}.</p>

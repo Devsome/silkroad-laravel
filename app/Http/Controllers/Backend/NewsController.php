@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Image;
 use App\News;
+use Carbon\Carbon;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -67,7 +68,7 @@ class NewsController extends Controller
         $news->slug = $request->slug;
         $news->body = $request->body;
         $news->image_id = $request->image_id === 'null' ? NULL : $request->image_id;
-        $news->published_at = $request->published_at;
+        $news->published_at = Carbon::create($request->published_at);
 
         $news->save();
 
@@ -116,8 +117,7 @@ class NewsController extends Controller
         $news->slug = $request->slug;
         $news->body = $request->body;
         $news->image_id = $request->image_id === 'null' ? NULL : $request->image_id;
-        $news->published_at = $request->published_at;
-
+        $news->published_at = Carbon::create($request->published_at);
         $news->save();
 
         return back()->with('success', trans('backend/notification.form-submit.success'));

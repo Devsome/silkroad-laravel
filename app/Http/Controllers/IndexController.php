@@ -12,7 +12,7 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $news = News::orderBy('published_at', 'DESC')->take(5)->get();
+        $news = News::orderBy('published_at', 'DESC')->with('image')->take(4)->get();
         return view('index', [
             'news' => $news
         ]);

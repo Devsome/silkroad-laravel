@@ -40,7 +40,7 @@ class News extends Model
      */
     public function image()
     {
-        return $this->hasOne(Image::class, 'id', 'images_id');
+        return $this->hasOne(Image::class, 'id', 'image_id');
     }
 
     /**
