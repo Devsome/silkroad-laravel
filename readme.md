@@ -1,5 +1,7 @@
 ## Silkroad Laravel
 
+![CI](https://github.com/Devsome/silkroad-laravel/workflows/CI/badge.svg)
+
 A free and open-source project for the MMORPG Silkroad Online.
 Feel free to create isses or contribute to that project. If you have any questions, just ask!
 
