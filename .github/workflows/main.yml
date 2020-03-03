@@ -28,5 +28,8 @@ jobs:
           extension-csv: mbstring, bcmath # Setup any required extensions for tests
       - name: Composer install
         run: composer install
+      - name: Generating secret key
+        run: |
+          php artisan key:generate
       - name: Run Tests
         run: ./vendor/bin/phpunit
