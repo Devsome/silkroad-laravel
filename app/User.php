@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'silkroad_id', 'email', 'password',
+        'name', 'silkroad_id', 'email', 'password', 'referrer_id', 'reflink', 'show_map'
     ];
 
     /**

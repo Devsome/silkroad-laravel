@@ -93,6 +93,7 @@ class RegisterController extends Controller
             'silkroad_id' => $data['silkroad_id'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'reflink' => \Str::uuid()
         ]);
     }
 }
