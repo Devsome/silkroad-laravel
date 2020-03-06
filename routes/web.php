@@ -5,6 +5,13 @@ Auth::routes();
 
 Route::get('/', 'IndexController@index')->name('index');
 
+Route::get('/news/{slug}', 'NewsController@index')->name('news-slug');
+Route::get('/news-archive', 'NewsController@archive')->name('news-archive');
+
+// Needed to be logged in after that
+Auth::routes(['verify' => true]);
+
+// User Dashboard
 Route::get('/home', 'HomeController@index')->name('home');
 
 

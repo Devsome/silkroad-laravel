@@ -106,7 +106,7 @@ class NewsController extends Controller
                 'required',
                 Rule::unique('news', 'slug')->ignore($id)
             ],
-            'body' => 'required|max:500',
+            'body' => 'required|min:10',
             'published_at' => 'nullable|date',
             'image_id' => 'required'
         ]);

@@ -1,69 +1,91 @@
-<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 d-none d-md-block">
-    <div class="card">
-        <div class="card-body">
-            <p class="font-weight-light p-2 font-weight-bold">{{ __('sidebar.information.title') }}.</p>
-            <ul class="list-group list-unstyled small">
-                <li>
-                    <i class="fa fa-fw fa-desktop"></i> {{ __('sidebar.information.online') }}
-                    <span class="pull-right text-primary">
-                        {{ $SidebarProvider['count'] }} / {{ config('app.sro_max_server') }}
-                    </span>
-                </li>
-                <li class="pb-1">
-                    <i class="fa fa-fw fa-clock"></i> {{ __('sidebar.information.time') }}
-                    <span class="pull-right text-primary">
-                        <span class="currTime">00:00:00</span>
-                    </span>
-                </li>
-                <li class="pb-1">
-                    <i class="fas fa-fw fa-check"></i> {{ __('sidebar.information.cap') }}
-                    <span class="pull-right text-primary">
-                        {{ config('app.sro_cap') }}
-                    </span>
-                </li>
-                <li class="pb-1">
-                    <i class="fa fa-fw fa-flask"></i> {{ __('sidebar.information.exp-sp') }}
-                    <span class="pull-right text-primary">
-                        {{ config('app.sro_exp') }}x
-                    </span>
-                </li>
-                <li class="pb-1">
-                    <i class="fa fa-fw fa-users"></i> {{ __('sidebar.information.party-exp') }}
-                    <span class="pull-right text-primary">
-                        {{ config('app.sro_exp_party') }}x
-                    </span>
-                </li>
-                <li class="pb-1">
-                    <i class="fa fa-fw fa-coins"></i> {{ __('sidebar.information.gold') }}
-                    <span class="pull-right text-primary">
-                        {{ config('app.sro_exp_gold') }}x
-                    </span>
-                </li>
-                <li class="pb-1">
-                    <i class="fa fa-fw fa-coins"></i> {{ __('sidebar.information.drop') }}
-                    <span class="pull-right text-primary">
-                        {{ config('app.sro_exp_drop') }}x
-                    </span>
-                </li>
-                <li class="pb-1">
-                    <i class="fa fa-fw fa-star"></i> {{ __('sidebar.information.trade-goods') }}
-                    <span class="pull-right text-primary">
-                        {{ config('app.sro_exp_job') }}x
-                    </span>
-                </li>
-                <li class="pb-1">
-                    <i class="fa fa-fw fa-exclamation"></i> {{ __('sidebar.information.ip-limit') }}
-                    <span class="pull-right text-primary">
-                        {{ config('app.sro_ip_limit') }}
-                    </span>
-                </li>
-                <li class="pb-1">
-                    <i class="fa fa-fw fa-exclamation"></i> {{ __('sidebar.information.pc-limit') }}
-                    <span class="pull-right text-primary">
-                        {{ config('app.sro_hwid_limit') }}
-                    </span>
-                </li>
-            </ul>
-        </div>
-    </div>
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 d-none d-lg-block">
+    <p class="font-weight-light p-2 font-weight-bold">{{ __('sidebar.information.title') }}</p>
+    <ul class="list-group list-unstyled small">
+        <li>
+            <div class="float-left">
+                <i class="fa fa-fw fa-desktop"></i> {{ __('sidebar.information.online') }}
+            </div>
+            <div class="float-right">
+                {{ $SidebarProvider['count'] }} / {{ config('app.sro_max_server') }}
+            </div>
+        </li>
+        <li class="pb-1 pt-2">
+            <div class="float-left">
+                <i class="fa fa-fw fa-clock"></i> {{ __('sidebar.information.time') }}
+            </div>
+            <div class="float-right">
+                <span class="currTime">00:00:00</span>
+            </div>
+        </li>
+        <li class="pb-1">
+            <div class="float-left">
+                <i class="fas fa-fw fa-check"></i> {{ __('sidebar.information.cap') }}
+            </div>
+            <div class="float-right">
+                {{ config('app.sro_cap') }}
+            </div>
+        </li>
+    </ul>
+
+    <ul class="list-group list-unstyled small pt-3">
+        <li class="pb-1">
+            <div class="float-left">
+                <i class="fa fa-fw fa-flask"></i> {{ __('sidebar.information.exp-sp') }}
+            </div>
+            <div class="float-right">
+                {{ config('app.sro_exp') }}x
+            </div>
+        </li>
+        <li class="pb-1">
+            <div class="float-left">
+                <i class="fa fa-fw fa-users"></i> {{ __('sidebar.information.party-exp') }}
+            </div>
+            <div class="float-right">
+                {{ config('app.sro_exp_party') }}x
+            </div>
+        </li>
+        <li class="pb-1">
+            <div class="float-left">
+                <i class="fa fa-fw fa-coins"></i> {{ __('sidebar.information.gold') }}
+            </div>
+            <div class="float-right">
+                {{ config('app.sro_exp_gold') }}x
+            </div>
+        </li>
+        <li class="pb-1">
+            <div class="float-left">
+                <i class="fa fa-fw fa-coins"></i> {{ __('sidebar.information.drop') }}
+            </div>
+            <div class="float-right">
+                {{ config('app.sro_exp_drop') }}x
+            </div>
+        </li>
+        <li class="pb-1">
+            <div class="float-left">
+                <i class="fa fa-fw fa-star"></i> {{ __('sidebar.information.trade-goods') }}
+            </div>
+            <div class="float-right">
+                {{ config('app.sro_exp_job') }}x
+            </div>
+        </li>
+    </ul>
+
+    <ul class="list-group list-unstyled small pt-3">
+        <li class="pb-1">
+            <div class="float-left">
+                <i class="fa fa-fw fa-exclamation"></i> {{ __('sidebar.information.ip-limit') }}
+            </div>
+            <div class="float-right">
+                {{ config('app.sro_ip_limit') }}
+            </div>
+        </li>
+        <li class="pb-1">
+            <div class="float-left">
+                <i class="fa fa-fw fa-exclamation"></i> {{ __('sidebar.information.pc-limit') }}
+            </div>
+            <div class="float-right">
+                {{ config('app.sro_hwid_limit') }}
+            </div>
+        </li>
+    </ul>
 </div>

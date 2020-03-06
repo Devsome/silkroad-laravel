@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="main-btn-holder">
-                            <a href="#" class="hbtn hbtn-default">
+                            <a href="{{ route('news-archive') }}" class="hbtn hbtn-default">
                                 {{ __('index.show-all') }}
                             </a>
                         </div>
@@ -24,14 +24,15 @@
                             <div class="post-box"
                                  style="background-image: url('{{ Storage::disk('images')->url($newsData->image->filename) }}');">
                                 <div class="post-link">
-                                    <a href="#">{{ $newsData->title }}</a>
+                                    <a href="{{ route('news-slug', ['slug' => $newsData->slug]) }}">
+                                        {{ $newsData->title }}
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     @empty
                     @endforelse
                 </div>
-
             </div>
         </div>
     </div>
