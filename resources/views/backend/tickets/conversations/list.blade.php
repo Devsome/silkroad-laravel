@@ -13,57 +13,63 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center ticket-actions">
-                            <h4>
-                                {{ __('backend/tickets.conversation') }}
-                            </h4>
-                            <div class="mb-0 float-right mt-2 mb-2">
-                                <form method="POST" data-form="deleteForm">
-                                    @csrf
-                                    <span data-toggle="modal" data-target="#ticketModalDelete"
-                                          data-title="{{ __('backend/tickets.close-title') }}"
-                                          data-message="{{ __('backend/tickets.close-message') }}"
-                                          class="btn btn-danger btn-sm mr-1" style="cursor: pointer">
+                        @if($currentConversation)
+                            <div class="d-flex justify-content-between align-items-center ticket-actions">
+                                <h4>
+                                    {{ __('backend/tickets.conversation') }}
+                                </h4>
+                                <div class="mb-0 float-right mt-2 mb-2">
+                                    <form method="POST" data-form="deleteForm">
+                                        @csrf
+                                        <span data-toggle="modal" data-target="#ticketModalDelete"
+                                              data-title="{{ __('backend/tickets.close-title') }}"
+                                              data-message="{{ __('backend/tickets.close-message') }}"
+                                              class="btn btn-danger btn-sm mr-1" style="cursor: pointer">
                                         <i class="fa fa-trash"></i> {{ __('backend/tickets.close-btn') }}
                                     </span>
-                                </form>
-                            </div>
-                        </div>
-                        <div id="custom-chat">
-                            <div class="row conversations">
-                                <div class="col-4 col-4 col-md-5 col-lg-5 h-100 scroll">
-                                    <div class="inbox_chat support-content">
-                                        <ul class="list-group fa-padding">
-                                        @include('backend.tickets.conversations.conversations', [
-                                            'conversations' => $conversations,
-                                            'conversationId' => $currentConversation->id,
-                                        ])
-                                        </ul>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="col-8 col-sm-8 col-md-7 col-lg-7 h-100 chat">
-                                    <div class="spinner" hidden>
-                                        <i class="fas fa-circle-notch fa-10x fa-spin"></i>
+                            </div>
+                            <div id="custom-chat">
+                                <div class="row conversations">
+                                    <div class="col-4 col-4 col-md-5 col-lg-5 h-100 scroll">
+                                        <div class="inbox_chat support-content">
+                                            <ul class="list-group fa-padding">
+                                                @include('backend.tickets.conversations.conversations', [
+                                                    'conversations' => $conversations,
+                                                    'conversationId' => $currentConversation->id,
+                                                ])
+
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="chatContent scroll">
-                                        @include('backend.tickets.conversations.chat', [
-                                            'messages' => $currentConversation->getAnswers()->orderBy('created_at', 'asc')->get(),
-                                            'ticket' => $currentConversation
-                                        ])
-                                    </div>
-                                    <div class="input-group chat-send">
-                                        <input type="text" class="form-control"
-                                               placeholder="{{ __('backend/tickets.chat.send-placeholder') }}"
-                                               id="text">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button" id="send">
-                                                <i class="fas fa-paper-plane"></i>
-                                            </button>
+                                    <div class="col-8 col-sm-8 col-md-7 col-lg-7 h-100 chat">
+                                        <div class="spinner" hidden>
+                                            <i class="fas fa-circle-notch fa-10x fa-spin"></i>
+                                        </div>
+                                        <div class="chatContent scroll">
+                                            @include('backend.tickets.conversations.chat', [
+                                                'messages' => $currentConversation->getAnswers()->orderBy('created_at', 'asc')->get(),
+                                                'ticket' => $currentConversation
+                                            ])
+
+                                        </div>
+                                        <div class="input-group chat-send">
+                                            <input type="text" class="form-control"
+                                                   placeholder="{{ __('backend/tickets.chat.send-placeholder') }}"
+                                                   id="text">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button" id="send">
+                                                    <i class="fas fa-paper-plane"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @else
+                            {{ __('backend/tickets.empty') }}
+                        @endif
                     </div>
                 </div>
             </div>
@@ -100,8 +106,14 @@
         $(document).ready(function () {
             moment.locale('{{app()->getLocale()}}');
 
+                    @if($currentConversation)
             let lastMessage = '{{$currentConversation->getAnswers()->orderBy('created_at', 'asc')->get()->last()->created_at->toIso8601String()}}';
             let conversationId = {{$currentConversation->id}};
+                    @else
+            let lastMessage = '';
+            let conversationId = 0;
+                    @endif
+
             let $chatContent = $('.chatContent');
             let csrf = '{{csrf_token()}}';
 

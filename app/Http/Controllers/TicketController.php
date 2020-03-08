@@ -221,13 +221,13 @@ class TicketController extends Controller
             ->with('conversation')
             ->groupBy('ticket_id');
 
-        if (!is_null($ticket))
+        if (!is_null($ticket)) {
             $query->whereHas('conversation', function ($query) use ($ticket) {
                 $query->where('ticket_id', $ticket->id);
             });
+        }
 
         return $query->get()->pluck('conversation');
-
     }
 
     /**

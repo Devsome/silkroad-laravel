@@ -3,6 +3,7 @@
 return [
     'title' => 'Ticket Dashboard',
     'headline' => 'Showing all Tickets from the Users',
+    'empty' => 'No Tickets created yet',
     'categories' => 'Categories',
     'priorities' => 'Priorities',
     'conversation' => 'Conversations',
@@ -13,10 +14,6 @@ return [
     'close-message' => 'Are you sure you want to close that Ticket and inform that user via E-Mail?',
 
     'category-name' => 'Category: :name',
-
-    'show' => [
-        'title' => 'Ticket',
-    ],
 
     'settings' => [
         'title' => 'Ticket Settings',
