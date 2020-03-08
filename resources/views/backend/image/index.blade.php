@@ -19,6 +19,12 @@
                         <strong>{{ $message }}</strong>
                     </div>
                 @endif
+                @if ($error = Session::get('error'))
+                    <div class="alert alert-danger alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{{ $error }}</strong>
+                    </div>
+                @endif
                 <div class="table-responsive">
                     <table id="users" class="table table-striped table-hover dataTable">
                         <thead class="thead-dark">

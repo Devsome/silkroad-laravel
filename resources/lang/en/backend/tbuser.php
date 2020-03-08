@@ -22,6 +22,7 @@ return [
     'regip' => 'Register IP',
     'accplaytime' => 'Play time',
     'blocked' => 'User is blocked until :date',
+    'silk-history' => 'Silk history',
 
     'table' => [
         'action' => 'Action',

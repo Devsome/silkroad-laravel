@@ -5,14 +5,22 @@
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="{{ __('Toggle navigation') }}">
+                aria-label="{{ __('navbar.toggle') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <!-- left li -->
+                    <a class="nav-link" href="{{ url('/') }}">
+                        {{ __('navbar.nav.home') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('downloads-index') }}">{{ __('navbar.nav.download') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('ranking-index') }}">{{ __('navbar.nav.ranking') }}</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

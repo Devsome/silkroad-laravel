@@ -8,6 +8,12 @@ Route::get('/', 'IndexController@index')->name('index');
 Route::get('/news/{slug}', 'NewsController@index')->name('news-slug');
 Route::get('/news-archive', 'NewsController@archive')->name('news-archive');
 
+Route::get('/downloads', 'IndexController@downloads')->name('downloads-index');
+
+Route::group(['prefix' => 'ranking'], function () {
+    Route::get('/', 'RankingController@index')->name('ranking-index');
+});
+
 // Needed to be logged in after that
 Auth::routes(['verify' => true]);
 
@@ -69,13 +75,18 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
 
         // Patching _Char
         Route::post('/players/{char}/unstuck', 'Backend\SilkroadController@sroUnstuckChar')->name('sro-players-unstuck');
+
+        // Hide Ranking
+        Route::get('/hideranking', 'Backend\HideRankingController@index')->name('hide-ranking-index-backend');
+        Route::post('/hideranking/add', 'Backend\HideRankingController@add')->name('hide-ranking-add-backend');
+        Route::post('/hideranking/{id}/destroy', 'Backend\HideRankingController@destroy')->name('hide-ranking-destroy-backend');
     });
 
     // Web
     Route::group(['prefix' => 'web'], function () {
         Route::group(['prefix' => 'downloads'], function () {
             Route::get('/', 'Backend\DownloadsController@index')->name('downloads-index-backend');
-            Route::get('/add', 'Backend\DownloadsController@create')->name('downloads-create-backend');
+            Route::get('/add', 'Backend\DownloadsController@show')->name('downloads-add-backend');
             Route::post('/create', 'Backend\DownloadsController@create')->name('downloads-create-backend');
             Route::get('/{download}/edit', 'Backend\DownloadsController@edit')->name('downloads-edit-backend');
             Route::patch('/{download}/update', 'Backend\DownloadsController@update')->name('downloads-update-backend');

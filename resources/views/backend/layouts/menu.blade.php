@@ -88,6 +88,12 @@
             <span>{{ __('backend/menu.worldmap') }}</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('hide-ranking-index-backend') }}">
+            <i class="fas fa-fw fa-eye-slash"></i>
+            <span>{{ __('backend/menu.hide-ranking') }}</span>
+        </a>
+    </li>
 
 
     <div class="sidebar-heading">

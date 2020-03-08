@@ -36,7 +36,7 @@ class ImagesController extends Controller
 
         $requestImage = $request->file('image_id');
         $filename = time() . '.' . $requestImage->getClientOriginalExtension();
-        Storage::disk('images')->put($filename,  File::get($requestImage));
+        Storage::disk('images')->put($filename, File::get($requestImage));
 
         $image = new Image();
         $image->filename = $filename;
@@ -63,7 +63,7 @@ class ImagesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -74,8 +74,8 @@ class ImagesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -86,13 +86,22 @@ class ImagesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)
     {
         $image = Image::findOrFail($id);
-        $image->delete();
-        return back()->with('success', __('backend/notification.form-submit.success'));
+        $model = new $image->model;
+        $existImage = $model->where('image_id', $image->id)->get();
+
+        if ($existImage->count() === 0) {
+            $image->delete();
+            return back()->with('success', __('backend/notification.form-submit.success'));
+        }
+        return back()->with('error',
+            __('backend/notification.form-submit.error-image-references', ['model' => $image->model])
+        );
     }
 }

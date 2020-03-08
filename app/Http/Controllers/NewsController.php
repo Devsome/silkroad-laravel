@@ -14,7 +14,7 @@ class NewsController extends Controller
     public function index($slug)
     {
         $news = News::where('slug', $slug)->firstOrFail();
-        return view('frontend.index', [
+        return view('frontend.news.index', [
             'news' => $news,
         ]);
     }
@@ -29,7 +29,7 @@ class NewsController extends Controller
                 return Carbon::parse($date->published_at)->format('m');
             });
         $newsArchive = $newsArchive->reverse();
-        return view('frontend.archive', [
+        return view('frontend.news.archive', [
             'archive' => $newsArchive
         ]);
     }

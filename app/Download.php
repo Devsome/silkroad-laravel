@@ -17,10 +17,10 @@ class Download extends Model
     ];
 
     /**
-     * @return string
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function image()
     {
-        return $this->hasOne('App\Image', 'id', 'image_id');
+        return $this->hasOne(Image::class, 'id', 'image_id');
     }
 }

@@ -23,6 +23,7 @@ return [
     'guild' => 'Guilds',
     'user' => 'Accounts',
     'worldmap' => 'World map',
+    'hide-ranking' => 'Hide Ranking',
 
     'smc-log' => 'SMC Logging',
     'users-created' => 'Users created',

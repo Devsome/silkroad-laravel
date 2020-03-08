@@ -78,7 +78,7 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0">
-                            Silk History
+                            {{ __('backend/tbuser.silk-history') }}
                         </h6>
                     </div>
                     @if($tbuser->getsksilkhistory->isEmpty())

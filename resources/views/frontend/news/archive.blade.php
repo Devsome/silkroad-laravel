@@ -5,6 +5,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12">
+                    <h1>{{ __('news.title') }}</h1>
                     <div class="posts-container mx-auto px-3 py-5">
                         @forelse($archive as $key => $newsGroup)
                             <div class="list-group mb-4">

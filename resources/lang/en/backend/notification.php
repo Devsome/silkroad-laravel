@@ -10,6 +10,7 @@ return [
         'no-online-offline' => 'This char has no OnlineOffline Status',
         'priority-exist' => 'There are tickets with that priority',
         'category-exist' => 'There are tickets with that category',
+        'error-image-references' => 'There are :model with that image.',
     ],
     'modal' => [
         'return' => 'Return',
