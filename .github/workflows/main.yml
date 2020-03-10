@@ -5,9 +5,9 @@ on:
     branches: master
 
 jobs:
-  checking-todos:
-    name: todo-actions
-      - uses: dtinth/todo-actions@v0.2.0
+  todo:
+    - name: todo-actions
+      uses: dtinth/todo-actions@v0.2.0
   build-js:
     name: Building css & javascript
     runs-on: ubuntu-latest
