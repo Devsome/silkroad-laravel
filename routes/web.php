@@ -5,13 +5,17 @@ Auth::routes();
 
 Route::get('/', 'IndexController@index')->name('index');
 
+// News
 Route::get('/news/{slug}', 'NewsController@index')->name('news-slug');
 Route::get('/news-archive', 'NewsController@archive')->name('news-archive');
 
+// Other
 Route::get('/downloads', 'IndexController@downloads')->name('downloads-index');
 
+// Ranking
 Route::group(['prefix' => 'ranking'], function () {
     Route::get('/', 'RankingController@index')->name('ranking-index');
+    Route::post('/', 'RankingController@search')->name('ranking-search-post');
 });
 
 // Needed to be logged in after that
@@ -21,6 +25,7 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+// Backend Routes
 Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function () {
     Route::get('/', 'Backend\BackendController@index')->name('index-backend');
 

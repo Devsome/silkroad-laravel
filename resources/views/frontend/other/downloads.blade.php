@@ -9,7 +9,7 @@
                     <div class="row">
                         @forelse($downloads as $download)
                             <div class="col-md-4">
-                                <div class="card">
+                                <div class="card download-card">
                                     <img src="{{ Storage::disk('images')->url($download->image->filename) }}" class="card-img-top"
                                          alt="{{ $download->name }}">
                                     <div class="card-body">

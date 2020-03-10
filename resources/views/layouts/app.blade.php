@@ -12,9 +12,6 @@
     <!-- Coded by Devsome.com -->
     <meta name="author" content="Alexander Frank">
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -32,5 +29,7 @@
         </div>
     </main>
 </div>
+<script src="{{ asset('js/app.js') }}"></script>
+@stack('javascript')
 </body>
 </html>

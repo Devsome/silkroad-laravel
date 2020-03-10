@@ -145,6 +145,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'search-term' => 'Search term'
+    ],
 
 ];
