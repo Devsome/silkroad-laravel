@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
-# update / upgrade
-sudo apt-get update
-sudo apt-get -y upgrade
+# Setting the noninteractive mode
+export DEBIAN_FRONTEND="noninteractive";
 
-# create public folder
+# Update / upgrade
+sudo apt-get update
+DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+
+# Create public folder
 sudo mkdir "/var/www/public"
 
 # Install nginx
@@ -16,17 +19,17 @@ sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again p
 sudo apt-get install -y mysql-server
 
 sudo wget http://repo.mysql.com/mysql-apt-config_0.8.9-1_all.deb
-sudo dpkg -i mysql-apt-config_0.8.9-1_all.deb -y
+sudo -E dpkg -i mysql-apt-config_0.8.9-1_all.deb
 sudo apt-get update
 sudo apt-get install -y mysql-server
 
 # Install php-fpm 7.3
 sudo add-apt-repository -y ppa:ondrej/php && sudo apt-get update
 sudo apt-get install -y php7.3-cli php7.3-fpm php7.3-mysql php7.3-curl php-memcached php7.3-dev php7.3-sqlite3 php7.3-mbstring php7.3-xml freetds-common freetds-bin unixodbc php7.3-sybase
-sudo apt install php7.3-bcmath
+sudo apt install -y php7.3-bcmath
 sudo apt install -y zip unzip php7.3-zip
 sudo apt-cache search php7.3
-sudo apt install php7.3-zip
+sudo apt install -y php7.3-zip
 
 sudo apt-get install acl
 sudo apt install -y npm
@@ -34,13 +37,13 @@ sudo apt install -y npm
 # Sendmail
 sudo apt-get install -y sendmail
 sudo hostnamectl set-hostname silkroad-laravel.de
-sudo sendmailconfig
+#sudo sendmailconfig
 
 # Setup database
 echo mysql_upgrade -u root -proot --force
 echo "CREATE DATABASE DB_SILKROAD" | mysql -uroot -proot
 echo "FLUSH PRIVILEGES" | mysql -uroot -proot
-echo "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';"
+echo "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';" | mysql -uroot -proot
 
 # php.ini
 sudo sed -i.bak 's/^;cgi.fix_pathinfo.*$/cgi.fix_pathinfo = 1/g' /etc/php/7.3/fpm/php.ini
@@ -104,14 +107,17 @@ server {
 }
 EOF
 
-# install git
+# Install git
 sudo apt-get -y install git
 
-# install Composer
-curl -s https://getcomposer.org/installer | php
+# Install Composer
+sudo curl -s https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 
 # Restart servers
 sudo service nginx restart
 sudo service php7.3-fpm restart
 sudo service mysql restart
+
+# Migrate the Tables
+sudo php /var/www/artisan migrate

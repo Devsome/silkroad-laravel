@@ -15,6 +15,9 @@ Route::get('/downloads', 'IndexController@downloads')->name('downloads-index');
 // Ranking
 Route::group(['prefix' => 'ranking'], function () {
     Route::get('/', 'RankingController@index')->name('ranking-index');
+    Route::get('/{category}/{term}', 'RankingController@searchGet')
+        ->where(['category' => '[a-zA-Z]+', 'term' => '[a-zA-Z0-9_]+'])
+        ->name('ranking-search-get');
     Route::post('/', 'RankingController@search')->name('ranking-search-post');
 });
 
