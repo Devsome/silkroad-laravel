@@ -43,7 +43,6 @@ class RankingController extends Controller
                 'success' => false,
                 'errors' => $validator->errors()
             ];
-//            return back()->withErrors($validator)->withInput();
         }
 
         if ($request->get('search-for') === __('ranking.search.search-charname')) {

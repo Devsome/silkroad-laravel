@@ -8,7 +8,7 @@
                     <h1>{{ __('ranking.title') }}</h1>
 
 
-                    <div class="row pb-4 py-3">
+                    <div class="row pb-4">
                         <div class="col-12">
                             <form method="POST" action="{{ route('ranking-search-post') }}">
                                 @csrf
@@ -54,6 +54,28 @@
                             </form>
                         </div>
                     </div>
+                    <div class="row pb-3">
+                        <div class="col-12">
+                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="btn-group mr-2" role="group"
+                                     aria-label="{{ __('ranking.search.charname') }}">
+                                    <button type="button" class="btn btn-outline-dark">
+                                        {{ __('ranking.search.charname') }}
+                                    </button>
+                                </div>
+                                <div class="btn-group mr-2" role="group" aria-label="{{ __('ranking.search.guild') }}">
+                                    <button type="button" class="btn btn-outline-dark">
+                                        {{ __('ranking.search.guild') }}
+                                    </button>
+                                </div>
+                                <div class="btn-group" role="group" aria-label="{{ __('ranking.search.jobname') }}">
+                                    <button type="button" class="btn btn-outline-dark">
+                                        {{ __('ranking.search.jobname') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="result-area">
                         @include('frontend.ranking.results.chars', [
                             'data' => $data
@@ -63,9 +85,6 @@
             </div>
         </div>
     </div>
-    @if($errors->any())
-        {{ implode('', $errors->all('<div>:message</div>')) }}
-    @endif
 @endsection
 
 @push('javascript')
@@ -74,12 +93,34 @@
             const resultArea = $('.result-area');
             const submitButton = $('#sendingButton');
             const submitButtonText = submitButton.html();
-            const inputSearchFor = $('input[name="search-term"]');
+            const inputSearchTerm = $('input[name="search-term"]');
+            const inputSearchFor = $('input[name="search-for"]');
+
+            // Getting the hash
+            if (window.location.hash.length > 1) {
+                const data = [];
+                let tokens = location.hash.substring(1).split('&');
+                for (let i = 0, l = tokens.length; i < l; i++) {
+                    data[i] = tokens[i];
+                }
+                if (data.length === 2) {
+                    // Category & Term exist
+                    console.log(data[0], data[1]);
+                    // console.log(request);
+                    inputSearchFor.val(data[0]);
+                    inputSearchTerm.val(data[1]);
+
+                    let searchFor = $(`a[data-name='${data[0]}']`);
+                    searchFor.parents(".input-group-btn").find('.btn').text(searchFor.text());
+                }
+            }
 
             // Dropdown selector
-            $(".dropdown-menu a ").click(function () {
-                $('input[name="search-for"]').val($(this).data('name'));
+            $(".dropdown-menu a ").click(function (e) {
+                e.preventDefault();
+                inputSearchFor.val($(this).data('name'));
                 $(this).parents(".input-group-btn").find('.btn').text($(this).text());
+                window.location.hash = $(this).data('name');
             });
 
             $.ajaxSetup({
@@ -91,9 +132,18 @@
             // Form preventing
             $("form").submit(function (e) {
                 e.preventDefault();
+                sendingRequest();
+            });
+
+            // Function for Ajax request
+            function sendingRequest()
+            {
                 let form = $("form").serialize();
+
+                console.log(form);
+                return;
                 submitButton.html('<i class="fas fa-circle-notch fa-spin"></i>');
-                inputSearchFor.attr('disabled', 'disabled');
+                inputSearchTerm.attr('disabled', 'disabled');
                 $("#errorArea").empty();
 
                 $.post({
@@ -110,12 +160,10 @@
                         errorHtml += '</div>';
                         $("#errorArea").append(errorHtml);
                     }
-                    $('input[name="search-term"]').removeAttr('disabled');
-                    inputSearchFor.removeAttr('disabled');
+                    inputSearchTerm.removeAttr('disabled');
                     submitButton.html(submitButtonText);
                 });
-
-            });
+            }
         });
     </script>
 @endpush
