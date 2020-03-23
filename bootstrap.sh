@@ -120,4 +120,4 @@ sudo service php7.3-fpm restart
 sudo service mysql restart
 
 # Migrate the Tables
-sudo php /var/www/artisan migrate
+sudo php /var/www/artisan migrate --seed
