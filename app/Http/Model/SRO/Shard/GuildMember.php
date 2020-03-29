@@ -39,9 +39,7 @@ class GuildMember extends Model
      *
      * @var array
      */
-    protected $fillable = [
-
-    ];
+    protected $fillable = [];
 
     /**
      * The attributes format for dates.

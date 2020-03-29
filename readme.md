@@ -1,6 +1,6 @@
 ## Silkroad Laravel
 
-![CI](https://github.com/Devsome/silkroad-laravel/workflows/CI/badge.svg)
+![https://github.com/Devsome/silkroad-laravel/actions?query=workflow%3ACI](https://github.com/Devsome/silkroad-laravel/workflows/CI/badge.svg)
 
 A free and open-source project for the MMORPG Silkroad Online.
 Feel free to create isses or contribute to that project. If you have any questions, just ask!
@@ -8,6 +8,7 @@ Feel free to create isses or contribute to that project. If you have any questio
 #### Discord
 We now have a Discord [server](https://discord.gg/MNjY4By) for questions, feedback or chit-chat.
 
+If you want to help me, you can buy a [Coffee](https://www.buymeacoffee.com/Mi0v2sB) for me.
 <hr>
 
 ### Downloading
@@ -25,7 +26,7 @@ We now have a Discord [server](https://discord.gg/MNjY4By) for questions, feedba
         ```
         composer install
         ```
-    2. Editing the `_AddLogChar` mssql Procedure. After all the `set` variables you need to paste this stuff.
+    2. Editing the `SRO_VT_LOG`.`_AddLogChar` mssql Procedure. After all the `set` variables you need to paste this stuff.
         ```sql
         BEGIN
             SET NOCOUNT ON;
@@ -40,9 +41,48 @@ We now have a Discord [server](https://discord.gg/MNjY4By) for questions, feedba
                    INSERT INTO onlineofflinelog ([CharID],  [status])
                    VALUES  (@CharID, @EventID)
         END
+        IF (@EventID = 6)
+        BEGIN
+            UPDATE [SRO_VT_SHARD].[dbo]._Char 
+                set ItemPoints = (
+                SELECT
+                ISNULL((sum(ISNULL(Binding.nOptValue, 0)) + sum(ISNULL(OptLevel, 0)) + sum(ISNULL(Common.ReqLevel1, 0))), 0) as ItemPoints
+                FROM [SRO_VT_SHARD].[dbo].[_Inventory] as inventory
+                join [SRO_VT_SHARD].[dbo]._Items as Items on Items.ID64  = inventory.ItemID
+                join [SRO_VT_SHARD].[dbo]._RefObjCommon as Common on Items.RefItemId  = Common.ID
+                left join [SRO_VT_SHARD].[dbo]._BindingOptionWithItem as Binding on Binding.nItemDBID = Items.ID64
+                where
+                    inventory.slot < 13 and
+                    inventory.slot != 8 and
+                    inventory.slot != 7 and
+                    inventory.CharID = _Char.CharID
+            ) WHERE _Char.CharID = @CharID
+        
+            Declare @GuildID int;
+            SELECT @GuildID = GuildID FROM [SRO_VT_SHARD].[dbo]._Char WHERE _Char.CharID = @CharID
+        
+            IF (@GuildID > 0)
+            BEGIN
+                UPDATE [SRO_VT_SHARD].[dbo]._Guild 
+                  set ItemPoints = (
+                  SELECT
+                    SUM(Char.ItemPoints) as ItemPoints
+                    FROM [SRO_VT_SHARD].[dbo]._Char as Char
+                    where
+                        Char.GuildID = _Guild.ID
+                ) WHERE _Guild.ID = @GuildID
+            END
+        END
         ```
-        That inserts a record into the `SRO_VT_LOG.onlineofflinelog` & `SRO_VT_LOG.loginhistory`. If you think, that you are missing that table. Do the next step and the Table exist.
-    3. Laravel stuff
+        That inserts a record into the `SRO_VT_LOG`.`onlineofflinelog` & `SRO_VT_LOG`.`loginhistory`. If you think, that you are missing that table. Do the next step and the Table exist.
+        <br><br>Also the `EventId = 6` part is for the ranking of your players.
+    4. Open your Silkroad Database query and run this commands
+        ```sql
+        ALTER TABLE dbo._Char ADD ItemPoints int NOT NULL DEFAULT 0;
+        ALTER TABLE dbo._Guild ADD ItemPoints int NOT NULL DEFAULT 0;
+        ``` 
+        That stuff allows the Database to fill the **Itempoints** to the ranking.
+    3. Laravel stuff for generating the storage path, unique key and seeding the tables.
         ```bash
         php artisan storage:link && php artisan key:generate && php artisan migrate --seed
         ```
@@ -71,7 +111,11 @@ We now have a Discord [server](https://discord.gg/MNjY4By) for questions, feedba
     ```bash
     * * * * * php /var/www/artisan schedule:run
     ```
-    
+9. If you want to add your existing Silkroad Accounts to the **web** Database, run this command:
+    ```bash
+    php artisan import:silkroad-accounts
+    ```
+    You need to be in your root web directory.
     
 ### Chaning Javascript / CSS styling
 
@@ -100,9 +144,7 @@ If you want some help, check the [Laravel Compiling Assets (Mix)](https://larave
 
 
 Hopefully you are good to go with that. 
-<hr>
-
-If you want to help me, you can buy a [Coffee](https://www.buymeacoffee.com/Mi0v2sB) for me.     
+<hr>     
 
 License
 ===

@@ -10,6 +10,7 @@
                             {{ __('index.latest-news') }}
                         </div>
                     </div>
+                    @if($news->count() > 4)
                     <div class="col-sm-4">
                         <div class="main-btn-holder">
                             <a href="{{ route('news-archive') }}" class="hbtn hbtn-default">
@@ -17,6 +18,7 @@
                             </a>
                         </div>
                     </div>
+                    @endif
                 </div>
                 <div class="row">
                     @forelse($news as $newsData)

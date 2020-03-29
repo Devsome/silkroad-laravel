@@ -4,87 +4,132 @@ namespace App\Http\Controllers;
 
 use App\HideRanking;
 use App\Model\SRO\Shard\Char;
+use App\Model\SRO\Shard\CharTrijob;
 use App\Model\SRO\Shard\Guild;
 use Illuminate\Http\Request;
-use Validator;
 
 class RankingController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Request $request
+     * @param null|string $mode
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Throwable
      */
-    public function index()
+    public function index(Request $request, $mode = null)
     {
         $hideRanking = HideRanking::all()->pluck('charname');
+        $search = $request->get('search');
+        $type = $request->get('type');
 
-        $users = Char::orderBy('ItemPoints', 'DESC')
-            ->whereNotIn('CharName16', $hideRanking)
-            ->with('getGuildUser')->take(150)->get();
+        if ($mode !== null) {
+            $data = $this->mode(
+                $mode,
+                $hideRanking
+            );
+        } else {
+            if ($search && $type) {
+                $data = $this->searching(
+                    $type,
+                    $search,
+                    $hideRanking
+                );
+            } else {
+                $chars = Char::orderBy('ItemPoints', 'DESC')
+                    ->whereNotIn('CharName16', $hideRanking)
+                    ->with('getGuildUser')->take(150)->get();
+                $data = view('frontend.ranking.results.chars', [
+                    'data' => $chars,
+                ])->render();
+            }
+        }
 
         return view('frontend.ranking.index', [
-            'data' => $users
+            'data' => $data
         ]);
     }
 
     /**
-     * @param Request $request
-     * @return array|\Illuminate\Http\RedirectResponse
+     * @param $type
+     * @param $search
+     * @param $hideRanking
+     * @return array|void
      * @throws \Throwable
      */
-    public function search(Request $request)
+    private function searching($type, $search, $hideRanking)
     {
-        $validator = Validator::make($request->all(), [
-            'search-term' => 'required|min:1|max:80',
-            'search-for' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return [
-                'success' => false,
-                'errors' => $validator->errors()
-            ];
-        }
-
-        if ($request->get('search-for') === __('ranking.search.search-charname')) {
-            $hideRanking = HideRanking::all()->pluck('charname');
-
-            $users = Char::orderBy('ItemPoints', 'DESC')
-                ->where('CharName16', 'like', '%' . $request->get('search-term') . '%')
+        if ($type === __('ranking.search.search-charname')) {
+            $chars = Char::orderBy('ItemPoints', 'DESC')
+                ->where('CharName16', 'like', '%' . $search . '%')
                 ->whereNotIn('CharName16', $hideRanking)
-                ->with('getGuildUser')->take(50)->get();
-
-            return [
-                'success' => true,
-                'html' => view('frontend.ranking.results.chars', [
-                    'data' => $users,
-                ])->render()
-            ];
+                ->with('getGuildUser')->take(150)->get();
+            return view('frontend.ranking.results.chars', [
+                'data' => $chars,
+            ])->render();
         }
 
-        if ($request->get('search-for') === __('ranking.search.search-guild')) {
+        if ($type === __('ranking.search.search-guild')) {
             $guilds = Guild::orderBy('ItemPoints', 'DESC')
-                ->where('Name', 'like', '%' . $request->get('search-term') . '%')
-                ->take(50)->get();
-
-            return [
-                'success' => true,
-                'html' => view('frontend.ranking.results.guilds', [
-                    'data' => $guilds
-                ])->render()
-            ];
+                ->where('Name', 'like', '%' . $search . '%')
+                ->take(150)->get();
+            return view('frontend.ranking.results.guilds', [
+                'data' => $guilds,
+            ])->render();
         }
 
-        if ($request->get('search-for') === __('ranking.search.search-job')) {
-            // TODO: Add job Ranking System
-            //
-            // Create a job integration for that ranking search.
-            // Maybe all together or hunter, trader and thiefs separated
-            //
-            // Need's to be done asap
+        if ($type === __('ranking.search.search-job')) {
+            $jobs = CharTrijob::whereHas('getCharacter', function ($q) use ($search, $hideRanking) {
+                $q->where('NickName16', 'like', '%' . $search . '%');
+                $q->whereNotIn('CharName16', $hideRanking);
+            })
+                ->with('getCharacter')
+                ->whereIn('JobType', [1, 2, 3])
+                ->orderBy('Level', 'DESC')
+                ->orderBy('Exp', 'DESC')
+                ->take(150)->get();
+            return view('frontend.ranking.results.jobs', [
+                'data' => $jobs
+            ]);
+        }
+    }
+
+    /**
+     * @param $mode
+     * @param $hideRanking
+     * @return void|array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @throws \Throwable
+     */
+    private function mode($mode, $hideRanking)
+    {
+        if ($mode === __('ranking.search.search-charname')) {
+            $chars = Char::orderBy('ItemPoints', 'DESC')
+                ->whereNotIn('CharName16', $hideRanking)
+                ->with('getGuildUser')->take(150)->get();
+            return view('frontend.ranking.results.chars', [
+                'data' => $chars,
+            ])->render();
         }
 
-        return [
-            'success' => false,
-        ];
+        if ($mode === __('ranking.search.search-guild')) {
+            $guilds = Guild::orderBy('ItemPoints', 'DESC')
+                ->take(150)->get();
+            return view('frontend.ranking.results.guilds', [
+                'data' => $guilds,
+            ])->render();
+        }
+
+        if ($mode === __('ranking.search.search-job')) {
+            $jobs = CharTrijob::whereHas('getCharacter', function ($q) use ($hideRanking) {
+                $q->whereNotIn('CharName16', $hideRanking);
+            })
+                ->with('getCharacter')
+                ->whereIn('JobType', [1, 2, 3])
+                ->orderBy('Level', 'DESC')
+                ->orderBy('Exp', 'DESC')
+                ->take(150)->get();
+            return view('frontend.ranking.results.jobs', [
+                'data' => $jobs
+            ]);
+        }
     }
 }
