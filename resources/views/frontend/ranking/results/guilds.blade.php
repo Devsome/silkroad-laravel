@@ -31,3 +31,4 @@
     @endforelse
     </tbody>
 </table>
+{!! $data->links() !!}

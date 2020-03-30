@@ -27,7 +27,9 @@
                                 </div>
                             </div>
                         @empty
-                            {{ __('download.no-downloads') }}
+                            <div class="col-auto">
+                                {{ __('downloads.no-downloads') }}
+                            </div>
                         @endforelse
                     </div>
                 </div>

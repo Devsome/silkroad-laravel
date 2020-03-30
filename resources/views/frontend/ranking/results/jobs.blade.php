@@ -4,7 +4,7 @@
         <th scope="col">{{ __('ranking.table.rank') }}</th>
         <th scope="col">{{ __('ranking.table.job-name') }}</th>
         <th scope="col">{{ __('ranking.table.job-type') }}</th>
-        <th scope="col">{{ __('ranking.table.exp') }}</th>
+        <th scope="col" class="d-none d-sm-block">{{ __('ranking.table.exp') }}</th>
     </tr>
     </thead>
     <tbody>
@@ -15,7 +15,7 @@
             </td>
             <td>
                 <img src="{{ asset('image/chars/') }}/{{ $jobs->getCharacter->RefObjID }}.gif"
-                     class="img-fluid" width="16" height="16" alt="{{ $jobs->getCharacter->CharName16 }}">
+                     class="img-fluid d-none d-sm-inline" width="16" height="16" alt="{{ $jobs->getCharacter->CharName16 }}">
                 {{ $jobs->getCharacter->NickName16 }}
             </td>
             <td>
@@ -29,7 +29,7 @@
                     {{ __('ranking.table.thief') }}
                 @endif
             </td>
-            <td>
+            <td class="d-none d-sm-block">
                 {{ __('ranking.table.job-level', ['level' => $jobs->Level, 'exp' => $jobs->Exp]) }}
             </td>
         </tr>
@@ -43,3 +43,4 @@
     @endforelse
     </tbody>
 </table>
+{!! $data->links() !!}

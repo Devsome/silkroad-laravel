@@ -54,17 +54,20 @@
                             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                 <div class="btn-group mr-2" role="group"
                                      aria-label="{{ __('ranking.search.charname') }}">
-                                    <a href="{{ route('ranking-index', ['mode' => __('ranking.search.search-charname')]) }}" type="button" class="btn btn-outline-dark">
+                                    <a href="{{ route('ranking-index', ['mode' => __('ranking.search.search-charname')]) }}"
+                                       type="button" class="btn btn-outline-dark">
                                         {{ __('ranking.search.charname') }}
                                     </a>
                                 </div>
                                 <div class="btn-group mr-2" role="group" aria-label="{{ __('ranking.search.guild') }}">
-                                    <a href="{{ route('ranking-index', ['mode' => __('ranking.search.search-guild')]) }}" type="button" class="btn btn-outline-dark">
+                                    <a href="{{ route('ranking-index', ['mode' => __('ranking.search.search-guild')]) }}"
+                                       type="button" class="btn btn-outline-dark">
                                         {{ __('ranking.search.guild') }}
                                     </a>
                                 </div>
                                 <div class="btn-group" role="group" aria-label="{{ __('ranking.search.jobname') }}">
-                                    <a href="{{ route('ranking-index', ['mode' => __('ranking.search.search-job')]) }}" type="button" class="btn btn-outline-dark">
+                                    <a href="{{ route('ranking-index', ['mode' => __('ranking.search.search-job')]) }}"
+                                       type="button" class="btn btn-outline-dark">
                                         {{ __('ranking.search.jobname') }}
                                     </a>
                                 </div>

@@ -27,21 +27,20 @@ class RankingController extends Controller
                 $mode,
                 $hideRanking
             );
+        } else if ($search && $type) {
+            $data = $this->searching(
+                $type,
+                $search,
+                $hideRanking
+            );
         } else {
-            if ($search && $type) {
-                $data = $this->searching(
-                    $type,
-                    $search,
-                    $hideRanking
-                );
-            } else {
-                $chars = Char::orderBy('ItemPoints', 'DESC')
-                    ->whereNotIn('CharName16', $hideRanking)
-                    ->with('getGuildUser')->take(150)->get();
-                $data = view('frontend.ranking.results.chars', [
-                    'data' => $chars,
-                ])->render();
-            }
+            $chars = Char::orderBy('ItemPoints', 'DESC')
+                ->whereNotIn('CharName16', $hideRanking)
+                ->with('getGuildUser')
+                ->paginate(150);
+            $data = view('frontend.ranking.results.chars', [
+                'data' => $chars,
+            ])->render();
         }
 
         return view('frontend.ranking.index', [
@@ -62,7 +61,8 @@ class RankingController extends Controller
             $chars = Char::orderBy('ItemPoints', 'DESC')
                 ->where('CharName16', 'like', '%' . $search . '%')
                 ->whereNotIn('CharName16', $hideRanking)
-                ->with('getGuildUser')->take(150)->get();
+                ->with('getGuildUser')
+                ->paginate(150);
             return view('frontend.ranking.results.chars', [
                 'data' => $chars,
             ])->render();
@@ -71,7 +71,7 @@ class RankingController extends Controller
         if ($type === __('ranking.search.search-guild')) {
             $guilds = Guild::orderBy('ItemPoints', 'DESC')
                 ->where('Name', 'like', '%' . $search . '%')
-                ->take(150)->get();
+                ->paginate(150);
             return view('frontend.ranking.results.guilds', [
                 'data' => $guilds,
             ])->render();
@@ -86,7 +86,7 @@ class RankingController extends Controller
                 ->whereIn('JobType', [1, 2, 3])
                 ->orderBy('Level', 'DESC')
                 ->orderBy('Exp', 'DESC')
-                ->take(150)->get();
+                ->paginate(150);
             return view('frontend.ranking.results.jobs', [
                 'data' => $jobs
             ]);
@@ -104,7 +104,8 @@ class RankingController extends Controller
         if ($mode === __('ranking.search.search-charname')) {
             $chars = Char::orderBy('ItemPoints', 'DESC')
                 ->whereNotIn('CharName16', $hideRanking)
-                ->with('getGuildUser')->take(150)->get();
+                ->with('getGuildUser')
+                ->paginate(150);
             return view('frontend.ranking.results.chars', [
                 'data' => $chars,
             ])->render();
@@ -112,7 +113,7 @@ class RankingController extends Controller
 
         if ($mode === __('ranking.search.search-guild')) {
             $guilds = Guild::orderBy('ItemPoints', 'DESC')
-                ->take(150)->get();
+                ->paginate(150);
             return view('frontend.ranking.results.guilds', [
                 'data' => $guilds,
             ])->render();
@@ -126,7 +127,7 @@ class RankingController extends Controller
                 ->whereIn('JobType', [1, 2, 3])
                 ->orderBy('Level', 'DESC')
                 ->orderBy('Exp', 'DESC')
-                ->take(150)->get();
+                ->paginate(150);
             return view('frontend.ranking.results.jobs', [
                 'data' => $jobs
             ]);
