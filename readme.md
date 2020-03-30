@@ -92,12 +92,12 @@ If you want to help me, you can buy a [Coffee](https://www.buymeacoffee.com/Mi0v
     50.51.52.53 silkroad-laravel
     ```
 6. If you want to connect to the local mysql Database
-    1. SSH Host: `50.51.52.53`
-    2. Username: `vagrant`
-    3. Password: `vagrant`
-    4. MySQL Host: `127.0.0.1`
-    5: Username: `root`
-    6. Password: `root`
+    - SSH Host: `50.51.52.53`
+    - Username: `vagrant`
+    - Password: `vagrant`
+    - MySQL Host: `127.0.0.1`
+    - Username: `root`
+    - Password: `root`
     
     Also in the Vagrantfile.
 
