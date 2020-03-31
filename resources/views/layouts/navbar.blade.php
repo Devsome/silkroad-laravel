@@ -17,10 +17,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('downloads-index') }}">{{ __('navbar.nav.download') }}</a>
+                    <a class="nav-link" href="{{ route('downloads-index') }}">
+                        {{ __('navbar.nav.download') }}
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('ranking-index') }}">{{ __('navbar.nav.ranking') }}</a>
+                    <a class="nav-link" href="{{ route('ranking-index') }}">
+                        {{ __('navbar.nav.ranking') }}
+                    </a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -40,6 +44,10 @@
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('home') }}">
+                                {{ __('navbar.home') }}
+                            </a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                 {{ __('navbar.logout') }}

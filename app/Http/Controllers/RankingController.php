@@ -44,7 +44,8 @@ class RankingController extends Controller
         }
 
         return view('frontend.ranking.index', [
-            'data' => $data
+            'data' => $data,
+            'mode' => $mode
         ]);
     }
 

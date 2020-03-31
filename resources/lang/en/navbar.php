@@ -6,6 +6,7 @@ return [
     'register' => 'Register',
     'logout' => 'Logout',
     'backend' => 'Backend',
+    'home' => 'Account',
 
     'nav' => [
         'home' => 'Home',

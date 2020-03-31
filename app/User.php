@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Model\SRO\Account\TbUser;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -37,4 +38,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function getTbUser()
+    {
+        return $this->belongsTo(TbUser::class, 'silkroad_id', 'StrUserID');
+    }
 }

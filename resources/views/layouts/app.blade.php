@@ -24,7 +24,9 @@
     @include('layouts.navbar')
     <main role="main" class="container">
         <div class="row mt-5">
-            @include('layouts.sidebar')
+            @section('sidebar')
+                @include('layouts.sidebar')
+            @show
             @yield('content')
         </div>
     </main>

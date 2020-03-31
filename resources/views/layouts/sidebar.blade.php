@@ -6,7 +6,7 @@
                 <i class="fa fa-fw fa-desktop"></i> {{ __('sidebar.information.online') }}
             </div>
             <div class="float-right">
-                {{ $SidebarProvider['count'] }} / {{ config('app.sro_max_server') }}
+                @include('layouts.playercount')
             </div>
         </li>
         <li class="pb-1 pt-2">
@@ -17,6 +17,9 @@
                 <span class="currTime">00:00:00</span>
             </div>
         </li>
+    </ul>
+
+    <ul class="list-group list-unstyled small pt-3">
         <li class="pb-1">
             <div class="float-left">
                 <i class="fas fa-fw fa-check"></i> {{ __('sidebar.information.cap') }}
@@ -25,9 +28,6 @@
                 {{ config('app.sro_cap') }}
             </div>
         </li>
-    </ul>
-
-    <ul class="list-group list-unstyled small pt-3">
         <li class="pb-1">
             <div class="float-left">
                 <i class="fa fa-fw fa-flask"></i> {{ __('sidebar.information.exp-sp') }}

@@ -20,4 +20,13 @@ return [
         'hunter' => 'Hunter',
         'thief' => 'Thief',
     ],
+
+    'home' => [
+        'title' => 'Dashboard',
+        'settings' => 'Settings',
+        'silk' => 'Silk',
+        'silk-gift' => 'Silk Gift',
+        'change-password' => 'Password change',
+        'donate' => 'Donate',
+    ]
 ];

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $account = User::where('id', Auth::id())
+            ->with('getTbUser')
+            ->with('getTbUser.getSkSilk')
+            ->with('getTbUser.getShardUser')
+            ->firstOrFail();
+
+        return view('home', [
+            'account' => $account
+        ]);
     }
 }

@@ -55,19 +55,22 @@
                                 <div class="btn-group mr-2" role="group"
                                      aria-label="{{ __('ranking.search.charname') }}">
                                     <a href="{{ route('ranking-index', ['mode' => __('ranking.search.search-charname')]) }}"
-                                       type="button" class="btn btn-outline-dark">
+                                       type="button" class="btn @if($mode === __('ranking.search.search-charname'))
+                                               btn-dark @else btn-outline-dark @endif">
                                         {{ __('ranking.search.charname') }}
                                     </a>
                                 </div>
                                 <div class="btn-group mr-2" role="group" aria-label="{{ __('ranking.search.guild') }}">
                                     <a href="{{ route('ranking-index', ['mode' => __('ranking.search.search-guild')]) }}"
-                                       type="button" class="btn btn-outline-dark">
+                                       type="button" class="btn @if($mode === __('ranking.search.search-guild'))
+                                            btn-dark @else btn-outline-dark @endif">
                                         {{ __('ranking.search.guild') }}
                                     </a>
                                 </div>
                                 <div class="btn-group" role="group" aria-label="{{ __('ranking.search.jobname') }}">
                                     <a href="{{ route('ranking-index', ['mode' => __('ranking.search.search-job')]) }}"
-                                       type="button" class="btn btn-outline-dark">
+                                       type="button" class="btn @if($mode === __('ranking.search.search-job'))
+                                            btn-dark @else btn-outline-dark @endif">
                                         {{ __('ranking.search.jobname') }}
                                     </a>
                                 </div>
@@ -107,7 +110,7 @@
             }
 
             // Dropdown selector
-            $(".dropdown-menu a ").click(function (e) {
+            $("form .dropdown-menu a ").click(function (e) {
                 e.preventDefault();
                 inputSearchTerm.val($(this).data('name'));
                 $(this).parents(".input-group-btn").find('.btn').text($(this).text());
