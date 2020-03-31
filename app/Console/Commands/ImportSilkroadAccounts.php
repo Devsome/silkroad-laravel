@@ -54,7 +54,7 @@ class ImportSilkroadAccounts extends Command
                     'reflink' => \Str::uuid()
                 ]);
 
-                if($user->sec_primary === 3 && $user->sec_content === 3) {
+                if($user->sec_primary === 1 && $user->sec_content === 1) {
                     $createdUser->assignRole('backend');
                 }
             }
