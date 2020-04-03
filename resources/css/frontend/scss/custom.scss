@@ -6,3 +6,18 @@
     max-height: 150px;
   }
 }
+
+
+.row-bordered {
+  position: relative;
+}
+
+.row-bordered:after {
+  content: "";
+  display: block;
+  border-bottom: 1px solid #ccc;
+  position: absolute;
+  bottom: 25px;
+  left: 15px;
+  right: 15px;
+}

@@ -1,5 +1,5 @@
 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 d-none d-lg-block">
-    <p class="font-weight-light p-2 font-weight-bold">{{ __('sidebar.information.title') }}</p>
+    <p class="font-weight-light pt-2 pb-2 font-weight-bold">{{ __('sidebar.information.title') }}</p>
     <ul class="list-group list-unstyled small">
         <li>
             <div class="float-left">

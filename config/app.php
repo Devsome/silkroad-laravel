@@ -56,6 +56,8 @@ return [
 
     'sro_content_id' => env('APP_SRO_CONTENT_ID', 22),
 
+    'sro_silk_name' => env('SRO_SILK_NAME', 'Silk'),
+
     'sro_max_server' => env('SRO_MAX_SERVER', 1000),
     'sro_cap' => env('SRO_CAP', 90),
     'sro_exp' => env('SRO_EXP', 5),

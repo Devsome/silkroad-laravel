@@ -21,7 +21,10 @@ Route::group(['prefix' => 'ranking'], function () {
 Auth::routes(['verify' => true]);
 
 // User Dashboard
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'account'], function() {
+    Route::get('/', 'AccountController@index')->name('home');
+    Route::get('/chars', 'AccountController@charList')->name('chars-list');
+});
 
 
 // Backend Routes

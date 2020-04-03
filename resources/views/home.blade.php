@@ -24,7 +24,10 @@
             </li>
         </ul>
 
-        <ul class="list-group list-unstyled small pt-3">
+        <p class="font-weight-light pt-4 font-weight-bold">
+            {{ __('sidebar.home.currency') }}
+        </p>
+        <ul class="list-group list-unstyled small ">
             <li class="pb-1">
                 <div class="float-left">
                     <i class="fa fa-fw fa-coins"></i> {{ __('sidebar.home.silk') }}
@@ -43,7 +46,9 @@
             </li>
         </ul>
 
-        <p class="font-weight-light pt-4 font-weight-bold">{{ __('sidebar.home.settings') }}</p>
+        <p class="font-weight-light pt-4 font-weight-bold">
+            {{ __('sidebar.home.settings') }}
+        </p>
         <ul class="list-group list-unstyled small">
             <li class="pb-1">
                 <div class="float-left">
@@ -68,29 +73,68 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            {{ __('home.title') }}
+                    <h1>
+                        {{ __('home.title') }}
+                    </h1>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="box box-small-icon-alt">
+                                <a href="{{ route('chars-list') }}" class="dashboard-link d-none d-sm-block">
+                                    <i class="fa fa-3x fa-users text-dark box-icon box-icon-outline"></i>
+                                </a>
+                                <a href="{{ route('chars-list') }}" class="dashboard-link">
+                                    <h4 class="box-title">
+                                        {{ __('home.grid.char-list') }}
+                                    </h4>
+                                </a>
+                                <p class="box-description">
+                                    {{ __('home.grid.char-list-desc') }}
+                                </p>
+                            </div>
                         </div>
-
-                        <div class="card-body">
-                            @if (session('status'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ session('status') }}
-                                </div>
-                            @endif
-                            <div class="container">
-                                <div class="row">
-                                    @if($account->getTbUser->getShardUser->isEmpty())
-                                        {{ __('home.no-chars') }}
-                                    @else
-                                        @foreach($account->getTbUser->getShardUser as $char)
-                                            <div class="col-12">
-                                                {{ $char->CharName16 }} {{ $char->CurLevel }}
-                                            </div>
-                                        @endforeach
-                                    @endisset
-                                </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="box box-small-icon-alt">
+                                <a href="https://shisha-db.de/home/favoriten" class="dashboard-link d-none d-sm-block">
+                                    <i class="fa fa-3x fa-user-cog text-dark box-icon box-icon-outline"></i>
+                                </a>
+                                <a href="https://shisha-db.de/home/favoriten" class="dashboard-link">
+                                    <h4 class="box-title">
+                                        {{ __('home.grid.settings') }}
+                                    </h4>
+                                </a>
+                                <p class="box-description">
+                                    {{ __('home.grid.settings-desc') }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="box box-small-icon-alt">
+                                <a href="https://shisha-db.de/home/favoriten" class="dashboard-link d-none d-sm-block">
+                                    <i class="fa fa-3x fa-money-bill text-dark box-icon box-icon-outline"></i>
+                                </a>
+                                <a href="https://shisha-db.de/home/favoriten" class="dashboard-link">
+                                    <h4 class="box-title">
+                                        {{ __('home.grid.donation') }}
+                                    </h4>
+                                </a>
+                                <p class="box-description">
+                                    {{ __('home.grid.donation-desc', ['silk' => config('app.sro_silk_name')]) }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="box box-small-icon-alt">
+                                <a href="https://shisha-db.de/home/favoriten" class="dashboard-link d-none d-sm-block">
+                                    <i class="fa fa-3x fa-bug text-dark box-icon box-icon-outline"></i>
+                                </a>
+                                <a href="https://shisha-db.de/home/favoriten" class="dashboard-link">
+                                    <h4 class="box-title">
+                                        {{ __('home.grid.other') }}
+                                    </h4>
+                                </a>
+                                <p class="box-description">
+                                    {{ __('home.grid.other-desc') }}
+                                </p>
                             </div>
                         </div>
                     </div>

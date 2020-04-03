@@ -135,4 +135,15 @@ class Char extends Model
     {
         return $this->belongsTo(OnlineOfflineLog::class, 'CharID', 'CharID');
     }
+
+    /**
+     * Getting values when Char is logged in
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function getCharOnlineOfflineLoggedIn()
+    {
+        $q = $this->belongsTo(OnlineOfflineLog::class, 'CharID', 'CharID');
+        $q->where('status', OnlineOfflineLog::STATUS_LOGGED_IN);
+        return $q;
+    }
 }

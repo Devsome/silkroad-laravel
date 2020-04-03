@@ -22,8 +22,9 @@ return [
     ],
 
     'home' => [
-        'title' => 'Dashboard',
-        'settings' => 'Settings',
+        'title' => 'Server information',
+        'settings' => 'References',
+        'currency' => 'Currency',
         'silk' => 'Silk',
         'silk-gift' => 'Silk Gift',
         'change-password' => 'Password change',
