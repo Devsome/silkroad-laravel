@@ -23,7 +23,8 @@ Auth::routes(['verify' => true]);
 // User Dashboard
 Route::group(['prefix' => 'account'], function() {
     Route::get('/', 'AccountController@index')->name('home');
-    Route::get('/chars', 'AccountController@charList')->name('chars-list');
+    Route::get('/chars', 'AccountController@charList')->name('home-chars-list');
+    Route::get('/settings', 'AccountController@settings')->name('home-settings');
 });
 
 

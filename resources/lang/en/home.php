@@ -25,5 +25,9 @@ return [
 
         'logged-in' => 'Logged in',
         'logged-out' => 'Logged out',
+    ],
+
+    'settings' => [
+        'title' => 'Settings'
     ]
 ];

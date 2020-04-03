@@ -23,7 +23,10 @@ return [
 
     'home' => [
         'title' => 'Server information',
-        'settings' => 'References',
+        'references' => 'References',
+        'settings' => 'Settings',
+        'dashboard' => 'Dashboard',
+        'charlist' => 'Char list',
         'currency' => 'Currency',
         'silk' => 'Silk',
         'silk-gift' => 'Silk Gift',

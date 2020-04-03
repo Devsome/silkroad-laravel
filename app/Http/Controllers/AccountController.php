@@ -54,4 +54,21 @@ class AccountController extends Controller
             'account' => $account
         ]);
     }
+
+    /**
+     * Show the settings for the Account
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function settings()
+    {
+        $account = User::where('id', Auth::id())
+            ->with('getTbUser')
+            ->with('getTbUser.getSkSilk')
+            ->firstOrFail();
+
+        return view('frontend.account.settings', [
+            'account' => $account
+        ]);
+    }
 }
