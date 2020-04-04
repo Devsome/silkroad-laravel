@@ -25,6 +25,7 @@ Route::group(['prefix' => 'account'], function() {
     Route::get('/', 'AccountController@index')->name('home');
     Route::get('/chars', 'AccountController@charList')->name('home-chars-list');
     Route::get('/settings', 'AccountController@settings')->name('home-settings');
+    Route::post('/settings/update', 'AccountController@settingsUpdate')->name('home-settings-update');
 });
 
 

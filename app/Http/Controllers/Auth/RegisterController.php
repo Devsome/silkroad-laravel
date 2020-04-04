@@ -52,10 +52,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'min:6', 'max:16'],
+            'name' => ['required', 'string', 'min:4', 'max:16'],
             'silkroad_id' => ['required', 'string', 'alpha_num', 'min:6', 'max:16', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'web_password' => ['required', 'string', 'min:6', 'confirmed'],
+            'sro_password' => ['required', 'string', 'min:6', 'confirmed'],
             'rules' => ['required'],
         ]);
     }
@@ -71,7 +72,7 @@ class RegisterController extends Controller
         $tbUser = TbUser::create([
             'StrUserID' => strtolower($data['silkroad_id']),
             'Name' => $data['name'],
-            'password' => md5($data['password']),
+            'password' => md5($data['sro_password']),
             'Status' => 1,
             'GMrank' => 0,
             'Email' => $data['email'],
@@ -92,7 +93,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'silkroad_id' => $data['silkroad_id'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make($data['web_password']),
             'reflink' => \Str::uuid()
         ]);
     }

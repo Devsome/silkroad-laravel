@@ -28,6 +28,28 @@ return [
     ],
 
     'settings' => [
-        'title' => 'Settings'
+        'title' => 'Settings',
+
+        'form' => [
+            'name' => 'Name',
+            'email' => 'E-Mail',
+            'map' => 'Worldmap',
+            'referral' => 'Referral link',
+            'show-map' => 'Show your accounts on the map',
+
+            'silkroad-password' => 'New silkroad password',
+            'silkroad-password-confirmation' => 'Confirm silkroad password',
+
+            'web-password' => 'New web password',
+            'web-password-confirmation' => 'Confirm web password',
+
+            'current-web-password' => 'Current web password',
+            'current-web-password-help' => 'You need to fill this to change any data!',
+
+            'submit' => 'Save settings',
+            'wrong-current-web-password' => 'The entered password is wrong',
+
+            'successfully' => 'You have successfully changed your data.',
+        ]
     ]
 ];
