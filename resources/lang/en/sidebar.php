@@ -32,5 +32,6 @@ return [
         'silk-gift' => 'Silk Gift',
         'change-password' => 'Password change',
         'donate' => 'Donate',
+        'tickets' => 'Tickets'
     ]
 ];

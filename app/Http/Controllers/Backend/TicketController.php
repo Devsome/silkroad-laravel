@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Controller;
 use App\Tickets\Ticket;
 use App\Tickets\TicketAnswer;
 use App\Tickets\TicketCategories;
@@ -13,11 +14,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
-use Yajra\DataTables\DataTables;
 
 class TicketController extends Controller
 {
-
     /**
      * @return Factory|\Illuminate\View\View
      */
@@ -66,7 +65,7 @@ class TicketController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return Redirect::action('TicketController@categoryUpdate', ['id' => $id])
+                return Redirect::action('Backend\TicketController@categoryUpdate', ['id' => $id])
                     ->withInput()
                     ->withErrors($validator);
             }
@@ -95,7 +94,7 @@ class TicketController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return Redirect::action('TicketController@categoryCreate')
+                return Redirect::action('Backend\TicketController@categoryCreate')
                     ->withInput()
                     ->withErrors($validator);
             }
@@ -144,7 +143,7 @@ class TicketController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return Redirect::action('TicketController@priorityUpdate', ['id' => $id])
+                return Redirect::action('Backend\TicketController@priorityUpdate', ['id' => $id])
                     ->withInput()
                     ->withErrors($validator);
             }
@@ -176,7 +175,7 @@ class TicketController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return Redirect::action('TicketController@priorityCreate')
+                return Redirect::action('Backend\TicketController@priorityCreate')
                     ->withInput()
                     ->withErrors($validator);
             }

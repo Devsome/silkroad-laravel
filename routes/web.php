@@ -26,6 +26,14 @@ Route::group(['prefix' => 'account'], function() {
     Route::get('/chars', 'AccountController@charList')->name('home-chars-list');
     Route::get('/settings', 'AccountController@settings')->name('home-settings');
     Route::post('/settings/update', 'AccountController@settingsUpdate')->name('home-settings-update');
+    Route::group(['prefix' => 'tickets'], function() {
+        Route::get('/', 'Frontend\TicketController@tickets')->name('home-tickets');
+        Route::get('/new', 'Frontend\TicketController@ticketsNew')->name('home-tickets-new');
+        Route::post('/new', 'Frontend\TicketController@ticketsNewSubmit')->name('home-tickets-new-submit');
+        Route::get('/datatables', 'Frontend\TicketController@ticketsDatatables')->name('home-tickets-datatables');
+        Route::get('/show/{id}', 'Frontend\TicketController@ticketShow')->name('home-tickets-show');
+        Route::post('/show/{id}/reply', 'Frontend\TicketController@ticketShowSubmit')->name('home-tickets-show-submit');
+    });
 });
 
 
@@ -35,21 +43,21 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
 
     // Ticket
     Route::group(['prefix' => 'ticket'], function () {
-        Route::get('/{conversation?}', 'TicketController@list')->name('ticket-index-list')->where(['conversation' => '[0-9]+']);
-        Route::get('/fetch', 'TicketController@fetch')->name('ticket-fetch-backend');
-        Route::post('/send', 'TicketController@send')->name('ticket-send-backend');
-        Route::get('/conversations', 'TicketController@fetchConversations')->name('ticket-conversations-backend');
-        Route::get('/settings', 'TicketController@settings')->name('ticket-settings-backend');
-        Route::post('/close', 'TicketController@close')->name('ticket-close-backend');
+        Route::get('/{conversation?}', 'Backend\TicketController@list')->name('ticket-index-list')->where(['conversation' => '[0-9]+']);
+        Route::get('/fetch', 'Backend\TicketController@fetch')->name('ticket-fetch-backend');
+        Route::post('/send', 'Backend\TicketController@send')->name('ticket-send-backend');
+        Route::get('/conversations', 'Backend\TicketController@fetchConversations')->name('ticket-conversations-backend');
+        Route::get('/settings', 'Backend\TicketController@settings')->name('ticket-settings-backend');
+        Route::post('/close', 'Backend\TicketController@close')->name('ticket-close-backend');
         Route::group(['prefix' => 'category'], function () {
-            Route::match(['get', 'post'], '/create', 'TicketController@categoryCreate')->name('ticket-category-create');
-            Route::match(['get', 'post'], '/{id}', 'TicketController@categoryUpdate')->name('ticket-category-update');
-            Route::post('/delete/{id}', 'TicketController@categoryDelete')->name('ticket-category-delete');
+            Route::match(['get', 'post'], '/create', 'Backend\TicketController@categoryCreate')->name('ticket-category-create');
+            Route::match(['get', 'post'], '/{id}', 'Backend\TicketController@categoryUpdate')->name('ticket-category-update');
+            Route::post('/delete/{id}', 'Backend\TicketController@categoryDelete')->name('ticket-category-delete');
         });
         Route::group(['prefix' => 'priority'], function () {
-            Route::match(['get', 'post'], '/create', 'TicketController@priorityCreate')->name('ticket-priority-create');
-            Route::match(['get', 'post'], '/{id}', 'TicketController@priorityUpdate')->name('ticket-priority-update');
-            Route::post('/delete/{id}', 'TicketController@priorityDelete')->name('ticket-priority-delete');
+            Route::match(['get', 'post'], '/create', 'Backend\TicketController@priorityCreate')->name('ticket-priority-create');
+            Route::match(['get', 'post'], '/{id}', 'Backend\TicketController@priorityUpdate')->name('ticket-priority-update');
+            Route::post('/delete/{id}', 'Backend\TicketController@priorityDelete')->name('ticket-priority-delete');
         });
     });
 

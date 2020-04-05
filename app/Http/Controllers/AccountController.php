@@ -28,7 +28,6 @@ class AccountController extends Controller
     public function index()
     {
         $account = User::where('id', Auth::id())
-            ->with('getTbUser')
             ->with('getTbUser.getSkSilk')
             ->firstOrFail();
 
@@ -45,7 +44,6 @@ class AccountController extends Controller
     public function charList()
     {
         $account = User::where('id', Auth::id())
-            ->with('getTbUser')
             ->with('getTbUser.getSkSilk')
             ->with('getTbUser.getShardUser')
             ->with('getTbUser.getShardUser.getGuildUser')
@@ -65,7 +63,6 @@ class AccountController extends Controller
     public function settings()
     {
         $account = User::where('id', Auth::id())
-            ->with('getTbUser')
             ->with('getTbUser.getSkSilk')
             ->firstOrFail();
 
@@ -85,7 +82,7 @@ class AccountController extends Controller
     {
         $user = User::with('getTbUser')
             ->findOrFail(
-                Auth::user()->id
+                Auth::id()
             );
 
         $this->validate($request, [

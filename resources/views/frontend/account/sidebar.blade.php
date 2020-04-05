@@ -75,5 +75,12 @@
                 </a>
             </div>
         </li>
+        <li class="pb-1">
+            <div class="float-left">
+                <a href="{{ route('home-tickets') }}">
+                    {{ __('sidebar.home.tickets') }}
+                </a>
+            </div>
+        </li>
     </ul>
 </div>
