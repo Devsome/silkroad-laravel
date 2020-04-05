@@ -57,6 +57,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'web_password' => ['required', 'string', 'min:6', 'confirmed'],
             'sro_password' => ['required', 'string', 'min:6', 'confirmed'],
+            'referral' => ['sometimes', 'nullable', 'exists:users,reflink'],
             'rules' => ['required'],
         ]);
     }
@@ -89,11 +90,14 @@ class RegisterController extends Controller
             'silk_point' => 0
         ]);
 
+        $referrerId = User::select('id')->where('reflink', $data['referral'])->first();
+
         return User::create([
             'name' => $data['name'],
             'silkroad_id' => $data['silkroad_id'],
             'email' => $data['email'],
             'password' => Hash::make($data['web_password']),
+            'referrer_id' => $referrerId->id,
             'reflink' => \Str::uuid()
         ]);
     }

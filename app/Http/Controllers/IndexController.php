@@ -29,4 +29,12 @@ class IndexController extends Controller
             'downloads' => $downloads
         ]);
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function rules()
+    {
+        return view('frontend.other.rules');
+    }
 }

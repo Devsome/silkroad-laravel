@@ -11,6 +11,7 @@ Route::get('/news-archive', 'NewsController@archive')->name('news-archive');
 
 // Other
 Route::get('/downloads', 'IndexController@downloads')->name('downloads-index');
+Route::get('/rules', 'IndexController@rules')->name('rules-index');
 
 // Ranking
 Route::group(['prefix' => 'ranking'], function () {

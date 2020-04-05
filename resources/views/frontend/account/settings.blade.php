@@ -144,7 +144,7 @@
                                 <input type="password"
                                        class="form-control {{ $errors->has('current_web_password') ? ' is-invalid' : '' }}"
                                        id="current_web_password" name="current_web_password" placeholder="">
-                                <small id="current_web_password" class="form-text text-muted">
+                                <small id="current_web_passwordHelp" class="form-text text-muted">
                                     {{ __('home.settings.form.current-web-password-help') }}
                                 </small>
                                 @if ($errors->has('current_web_password'))
