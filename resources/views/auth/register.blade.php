@@ -73,6 +73,9 @@
                                         <input id="web_password" type="password"
                                                class="form-control @error('web_password') is-invalid @enderror"
                                                name="web_password" required autocomplete="new-password">
+                                        <small id="referralHelp" class="form-text text-muted">
+                                            {{ __('auth/register.form.web-password-help') }}
+                                        </small>
                                         @error('web_password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
