@@ -19,7 +19,5 @@ return [
         'referral-help' => 'Here you can write the referral link from your friend',
         'rules' => 'By checking the box you accept our rules',
         'submit' => 'Register',
-    ],
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    ]
 ];
