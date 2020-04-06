@@ -88,4 +88,6 @@
             </div>
         </li>
     </ul>
+
+    @include('layouts.discord')
 </div>

@@ -74,6 +74,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Settings (like Discord and stuff)
+    |--------------------------------------------------------------------------
+    |
+    | Here are only some Application config variables for that application.
+    | If you do not know what to change, check the README.md
+    |
+    */
+
+    'discord_server_id' => env('DISCORD_SERVER_ID', '674395399011827712'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
     |
@@ -210,7 +222,8 @@ return [
          * Custom Service Providers
          */
         \App\Providers\TicketNewCountProvider::class,
-        \App\Providers\SidebarProvider::class
+        \App\Providers\SidebarProvider::class,
+        \App\Providers\DiscordProvider::class
 
     ],
 

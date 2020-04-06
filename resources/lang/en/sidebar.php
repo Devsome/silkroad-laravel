@@ -33,5 +33,12 @@ return [
         'change-password' => 'Password change',
         'donate' => 'Donate',
         'tickets' => 'Tickets'
+    ],
+
+    'discord' => [
+        'title' => 'Discord',
+        'online' => ':online Online',
+        'empty' => 'No one is active',
+        'join' => 'Join',
     ]
 ];
