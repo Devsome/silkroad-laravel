@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Http\Controllers\Frontend\DiscordController;
+use App\Http\Controllers\Frontend\SiegeFortressController;
 use Illuminate\Support\ServiceProvider;
 
-class DiscordProvider extends ServiceProvider
+class FortressProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -25,11 +25,11 @@ class DiscordProvider extends ServiceProvider
     public function boot()
     {
         view()->composer(
-            'layouts.discord',
+            'layouts.fortress',
             static function ($view) {
-                $discord = new DiscordController;
-                $data = $discord->fetch();
-                $view->with('DiscordProvider', $data);
+                $siegeFortress = new SiegeFortressController();
+                $data = $siegeFortress->fetch();
+                $view->with('SiegeFortressProvider', $data);
             }
         );
     }

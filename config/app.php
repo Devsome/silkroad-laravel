@@ -223,7 +223,8 @@ return [
          */
         \App\Providers\TicketNewCountProvider::class,
         \App\Providers\SidebarProvider::class,
-        \App\Providers\DiscordProvider::class
+        \App\Providers\DiscordProvider::class,
+        \App\Providers\FortressProvider::class,
 
     ],
 

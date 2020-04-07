@@ -31,7 +31,7 @@ class DiscordController extends Controller
         $seconds = 60 * 60; // 1 hour
 
         if($this->getDiscordServerId()) {
-            $discordFetch = Cache::remember('users', $seconds, function () {
+            $discordFetch = Cache::remember('discordFetch', $seconds, function () {
                 $raw = file_get_contents(
                     'https://discordapp.com/api/servers/' .
                     $this->getDiscordServerId() .

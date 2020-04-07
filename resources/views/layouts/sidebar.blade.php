@@ -88,6 +88,7 @@
             </div>
         </li>
     </ul>
+    @include('layouts.fortress')
 
     @include('layouts.discord')
 </div>

@@ -2,7 +2,6 @@
 
 namespace App\Library\Services\SRO\Shard;
 use App\Model\SRO\Shard\Char;
-use Illuminate\Support\Facades\DB;
 
 class CharService
 {

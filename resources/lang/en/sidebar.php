@@ -35,6 +35,15 @@ return [
         'tickets' => 'Tickets'
     ],
 
+    'fortress' => [
+        'title' => 'Fortress',
+        'jangan' => 'Jangan',
+        'bandit' => 'Bandit',
+        'hotan' => 'Hotan',
+        'unknown' => 'Unknown',
+        'empty' => 'There is no Fortress',
+    ],
+
     'discord' => [
         'title' => 'Discord',
         'online' => ':online Online',
