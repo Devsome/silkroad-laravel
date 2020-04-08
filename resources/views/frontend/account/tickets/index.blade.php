@@ -63,7 +63,6 @@
                     { data: 'get_priority_name.name', name: 'ticket_prioritys_id', searchable: false },
                     { data: 'updated_at', name: 'updated_at', searchable: false },
                     { data: function ( row ) {
-                            console.log(row);
                             let url = '{{ route("home-tickets-show", ['id' =>  ':id' ]) }}';
                             url = url.replace(':id', row.id);
                             return `<a href='${url}' class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye"></i></a>`;

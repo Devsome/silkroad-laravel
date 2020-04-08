@@ -138,7 +138,6 @@
 
             });
             $('#ticketModalDelete').on('show.bs.modal', function (e) {
-                console.log(2);
                 $(this).find('.modal-body p').text($(e.relatedTarget).attr('data-message'));
                 $(this).find('.modal-title').text($(e.relatedTarget).attr('data-title'));
 
