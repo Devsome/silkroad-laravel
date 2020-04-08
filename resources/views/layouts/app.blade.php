@@ -32,6 +32,10 @@
         </div>
     </main>
 </div>
+<script>
+    const serverTime = new Date({{ \Carbon\Carbon::now()->format('Y, n, j, G, i, s') }});
+    const currentTimestamp = {{ \Carbon\Carbon::now()->format('U') }} - Math.round(+new Date() / 1000);
+</script>
 <script src="{{ asset('js/app.js') }}"></script>
 @stack('javascript')
 </body>

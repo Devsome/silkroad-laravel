@@ -63,4 +63,5 @@ mix.scripts([
     'resources/vendor/datatables/dataTables.bootstrap4.min.js',
     'resources/vendor/chart.js/Chart.bundle.min.js',
     'resources/js/backend/moment.js',
+    'resources/js/frontend/timers.js',
 ], 'public/js/app.js');

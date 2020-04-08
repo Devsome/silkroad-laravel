@@ -90,5 +90,7 @@
     </ul>
     @include('layouts.fortress')
 
+    @include('layouts.timers')
+
     @include('layouts.discord')
 </div>

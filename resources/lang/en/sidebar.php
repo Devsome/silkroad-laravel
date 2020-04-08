@@ -44,6 +44,12 @@ return [
         'empty' => 'There is no Fortress',
     ],
 
+    'timers' => [
+        'title' => 'Timers',
+        'server-time' => 'Server time',
+        'empty' => 'There are no timers',
+    ],
+
     'discord' => [
         'title' => 'Discord',
         'online' => ':online Online',
