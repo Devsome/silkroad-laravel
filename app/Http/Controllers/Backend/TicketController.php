@@ -272,10 +272,10 @@ class TicketController extends Controller
     {
         $conversation = Ticket::find($request->conversationId);
 
-        if ($ticket !== null && $conversation->project_id != $ticket->id)
+        if (!is_null($ticket) && $conversation->project_id != $ticket->id)
             return ['success' => false];
 
-        if ($conversation === null)
+        if (is_null($conversation))
             return ['success' => false];
 
         $query = $conversation->getAnswers()->where('ticket_id', $conversation->id)->orderBy('created_at', 'asc');
@@ -307,10 +307,10 @@ class TicketController extends Controller
             return ['success' => false];
         }
 
-        if ($ticket !== null && $conversation->project_id != $ticket->id)
+        if (!is_null($ticket) && $conversation->project_id != $ticket->id)
             return ['success' => false];
 
-        if ($conversation === null || !$request->has('text') || $request->text === null)
+        if (is_null($conversation) || !$request->has('text') || is_null($request->text))
             return ['success' => false];
 
         if ($conversation->ticket_status_id === TicketStatus::STATUS_CLOSED) {
