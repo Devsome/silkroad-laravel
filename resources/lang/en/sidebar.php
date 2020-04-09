@@ -32,7 +32,9 @@ return [
         'silk-gift' => 'Silk Gift',
         'change-password' => 'Password change',
         'donate' => 'Donate',
-        'tickets' => 'Tickets'
+        'ref' => 'Referral',
+        'tickets' => 'Tickets',
+        'vouchers' => 'Vouchers',
     ],
 
     'fortress' => [

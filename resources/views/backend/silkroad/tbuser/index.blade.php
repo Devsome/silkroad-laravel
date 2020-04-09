@@ -51,7 +51,7 @@
                     },
                     { data: 'regtime', name: 'regtime', searchable: false },
                     { data: function ( row ) {
-                            let url = '{{ route("sro-user-edit-backend", ['user' =>  ':user' ]) }}';
+                            let url = '{{ route('sro-user-edit-backend', ['user' =>  ':user' ]) }}';
                             url = url.replace(':user', row.JID);
                             return `<a href='${url}' class="btn btn-primary btn-circle btn-sm"><i class="fa fa-pen"></i></a>`;
                         }, orderable: false, searchable: false

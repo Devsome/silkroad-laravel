@@ -1,12 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\Controller;
+use App\Http\Library\Services\VouchersService;
 use App\User;
+use App\UserVoucher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Validator;
+use Yajra\DataTables\DataTables;
 
 class AccountController extends Controller
 {
@@ -69,6 +74,91 @@ class AccountController extends Controller
         return view('frontend.account.settings', [
             'account' => $account
         ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function referral()
+    {
+        $account = User::where('id', Auth::id())
+            ->with('getTbUser.getSkSilk')
+            ->firstOrFail();
+
+        return view('frontend.account.referral', [
+            'account' => $account
+        ]);
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function referralDatatables()
+    {
+        return DataTables::of(
+            User::query()
+                ->where('referrer_id', Auth::id())
+        )->make(true);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function voucher()
+    {
+        $account = User::where('id', Auth::id())
+            ->with('getTbUser.getSkSilk')
+            ->firstOrFail();
+
+        return view('frontend.account.voucher', [
+            'account' => $account
+        ]);
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function voucherDatatables()
+    {
+        return Datatables::of(
+            UserVoucher::query()
+                ->with('getVoucher')
+                ->where('user_id', Auth::id())
+        )->make(true);
+    }
+
+    /**
+     * @param Request $request
+     * @param VouchersService $vouchersService
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function voucherUse(
+        Request $request,
+        VouchersService $vouchersService)
+    {
+        $validator = Validator::make($request->all(), [
+            'voucher' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $checkVoucher = $vouchersService->redeemVoucher(
+            $request->get('voucher'),
+            Auth::user(),
+            $request->ip()
+        );
+
+        if ($checkVoucher['success']) {
+            return back()->with('success', $checkVoucher['text']);
+        }
+
+        return back()->with('error', $checkVoucher['text']);
     }
 
     /**

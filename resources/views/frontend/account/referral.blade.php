@@ -10,41 +10,21 @@
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <h1>
-                        {{ __('home.tickets.title') }}
+                        {{ __('home.ref.title') }}
                     </h1>
-
-                    @if(session()->has('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session()->get('success') }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endif
-
-                    <div class="row">
-                        <div class="ml-auto mr-3">
-                            <a href="{{ route('home-tickets-new') }}" type="button" class="btn btn-secondary">
-                                {{ __('home.tickets.create-new') }}
-                            </a>
-                        </div>
-                    </div>
-
                     <div class="table-responsive pt-4">
                         <table id="users" class="table table-striped table-hover dataTable">
                             <thead class="thead-default">
                             <tr>
-                                <th scope="col">{{ __('home.tickets.table.title') }}</th>
-                                <th scope="col">{{ __('home.tickets.table.state') }}</th>
-                                <th scope="col">{{ __('home.tickets.table.priority') }}</th>
-                                <th scope="col">{{ __('home.tickets.table.updated-at') }}</th>
-                                <th scope="col">{{ __('home.tickets.table.action') }}</th>
+                                <th scope="col">{{ __('home.ref.table.name') }}</th>
+                                <th scope="col">{{ __('home.ref.table.date') }}</th>
                             </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -56,21 +36,13 @@
             $('#users').DataTable( {
                 "processing": true,
                 "serverSide": true,
-                "ajax": '{{ route('home-tickets-datatables') }}',
+                "ajax": '{{ route('home-referral-datatables') }}',
                 "columns": [
-                    { data: 'title', name: 'title' },
-                    { data: 'get_status_name.name', name: 'ticket_status_id', searchable: false },
-                    { data: 'get_priority_name.name', name: 'ticket_prioritys_id', searchable: false },
-                    { data: 'updated_at', name: 'updated_at', searchable: false },
-                    { data: function ( row ) {
-                            let url = '{{ route('home-tickets-show', ['id' =>  ':id' ]) }}';
-                            url = url.replace(':id', row.id);
-                            return `<a href='${url}' class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye"></i></a>`;
-                        }, orderable: false, searchable: false
-                    }
+                    { data: 'name', name: 'name' },
+                    { data: 'created_at', name: 'created_at', searchable: false },
                 ],
-                "order": [[ 3, "desc" ]],
-                "lengthMenu": [[10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('datatables.show-all') }}"]],
+                "order": [[ 1, "desc" ]],
+                "lengthMenu": [[25, 50, 100, 200, -1], [25, 50, 100, 200, "{{ __('datatables.show-all') }}"]],
                 "language": {
                     "search": "{{ __('datatables.search') }}",
                     "lengthMenu": "{{ __('datatables.length') }}",
@@ -94,6 +66,7 @@
                     "style": "os",
                     "className": "row-selected"
                 },
+                "dom": "btrip",
             } );
             $('div.dataTables_filter input').addClass('search-input form-control');
             $('select').addClass('search-input form-control');

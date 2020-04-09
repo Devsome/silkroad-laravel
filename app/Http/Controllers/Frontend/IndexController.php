@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
 use App\Download;
+use App\Http\Controllers\Controller;
 use App\News;
 
 class IndexController extends Controller

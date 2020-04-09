@@ -50,7 +50,7 @@
                 "ajax": '{{ route('sro-guild-edit-datatables-backend', ['guild' => $guild->ID]) }}',
                 "columns": [
                     { data: function ( row ) {
-                            let url = '{{ route("sro-players-edit-backend", ['char' =>  ':char' ]) }}';
+                            let url = '{{ route('sro-players-edit-backend', ['char' =>  ':char' ]) }}';
                             url = url.replace(':char', row.CharID);
                             return `<a href='${url}' target="_blank">${row.CharName}</a>`;
                         }, orderable: true, searchable: true

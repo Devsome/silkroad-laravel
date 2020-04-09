@@ -39,7 +39,7 @@
                 "columns": [
                     { data: 'ID', name: 'ID' },
                     { data: function ( row ) {
-                            let url = '{{ route("sro-guild-edit-backend", ['guild' =>  ':guild' ]) }}';
+                            let url = '{{ route('sro-guild-edit-backend', ['guild' =>  ':guild' ]) }}';
                             url = url.replace(':guild', row.ID);
                             return `<a href='${url}'>${row.Name}</a>`;
                         }, orderable: true, searchable: true

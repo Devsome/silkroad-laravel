@@ -77,8 +77,22 @@
         </li>
         <li class="pb-1">
             <div class="float-left">
+                <a href="{{ route('home-referral') }}">
+                    {{ __('sidebar.home.ref') }}
+                </a>
+            </div>
+        </li>
+        <li class="pb-1">
+            <div class="float-left">
                 <a href="{{ route('home-tickets') }}">
                     {{ __('sidebar.home.tickets') }}
+                </a>
+            </div>
+        </li>
+        <li class="pb-1">
+            <div class="float-left">
+                <a href="{{ route('home-voucher') }}">
+                    {{ __('sidebar.home.vouchers') }}
                 </a>
             </div>
         </li>

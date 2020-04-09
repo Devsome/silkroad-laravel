@@ -23,8 +23,9 @@
                         <thead class="thead-dark">
                         <tr>
                             <th scope="col">{{ __('backend/voucher.table.code') }}</th>
-                            <th scope="col">{{ __('backend/voucher.table.metadata') }}</th>
+                            <th scope="col">{{ __('backend/voucher.table.amount') }}</th>
                             <th scope="col">{{ __('backend/voucher.table.redeemed_at') }}</th>
+                            <th scope="col">{{ __('backend/voucher.table.expires_at') }}</th>
                             <th scope="col">{{ __('backend/voucher.table.created_at') }}</th>
                             <th scope="col">{{ __('backend/voucher.table.action') }}</th>
                         </tr>
@@ -70,11 +71,12 @@
                 "ajax": '{{ route('voucher-index-datatables-backend') }}',
                 "columns": [
                     {data: 'code', name: 'code'},
-                    {data: 'metadata.silk', name: 'metadata'},
+                    {data: 'amount', name: 'amount'},
                     {data: 'redeemed_at', name: 'redeemed_at'},
+                    {data: 'expires_at', name: 'expires_at'},
                     {data: 'created_at', name: 'created_at', searchable: false},
                     { data: function ( row ) {
-                            let url = '{{ route("voucher-destroy-backend", ['id' =>  ':id' ]) }}';
+                            let url = '{{ route('voucher-destroy-backend', ['id' =>  ':id' ]) }}';
                             let msg = '{{ __('backend/voucher.modal-delete-message', ['code' => ':code']) }}';
                             msg = msg.replace(':code', row.code);
                             url = url.replace(':id', row.id);
@@ -86,7 +88,7 @@
                         }, orderable: false, searchable: false
                     }
                 ],
-                "order": [[3, "desc"]],
+                "order": [[4, "desc"]],
                 "lengthMenu": [[10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('backend/datatables.show-all') }}"]],
                 "language": {
                     "search": "{{ __('backend/datatables.search') }}",

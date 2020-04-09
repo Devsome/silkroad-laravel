@@ -65,10 +65,15 @@ class SkSilkBuyList extends Model
     /**
      * Type 3 is for Web
      */
-    const SilkTypeWeb = 3;
+    public const SilkTypeWeb = 3;
+
+    /**
+     * Type 2 is for Web
+     */
+    public const SilkTypeVoucher = 2;
 
     /**
      * Reason 3 is for Web
      */
-    const SilkReasonWeb = 3;
+    public const SilkReasonWeb = 3;
 }

@@ -134,7 +134,7 @@
                                     <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                         <ul class="list-group list-group-flush small">
                                             <li class="list-group-item font-weight-bold">
-                                                <a href="{{ route("sro-players-edit-backend", ['char' =>  $tbUserChar->pivot->CharID ]) }}">
+                                                <a href="{{ route('sro-players-edit-backend', ['char' =>  $tbUserChar->pivot->CharID ]) }}">
                                                     {{ $tbUserChar->CharName16 }}
                                                 </a>
                                             </li>

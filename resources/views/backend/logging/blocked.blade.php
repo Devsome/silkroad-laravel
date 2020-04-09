@@ -39,7 +39,7 @@
                 "ajax": '{{ route('users-blocked-datatables-backend') }}',
                 "columns": [
                     { data: function ( row ) {
-                            let url = '{{ route("sro-user-edit-backend", ['user' =>  ':user' ]) }}';
+                            let url = '{{ route('sro-user-edit-backend', ['user' =>  ':user' ]) }}';
                             url = url.replace(':user', row.UserJID);
                             return `<a href='${url}' target="_blank">`+ row.UserJID + `</a>`;
                         }, orderable: true, searchable: true

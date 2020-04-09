@@ -3,19 +3,19 @@
 Auth::routes();
 
 
-Route::get('/', 'IndexController@index')->name('index');
+Route::get('/', 'Frontend\IndexController@index')->name('index');
 
 // News
-Route::get('/news/{slug}', 'NewsController@index')->name('news-slug');
-Route::get('/news-archive', 'NewsController@archive')->name('news-archive');
+Route::get('/news/{slug}', 'Frontend\NewsController@index')->name('news-slug');
+Route::get('/news-archive', 'Frontend\NewsController@archive')->name('news-archive');
 
 // Other
-Route::get('/downloads', 'IndexController@downloads')->name('downloads-index');
-Route::get('/rules', 'IndexController@rules')->name('rules-index');
+Route::get('/downloads', 'Frontend\IndexController@downloads')->name('downloads-index');
+Route::get('/rules', 'Frontend\IndexController@rules')->name('rules-index');
 
 // Ranking
 Route::group(['prefix' => 'ranking'], function () {
-    Route::get('/{mode?}', 'RankingController@index')->name('ranking-index');
+    Route::get('/{mode?}', 'Frontend\RankingController@index')->name('ranking-index');
 });
 
 // Needed to be logged in after that
@@ -23,10 +23,15 @@ Auth::routes(['verify' => true]);
 
 // User Dashboard
 Route::group(['prefix' => 'account'], function() {
-    Route::get('/', 'AccountController@index')->name('home');
-    Route::get('/chars', 'AccountController@charList')->name('home-chars-list');
-    Route::get('/settings', 'AccountController@settings')->name('home-settings');
-    Route::post('/settings/update', 'AccountController@settingsUpdate')->name('home-settings-update');
+    Route::get('/', 'Frontend\AccountController@index')->name('home');
+    Route::get('/chars', 'Frontend\AccountController@charList')->name('home-chars-list');
+    Route::get('/settings', 'Frontend\AccountController@settings')->name('home-settings');
+    Route::post('/settings/update', 'Frontend\AccountController@settingsUpdate')->name('home-settings-update');
+    Route::get('/referral', 'Frontend\AccountController@referral')->name('home-referral');
+    Route::get('/referral-datatables', 'Frontend\AccountController@referralDatatables')->name('home-referral-datatables');
+    Route::get('/voucher', 'Frontend\AccountController@voucher')->name('home-voucher');
+    Route::get('/voucher-datatables', 'Frontend\AccountController@voucherDatatables')->name('home-voucher-datatables');
+    Route::post('/voucher/use', 'Frontend\AccountController@voucherUse')->name('home-voucher-use');
     Route::group(['prefix' => 'tickets'], function() {
         Route::get('/', 'Frontend\TicketController@tickets')->name('home-tickets');
         Route::get('/new', 'Frontend\TicketController@ticketsNew')->name('home-tickets-new');

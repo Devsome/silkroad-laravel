@@ -9,8 +9,9 @@ return [
 
     'table' => [
         'code' => 'Voucher',
-        'metadata' => 'Silk amount',
+        'amount' => 'Silk amount',
         'redeemed_at' => 'Redeemed at',
+        'expires_at' => 'Expires at',
         'created_at' => 'Created at',
         'action' => 'Actions',
     ],
@@ -22,6 +23,7 @@ return [
         'amount' => 'Amount',
         'amount-help' => 'How many vouchers do you want to create?',
         'silk' => 'Silk amount',
+        'expired-at' => 'Expired at',
         'silk-help' => 'The silk amount for the voucher(s)',
 
         'submit' => 'Create Voucher(s)',

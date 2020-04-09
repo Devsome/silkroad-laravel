@@ -45,4 +45,20 @@ class User extends Authenticatable
     {
         return $this->belongsTo(TbUser::class, 'silkroad_id', 'StrUserID');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function referrer()
+    {
+        return $this->belongsTo(__CLASS__, 'referrer_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function referrals()
+    {
+        return $this->hasMany(__CLASS__, 'referrer_id', 'id');
+    }
 }

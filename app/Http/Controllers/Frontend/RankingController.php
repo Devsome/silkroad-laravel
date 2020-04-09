@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
 use App\HideRanking;
+use App\Http\Controllers\Controller;
 use App\Model\SRO\Shard\Char;
 use App\Model\SRO\Shard\CharTrijob;
 use App\Model\SRO\Shard\Guild;

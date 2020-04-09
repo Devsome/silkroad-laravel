@@ -34,7 +34,7 @@
                                             <input type="number" class="form-control @error('amount') is-invalid @enderror"
                                                    id="amount"
                                                    aria-describedby="amountHelp" name="amount"
-                                                   value="{{ Request::old('name') }}">
+                                                   value="{{ Request::old('amount') }}">
                                             <small id="amountHelp" class="form-text text-muted">
                                                 {{ __('backend/voucher.create.amount-help') }}
                                             </small>
@@ -51,13 +51,30 @@
                                             <input type="number" class="form-control @error('silk') is-invalid @enderror"
                                                    id="silk"
                                                    aria-describedby="silkHelp" name="silk"
-                                                   value="{{ Request::old('name') }}">
+                                                   value="{{ Request::old('silk') }}">
                                             <small id="silkHelp" class="form-text text-muted">
                                                 {{ __('backend/voucher.create.silk-help') }}
                                             </small>
                                             @if($errors->has('silk'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('silk') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <div class="form-group">
+                                            <label for="expired_at">{{ __('backend/voucher.create.expired-at') }}</label>
+                                            <input type="datetime-local" class="form-control @error('expired_at') is-invalid @enderror"
+                                                   id="expired_at"
+                                                   aria-describedby="expired_atHelp" name="expired_at"
+                                                   value="{{ Request::old('expired_at') }}">
+                                            <small id="expired_atHelp" class="form-text text-muted">
+                                                {{ __('backend/voucher.create.silk-help') }}
+                                            </small>
+                                            @if($errors->has('expired_at'))
+                                                <div class="invalid-feedback">
+                                                    {{ $errors->first('expired_at') }}
                                                 </div>
                                             @endif
                                         </div>

@@ -11,8 +11,12 @@ return [
         'donation-desc' => 'Under this point you can do something good and support us! As a thank you you will get :silk in the game.',
         'other' => 'Misc',
         'other-desc' => 'Everything that has not yet been placed exactly, can be found under this point.',
+        'ref' => 'Referral',
+        'ref-desc' => 'To see who you have already invited and how much you have earned, click here.',
         'tickets' => 'Tickets',
-        'tickets-desc' => 'You have a problem or a request? Here you can create a ticket and we will take care of it.'
+        'tickets-desc' => 'You have a problem or a request? Here you can create a ticket and we will take care of it.',
+        'voucher' => 'Voucher',
+        'voucher-desc' => 'You have a credit note and want to redeem it for :silk? Then you can redeem this one',
     ],
 
     'chars-list' => [
@@ -45,6 +49,29 @@ return [
             'successfully' => 'You have successfully changed your data.',
         ]
     ],
+
+    'ref' => [
+        'title' => 'Your Referral',
+        'table' => [
+            'name' => 'Account Name',
+            'date' => 'Date',
+        ]
+    ],
+
+    'voucher' => [
+        'title' => 'Redeem Voucher',
+        'table' => [
+            'voucher' => 'Voucher',
+            'amount' => 'Amount',
+            'used-at' => 'Used at',
+        ],
+        'form' => [
+            'voucher' => 'Voucher',
+            'voucher-help' => 'Here you can redeem your credit code',
+            'submit' => 'Redeem'
+        ],
+    ],
+
     'tickets' => [
         'title' => 'Tickets',
         'create-new' => 'New ticket',
