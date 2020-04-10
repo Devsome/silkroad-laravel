@@ -5,6 +5,7 @@ namespace App\Model\SRO\Account;
 use App\Model\SRO\Shard\Char;
 use App\Model\SRO\Shard\Chest;
 use App\Model\SRO\Shard\Items;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -129,5 +130,13 @@ class TbUser extends Model
         $query = $this->belongsToMany(Items::class, Chest::class, 'UserJID', 'ItemID', '', 'ID64');
         $query->where('ItemID', '!=', 0);
         return $query;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function getWebUser()
+    {
+        return $this->hasOne(User::class, 'silkroad_id', 'StrUserID');
     }
 }

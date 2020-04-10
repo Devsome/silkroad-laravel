@@ -64,4 +64,5 @@ mix.scripts([
     'resources/vendor/chart.js/Chart.bundle.min.js',
     'resources/js/backend/moment.js',
     'resources/js/frontend/timers.js',
+    'resources/js/frontend/minimap.js',
 ], 'public/js/app.js');

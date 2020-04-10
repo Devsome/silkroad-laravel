@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Library\Services;
 
 use Illuminate\Support\Str;

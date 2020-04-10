@@ -12,6 +12,13 @@ class User extends Authenticatable
     use Notifiable, HasRoles;
 
     /**
+     * The Database connection name for the model.
+     *
+     * @var string
+     */
+    protected $connection = 'mysql';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

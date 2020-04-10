@@ -14,7 +14,14 @@
                 {{ $loop->iteration }}
             </td>
             <td>
-                <a href="#">{{ $guild->Name }}</a>
+                <a href="#"></a>
+                <a href="{{ route('information-guild', ['name' => Str::lower($guild->Name)]) }}">
+                    {{ $guild->Name }}</a>
+                <a class="small"
+                   href="{{ route('information-guild', ['name' => Str::lower($guild->Name)]) }}"
+                   target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
             </td>
             <td>
                 {{ $guild->Lvl }}

@@ -2,6 +2,8 @@
 
 namespace App\Model\SRO\Shard;
 
+use App\Model\SRO\Account\SkSilk;
+use App\Model\SRO\Account\TbUser;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
@@ -36,4 +38,19 @@ class User extends Model
         'UserJID', 'CharID'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function getTbUser()
+    {
+        return $this->belongsTo(TbUser::class, 'UserJID', 'JID');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function getSkSilk()
+    {
+        return $this->belongsTo(SkSilk::class, 'UserJID', 'JID');
+    }
 }

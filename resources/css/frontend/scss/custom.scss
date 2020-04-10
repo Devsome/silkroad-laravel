@@ -21,3 +21,20 @@
   left: 15px;
   right: 15px;
 }
+
+
+.table {
+  .table-nowrap {
+    width: 1px;
+    white-space: nowrap;
+  }
+}
+
+
+.health-color {
+  color: #ff1a26;
+}
+
+.mana-color {
+  color: #292dff;
+}

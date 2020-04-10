@@ -146,4 +146,12 @@ class Char extends Model
         $q->where('status', OnlineOfflineLog::STATUS_LOGGED_IN);
         return $q;
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function getAccountUser()
+    {
+        return $this->belongsTo(User::class, 'CharID', 'CharID');
+    }
 }

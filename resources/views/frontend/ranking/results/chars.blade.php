@@ -17,8 +17,12 @@
             <td class="col-auto">
                 <img src="{{ asset('image/chars/') }}/{{ $player->RefObjID }}.gif"
                      class="img-fluid d-none d-sm-inline" width="16" height="16" alt="{{ $player->CharName16 }}">
-                <a href="#">
-                    {{ $player->CharName16 }}
+                <a href="{{ route('information-player', ['CharName16' => Str::lower($player->CharName16)]) }}">
+                    {{ $player->CharName16 }}</a>
+                <a class="small"
+                   href="{{ route('information-player', ['CharName16' => Str::lower($player->CharName16)]) }}"
+                   target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
                 </a>
             </td>
             <td class="d-none d-sm-block">

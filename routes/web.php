@@ -42,6 +42,10 @@ Route::group(['prefix' => 'account'], function() {
     });
 });
 
+// Character and Guild Information
+Route::get('/player/{CharName16}', 'Frontend\InformationController@player')->name('information-player');
+Route::get('/guild/{name}', 'Frontend\InformationController@guild')->name('information-guild');
+
 
 // Backend Routes
 Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function () {
