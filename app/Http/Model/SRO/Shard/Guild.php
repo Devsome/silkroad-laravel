@@ -60,6 +60,6 @@ class Guild extends Model
      */
     public function getGuildMembers()
     {
-        return $this->hasMany(GuildMember::class, 'ID', 'GuildID');
+        return $this->hasMany(GuildMember::class, 'GuildID', 'ID');
     }
 }

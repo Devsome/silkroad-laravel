@@ -51,4 +51,13 @@ class GuildMember extends Model
     ];
 
     protected $dateFormat = 'Y-m-d H:i:s';
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function getCharItemPoints()
+    {
+        return $this->belongsTo(Char::class, 'CharID', 'CharID')
+            ->select('CharID', 'ItemPoints');
+    }
 }

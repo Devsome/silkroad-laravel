@@ -34,7 +34,10 @@ class InformationController extends Controller
      */
     public function guild($name)
     {
-        $guild = Guild::where('Name', $name)->firstOrFail();
+        $guild = Guild::where('Name', $name)
+            ->with('getGuildMembers')
+            ->with('getGuildMembers.getCharItemPoints')
+            ->firstOrFail();
 
         return view('frontend.information.guild', [
             'guild' => $guild

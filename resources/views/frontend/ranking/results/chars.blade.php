@@ -3,7 +3,7 @@
     <tr>
         <th scope="col">{{ __('ranking.table.rank') }}</th>
         <th scope="col">{{ __('ranking.table.charname') }}</th>
-        <th scope="col" class="d-none d-sm-block">{{ __('ranking.table.guild') }}</th>
+        <th scope="col" class="d-none d-sm-table-cell">{{ __('ranking.table.guild') }}</th>
         <th scope="col">{{ __('ranking.table.level') }}</th>
         <th scope="col">{{ __('ranking.table.itempoints') }}</th>
     </tr>
@@ -25,8 +25,11 @@
                     <i class="fas fa-external-link-alt"></i>
                 </a>
             </td>
-            <td class="d-none d-sm-block">
-                <a href="#">{{ $player->getGuildUser ? $player->getGuildUser->Name : '' }}</a>
+            <td class="d-none d-sm-table-cell">
+                <a href="{{ $player->getGuildUser ?
+                route('information-guild', ['name' => $player->getGuildUser->Name]) : '#' }}">
+                    {{ $player->getGuildUser ? $player->getGuildUser->Name : '' }}
+                </a>
             </td>
             <td>
                 {{ $player->CurLevel }}

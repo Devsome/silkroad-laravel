@@ -35,6 +35,15 @@ return [
     ],
 
     'guild' => [
-        'title' => 'Guild :name'
+        'title' => 'Guild :name',
+        'itempoints' => 'Guild Item Points: :points',
+        'master' => 'Guild Master: :name',
+        'table' => [
+            'char' => 'Char',
+            'level' => 'Level',
+            'join' => 'Joined at',
+            'gp' => 'Donated Guild Points',
+            'itempoints' => 'Item Points',
+        ],
     ]
 ];

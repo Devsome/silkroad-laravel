@@ -19,9 +19,16 @@
                     {{ __('information.player.table.guild') }}
                 </td>
                 <td>
-                    {{ $player->getGuildUser ?
-                    $player->getGuildUser->Name :
-                    __('information.player.table.guild-none') }}
+                    @if($player->getGuildUser)
+                        <a href="{{ route('information-guild', ['name' => Str::lower($player->getGuildUser->Name)]) }}">
+                            {{ $player->getGuildUser->Name }}</a>
+                        <a href="{{ route('information-guild', ['name' => Str::lower($player->getGuildUser->Name)]) }}"
+                           target="_blank">
+                            <i class="fas small fa-external-link-alt pl-2"></i>
+                        </a>
+                    @else
+                        {{ __('information.player.table.guild-none') }}
+                    @endif
                 </td>
             </tr>
             <tr>
