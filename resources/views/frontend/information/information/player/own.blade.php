@@ -113,7 +113,7 @@
         </table>
     </div>
 </div>
-<div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
+<div class="col-xl-3 col-lg-3 col-md-3 d-none d-lg-block">
     <div class="row">
         <div class="col-12">
             <label class="small">

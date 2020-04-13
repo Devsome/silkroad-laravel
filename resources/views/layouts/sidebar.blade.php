@@ -90,6 +90,8 @@
     </ul>
     @include('layouts.fortress')
 
+    @include('layouts.jobranking')
+
     @include('layouts.timers')
 
     @include('layouts.discord')

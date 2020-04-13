@@ -26,7 +26,8 @@
                                     <dl class="row">
                                         <dt class="col-sm-12">
                                             <h5>
-                                                <a href="#" class="text-primary font-weight-light">
+                                                <a href="{{ route('information-player', ['CharName16' => Str::lower($char->CharName16)]) }}"
+                                                   class="text-primary font-weight-light">
                                                     {{ $char->CharName16 }}
                                                 </a>
                                                 <small class="float-right pt-1">

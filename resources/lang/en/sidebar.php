@@ -46,6 +46,15 @@ return [
         'empty' => 'There is no Fortress',
     ],
 
+    'job-ranking' => [
+        'title' => 'Job Ranking',
+        'trader' => 'Trader',
+        'hunter' => 'Hunter',
+        'thief' => 'Thief',
+        'less' => 'None',
+        'no-created' => 'None Job created yet',
+    ],
+
     'timers' => [
         'title' => 'Timers',
         'server-time' => 'Server time',
