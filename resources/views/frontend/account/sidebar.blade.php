@@ -60,13 +60,13 @@
         <a href="#" class="list-group-item list-group-item-action">
             {{ __('sidebar.home.donate') }}
         </a>
-        <a href="{{ route('home-referral') }}" class="list-group-item list-group-item-action disabled">
+        <a href="{{ route('home-referral') }}" class="list-group-item list-group-item-action">
             {{ __('sidebar.home.ref') }}
         </a>
-        <a href="{{ route('home-tickets') }}" class="list-group-item list-group-item-action disabled">
+        <a href="{{ route('home-tickets') }}" class="list-group-item list-group-item-action">
             {{ __('sidebar.home.tickets') }}
         </a>
-        <a href="{{ route('home-voucher') }}" class="list-group-item list-group-item-action disabled">
+        <a href="{{ route('home-voucher') }}" class="list-group-item list-group-item-action">
             {{ __('sidebar.home.vouchers') }}
         </a>
     </div>
