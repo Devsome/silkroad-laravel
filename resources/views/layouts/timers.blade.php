@@ -6,12 +6,6 @@
     {{ __('sidebar.timers.title') }}
 </p>
 <ul class="list-group list-unstyled small py-1 pl-1">
-    <li class="pb-1">
-        {{ __('sidebar.timers.server-time') }}
-        <span class="float-right small pt-1 pr-2">
-            <span id="timerCurrent">{{ \Carbon\Carbon::now()->format('H:i:s') }}</span>
-        </span>
-    </li>
     @forelse($TimersProvider['timer'] as $timer)
         <li class="pb-1">
             <span class="pull-left">

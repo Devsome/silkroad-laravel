@@ -14,7 +14,7 @@
                 <i class="fa fa-fw fa-clock"></i> {{ __('sidebar.information.time') }}
             </div>
             <div class="float-right">
-                <span class="currTime">00:00:00</span>
+                <span id="timerCurrent">{{ \Carbon\Carbon::now()->format('H:i:s') }}</span>
             </div>
         </li>
     </ul>

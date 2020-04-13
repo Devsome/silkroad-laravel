@@ -16,7 +16,7 @@
                 <i class="fa fa-fw fa-clock"></i> {{ __('sidebar.information.time') }}
             </div>
             <div class="float-right">
-                <span class="currTime">00:00:00</span>
+                <span id="timerCurrent">{{ \Carbon\Carbon::now()->format('H:i:s') }}</span>
             </div>
         </li>
     </ul>
@@ -46,55 +46,28 @@
     <p class="font-weight-light pt-4 font-weight-bold">
         {{ __('sidebar.home.references') }}
     </p>
-    <ul class="list-group list-unstyled small">
-        <li class="pb-1">
-            <div class="float-left">
-                <a href="{{ route('home') }}">
-                    {{ __('sidebar.home.dashboard') }}
-                </a>
-            </div>
-        </li>
-        <li class="pb-1">
-            <div class="float-left">
-                <a href="{{ route('home-chars-list') }}">
-                    {{ __('sidebar.home.charlist') }}
-                </a>
-            </div>
-        </li>
-        <li class="pb-1">
-            <div class="float-left">
-                <a href="{{ route('home-settings') }}">
-                    {{ __('sidebar.home.settings') }}
-                </a>
-            </div>
-        </li>
-        <li class="pb-1">
-            <div class="float-left">
-                <a href="#">
-                    {{ __('sidebar.home.donate') }}
-                </a>
-            </div>
-        </li>
-        <li class="pb-1">
-            <div class="float-left">
-                <a href="{{ route('home-referral') }}">
-                    {{ __('sidebar.home.ref') }}
-                </a>
-            </div>
-        </li>
-        <li class="pb-1">
-            <div class="float-left">
-                <a href="{{ route('home-tickets') }}">
-                    {{ __('sidebar.home.tickets') }}
-                </a>
-            </div>
-        </li>
-        <li class="pb-1">
-            <div class="float-left">
-                <a href="{{ route('home-voucher') }}">
-                    {{ __('sidebar.home.vouchers') }}
-                </a>
-            </div>
-        </li>
-    </ul>
+
+    <div class="list-group small">
+        <a href="{{ route('home') }}" class="list-group-item list-group-item-action">
+            {{ __('sidebar.home.dashboard') }}
+        </a>
+        <a href="{{ route('home-chars-list') }}" class="list-group-item list-group-item-action">
+            {{ __('sidebar.home.charlist') }}
+        </a>
+        <a href="{{ route('home-settings') }}" class="list-group-item list-group-item-action">
+            {{ __('sidebar.home.settings') }}
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            {{ __('sidebar.home.donate') }}
+        </a>
+        <a href="{{ route('home-referral') }}" class="list-group-item list-group-item-action disabled">
+            {{ __('sidebar.home.ref') }}
+        </a>
+        <a href="{{ route('home-tickets') }}" class="list-group-item list-group-item-action disabled">
+            {{ __('sidebar.home.tickets') }}
+        </a>
+        <a href="{{ route('home-voucher') }}" class="list-group-item list-group-item-action disabled">
+            {{ __('sidebar.home.vouchers') }}
+        </a>
+    </div>
 </div>

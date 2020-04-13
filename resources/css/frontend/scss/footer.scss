@@ -1,0 +1,121 @@
+footer.sticky-footer {
+  padding: 2rem 0;
+  flex-shrink: 0;
+
+  .copyright {
+    line-height: 1;
+    font-size: 0.8rem;
+  }
+}
+
+body.sidebar-toggled {
+  footer.sticky-footer {
+    width: 100%;
+  }
+}
+
+#myFooter {
+  background-color: #ffffff;
+  color: white;
+  padding-top: 30px;
+
+
+  .footer-copyright {
+    background-color: #ffffff;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+  }
+
+  .row {
+    margin-bottom: 10px;
+  }
+
+  .navbar-brand {
+    margin-top: 45px;
+    height: 65px;
+  }
+
+  .footer-copyright p {
+    margin: 10px;
+    color: #ccc;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+    line-height: 1.7;
+  }
+
+  h5 {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+
+  h2 a {
+    font-size: 50px;
+    text-align: center;
+    color: #fff;
+  }
+
+  a {
+    color: #d2d1d1;
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus {
+    text-decoration: none;
+    color: white;
+  }
+
+  .social-networks {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 16px;
+  }
+
+  .social-networks a {
+    font-size: 32px;
+    color: #f9f9f9;
+    padding: 10px;
+    transition: 0.2s;
+  }
+
+  .social-networks a:hover {
+    text-decoration: none;
+  }
+
+  .facebook:hover {
+    color: #0077e2;
+  }
+
+  .youtube:hover {
+    color: #ef1a1a;
+  }
+
+  .discord:hover {
+    color: #7289da;
+  }
+
+  .btn {
+    color: white;
+    background-color: #fd7e14;
+    border-radius: 20px;
+    border: none;
+    width: 150px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    line-height: 25px;
+  }
+
+}
+
+@media screen and (max-width: 767px) {
+  #myFooter {
+    text-align: center;
+  }
+}

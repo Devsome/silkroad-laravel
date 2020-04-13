@@ -31,6 +31,7 @@
             @yield('content')
         </div>
     </main>
+    @include('layouts.footer')
 </div>
 <script>
     const serverTime = new Date({{ \Carbon\Carbon::now()->format('Y, n, j, G, i, s') }});

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\SRO\Shard\CharTrijob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class JobRankingController extends Controller
 {
@@ -19,17 +20,19 @@ class JobRankingController extends Controller
             3 => __('sidebar.job-ranking.hunter')
         ];
 
-        $countTrader = CharTrijob::select(DB::raw('count(*) as job_count, JobType'))
-            ->groupBy('JobType')->get()
-            ->map(static function ($data) use ($jobMapping) {
-                if (array_key_exists($data->JobType, $jobMapping)) {
-                    return [
-                        'JobType' => $data->JobType,
-                        'JobName' => $jobMapping[$data->JobType],
-                        'JobCount' => $data->job_count
-                    ];
-                }
-            });
+        $countTrader = Cache::remember('charTriJob', $oneDay * 1, function () use ($jobMapping) {
+            return CharTrijob::select(DB::raw('count(*) as job_count, JobType'))
+                ->groupBy('JobType')->get()
+                ->map(static function ($data) use ($jobMapping) {
+                    if (array_key_exists($data->JobType, $jobMapping)) {
+                        return [
+                            'JobType' => $data->JobType,
+                            'JobName' => $jobMapping[$data->JobType],
+                            'JobCount' => $data->job_count
+                        ];
+                    }
+                });
+        });
 
         return $countTrader;
     }
