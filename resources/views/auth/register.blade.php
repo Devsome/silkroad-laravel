@@ -6,8 +6,9 @@
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">{{ __('auth/register.title') }}</div>
-
+                        <div class="card-header">
+                            {{ __('auth/register.title') }}
+                        </div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf
@@ -28,7 +29,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label for="silkroad_id"
                                            class="col-md-4 col-form-label text-md-right">{{ __('auth/register.form.silkroad-id') }}</label>
@@ -47,7 +47,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label for="email"
                                            class="col-md-4 col-form-label text-md-right">{{ __('auth/register.form.email') }}</label>
@@ -65,7 +64,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="form-group row pt-4">
                                     <label for="web_password"
                                            class="col-md-4 col-form-label text-md-right">{{ __('auth/register.form.web-password') }}</label>
@@ -83,7 +81,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label for="web_password-confirm"
                                            class="col-md-4 col-form-label text-md-right">{{ __('auth/register.form.web-password-confirmation') }}</label>
@@ -92,7 +89,6 @@
                                                name="web_password_confirmation" required autocomplete="new-password">
                                     </div>
                                 </div>
-
                                 <div class="form-group row pt-4">
                                     <label for="sro_password"
                                            class="col-md-4 col-form-label text-md-right">{{ __('auth/register.form.game-password') }}</label>
@@ -110,7 +106,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label for="sro_password-confirm"
                                            class="col-md-4 col-form-label text-md-right">{{ __('auth/register.form.game-password-confirmation') }}</label>
@@ -119,7 +114,6 @@
                                                name="sro_password_confirmation" required autocomplete="new-password-2">
                                     </div>
                                 </div>
-
                                 <div class="form-group row pt-4">
                                     <label for="referral"
                                            class="col-md-4 col-form-label text-md-right">{{ __('auth/register.form.referral') }}</label>
@@ -137,7 +131,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <div class="col-md-8 offset-md-4">
                                         <div class="custom-control custom-checkbox">
@@ -155,7 +148,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <button type="submit" class="btn btn-primary">
