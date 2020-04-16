@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Download;
 use App\Http\Controllers\Controller;
 use App\News;
+use Carbon\Carbon;
 
 class IndexController extends Controller
 {
@@ -13,7 +14,8 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $news = News::orderBy('published_at', 'DESC')->with('image')->take(4)->get();
+        $news = News::where('published_at', '<=', Carbon::Now())
+            ->orderBy('published_at', 'DESC')->with('image')->take(4)->get();
         return view('index', [
             'news' => $news
         ]);
