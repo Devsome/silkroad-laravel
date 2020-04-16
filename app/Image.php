@@ -22,5 +22,6 @@ class Image extends Model
     public static $models = [
         Download::class,
         News::class,
+        Backlinks::class,
     ];
 }

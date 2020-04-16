@@ -16,6 +16,7 @@ return [
     'tickets' => 'Tickets',
     'tickets-settings' => 'Tickets Settings',
     'voucher' => 'Voucher (E-PIN)',
+    'backlinks' => 'Backlinks',
 
     'notice' => 'Launcher notice',
     'tbuser' => 'Accounts',

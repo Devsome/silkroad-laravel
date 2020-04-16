@@ -137,6 +137,15 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
             Route::post('/create', 'Backend\VoucherController@create')->name('voucher-create-backend');
             Route::post('/{id}/destroy', 'Backend\VoucherController@destroy')->name('voucher-destroy-backend');
         });
+
+        Route::group(['prefix' => 'backlinks'], function() {
+           Route::get('/', 'Backend\BacklinksController@index')->name('backlinks-index-backend');
+            Route::get('/add', 'Backend\BacklinksController@show')->name('backlinks-add-backend');
+            Route::post('/create', 'Backend\BacklinksController@create')->name('backlinks-create-backend');
+            Route::get('/{backlink}/edit', 'Backend\BacklinksController@edit')->name('backlinks-edit-backend');
+            Route::patch('/{backlink}/update', 'Backend\BacklinksController@update')->name('backlinks-update-backend');
+            Route::post('/{backlink}/destroy', 'Backend\BacklinksController@destroy')->name('backlinks-destroy-backend');
+        });
     });
 
     // Logging

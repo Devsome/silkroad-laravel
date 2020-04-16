@@ -53,6 +53,12 @@
             <span>{{ __('backend/menu.voucher') }}</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('backlinks-index-backend') }}">
+            <i class="fas fa-fw fa-link"></i>
+            <span>{{ __('backend/menu.backlinks') }}</span>
+        </a>
+    </li>
 
 
     <div class="sidebar-heading">
