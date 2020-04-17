@@ -5,8 +5,11 @@
     min-height: 150px;
     max-height: 150px;
   }
-}
 
+  .card-img-top {
+    object-fit: cover;
+  }
+}
 
 .row-bordered {
   position: relative;
@@ -22,14 +25,12 @@
   right: 15px;
 }
 
-
 .table {
   .table-nowrap {
     width: 1px;
     white-space: nowrap;
   }
 }
-
 
 .health-color {
   color: #ff1a26;
