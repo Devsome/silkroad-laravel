@@ -53,11 +53,11 @@
             @forelse($characters as $char)
             xSROMap.AddPlayer(
                     {{ $char->CharID }},
-                    '{{ $char->getcharacter->CharName16 }}',
-                    {{ $char->getcharacter->PosX }},
-                    {{ $char->getcharacter->PosY }},
-                    {{ $char->getcharacter->PosZ }},
-                    {{ $char->getcharacter->LatestRegion }});
+                    '{{ $char->getCharacter->CharName16 }}',
+                    {{ $char->getCharacter->PosX }},
+                    {{ $char->getCharacter->PosY }},
+                    {{ $char->getCharacter->PosZ }},
+                    {{ $char->getCharacter->LatestRegion }});
             @empty
             // Nope
             @endforelse

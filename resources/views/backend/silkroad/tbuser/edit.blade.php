@@ -39,9 +39,12 @@
                             </div>
 
                             @php
-                                $d = floor ($tbuser->AccPlayTime / 1440);
-                                $h = floor (($tbuser->AccPlayTime - $d * 1440) / 60);
-                                $m = $tbuser->AccPlayTime - ($d * 1440) - ($h * 60);
+                                $ss = $tbuser->AccPlayTime;
+                                $s = $ss%60;
+                                $m = floor(($ss%3600)/60);
+                                $h = floor(($ss%86400)/3600);
+                                $d = floor(($ss%2592000)/86400);
+                                $M = floor($ss/2592000);
                             @endphp
                             <div class="col-12">
                                 <div class="table-responsive">
@@ -57,15 +60,11 @@
                                         </tr>
                                         <tr>
                                             <td>{{ __('backend/tbuser.accplaytime') }}</td>
-                                            <td>{{ "{$d} Days {$h} Hours {$m} Minutes" }}</td>
+                                            <td>{{ "$M Months, {$d} Days {$h} Hours {$m} Minutes" }}</td>
                                         </tr>
                                         <tr>
                                             <td>{{ __('backend/tbuser.regip') }}</td>
                                             <td>{{ $tbuser->reg_ip }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ __('backend/tbuser.accplaytime') }}</td>
-                                            <td>{{ $tbuser->AccPlayTime }}</td>
                                         </tr>
                                         </tbody>
                                     </table>

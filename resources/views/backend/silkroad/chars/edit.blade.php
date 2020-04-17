@@ -56,8 +56,10 @@
                                         <tr>
                                             <td>{{ __('backend/chars.edit.account-id') }}</td>
                                             <td>
-                                                <a href="{{ route('sro-user-edit-backend', ['user' => $tbUser]) }}" target="_blank">
-                                                    {{ __('backend/chars.edit.visit-account') }} <i class="fas fa-external-link-alt"></i>
+                                                <a href="{{ route('sro-user-edit-backend', ['user' => $tbUser]) }}">
+                                                    {{ __('backend/chars.edit.visit-account') }}</a>
+                                                <a class="small" href="{{ route('sro-user-edit-backend', ['user' => $tbUser]) }}" target="_blank">
+                                                    <i class="fas fa-external-link-alt"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -65,9 +67,11 @@
                                             <td>{{ __('backend/chars.edit.guild') }}</td>
                                             <td>
                                                 @if($char->getGuildUser)
+                                                    <a href="{{ route('sro-guild-edit-backend', ['guild' => $char->getGuildUser->ID]) }}">
+                                                        {{ $char->getGuildUser->Name }}</a>
                                                     <a href="{{ route('sro-guild-edit-backend', ['guild' => $char->getGuildUser->ID]) }}"
-                                                       target="_blank">
-                                                        {{ $char->getGuildUser->Name }} <i class="fas fa-external-link-alt"></i>
+                                                    class="small">
+                                                        <i class="fas fa-external-link-alt"></i>
                                                     </a>
                                                 @endif
                                             </td>

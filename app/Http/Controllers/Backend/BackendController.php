@@ -78,6 +78,7 @@ class BackendController extends Controller
         $onlineCount = OnlineOfflineLog::where('status', OnlineOfflineLog::STATUS_LOGGED_IN)->count();
 
         $onlineCharacters = OnlineOfflineLog::where('status', OnlineOfflineLog::STATUS_LOGGED_IN)
+            ->with('getCharacter')
             ->get();
         return view('backend.worldmap.index',[
             'count' => $onlineCount,

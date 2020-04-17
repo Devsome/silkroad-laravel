@@ -27,8 +27,8 @@ class BacklinksController extends Controller
     public function create(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|max:150|min:5',
-            'url' => 'required|max:250|min:10',
+            'name' => 'required|max:150|min:2',
+            'url' => 'required|url|max:250|min:10',
             'image_id' => 'nullable',
         ]);
 
@@ -67,8 +67,8 @@ class BacklinksController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
-            'name' => 'required|max:150',
-            'url' => 'required|max:250',
+            'name' => 'required|max:150|min:2',
+            'url' => 'required|url|max:250|min:10',
             'image_id' => 'nullable',
         ]);
 
