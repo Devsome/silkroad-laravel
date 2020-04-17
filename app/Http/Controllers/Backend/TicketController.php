@@ -307,10 +307,10 @@ class TicketController extends Controller
             return ['success' => false];
         }
 
-        if (!is_null($ticket) && $conversation->project_id != $ticket->id)
+        if ($ticket && $conversation->project_id !== $ticket->id)
             return ['success' => false];
 
-        if (is_null($conversation) || !$request->has('text') || is_null($request->text))
+        if (!$conversation || !$request->has('text') || !$request->text)
             return ['success' => false];
 
         if ($conversation->ticket_status_id === TicketStatus::STATUS_CLOSED) {

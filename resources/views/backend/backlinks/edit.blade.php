@@ -95,6 +95,9 @@
                                 <div class="form-row">
                                     <div class="form-group col-12">
                                         <input class="btn btn-primary" type="submit" value="{{ __('backend/backlinks.edit-submit') }}">
+                                        <a href="{{ route('backlinks-index-backend') }}" class="ml-2 btn btn-secondary">
+                                            {{ __('backend/backlinks.back') }}
+                                        </a>
                                     </div>
                                 </div>
                             </form>

@@ -134,11 +134,19 @@
                                         {{ __('home.tickets.show.form.closed-state') }}
                                     </div>
                                 @endif
+                                @if($ticket->getStatusName->id !== \App\Tickets\TicketStatus::STATUS_FINAL_CLOSE)
                                 <div class="d-flex flex-wrap float-right">
                                     <button class="btn btn-style-1 btn-primary float-right" type="submit">
                                         {{ __('home.tickets.show.form.submit') }}
                                     </button>
                                 </div>
+                                @else
+                                    <div class="d-flex flex-wrap float-right">
+                                        <button class="btn btn-style-1 btn-secondary float-right" type="button" disabled>
+                                            {{ __('home.tickets.show.form.submit-close') }}
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         </form>
                     </div>

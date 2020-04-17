@@ -8,7 +8,7 @@ return [
     'gmrank' => 'GM Rank',
     'email' => 'E-Mail',
     'silk' => 'Silk own',
-    'silk-add' => 'Add',
+    'silk-add' => 'Amount',
     'silk-add-button' => 'Add',
     'silk-remove-button' => 'Remove',
     'block-add' => 'Expire',

@@ -26,7 +26,6 @@ class DownloadsController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function create(Request $request)
     {
@@ -34,9 +33,8 @@ class DownloadsController extends Controller
             'name' => 'required|max:150|min:5',
             'link' => 'required|max:250|min:10',
             'file_size' => 'required|max:100',
-            'image_id' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            'image_id' => 'nullable'
         ]);
-        $data['image_id'] = $this->imageUpload($request);
 
         Download::create($data);
 
@@ -51,7 +49,7 @@ class DownloadsController extends Controller
     public function show()
     {
         return view('backend.downloads.create', [
-            'images' => Image::where('model', Download::class)->get(),
+            'images' => Image::where('model', Download::class)->orderByDesc('id')->get(),
         ]);
     }
 
@@ -82,7 +80,7 @@ class DownloadsController extends Controller
             'name' => 'required|max:150',
             'link' => 'required|max:250',
             'file_size' => 'required',
-            'image_id' => 'required'
+            'image_id' => 'nullable '
         ]);
 
         $download = Download::findOrFail($id);
@@ -102,26 +100,5 @@ class DownloadsController extends Controller
         $download = Download::findOrFail($id);
         $download->delete();
         return back()->with('success', __('backend/notification.form-submit.success'));
-    }
-
-    /**
-     * @param $request Request
-     * @return int
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     */
-    private function imageUpload($request)
-    {
-        $requestImage = $request->file('image_id');
-        $filename = time() . '.' . $requestImage->getClientOriginalExtension();
-        Storage::disk('images')->put($filename,  File::get($requestImage));
-
-        $image = new Image();
-        $image->filename = $filename;
-        $image->mime = $requestImage->getClientOriginalExtension();
-        $image->model = Download::class;
-        $image->original_filename = $requestImage->getClientOriginalName();
-        $image->save();
-
-        return $image->id;
     }
 }

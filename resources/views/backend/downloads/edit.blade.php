@@ -86,8 +86,10 @@
                                             <label for="image_id">{{ __('backend/downloads.image-select') }}</label>
                                             <select class="form-control" name="image_id" id="image_id"
                                                     aria-describedby="image_idHelper">
+                                                <option value="">
+                                                    {{ __('backend/backlinks.image-select-empty') }}
+                                                </option>
                                                 @foreach($images as $image)
-                                                    {{ $image->id }} - {{ $download->image_id }}
                                                     @if($image->id === $download->image_id)
                                                         <option value="{{ $image->id }}"
                                                                 data-href="{{ asset('storage/web/images/' . $image->filename) }}"
@@ -106,7 +108,10 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-12">
-                                        <input class="btn btn-primary" type="submit" value="{{ __('backend/downloads.submit') }}">
+                                        <input class="btn btn-primary" type="submit" value="{{ __('backend/downloads.submit-edit') }}">
+                                        <a href="{{ route('downloads-index-backend') }}" class="ml-2 btn btn-secondary">
+                                            {{ __('backend/downloads.back') }}
+                                        </a>
                                     </div>
                                 </div>
                             </form>

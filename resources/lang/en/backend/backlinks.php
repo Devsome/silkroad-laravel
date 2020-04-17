@@ -27,4 +27,5 @@ return [
 
     'submit' => 'Create a Backlink',
     'edit-submit' => 'Update Backlink',
+    'back' => 'Return back',
 ];

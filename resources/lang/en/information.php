@@ -22,6 +22,7 @@ return [
             'gm-info' => 'GM Info **',
             'gm-info-data' => 'User :jid',
             'silk' => 'Silk **',
+            'silk-no-entry' => 'No Information',
 
             'only-visible-user' => '* Only visible for you',
             'only-visible-gm' => '** Only visible for GMs',

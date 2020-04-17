@@ -5,7 +5,9 @@
 
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/downloads.title-create') }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">
+                {{ __('backend/downloads.title-create') }}
+            </h1>
         </div>
         <div class="row">
             <div class="col-12">
@@ -17,14 +19,12 @@
                     </div>
                     <div class="card-body">
                         <div class="container">
-
                             @if ($message = Session::get('success'))
                                 <div class="alert alert-success alert-block">
                                     <button type="button" class="close" data-dismiss="alert">×</button>
                                     <strong>{{ $message }}</strong>
                                 </div>
                             @endif
-
                             <form method="POST" action="{{ route('downloads-create-backend') }}" class="form"
                                   enctype="multipart/form-data">
                                 @method('POST')
@@ -87,33 +87,41 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <div class="custom-file">
-                                                <input type="file" name="image_id" class="custom-file-input @error('image_id') is-invalid @enderror"
-                                                       id="image_id">
-                                                <label class="custom-file-label"
-                                                       for="image_id">{{ __('backend/downloads.image') }}
-                                                </label>
-                                                @if($errors->has('image_id'))
-                                                    <div class="invalid-feedback">
-                                                        {{ $errors->first('image_id') }}
-                                                    </div>
-                                                @endif
+                                <div class="form-group row">
+                                    <div class="col-3">
+                                        <label for="image_id"
+                                               class="col-form-label">{{ __('backend/downloads.image-select') }}</label>
+                                        <small id="image_idHelper"
+                                               class="form-text text-muted">{{ __('backend/downloads.image-empty') }}</small>
+                                        <select class="form-control @error('image_id') is-invalid @enderror"
+                                                name="image_id" id="image_id">
+                                            <option value="">
+                                                {{ __('backend/downloads.image-select-empty') }}
+                                            </option>
+                                            @foreach($images as $image)
+                                                <option value="{{ $image->id }}"
+                                                        data-href="{{ asset('storage/web/images/' . $image->filename )}}">
+                                                    {{ $image->original_filename }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @if($errors->has('image_id'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('image_id') }}
                                             </div>
-                                        </div>
+                                        @endif
                                     </div>
-                                    <div class="col-6">
-                                        <div class="container-fluid mt-3">
-                                            <img src="" id="img-tag" width="200px"/>
-                                        </div>
+                                    <div class="col-3">
+                                        <img src="" id="previewDownloadsImage" width="200px"/>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-12">
                                         <input class="btn btn-primary" type="submit"
                                                value="{{ __('backend/downloads.submit') }}">
+                                        <a href="{{ route('downloads-index-backend') }}" class="ml-2 btn btn-secondary">
+                                            {{ __('backend/downloads.back') }}
+                                        </a>
                                     </div>
                                 </div>
                             </form>
@@ -126,22 +134,25 @@
 @endsection
 
 @push('javascript')
-    <script type="text/javascript">
+    <script>
         $(document).ready(function () {
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    let reader = new FileReader();
+            const image = $(this).find(':selected').attr('data-href');
+            $("#image_id").change(function () {
+                const image = $(this).find(':selected').attr('data-href');
+                $('#previewDownloadsImage').attr('src', image);
+                showHide(image);
+            });
 
-                    reader.onload = function (e) {
-                        $('#img-tag').attr('src', e.target.result);
-                    };
-                    reader.readAsDataURL(input.files[0]);
+            function showHide(image) {
+                if (image) {
+                    $('#previewDownloadsImage').show();
+                } else {
+                    $('#previewDownloadsImage').hide();
                 }
             }
 
-            $("#image_id").change(function () {
-                readURL(this);
-            });
+            showHide(image);
+            $('#previewDownloadsImage').attr('src', $(this).find(':selected').attr('data-href'));
         });
     </script>
 @endpush

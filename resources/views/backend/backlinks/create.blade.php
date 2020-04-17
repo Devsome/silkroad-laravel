@@ -99,6 +99,9 @@
                                     <div class="form-group col-12">
                                         <input class="btn btn-primary" type="submit"
                                                value="{{ __('backend/backlinks.submit') }}">
+                                        <a href="{{ route('backlinks-index-backend') }}" class="ml-2 btn btn-secondary">
+                                            {{ __('backend/backlinks.back') }}
+                                        </a>
                                     </div>
                                 </div>
                             </form>
@@ -129,12 +132,6 @@
 
             showHide(image);
             $('#previewBacklinksImage').attr('src', $(this).find(':selected').attr('data-href'));
-
-            $('#body').summernote({
-                placeholder: '{{ __('backend/news.form.body-placeholder') }}',
-                tabsize: 2,
-                height: 150
-            });
         });
     </script>
 @endpush

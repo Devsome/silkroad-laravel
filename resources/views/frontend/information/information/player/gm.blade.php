@@ -123,8 +123,12 @@
                     {{ __('information.player.table.silk') }}
                 </td>
                 <td>
+                    @if($player->getAccountUser->getSkSilk)
                     {{ $player->getAccountUser->getSkSilk->silk_own }}
                     / {{ $player->getAccountUser->getSkSilk->silk_gift }}
+                    @else
+                        {{ __('information.player.table.silk-no-entry') }}
+                    @endif
                 </td>
             </tr>
             <tr>
