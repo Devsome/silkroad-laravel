@@ -9,6 +9,8 @@ use App\Model\SRO\Account\SkSilk;
 use App\Model\SRO\Account\SmcLog;
 use App\Model\SRO\Shard\Char;
 use App\User;
+use App\Voucher;
+use Carbon\Carbon;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
@@ -32,7 +34,10 @@ class BackendController extends Controller
             'playerCount' => Char::count(),
             'silkCount' => SkSilk::all()->sum('silk_own'),
             'notices' => Notice::orderBy('ID', 'DESC')->take(5)->get(),
-            'chars' => Char::orderBy('CharID','DESC')->take(5)->get()
+            'chars' => Char::orderBy('CharID', 'DESC')->take(5)->get(),
+            'vouchersCount' => Voucher::whereNull('redeemed_at')
+                ->whereNull('expires_at')
+                ->orWhere('expires_at', '>=', Carbon::now())->count()
         ]);
     }
 
@@ -80,7 +85,7 @@ class BackendController extends Controller
         $onlineCharacters = OnlineOfflineLog::where('status', OnlineOfflineLog::STATUS_LOGGED_IN)
             ->with('getCharacter')
             ->get();
-        return view('backend.worldmap.index',[
+        return view('backend.worldmap.index', [
             'count' => $onlineCount,
             'characters' => $onlineCharacters
         ]);
