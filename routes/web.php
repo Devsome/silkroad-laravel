@@ -96,7 +96,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
         Route::get('/guilds/{guild}/edit-datatables', 'Backend\SilkroadGuildController@sroGuildEditDatatables')->name('sro-guild-edit-datatables-backend');
 
         // Patching TB_User
-        Route::post('/user/{user}/silk/add', 'Backend\SilkroadController@sroUserSilkAdd')->name('sro-user-silk-add-backend');
+        Route::post('/user/{user}/silk/add', 'Backend\SilkroadController@sroUserSilkAddRemove')->name('sro-user-silk-backend');
         Route::post('/user/{user}/block/add', 'Backend\SilkroadController@sroUserBlockAdd')->name('sro-user-block-add-backend');
         Route::post('/user/{user}/block/destory', 'Backend\SilkroadController@sroUserBlockDestory')->name('sro-user-block-destroy-backend');
 

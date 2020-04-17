@@ -98,16 +98,24 @@ class SilkroadController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function sroUserSilkAdd($jid, Request $request)
+    public function sroUserSilkAddRemove($jid, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'silk' => 'required|numeric',
+            'charId' => 'required',
+            'amount' => 'required|numeric',
+            'state' => 'required'
         ]);
 
         if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['state' => $validator->errors()], 500);
+        }
+
+        if ($request->get('state') === 'add') {
+            $silkRemain = (int)SkSilk::where('JID', $jid)->pluck('silk_own')->first() + (int)$request->get('amount');
+            $buyQuantity = '+' . $request->get('amount');
+        } else {
+            $silkRemain = (int)SkSilk::where('JID', $jid)->pluck('silk_own')->first() - (int)$request->get('amount');
+            $buyQuantity = '-' . $request->get('amount');
         }
 
         SkSilkBuyList::create([
@@ -115,9 +123,9 @@ class SilkroadController extends Controller
             'Silk_Type' => SkSilkBuyList::SilkTypeWeb,
             'Silk_Reason' => SkSilkBuyList::SilkReasonWeb,
             'Silk_Offset' => SkSilk::where('JID', $jid)->pluck('silk_own')->first(),
-            'Silk_Remain' => SkSilk::where('JID', $jid)->pluck('silk_own')->first() + $request->get('silk'),
+            'Silk_Remain' => $silkRemain,
             'ID' => $jid,
-            'BuyQuantity' => $request->get('silk'),
+            'BuyQuantity' => $buyQuantity,
             'OrderNumber' => 0,
             'AuthDate' => Carbon::now()->format('Y-m-d H:i:s'),
             'SlipPaper' => 'dunno',
@@ -125,12 +133,20 @@ class SilkroadController extends Controller
             'RegDate' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
-        SkSilk::where('JID', $jid)
-            ->increment(
-                'silk_own', $request->get('silk')
-            );
+        if ($request->get('state') === 'add') {
+            SkSilk::where('JID', $jid)
+                ->increment(
+                    'silk_own', $request->get('amount')
+                );
+        } else {
+            SkSilk::where('JID', $jid)
+                ->decrement(
+                    'silk_own', $request->get('amount')
+                );
+        }
 
-        return back()->with('success', trans('backend/notification.form-submit.success'));
+
+        return response()->json(['state' => __('backend/notification.form-submit.success')]);
     }
 
     /**
@@ -236,15 +252,13 @@ class SilkroadController extends Controller
 
         $getChar = Char::where('CharID', $charId)->firstOrFail();
 
-        if($getChar->getCharOnlineOffline) {
-            if($getChar->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_IN)
-            {
+        if ($getChar->getCharOnlineOffline) {
+            if ($getChar->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_IN) {
                 return back()->with('error', trans('backend/notification.form-submit.still-logged-in'));
-            } else if($getChar->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_OUT)
-            {
+            } else if ($getChar->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_OUT) {
                 $jobItem = $inventoryService->getInventorySlot($charId, 8);
 
-                if($jobItem) {
+                if ($jobItem) {
                     return back()->with('error', trans('backend/notification.form-submit.error-job'));
                 } else {
                     $charService->setCharUnstuckNewPosition($charId);

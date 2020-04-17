@@ -30,11 +30,11 @@
                         <div class="row">
                             <div class="col-12">
                                 @if(!$tbuser->getIsBlockedUser->isEmpty())
-                                <div class="card mb-4 py-3 border-left-danger">
-                                    <div class="card-body">
-                                        {{ $tbuser->getIsBlockedUser->isEmpty() ? '' : __('backend/tbuser.blocked', ['date' => $tbuser->getIsBlockedUser[0]->timeEnd]) }}
+                                    <div class="card mb-4 py-3 border-left-danger">
+                                        <div class="card-body">
+                                            {{ $tbuser->getIsBlockedUser->isEmpty() ? '' : __('backend/tbuser.blocked', ['date' => $tbuser->getIsBlockedUser[0]->timeEnd]) }}
+                                        </div>
                                     </div>
-                                </div>
                                 @endif
                             </div>
 
@@ -167,40 +167,43 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('sro-user-silk-add-backend', ['user' => $tbuser->JID]) }}">
-                            @csrf
-                            <div class="row">
-                                <div class="col-4">
-                                    {{ __('backend/tbuser.silk') }}
-                                </div>
-                                <div class="col-8">
-                                    {{ $tbuser->getSkSilk ? $tbuser->getSkSilk->silk_own : '0' }}
-                                </div>
+                        <div class="row">
+                            <div class="col-4">
+                                {{ __('backend/tbuser.silk') }}
                             </div>
-                            <div class="form-group row">
-                                <div class="col-4">
-                                    <label for="silk">
-                                        {{ __('backend/tbuser.silk-add') }}
-                                    </label>
-                                </div>
-                                <div class="col-6">
-                                    <input id="silk" type="number" class="form-control form-control-sm @error('silk') is-invalid @enderror"
-                                           name="silk" value="{{ old('silk') }}">
-                                    @error('silk')
-                                    <span class="invalid-feedback" role="alert">
+                            <div class="col-8" id="currentSilk">
+                                {{ $tbuser->getSkSilk ? $tbuser->getSkSilk->silk_own : '0' }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label for="silk">
+                                    {{ __('backend/tbuser.silk-add') }}
+                                </label>
+                            </div>
+                            <div class="col-6">
+                                <input id="silkAmount" type="number"
+                                       class="form-control form-control-sm @error('silkAmount') is-invalid @enderror"
+                                       name="silkAmount" value="{{ old('silkAmount') }}">
+                                @error('silkAmount')
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
-                                </div>
+                                @enderror
                             </div>
-                            <div class="form-group row mb-0">
-                                <div class="col-6 offset-4">
-                                    <button type="submit" class="btn btn-sm btn-primary">
-                                        {{ __('backend/tbuser.silk-add-button') }}
-                                    </button>
-                                </div>
+                        </div>
+                        <div class="form-group row mb-0">
+                            <div class="col-6 offset-4">
+                                <button type="button" class="btn btn-sm btn-primary" id="addSilk">
+                                    {{ __('backend/tbuser.silk-add-button') }}
+                                </button>
+                                <button type="button" class="btn btn-sm btn-primary" id="removeSilk">
+                                    {{ __('backend/tbuser.silk-remove-button') }}
+                                </button>
                             </div>
-                        </form>
+                        </div>
+                        <div id="silkError">
+                        </div>
                     </div>
                 </div>
                 <div class="card shadow mb-4">
@@ -210,7 +213,8 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('sro-user-block-add-backend', ['user' => $tbuser->JID]) }}">
+                        <form method="POST"
+                              action="{{ route('sro-user-block-add-backend', ['user' => $tbuser->JID]) }}">
                             @csrf
                             <div class="form-group row">
                                 <div class="col-4">
@@ -219,7 +223,8 @@
                                     </label>
                                 </div>
                                 <div class="col-8">
-                                    <input id="block" type="datetime-local" class="form-control form-control-sm @error('block') is-invalid @enderror"
+                                    <input id="block" type="datetime-local"
+                                           class="form-control form-control-sm @error('block') is-invalid @enderror"
                                            name="block" value="{{ old('block') }}">
                                     @error('block')
                                     <span class="invalid-feedback" role="alert">
@@ -235,7 +240,8 @@
                                     </label>
                                 </div>
                                 <div class="col-8">
-                                    <input id="title" type="text" class="form-control form-control-sm @error('title') is-invalid @enderror"
+                                    <input id="title" type="text"
+                                           class="form-control form-control-sm @error('title') is-invalid @enderror"
                                            name="title" value="{{ old('title') }}">
                                     @error('reason')
                                     <span class="invalid-feedback" role="alert">
@@ -251,7 +257,8 @@
                                     </label>
                                 </div>
                                 <div class="col-8">
-                                    <input id="description" type="text" class="form-control form-control-sm @error('description') is-invalid @enderror"
+                                    <input id="description" type="text"
+                                           class="form-control form-control-sm @error('description') is-invalid @enderror"
                                            name="description" value="{{ old('description') }}">
                                     @error('description')
                                     <span class="invalid-feedback" role="alert">
@@ -271,12 +278,12 @@
                                         <option value="{{ \App\Model\SRO\Account\Punishment::TYPE_BLOCK_LOGIN }}">
                                             {{ __('backend/tbuser.block-type-login') }}
                                         </option>
-{{--                                        <option value="{{ \App\Model\SRO\Account\Punishment::TYPE_BLOCK_P2P_TRADE }}">--}}
-{{--                                            {{ __('backend/tbuser.block-type-p2p') }}--}}
-{{--                                        </option>--}}
-{{--                                        <option value="{{ \App\Model\SRO\Account\Punishment::TYPE_BLOCK_WHOLE_CHAT }}">--}}
-{{--                                            {{ __('backend/tbuser.block-type-chat') }}--}}
-{{--                                        </option>--}}
+                                        {{--                                        <option value="{{ \App\Model\SRO\Account\Punishment::TYPE_BLOCK_P2P_TRADE }}">--}}
+                                        {{--                                            {{ __('backend/tbuser.block-type-p2p') }}--}}
+                                        {{--                                        </option>--}}
+                                        {{--                                        <option value="{{ \App\Model\SRO\Account\Punishment::TYPE_BLOCK_WHOLE_CHAT }}">--}}
+                                        {{--                                            {{ __('backend/tbuser.block-type-chat') }}--}}
+                                        {{--                                        </option>--}}
                                     </select>
                                     @error('type')
                                     <span class="invalid-feedback" role="alert">
@@ -337,12 +344,14 @@
                                             <td>
                                                 <form method="POST" data-form="deleteForm"
                                                       action="{{ route('sro-user-block-destroy-backend', ['user' => $tbuser->JID]) }}">
-                                                    <input type="hidden" name="serialno" value="{{ $punishment->SerialNo }}">
+                                                    <input type="hidden" name="serialno"
+                                                           value="{{ $punishment->SerialNo }}">
                                                     @csrf
                                                     <span data-toggle="modal" data-target="#punishmentModalDelete"
                                                           data-title="{{ __('backend/tbuser.edit.delete-modal-title') }} {{ $punishment->SerialNo }}"
                                                           data-message="{{ __('backend/tbuser.edit.delete-modal-body') }}"
-                                                          class="btn btn-danger btn-circle btn-sm" style="cursor: pointer">
+                                                          class="btn btn-danger btn-circle btn-sm"
+                                                          style="cursor: pointer">
                                                     <i class="fa fa-trash"></i>
                                                 </span>
                                                 </form>
@@ -435,6 +444,72 @@
             });
             $('div.dataTables_filter input').addClass('search-input form-control');
             $('select').addClass('search-input form-control');
+
+
+            const silkAmount = $('#silkAmount');
+            const addSilkButton = $('#addSilk');
+            const removeSilkButton = $('#removeSilk');
+
+            addSilkButton.click({state: 'add', btn: addSilkButton}, send);
+            removeSilkButton.click({state: 'remove', btn: removeSilkButton}, send);
+
+            function send(event) {
+                let state = event.data.state;
+                let btn = event.data.btn;
+
+                let currentSilk = $('#currentSilk');
+                let beforeSilk = silkAmount.val();
+
+                let btnText = btn.html();
+                btn.html('<i class="fas fa-circle-notch fa-spin"></i>');
+
+                silkAmount.attr('disabled', 'disabled');
+
+                $.post({
+                    url: '{{ route('sro-user-silk-backend', ['user' => $tbuser->JID]) }}',
+                    data: {
+                        charId: {{ $tbuser->JID }},
+                        amount: beforeSilk,
+                        state: state,
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    success: function (data) {
+                        let successHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert"><ul class="list-unstyled">';
+                        $.each(data, function (k, v) {
+                            successHtml += '<li>' + v + '</li>';
+                        });
+                        successHtml += '</ul></di>';
+
+                        $('#silkError').html(successHtml);
+                        btn.html(btnText);
+                        silkAmount.removeAttr('disabled').val('');
+
+                        let value;
+                        if (state === "add") {
+                            value = parseInt(currentSilk.text()) + parseInt(beforeSilk);
+                        } else {
+                            value = parseInt(currentSilk.text()) - parseInt(beforeSilk);
+                        }
+                        currentSilk.text(value);
+                    },
+                    error: function (data) {
+                        const errors = data.responseJSON;
+                        let errorsHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><ul class="list-unstyled">';
+                        $.each(errors.state, function (k, v) {
+                            errorsHtml += '<li>' + v + '</li>';
+                        });
+                        errorsHtml += '</ul></di>';
+
+                        $('#silkError').html(errorsHtml);
+                        btn.html(btnText);
+                        silkAmount.removeAttr('disabled').val('');
+                    }
+                }).done(function (d) {
+                    btn.html(btnText);
+                });
+            }
         });
     </script>
 @endpush
