@@ -28,7 +28,7 @@ class SidebarProvider extends ServiceProvider
         view()->composer(
             'layouts.playercount',
             static function ($view) {
-                $playerCount = Cache::remember('playerCount', 60 * 5, function () {
+                $playerCount = Cache::remember('playerCount', 60 * 5, static function () {
                     return OnlineOfflineLog::where('status', OnlineOfflineLog::STATUS_LOGGED_IN)->count();
                 });
                 $data = [

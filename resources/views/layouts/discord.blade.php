@@ -1,11 +1,13 @@
 <p class="font-weight-light font-weight-bold pt-3">
     {{ __('sidebar.discord.title') }} {{ __('sidebar.discord.online', ['online' => $DiscordProvider['presence_count']]) }}
     @if(array_key_exists('instant_invite', $DiscordProvider))
-        <span class="float-right">
-            <a href="{{ $DiscordProvider['instant_invite'] }}" target="_blank" noreferrer>
-                {{ __('sidebar.discord.join') }}
-            </a>
-        </span>
+        @if($DiscordProvider['instant_invite'] !== null)
+            <span class="float-right">
+                <a href="{{ $DiscordProvider['instant_invite'] }}" target="_blank" noreferrer>
+                    {{ __('sidebar.discord.join') }}
+                </a>
+            </span>
+        @endif
     @endif
 </p>
 <ul class="list-group small h-25 overflow-auto py-1 pl-1">
