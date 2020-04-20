@@ -18,7 +18,7 @@ class SiegeFortressController extends Controller
         ];
 
         // @ToDo put the Fortress war timer here, so after Fortress war caching new Guilds.
-        $fortress = Cache::remember('siegeFortress', $oneDay * 1, function () use ($fortressMapping) {
+        $fortress = Cache::remember('siegeFortress', $oneDay * 1, static function () use ($fortressMapping) {
             return SiegeFortress::whereNotNull('GuildID')
                 ->with('getGuildName')
                 ->get()

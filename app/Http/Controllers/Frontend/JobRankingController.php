@@ -20,7 +20,7 @@ class JobRankingController extends Controller
             3 => __('sidebar.job-ranking.hunter')
         ];
 
-        $countTrader = Cache::remember('charTriJob', $oneDay * 1, function () use ($jobMapping) {
+        $countTrader = Cache::remember('charTriJob', $oneDay * 1, static function () use ($jobMapping) {
             return CharTrijob::select(DB::raw('count(*) as job_count, JobType'))
                 ->groupBy('JobType')->get()
                 ->map(static function ($data) use ($jobMapping) {

@@ -55,8 +55,11 @@ mix.sass(
 // Frontend Javascript
 mix.scripts([
     'resources/vendor/jquery/jquery.min.js',
-    'resources/vendor/bootstrap/js/bootstrap.bundle.min.js',
+    'resources/js/frontend/jquery-ui.js',
+    'resources/js/frontend/jquery-migrate.js',
     'resources/vendor/jquery-easing/jquery.easing.min.js',
+    'resources/vendor/bootstrap/js/bootstrap.bundle.min.js',
+    'resources/js/frontend/bsTooltipChange.js',
     'resources/js/backend/summernote-bs4.js',
     'resources/vendor/datatables/jquery.dataTables.min.js',
     'resources/vendor/jquery-easing/jquery.easing.min.js',
