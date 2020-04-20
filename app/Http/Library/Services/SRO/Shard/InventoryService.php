@@ -143,7 +143,7 @@ class InventoryService
      */
     public function getItemIcon($aItem): string
     {
-        $path = '/image/icon/' . str_replace(['ddj', '\\'], ['PNG', '/'], $aItem);
+        $path = '/image/icon/' . str_replace(['ddj', '\\'], ['PNG', '/'], strtolower($aItem));
 
         $icon = asset($path);
         $iconDefault = asset('/image/icon/icon_default.PNG');
