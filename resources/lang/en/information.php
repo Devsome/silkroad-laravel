@@ -32,6 +32,12 @@ return [
             'map-user' => 'Current position *:',
             'map-info' => 'Enabled for all players',
             'map-all' => 'Current position:',
+        ],
+
+        'equipment' => [
+            'title' => 'Equipment',
+            'inventory' => 'Inventory',
+            'avatar' => 'Avatar',
         ]
     ],
 

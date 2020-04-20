@@ -112,6 +112,14 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Item Stats -->
+    <h2>{{ __('information.player.equipment.title') }}</h2>
+    <div class="col-md-12">
+        <div class="row">
+            @include('frontend.information.information.inventory', ['items' => $playerInventory])
+        </div>
+    </div>
 </div>
 <div class="col-xl-3 col-lg-3 col-md-3 d-none d-lg-block">
     <div class="row">

@@ -28,19 +28,18 @@
         </div>
     </div>
 @endsection
-@push('javascript')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            createMinimapCanvas(
-                '{{ asset('image/worldmap/8') }}/',
-                'player-map',
-                150,
-                150,
-                {{ $player->PosX }},
-                {{ $player->PosY }},
-                {{ $player->PosZ }},
-                {{ $player->LatestRegion }}
-            );
-        });
-    </script>
-@endpush
+
+@if($player->getAccountUser->getTbUser)
+    @role('backend')
+        @include('frontend.information.information.map', ['player' => $player])
+    @else
+    @auth
+        @if($player->getAccountUser->getTbUser->StrUserID === Auth::user()->silkroad_id)
+            @include('frontend.information.information.map', ['player' => $player])
+        @endif
+    @endauth
+        @if($player->getAccountUser->getTbUser->getWebUser && $player->getAccountUser->getTbUser->getWebUser->show_map === 1)
+            @include('frontend.information.information.map', ['player' => $player])
+        @endif
+    @endrole
+@endif
