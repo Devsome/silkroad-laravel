@@ -146,7 +146,7 @@ class InventoryService
         $path = '/image/icon/' . str_replace(['ddj', '\\'], ['PNG', '/'], $aItem);
 
         $icon = asset($path);
-        $iconDefault = asset('/image/icon/icon_default.png');
+        $iconDefault = asset('/image/icon/icon_default.PNG');
 
         if (file_exists(public_path($path))) {
             return $icon;

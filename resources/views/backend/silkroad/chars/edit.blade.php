@@ -218,7 +218,7 @@
                                              style="background:url('{{
                                             asset('/image/icon/' .
                                             str_replace(['ddj', '\\'], ['PNG', '/'], $refregObjCommon->AssocFileIcon128))
-                                         }}');">
+                                        }}');">
                                             @if (strpos($refregObjCommon->NameStrID128, 'RARE') !== false)
                                                 <img src="{{ asset('/image/sox.gif') }}" width="32" height="32"
                                                      alt="Seal of X">
