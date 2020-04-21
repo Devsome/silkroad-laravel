@@ -2,6 +2,7 @@
 
 return [
     'title' => 'Register',
+    'closed' => 'The registration has been temporarily disabled.',
     'form' => [
         'name' => 'Name',
         'name-help' => 'This name is displayed on the site',

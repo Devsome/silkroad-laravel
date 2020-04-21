@@ -54,7 +54,7 @@
                                     </h4>
                                 </a>
                                 <p class="box-description">
-                                    {{ __('home.grid.donation-desc', ['silk' => config('app.sro_silk_name')]) }}
+                                    {{ __('home.grid.donation-desc', ['silk' => config('siteSettings.sro_silk_name', 'Silk')]) }}
                                 </p>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                                     </h4>
                                 </a>
                                 <p class="box-description">
-                                    {{ __('home.grid.voucher-desc', ['silk' => config('app.sro_silk_name')]) }}
+                                    {{ __('home.grid.voucher-desc', ['silk' => config('siteSettings.sro_silk_name', 'Silk')]) }}
                                 </p>
                             </div>
                         </div>

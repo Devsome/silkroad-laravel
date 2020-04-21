@@ -111,6 +111,9 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
 
     // Web
     Route::group(['prefix' => 'web'], function () {
+        Route::get('/settings', 'Backend\SiteSettingsController@index')->name('site-settings-backend');
+        Route::post('/settings/update', 'Backend\SiteSettingsController@update')->name('site-settings-update-backend');
+
         Route::group(['prefix' => 'downloads'], function () {
             Route::get('/', 'Backend\DownloadsController@index')->name('downloads-index-backend');
             Route::get('/add', 'Backend\DownloadsController@show')->name('downloads-add-backend');

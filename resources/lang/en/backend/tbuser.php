@@ -7,7 +7,7 @@ return [
     'struserid' => 'StrUserID',
     'gmrank' => 'GM Rank',
     'email' => 'E-Mail',
-    'silk' => 'Silk own',
+    'silk' => config('siteSettings.sro_silk_name', 'Silk') . ' own',
     'silk-add' => 'Amount',
     'silk-add-button' => 'Add',
     'silk-remove-button' => 'Remove',

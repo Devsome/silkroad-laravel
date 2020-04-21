@@ -22,7 +22,7 @@ return [
 
         'amount' => 'Amount',
         'amount-help' => 'How many vouchers do you want to create?',
-        'silk' => 'Silk amount',
+        'silk' => config('siteSettings.sro_silk_name', 'Silk') . ' amount',
         'expired-at' => 'Expired at',
         'silk-help' => 'The silk amount for the voucher(s)',
 

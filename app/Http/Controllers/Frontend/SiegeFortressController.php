@@ -16,17 +16,25 @@ class SiegeFortressController extends Controller
             3 => __('sidebar.fortress.hotan'),
             6 => __('sidebar.fortress.bandit')
         ];
+        $siteSettings = config('siteSettings');
 
         // @ToDo put the Fortress war timer here, so after Fortress war caching new Guilds.
-        $fortress = Cache::remember('siegeFortress', $oneDay * 1, static function () use ($fortressMapping) {
+        $fortress = Cache::remember('siegeFortress', $oneDay * 1, static function () use ($fortressMapping, $siteSettings) {
             return SiegeFortress::whereNotNull('GuildID')
                 ->with('getGuildName')
                 ->get()
-                ->map(static function ($data) use ($fortressMapping) {
+                ->map(static function ($data) use ($fortressMapping, $siteSettings) {
                     $data->FortressName = __('sidebar.fortress.unknown');
                     if (array_key_exists($data->FortressID, $fortressMapping)) {
                         $data->FortressName = $fortressMapping[$data->FortressID];
 
+                        if($siteSettings) {
+                            foreach ($siteSettings as $key => $val) {
+                                if ($val && stripos($key, $data->FortressName) !== false) {
+                                    return [];
+                                }
+                            }
+                        }
                         if ($data->FortressID === 1) {
                             $data->FortressImage = asset('image/icon/etc/fort_jangan.PNG');
                         }
@@ -40,7 +48,6 @@ class SiegeFortressController extends Controller
                     return $data;
                 });
         });
-
-        return $fortress;
+        return $fortress->filter()->all();
     }
 }

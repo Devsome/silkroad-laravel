@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Silkroad'),
 
     'description' => env('APP_DESCRIPTION', 'Description'),
 
@@ -42,47 +42,6 @@ return [
     */
 
     'debug' => env('APP_DEBUG', false),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Silkroad Stuff
-    |--------------------------------------------------------------------------
-    |
-    | Here are only some Silkroad config variables for that application.
-    | If you do not know what to change, check the README.md
-    | vsro is for 22
-    |
-    */
-
-    'sro_content_id' => env('APP_SRO_CONTENT_ID', 22),
-
-    'sro_silk_name' => env('SRO_SILK_NAME', 'Silk'),
-
-    'sro_max_server' => env('SRO_MAX_SERVER', 1000),
-    'sro_cap' => env('SRO_CAP', 90),
-    'sro_exp' => env('SRO_EXP', 5),
-    'sro_exp_gold' => env('SRO_EXP_GOLD', 1),
-    'sro_exp_drop' => env('SRO_EXP_DROP', 1),
-    'sro_exp_job' => env('SRO_EXP_JOB', 1),
-    'sro_exp_party' => env('SRO_EXP_PARTY', 5),
-    'sro_ip_limit' => env('SRO_IP_LIMIT', 4),
-    'sro_hwid_limit' => env('SRO_HWID_LIMIT', 2),
-    'sro_facebook' => env('SRO_FACEBOOK'),
-    'sro_youtube' => env('SRO_YOUTUBE'),
-    'sro_discord' => env('SRO_DISCORD'),
-    'sro_contact_email' => env('SRO_CONTACT_EMAIL'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Application Settings (like Discord and stuff)
-    |--------------------------------------------------------------------------
-    |
-    | Here are only some Application config variables for that application.
-    | If you do not know what to change, check the README.md
-    |
-    */
-
-    'discord_server_id' => env('DISCORD_SERVER_ID', '674395399011827712'),
 
     /*
     |--------------------------------------------------------------------------
@@ -227,6 +186,7 @@ return [
         \App\Providers\FortressProvider::class,
         \App\Providers\JobRankingProvider::class,
         \App\Providers\TimersProvider::class,
+        \App\Providers\SiteSettingsProvider::class,
 
     ],
 

@@ -1,1 +1,1 @@
-{{ $SidebarProvider['count'] }} / {{ config('app.sro_max_server') }}
+{{ $SidebarProvider['count'] }} / {{ config('siteSettings.sro_max_server', 1000) }}

@@ -25,7 +25,7 @@
                 <i class="fas fa-fw fa-check"></i> {{ __('sidebar.information.cap') }}
             </div>
             <div class="float-right">
-                {{ config('app.sro_cap') }}
+                {{ config('siteSettings.sro_cap', 110) }}
             </div>
         </li>
         <li class="pb-1">
@@ -33,7 +33,7 @@
                 <i class="fa fa-fw fa-flask"></i> {{ __('sidebar.information.exp-sp') }}
             </div>
             <div class="float-right">
-                {{ config('app.sro_exp') }}x
+                {{ config('siteSettings.sro_exp', 1) }}x
             </div>
         </li>
         <li class="pb-1">
@@ -41,7 +41,7 @@
                 <i class="fa fa-fw fa-users"></i> {{ __('sidebar.information.party-exp') }}
             </div>
             <div class="float-right">
-                {{ config('app.sro_exp_party') }}x
+                {{ config('siteSettings.sro_exp_party', 1) }}x
             </div>
         </li>
         <li class="pb-1">
@@ -49,7 +49,7 @@
                 <i class="fa fa-fw fa-coins"></i> {{ __('sidebar.information.gold') }}
             </div>
             <div class="float-right">
-                {{ config('app.sro_exp_gold') }}x
+                {{ config('siteSettings.sro_exp_gold', 1) }}x
             </div>
         </li>
         <li class="pb-1">
@@ -57,7 +57,7 @@
                 <i class="fa fa-fw fa-coins"></i> {{ __('sidebar.information.drop') }}
             </div>
             <div class="float-right">
-                {{ config('app.sro_exp_drop') }}x
+                {{ config('siteSettings.sro_exp_drop', 1) }}x
             </div>
         </li>
         <li class="pb-1">
@@ -65,7 +65,7 @@
                 <i class="fa fa-fw fa-star"></i> {{ __('sidebar.information.trade-goods') }}
             </div>
             <div class="float-right">
-                {{ config('app.sro_exp_job') }}x
+                {{ config('siteSettings.sro_exp_job', 1) }}x
             </div>
         </li>
     </ul>
@@ -76,7 +76,7 @@
                 <i class="fa fa-fw fa-exclamation"></i> {{ __('sidebar.information.ip-limit') }}
             </div>
             <div class="float-right">
-                {{ config('app.sro_ip_limit') }}
+                {{ config('siteSettings.sro_ip_limit', 1) }}
             </div>
         </li>
         <li class="pb-1">
@@ -84,7 +84,7 @@
                 <i class="fa fa-fw fa-exclamation"></i> {{ __('sidebar.information.pc-limit') }}
             </div>
             <div class="float-right">
-                {{ config('app.sro_hwid_limit') }}
+                {{ config('siteSettings.sro_hwid_limit', 1) }}
             </div>
         </li>
     </ul>

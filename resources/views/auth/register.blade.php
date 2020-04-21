@@ -10,8 +10,15 @@
                             {{ __('auth/register.title') }}
                         </div>
                         <div class="card-body">
+                            @if(config('siteSettings.registration_close'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ __('auth/register.closed') }}
+                                </div>
+                            @endif
+                            @if(!config('siteSettings.registration_close'))
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf
+                            @endif
                                 <div class="form-group row">
                                     <label for="name"
                                            class="col-md-4 col-form-label text-md-right">{{ __('auth/register.form.name') }}</label>
@@ -148,14 +155,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group row mb-0">
-                                    <div class="col-md-6 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            {{ __('auth/register.form.submit') }}
-                                        </button>
+                            @if(!config('siteSettings.registration_close'))
+                                    <div class="form-group row mb-0">
+                                        <div class="col-md-6 offset-md-4">
+                                            <button type="submit" class="btn btn-primary">
+                                                {{ __('auth/register.form.submit') }}
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
                             </form>
+                            @endif
                         </div>
                     </div>
                 </div>

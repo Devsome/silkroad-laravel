@@ -19,7 +19,7 @@ class DiscordController extends Controller
      */
     public function __construct()
     {
-        $this->setDiscordServerId(config('app.discord_server_id'));
+        $this->setDiscordServerId(config('siteSettings.discord_server_id', '674395399011827712'));
     }
 
     /**

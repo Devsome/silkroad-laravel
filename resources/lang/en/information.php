@@ -21,7 +21,7 @@ return [
             'logged-out' => 'Logged out',
             'gm-info' => 'GM Info **',
             'gm-info-data' => 'User :jid',
-            'silk' => 'Silk **',
+            'silk' => config('siteSettings.sro_silk_name', 'Silk') . '**',
             'silk-no-entry' => 'No Information',
 
             'only-visible-user' => '* Only visible for you',

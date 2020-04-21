@@ -52,7 +52,7 @@ class SilkroadNoticeController extends Controller
 
         $notice = new Notice();
         $notice->Subject = $request->get('title');
-        $notice->ContentID = config('app.sro_content_id');
+        $notice->ContentID = config('siteSettings.sro_content_id', 22);
         $notice->Article = $request->get('body');
         $notice->EditDate = Carbon::now()->format('Y-m-d H:i:s');
 

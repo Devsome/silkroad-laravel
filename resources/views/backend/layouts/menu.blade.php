@@ -59,6 +59,12 @@
             <span>{{ __('backend/menu.backlinks') }}</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('site-settings-backend') }}">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>{{ __('backend/menu.settings') }}</span>
+        </a>
+    </li>
 
 
     <div class="sidebar-heading">
