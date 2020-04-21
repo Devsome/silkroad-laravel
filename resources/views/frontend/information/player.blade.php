@@ -37,9 +37,10 @@
         @if($player->getAccountUser->getTbUser->StrUserID === Auth::user()->silkroad_id)
             @include('frontend.information.information.map', ['player' => $player])
         @endif
-    @endauth
+    @else
         @if($player->getAccountUser->getTbUser->getWebUser && $player->getAccountUser->getTbUser->getWebUser->show_map === 1)
             @include('frontend.information.information.map', ['player' => $player])
         @endif
+    @endauth
     @endrole
 @endif
