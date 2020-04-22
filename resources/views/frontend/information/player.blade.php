@@ -37,7 +37,9 @@
         @if($player->getAccountUser->getTbUser->JID === Auth::user()->jid)
             @include('frontend.information.information.map', ['player' => $player])
         @else
-            @include('frontend.information.information.map', ['player' => $player])
+            @if($playerUnderJob)
+                @include('frontend.information.information.map', ['player' => $player])
+            @endif
         @endif
     @else
         @if($playerUnderJob)
@@ -46,6 +48,5 @@
         @endif
         @endif
     @endauth
-
     @endrole
 @endif
