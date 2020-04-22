@@ -36,6 +36,8 @@
     @auth
         @if($player->getAccountUser->getTbUser->JID === Auth::user()->jid)
             @include('frontend.information.information.map', ['player' => $player])
+        @else
+            @include('frontend.information.information.map', ['player' => $player])
         @endif
     @else
         @if($player->getAccountUser->getTbUser->getWebUser && $player->getAccountUser->getTbUser->getWebUser->show_map === 1)
