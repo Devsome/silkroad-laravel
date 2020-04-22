@@ -36,10 +36,19 @@ class InformationController extends Controller
             $player->CharID
         );
 
+        $jobItem = $inventoryService->getInventorySlot($player->CharID, 8);
+
+        if ($jobItem) {
+            $jobItem = true;
+        } else {
+            $jobItem = false;
+        }
+
         return view('frontend.information.player', [
             'player' => $player,
             'playerInventory' => $playerInventory,
-            'playerAvatar' => $playerAvatar
+            'playerAvatar' => $playerAvatar,
+            'playerUnderJob' => $jobItem
         ]);
     }
 

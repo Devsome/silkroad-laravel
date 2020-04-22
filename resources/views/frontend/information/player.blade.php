@@ -40,9 +40,12 @@
             @include('frontend.information.information.map', ['player' => $player])
         @endif
     @else
+        @if($playerUnderJob)
         @if($player->getAccountUser->getTbUser->getWebUser && $player->getAccountUser->getTbUser->getWebUser->show_map === 1)
             @include('frontend.information.information.map', ['player' => $player])
         @endif
+        @endif
     @endauth
+
     @endrole
 @endif

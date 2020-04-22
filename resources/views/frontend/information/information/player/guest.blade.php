@@ -75,6 +75,7 @@
             <img src="{{ asset('image/chars/') }}/{{ $player->RefObjID }}.gif"
                  class="rounded float-left rounded" alt="{{ $player->CharName16 }}">
         </div>
+        @if($playerUnderJob)
         @if($player->getAccountUser->getTbUser->getWebUser && $player->getAccountUser->getTbUser->getWebUser->show_map === 1)
             <div class="col-12 pt-3">
                 <label class="small">
@@ -82,6 +83,7 @@
                 </label>
                 <div id="player-map"></div>
             </div>
+        @endif
         @endif
     </div>
 </div>
