@@ -24,14 +24,19 @@ class SiteSettingsProvider extends ServiceProvider
      */
     public function boot()
     {
-        $siteSettings = SiteSettings::first();
-        if (!empty($siteSettings)) {
-            foreach($siteSettings->settings as $key => $value)
-            {
-                config([
-                    'siteSettings.' . $key => $value
-                ]);
+        try {
+            $siteSettings = SiteSettings::first();
+            if (!empty($siteSettings)) {
+                foreach($siteSettings->settings as $key => $value)
+                {
+                    config([
+                        'siteSettings.' . $key => $value
+                    ]);
+                }
             }
+        }  catch (\Exception $e) {
+            // do nothing
         }
+
     }
 }

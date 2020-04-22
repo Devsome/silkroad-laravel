@@ -137,6 +137,6 @@ class TbUser extends Model
      */
     public function getWebUser()
     {
-        return $this->hasOne(User::class, 'silkroad_id', 'StrUserID');
+        return $this->hasOne(User::class, 'jid', 'JID');
     }
 }

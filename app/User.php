@@ -24,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'silkroad_id', 'email', 'password', 'referrer_id', 'reflink', 'show_map'
+        'name', 'silkroad_id', 'jid', 'email', 'password', 'referrer_id', 'reflink', 'show_map'
     ];
 
     /**
@@ -33,7 +33,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'jid'
     ];
 
     /**
@@ -50,7 +50,7 @@ class User extends Authenticatable
      */
     public function getTbUser()
     {
-        return $this->belongsTo(TbUser::class, 'silkroad_id', 'StrUserID');
+        return $this->belongsTo(TbUser::class, 'jid', 'JID');
     }
 
     /**

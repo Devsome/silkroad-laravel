@@ -27,7 +27,7 @@ class TicketNewCountProvider extends ServiceProvider
     {
         view()->composer(
             'backend.layouts.navbar',
-            function ($view) {
+            static function ($view) {
                 $ticket = Ticket::where('ticket_status_id', TicketStatus::STATUS_NEW);
                 $data = [
                     'count' => $ticket->count(),

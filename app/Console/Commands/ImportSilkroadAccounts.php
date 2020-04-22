@@ -44,11 +44,12 @@ class ImportSilkroadAccounts extends Command
         foreach($tbUser as $user)
         {
             $this->info('Importing -> ' .$user->StrUserID);
-            $existUser = User::where('silkroad_id', $user->StrUserID)->get();
+            $existUser = User::where('jid', '=', $user->JID)->get();
             if($existUser->isEmpty()) {
                 $createdUser = User::create([
-                    'name' => $user->Name ? $user->Name : $user->StrUserID,
+                    'name' => $user->Name ?: $user->StrUserID,
                     'silkroad_id' => $user->StrUserID,
+                    'jid' => $user->JID,
                     'email' => $user->Email,
                     'password' => $user->password,
                     'reflink' => \Str::uuid()

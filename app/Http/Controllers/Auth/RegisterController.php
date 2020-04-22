@@ -94,7 +94,8 @@ class RegisterController extends Controller
 
         return User::create([
             'name' => $data['name'],
-            'silkroad_id' => $data['silkroad_id'],
+            'silkroad_id' => strtolower($data['silkroad_id']),
+            'jid' => $tbUser->JID,
             'email' => $data['email'],
             'password' => Hash::make($data['web_password']),
             'referrer_id' => $referrerId ? $referrerId->id : null,

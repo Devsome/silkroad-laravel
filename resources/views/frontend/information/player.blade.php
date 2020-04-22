@@ -12,7 +12,7 @@
                                 @include('frontend.information.information.player.gm')
                             @else
                                 @auth
-                                    @if($player->getAccountUser->getTbUser->StrUserID === Auth::user()->silkroad_id)
+                                    @if($player->getAccountUser->getTbUser->JID === Auth::user()->jid)
                                         @include('frontend.information.information.player.own')
                                     @else
                                         @include('frontend.information.information.player.guest')
@@ -34,7 +34,7 @@
         @include('frontend.information.information.map', ['player' => $player])
     @else
     @auth
-        @if($player->getAccountUser->getTbUser->StrUserID === Auth::user()->silkroad_id)
+        @if($player->getAccountUser->getTbUser->JID === Auth::user()->jid)
             @include('frontend.information.information.map', ['player' => $player])
         @endif
     @else

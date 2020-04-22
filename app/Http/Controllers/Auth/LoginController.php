@@ -60,7 +60,7 @@ class LoginController extends Controller
         // check against old md5 password, if correct, create bcrypted updated pswd
         $user = User::where('email', $request->email)->first();
 
-        if ($user && $user->password == md5($request->password)) {
+        if ($user && $user->password === md5($request->password)) {
             $user->password = Hash::make($request->password);
             $user->save();
         }
