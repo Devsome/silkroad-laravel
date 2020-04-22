@@ -9,10 +9,10 @@
     </tr>
     </thead>
     <tbody>
-    @forelse($data as $player)
+    @forelse($data as $key => $player)
         <tr>
             <th scope="row">
-                {{ $loop->iteration }}
+                {{ $data->firstItem() + $key }}
             </th>
             <td class="col-auto">
                 <img src="{{ asset('image/chars/') }}/{{ $player->RefObjID }}.gif"

@@ -91,7 +91,7 @@ class RankingController extends Controller
                 ->paginate(150);
             return view('frontend.ranking.results.jobs', [
                 'data' => $jobs
-            ]);
+            ])->render();
         }
     }
 

@@ -5,7 +5,7 @@
                 '{{ asset('image/worldmap/8') }}/',
                 'player-map',
                 150,
-                150,
+                205,
                 {{ $player->PosX }},
                 {{ $player->PosY }},
                 {{ $player->PosZ }},

@@ -8,10 +8,10 @@
     </tr>
     </thead>
     <tbody>
-    @forelse($data as $guild)
+    @forelse($data as $key => $guild)
         <tr class="live-search-list">
             <td>
-                {{ $loop->iteration }}
+                {{ $data->firstItem() + $key }}
             </td>
             <td>
                 <a href="#"></a>

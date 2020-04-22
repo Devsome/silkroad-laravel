@@ -8,10 +8,10 @@
     </tr>
     </thead>
     <tbody>
-    @forelse($data as $jobs)
+    @forelse($data as $key => $jobs)
         <tr class="live-search-list">
             <td>
-                {{ $loop->iteration }}
+                {{ $data->firstItem() + $key }}
             </td>
             <td>
                 <img src="{{ asset('image/chars/') }}/{{ $jobs->getCharacter->RefObjID }}.gif"
