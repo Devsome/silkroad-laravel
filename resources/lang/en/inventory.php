@@ -9,4 +9,12 @@ return [
     'able-adv' => 'Able to use Advanced elixir.',
     'adv-inuse' => 'Advanced elixir is in effect [+:plus]',
     'awaken' => 'Awaken period',
+
+    'gm' => [
+        'title' => 'GM info:',
+        'itemid' => 'ItemID: :id',
+        'refitemid' => 'RefItemID: :id',
+        'serial64' => 'Serial64: :id'
+
+    ]
 ];

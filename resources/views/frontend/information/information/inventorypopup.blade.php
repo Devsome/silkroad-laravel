@@ -117,3 +117,15 @@
 {{--    <span style="color:#efdaa4;">Sort of item: Summon Scroll</span>--}}
 {{--    <span style="color:#efdaa4;font-weight:bold;">Pet information</span>--}}
 @endif
+
+@role('backend')
+<div class="text-danger">
+    <br>
+    <p>
+        {{ __('inventory.gm.title') }}<br>
+        {{ __('inventory.gm.itemid', ['id' => $aItem->ItemID]) }}<br>
+        {{ __('inventory.gm.refitemid', ['id' => $aItem->RefItemID]) }}<br>
+        {{ __('inventory.gm.serial64', ['id' => $aItem->Serial64]) }}<br>
+    </p>
+</div>
+@endrole
