@@ -3,7 +3,7 @@
     @if(array_key_exists('instant_invite', $DiscordProvider))
         @if($DiscordProvider['instant_invite'] !== null)
             <span class="float-right">
-                <a href="{{ $DiscordProvider['instant_invite'] }}" target="_blank" noreferrer>
+                <a href="{{ $DiscordProvider['instant_invite'] }}" target="_blank" rel="noopener">
                     {{ __('sidebar.discord.join') }}
                 </a>
             </span>
