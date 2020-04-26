@@ -59,7 +59,7 @@ class WebInventoryService
         }
 
         $goldArray = $this->formatGoldAndNone(
-            $account->getTbUser->getShardUser->first()->RemainGold
+            $account->getTbUser->getShardUser->where('CharID', $characterId)->first()->RemainGold
         );
 
         return [
@@ -260,7 +260,7 @@ class WebInventoryService
             return ['state' => false, 'error' => 'Error Code: 1 [Wrong Character]'];
         }
 
-        $loggedState = $account->getTbUser->getShardUser->first()->getCharOnlineOfflineLoggedIn;
+        $loggedState = $account->getTbUser->getShardUser->where('CharID', $characterId)->first()->getCharOnlineOfflineLoggedIn;
         if ($loggedState) {
             return ['state' => false, 'error' => __('webinventory.logged-in')];
         }
