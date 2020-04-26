@@ -12,6 +12,7 @@
                                 <div class="card download-card">
                                     <img src="{{ Storage::disk('images')->url($download->image->filename) }}"
                                          class="card-img-top"
+                                         loading="lazy"
                                          alt="{{ $download->name }}">
                                     <div class="card-body">
                                         <h5 class="card-title">

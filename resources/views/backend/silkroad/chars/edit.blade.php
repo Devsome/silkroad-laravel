@@ -190,7 +190,7 @@
                                         }}');">
                                             @if (strpos($refregObjCommon->NameStrID128, 'RARE') !== false)
                                                 <img src="{{ asset('/image/sro/sox.gif') }}" width="32" height="32"
-                                                     alt="Seal of X">
+                                                     loading="lazy" alt="Seal of X">
                                             @endif
                                         </div>
                                     </div>
@@ -221,7 +221,7 @@
                                         }}');">
                                             @if (strpos($refregObjCommon->NameStrID128, 'RARE') !== false)
                                                 <img src="{{ asset('/image/sro/sox.gif') }}" width="32" height="32"
-                                                     alt="Seal of X">
+                                                     loading="lazy" alt="Seal of X">
                                             @endif
                                         </div>
                                     </div>

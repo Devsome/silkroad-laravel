@@ -12,6 +12,7 @@
                     <p>{{ __('news.posted', ['date' => $news->published_at->diffForHumans()]) }}</p>
                     <hr>
                     <img class="img-fluid rounded news-image mx-auto d-block"
+                         loading="lazy"
                          src="{{ Storage::disk('images')->url($news->image->filename) }}"
                          alt="{{ $news->image->original_filename }}">
                     <hr>

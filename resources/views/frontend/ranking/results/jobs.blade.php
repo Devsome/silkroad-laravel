@@ -15,6 +15,7 @@
             </td>
             <td>
                 <img src="{{ asset('image/sro/chars/') }}/{{ $jobs->getCharacter->RefObjID }}.gif"
+                     loading="lazy"
                      class="img-fluid d-none d-sm-inline" width="16" height="16" alt="{{ $jobs->getCharacter->CharName16 }}">
                 {{ $jobs->getCharacter->NickName16 }}
             </td>

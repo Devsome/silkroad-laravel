@@ -20,6 +20,7 @@
                             <div class="row pb-4 row-bordered">
                                 <div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
                                     <img src="{{ asset('image/sro/chars/') }}/{{ $char->RefObjID }}.gif"
+                                         loading="lazy"
                                          class="rounded float-left rounded h-75" alt="{{ $char->CharName16 }}">
                                 </div>
                                 <div class="col-xl-9 col-lg-9 col-md-9">

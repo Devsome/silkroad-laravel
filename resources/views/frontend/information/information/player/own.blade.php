@@ -128,6 +128,7 @@
                 {{ __('information.player.table.avatar') }}
             </label>
             <img src="{{ asset('image/sro/chars/') }}/{{ $player->RefObjID }}.gif"
+                 loading="lazy"
                  class="rounded float-left rounded" alt="{{ $player->CharName16 }}">
         </div>
         <div class="col-12 pt-3">

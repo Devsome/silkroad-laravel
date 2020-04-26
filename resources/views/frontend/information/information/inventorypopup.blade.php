@@ -1,4 +1,4 @@
-<img src="{{ asset('/image/sro/equipment/com_itemsign.PNG') }}" class="img-clear">
+<img src="{{ asset('/image/sro/equipment/com_itemsign.PNG') }}" class="img-clear" loading="lazy">
     @if($aItem['info']['sox'] || count($aItem['blues']) >= 1)
     @php
         $color = $aItem['info']['sox'] ? '#f2e43d' : '#50cecd';
