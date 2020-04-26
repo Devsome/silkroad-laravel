@@ -10,6 +10,14 @@ return [
     'adv-inuse' => 'Advanced elixir is in effect [+:plus]',
     'awaken' => 'Awaken period',
 
+    'pet-summon' => 'Sort of item: Summon Scroll',
+    'pet-info' => 'Pet information',
+    'pet-name' => 'Pet Name: :name',
+    'pet-level' => 'Pet Level: :level',
+    'pet-rental' => 'Rental Period',
+    'pet-inventory' => 'Pet Inventory',
+    'pet-inventory-size' => 'Size :size Slots',
+
     'gm' => [
         'title' => 'GM info:',
         'itemid' => 'ItemID: :id',

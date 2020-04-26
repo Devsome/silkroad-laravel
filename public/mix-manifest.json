@@ -4,5 +4,6 @@
     "/css/leaflet.css": "/css/leaflet.css",
     "/js/worldmap.min.js": "/js/worldmap.min.js",
     "/js/backend/app.js": "/js/backend/app.js",
-    "/js/app.js": "/js/app.js"
+    "/js/app.js": "/js/app.js",
+    "/js/webinventory.js": "/js/webinventory.js"
 }

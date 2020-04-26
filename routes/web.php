@@ -40,6 +40,12 @@ Route::group(['prefix' => 'account'], function() {
         Route::get('/show/{id}', 'Frontend\TicketController@ticketShow')->name('home-tickets-show');
         Route::post('/show/{id}/reply', 'Frontend\TicketController@ticketShowSubmit')->name('home-tickets-show-submit');
     });
+
+    Route::group(['prefix' => 'web-inventory'], function () {
+       Route::get('/', 'Frontend\WebInventoryController@index')->name('web-inventory-index');
+       Route::get('/select-character', 'Frontend\WebInventoryController@selectCharacter')->name('web-i-select-character');
+       Route::post('/update-gold', 'Frontend\WebInventoryController@updateGold')->name('web-i-update-gold');
+    });
 });
 
 // Character and Guild Information

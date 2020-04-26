@@ -46,7 +46,8 @@ class Char extends Model
         'RefObjID',
         'CharName16',
         'NickName16',
-        'LastLogout'
+        'LastLogout',
+        'RemainGold'
     ];
 
     /**

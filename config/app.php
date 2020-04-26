@@ -181,12 +181,13 @@ return [
          * Custom Service Providers
          */
         \App\Providers\TicketNewCountProvider::class,
-        \App\Providers\SidebarProvider::class,
+        \App\Providers\PlayerCountProvider::class,
         \App\Providers\DiscordProvider::class,
         \App\Providers\FortressProvider::class,
         \App\Providers\JobRankingProvider::class,
         \App\Providers\TimersProvider::class,
         \App\Providers\SiteSettingsProvider::class,
+        \App\Providers\SilkGoldProvider::class,
 
     ],
 

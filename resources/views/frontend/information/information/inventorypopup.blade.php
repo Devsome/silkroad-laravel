@@ -1,4 +1,4 @@
-<img src="{{ asset('/image/equipment/com_itemsign.PNG') }}" class="img-clear">
+<img src="{{ asset('/image/sro/equipment/com_itemsign.PNG') }}" class="img-clear" loading="lazy">
     @if($aItem['info']['sox'] || count($aItem['blues']) >= 1)
     @php
         $color = $aItem['info']['sox'] ? '#f2e43d' : '#50cecd';
@@ -112,10 +112,42 @@
             @endforeach
         @endisset
     @endisset
-{{--@elseif ($aItem['info']['PetType'])--}}
-{{--    <br><br>--}}
-{{--    <span style="color:#efdaa4;">Sort of item: Summon Scroll</span>--}}
-{{--    <span style="color:#efdaa4;font-weight:bold;">Pet information</span>--}}
+@elseif (isset($aItem['info']['PetType']))
+    <br>
+    <br>
+    <span style="color:#efdaa4;">
+        {{ __('inventory.pet-summon') }}
+    </span>
+    <br>
+    <br>
+    <span style="color:#efdaa4;font-weight:bold;">
+        {{ __('inventory.pet-info') }}
+    </span>
+    <br/>
+    {{ __('inventory.pet-name', ['name' => $aItem['info']['PetName'] ?: 'No Name']) }}
+    <br>
+    <br>
+    @if($aItem['info']['PetType'] === 1)
+        {{ __('inventory.pet-level', ['level' => $aItem['info']['PetLevel']]) }}
+    @else
+        <span style="color:#efdaa4;font-weight:bold;">
+            {{ __('inventory.pet-rental') }}
+        </span>
+        <br/>
+        {{ $aItem['info']['PetEndTime'] }}
+    @endif
+
+    @if($aItem['info']['inventorySize'])
+        <br>
+        <br>
+        <span style="color:#efdaa4;font-weight:bold;">
+            {{ __('inventory.pet-inventory') }}
+        </span>
+        <br>
+        {{ $aItem['info']['inventoryEndTime'] }}
+        <br>
+        {{ __('inventory.pet-inventory-size', ['size' => $aItem['info']['inventorySize']]) }}
+    @endif
 @endif
 
 @role('backend')

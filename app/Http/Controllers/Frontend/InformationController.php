@@ -29,7 +29,8 @@ class InformationController extends Controller
             ->firstOrFail();
 
         $playerInventory = $inventoryService->getInventorySet(
-            $player->CharID
+            $player->CharID,
+            13
         );
 
         $playerAvatar = $inventoryService->getInventoryAvatar(

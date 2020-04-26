@@ -3,7 +3,7 @@
     @if(array_key_exists('instant_invite', $DiscordProvider))
         @if($DiscordProvider['instant_invite'] !== null)
             <span class="float-right">
-                <a href="{{ $DiscordProvider['instant_invite'] }}" target="_blank" noreferrer>
+                <a href="{{ $DiscordProvider['instant_invite'] }}" target="_blank" rel="noopener">
                     {{ __('sidebar.discord.join') }}
                 </a>
             </span>
@@ -14,7 +14,8 @@
     @forelse($DiscordProvider['members'] as $discord)
         <li class="pb-1 border-bottom text-break">
             <span class="pull-left">
-                <img src="{{ $discord['avatar_url'] }}" class="img-fluid img-rounded" style="max-width: 20px"/>
+                <img src="{{ $discord['avatar_url'] }}" class="img-fluid img-rounded"
+                     loading="lazy" style="max-width: 20px"/>
             </span>
             {{ $discord['username'] }}
             @if(array_key_exists('game', $discord))

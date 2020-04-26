@@ -36,13 +36,13 @@ class SiegeFortressController extends Controller
                             }
                         }
                         if ($data->FortressID === 1) {
-                            $data->FortressImage = asset('image/icon/etc/fort_jangan.PNG');
+                            $data->FortressImage = asset('image/sro/etc/fort_jangan.jpg');
                         }
                         if ($data->FortressID === 3) {
-                            $data->FortressImage = asset('image/icon/etc/fort_hotan.PNG');
+                            $data->FortressImage = asset('image/sro/etc/fort_hotan.jpg');
                         }
                         if ($data->FortressID === 6) {
-                            $data->FortressImage = asset('image/icon/etc/fort_donwhang.PNG');
+                            $data->FortressImage = asset('image/sro/etc/fort_donwhang.jpg');
                         }
                     }
                     return $data;

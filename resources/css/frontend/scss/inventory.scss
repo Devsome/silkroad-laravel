@@ -23,77 +23,77 @@
 
 .weapon .itemslot {
   margin-bottom: 25px;
-  background: url(/../image/equipment/clean.png) repeat !important;
+  background: url(/../image/sro/equipment/clean.png) repeat !important;
 }
 
 .shield .itemslot {
   margin-bottom: 25px;
-  background: url(/../image/equipment/clean.png) repeat !important;
+  background: url(/../image/sro/equipment/clean.png) repeat !important;
 }
 
 .head .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_helm.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_helm.PNG) no-repeat !important;
 }
 
 .chest .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_mail.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_mail.PNG) no-repeat !important;
 }
 
 .shoulder .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_shoulderguard.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_shoulderguard.PNG) no-repeat !important;
 }
 
 .hands .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_gauntlet.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_gauntlet.PNG) no-repeat !important;
 }
 
 .legs .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_pants.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_pants.PNG) no-repeat !important;
 }
 
 .foot .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_boots.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_boots.PNG) no-repeat !important;
 }
 
 .earring .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_earring.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_earring.PNG) no-repeat !important;
 }
 
 .necklace .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_necklace.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_necklace.PNG) no-repeat !important;
 }
 
 .lring .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_l_ring.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_l_ring.PNG) no-repeat !important;
 }
 
 .rring .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_r_ring.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_r_ring.PNG) no-repeat !important;
 }
 
 .specdress .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_specialdress.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_specialdress.PNG) no-repeat !important;
   margin-top: 10px !important;
 }
 
 .hat .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_helm.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_helm.PNG) no-repeat !important;
 }
 
 .dress .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_cloth.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_cloth.PNG) no-repeat !important;
 }
 
 .attach .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_pandernt.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_pandernt.PNG) no-repeat !important;
 }
 
 .flag .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_plag.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_plag.PNG) no-repeat !important;
 }
 
 .spec .itemslot {
-  background: url(/../image/interface/equipment/equip_slot_extraneous01.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_extraneous01.PNG) no-repeat !important;
 }
 
 .slots {
@@ -185,7 +185,7 @@
   z-index: 9999;
   max-width: 190px;
   padding: 8px !important;
-  background: url(/../image/equipment/com_bg_tile_tl.PNG) no-repeat !important;
+  background: url(/../image/sro/equipment/com_bg_tile_tl.PNG) no-repeat !important;
   background-size: 100% 100% !important;
   box-shadow: none !important;
   border: none !important;
@@ -205,7 +205,7 @@
 }
 
 .equip-suit-slot {
-  background: url(/../image/interface/equipment/equip_slot_specialdress.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_specialdress.PNG) no-repeat !important;
   width: 40px !important;
   height: 40px !important;
   margin-top: 10px;
@@ -213,8 +213,14 @@
   clear: right;
 }
 
+.empty-slot {
+  background: url(/../image/sro/equipment/clean.png) no-repeat !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
 .bg-equipment-avatar .equip-suit-slot {
-  background: url(/../image/interface/equipment/equip_slot_specialdress.PNG) no-repeat !important;
+  background: url(/../image/sro/interface/equipment/equip_slot_specialdress.PNG) no-repeat !important;
   width: 40px !important;
   height: 40px !important;
   margin-top: 96px;
@@ -233,7 +239,7 @@ div.image span.plus {
   display: block;
   width: 32px;
   height: 32px;
-  background: url(/../image/equipment/itemplus.png) left top;
+  background: url(/../image/sro/equipment/itemplus.png) left top;
   -webkit-animation: play 1.8s steps(32) infinite;
   -moz-animation: play 1.8s steps(32) infinite;
   -ms-animation: play 1.8s steps(32) infinite;

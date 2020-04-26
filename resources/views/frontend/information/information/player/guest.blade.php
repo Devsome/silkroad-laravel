@@ -72,7 +72,7 @@
             <label class="small">
                 {{ __('information.player.table.avatar') }}
             </label>
-            <img src="{{ asset('image/chars/') }}/{{ $player->RefObjID }}.gif"
+            <img src="{{ asset('image/sro/chars/') }}/{{ $player->RefObjID }}.gif" loading="lazy"
                  class="rounded float-left rounded" alt="{{ $player->CharName16 }}">
         </div>
         @if($playerUnderJob)

@@ -15,7 +15,8 @@
                 {{ $data->firstItem() + $key }}
             </th>
             <td class="col-auto">
-                <img src="{{ asset('image/chars/') }}/{{ $player->RefObjID }}.gif"
+                <img src="{{ asset('image/sro/chars/') }}/{{ $player->RefObjID }}.gif"
+                     loading="lazy"
                      class="img-fluid d-none d-sm-inline" width="16" height="16" alt="{{ $player->CharName16 }}">
                 <a href="{{ route('information-player', ['CharName16' => Str::lower($player->CharName16)]) }}">
                     {{ $player->CharName16 }}</a>

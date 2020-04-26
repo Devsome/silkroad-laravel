@@ -17,6 +17,8 @@ return [
         'tickets-desc' => 'You have a problem or a request? Here you can create a ticket and we will take care of it.',
         'voucher' => 'Voucher',
         'voucher-desc' => 'You have a credit note and want to redeem it for :silk? Then you can redeem this one',
+        'web-inventory' => 'Web Inventory',
+        'web-inventory-help' => 'Here you can find your "Inventory" where your bought or sold items are.',
     ],
 
     'chars-list' => [
