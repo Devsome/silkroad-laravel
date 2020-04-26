@@ -114,9 +114,14 @@ class WebInventoryService
             $char->RemainGold - $deposit
         );
 
+        $goldWebArray = $this->formatGoldAndNone(
+            CharGold::where('user_id', Auth::id())->sum('gold')
+        );
+
         return [
             'state' => true,
-            'goldArray' => $goldArray
+            'goldArray' => $goldArray,
+            'goldWebArray' => $goldWebArray
         ];
     }
 
@@ -166,9 +171,14 @@ class WebInventoryService
             $char->RemainGold
         );
 
+        $goldWebArray = $this->formatGoldAndNone(
+            CharGold::where('user_id', Auth::id())->sum('gold')
+        );
+
         return [
             'state' => true,
-            'goldArray' => $goldArray
+            'goldArray' => $goldArray,
+            'goldWebArray' => $goldWebArray
         ];
     }
 

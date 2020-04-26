@@ -18,6 +18,7 @@ return [
     'gold-transfer' => 'Gold transfer:',
     'gold-game-to-web' => 'Ingame to Web:',
     'gold-web-to-game' => 'Web to Ingame:',
+    'gold-max' => 'Current: ',
 
     'submit-gold-transfer' => 'Transfer!',
 

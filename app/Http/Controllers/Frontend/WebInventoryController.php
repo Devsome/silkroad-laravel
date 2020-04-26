@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Library\Services\WebInventoryService;
+use App\Model\Frontend\CharGold;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,8 +22,11 @@ class WebInventoryController extends Controller
             ->with('getTbUser.getShardUser')
             ->firstOrFail();
 
+        $webGold = CharGold::where('user_id', Auth::id())->sum('gold');
+
         return view('frontend.account.webinventory.index', [
-            'account' => $account
+            'account' => $account,
+            'webGold' => $webGold
         ]);
     }
 
@@ -123,7 +127,8 @@ class WebInventoryController extends Controller
             return response()->json(
                 [
                     'data' => __('webinventory.submit-gold-success'),
-                    'gold' => $goldResponse['goldArray']
+                    'gold' => $goldResponse['goldArray'],
+                    'goldWeb' => $goldResponse['goldWebArray']
                 ], 200);
         }
 

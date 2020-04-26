@@ -53,6 +53,9 @@
                                             <label for="goldAmountGameWeb" class="col-form-label">
                                                 {{ __('webinventory.gold-game-to-web') }}
                                             </label>
+                                            <p class="small">
+                                                {{ __('webinventory.gold-max') }}<span id="inventoryGoldGame"></span>
+                                            </p>
                                             <div class="form-inline">
                                                 <div class="input-group">
                                                     <input type="number"
@@ -69,6 +72,9 @@
                                             <label for="goldAmountWebGame" class="col-form-label">
                                                 {{ __('webinventory.gold-web-to-game') }}
                                             </label>
+                                            <p class="small">
+                                                {{ __('webinventory.gold-max') }}<span id="inventoryGoldWeb">{{ $webGold ? number_format($webGold, 0, ',', '.') : 0 }}</span>
+                                            </p>
                                             <div class="form-inline">
                                                 <div class="input-group">
                                                     <input type="number"
@@ -94,10 +100,6 @@
                                         {{ __('webinventory.ingame-inventory') }}
                                         <i class="inventorySpinner fas fa-circle-notch fa-1x fa-spin" hidden></i>
                                     </h5>
-                                    <div class="row card-text">
-                                        <div class="col-12">{{ __('webinventory.gold-amount-inventory') }} <span
-                                                    id="inventoryGold"></span></div>
-                                    </div>
                                     <div class="row card-text" id="inventory">
                                         <span class="col-12 small text-black-50">
                                             {{ __('webinventory.inventory-select-character') }}

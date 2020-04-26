@@ -22,8 +22,11 @@ function updateGold($value, $btn, action, state, route, csrf) {
             '<span class="text-success small">' + response.data + '</span>'
         );
 
-        $('#inventoryGold').html(
+        $('#inventoryGoldGame').html(
             response.gold.formatted
+        );
+        $('#inventoryGoldWeb').html(
+            response.goldWeb.formatted
         );
         $goldAmount.attr({
             'max': response.gold.nonFormatted
@@ -66,7 +69,7 @@ function selectCharacterWebInventory($btn, route, csrf) {
         $('#inventory').html(
             response.accountInventory
         );
-        $('#inventoryGold').html(
+        $('#inventoryGoldGame').html(
             response.accountGoldFormatted
         );
         $('#goldAmountGameWeb').attr({
