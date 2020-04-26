@@ -74,3 +74,7 @@ mix.scripts([
 mix.scripts([
     'resources/js/frontend/webinventory/main.js'
 ], 'public/js/webinventory.js');
+
+if (mix.inProduction()) {
+    mix.version();
+}

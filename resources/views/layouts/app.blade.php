@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     @stack('css')
 </head>
 <body>
@@ -37,7 +37,7 @@
     const serverTime = new Date({{ \Carbon\Carbon::now()->format('Y, n, j, G, i, s') }});
     const currentTimestamp = {{ \Carbon\Carbon::now()->format('U') }} - Math.round(+new Date() / 1000);
 </script>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ mix('/js/app.js') }}"></script>
 @stack('javascript')
 </body>
 </html>
