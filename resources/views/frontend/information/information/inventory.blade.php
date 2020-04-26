@@ -308,8 +308,13 @@
                                 <div class="image"
                                      @isset($items[8]['imgpath'])
                                      style="background:url('{{ $items[8]['imgpath'] }}') no-repeat; background-size: 34px 34px;"
-                                        @endisset>
+                                     data-iteminfo="1" @endisset>
                                 </div>
+                            </div>
+                            <div class="itemInfo">
+                                @isset($items[8])
+                                    {!! $items[8]['data'] !!}
+                                @endisset
                             </div>
                         </div>
                     </div>

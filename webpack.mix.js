@@ -69,3 +69,8 @@ mix.scripts([
     'resources/js/frontend/timers.js',
     'resources/js/frontend/minimap.js',
 ], 'public/js/app.js');
+
+
+mix.scripts([
+    'resources/js/frontend/webinventory/main.js'
+], 'public/js/webinventory.js');

@@ -32,13 +32,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $account = User::where('id', Auth::id())
-            ->with('getTbUser.getSkSilk')
-            ->firstOrFail();
-
-        return view('home', [
-            'account' => $account
-        ]);
+        return view('home');
     }
 
     /**
@@ -49,7 +43,6 @@ class AccountController extends Controller
     public function charList()
     {
         $account = User::where('id', Auth::id())
-            ->with('getTbUser.getSkSilk')
             ->with('getTbUser.getShardUser')
             ->with('getTbUser.getShardUser.getGuildUser')
             ->with('getTbUser.getShardUser.getCharOnlineOfflineLoggedIn')
@@ -68,7 +61,6 @@ class AccountController extends Controller
     public function settings()
     {
         $account = User::where('id', Auth::id())
-            ->with('getTbUser.getSkSilk')
             ->firstOrFail();
 
         return view('frontend.account.settings', [
@@ -82,7 +74,6 @@ class AccountController extends Controller
     public function referral()
     {
         $account = User::where('id', Auth::id())
-            ->with('getTbUser.getSkSilk')
             ->firstOrFail();
 
         return view('frontend.account.referral', [
@@ -108,7 +99,6 @@ class AccountController extends Controller
     public function voucher()
     {
         $account = User::where('id', Auth::id())
-            ->with('getTbUser.getSkSilk')
             ->firstOrFail();
 
         return view('frontend.account.voucher', [

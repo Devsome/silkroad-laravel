@@ -30,11 +30,13 @@ return [
         'currency' => 'Currency',
         'silk' => config('siteSettings.sro_silk_name', 'Silk'),
         'silk-gift' => 'Silk Gift',
+        'web-inventory-gold' => 'Web Gold',
         'change-password' => 'Password change',
         'donate' => 'Donate',
         'ref' => 'Referral',
         'tickets' => 'Tickets',
         'vouchers' => 'Vouchers',
+        'web-inventory' => 'Web Inventory',
     ],
 
     'fortress' => [

@@ -42,7 +42,7 @@
                                 @foreach($guild->getGuildMembers as $member)
                                     <tr>
                                         <td class="table-nowrap">
-                                            <img src="{{ asset('image/chars/') }}/{{ $member->RefObjID }}.gif"
+                                            <img src="{{ asset('image/sro/chars/') }}/{{ $member->RefObjID }}.gif"
                                                  class="img-fluid d-none d-sm-inline" width="16" height="16"
                                                  alt="{{ $member->CharName16 }}">
                                             <a href="{{ route('information-player', ['CharName16' => Str::lower($member->CharName)]) }}">

@@ -185,11 +185,11 @@
                                     <div class="col-4">
                                         <div class="image"
                                              style="background:url('{{
-                                            asset('/image/icon/' .
-                                            str_replace(['ddj', '\\'], ['PNG', '/'], $refregObjCommon->AssocFileIcon128))
+                                            asset('/image/sro/' .
+                                            str_replace(['ddj', '\\'], ['jpg', '/'], $refregObjCommon->AssocFileIcon128))
                                         }}');">
                                             @if (strpos($refregObjCommon->NameStrID128, 'RARE') !== false)
-                                                <img src="{{ asset('/image/sox.gif') }}" width="32" height="32"
+                                                <img src="{{ asset('/image/sro/sox.gif') }}" width="32" height="32"
                                                      alt="Seal of X">
                                             @endif
                                         </div>
@@ -216,11 +216,11 @@
                                     <div class="col-3">
                                         <div class="image"
                                              style="background:url('{{
-                                            asset('/image/icon/' .
-                                            str_replace(['ddj', '\\'], ['PNG', '/'], $refregObjCommon->AssocFileIcon128))
+                                            asset('/image/sro/' .
+                                            str_replace(['ddj', '\\'], ['jpg', '/'], $refregObjCommon->AssocFileIcon128))
                                         }}');">
                                             @if (strpos($refregObjCommon->NameStrID128, 'RARE') !== false)
-                                                <img src="{{ asset('/image/sox.gif') }}" width="32" height="32"
+                                                <img src="{{ asset('/image/sro/sox.gif') }}" width="32" height="32"
                                                      alt="Seal of X">
                                             @endif
                                         </div>

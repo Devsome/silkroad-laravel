@@ -32,13 +32,14 @@ class InventoryService
 
     /**
      * @param $characterId
+     * @param $maxSlot
      * @return array
      */
-    public function getInventorySet($characterId): array
+    public function getInventorySet($characterId, $maxSlot): array
     {
         $inventory = Inventory::where('CharID', '=', $characterId)
             ->where('ItemID', '>', '0')
-            ->where('slot', '<', 13)
+            ->where('slot', '<', $maxSlot)
 //            ->where('slot', '!=', 8) // For Job Flag
             ->join('_Items as Items', 'Items.ID64', '_Inventory.ItemID')
             ->leftJoin('_BindingOptionWithItem as Binding', static function ($join) {
@@ -78,15 +79,25 @@ class InventoryService
      */
     public function getPetInformation($iPetId)
     {
-        return CharCos::where('ID', '=', $iPetId)
-            ->leftJoin('_TimedJobForPet', static function ($join) {
-                $join->on('_TimedJobForPet.CharID', '_CharCOS.ID');
-                $join->where('_TimedJobForPet.Category', '=', 5);
-                $join->where('_TimedJobForPet.JobID', '=', 22926);
+        return CharCos::where('_CharCOS.ID', '=', $iPetId)
+            ->leftJoin('_TimedJobForPet as TimedJob', static function ($join) {
+                $join->on('TimedJob.CharID', '_CharCOS.ID');
+                $join->where('TimedJob.Category', '=', 5);
+                $join->where('TimedJob.JobID', '=', 22926);
             })
+            ->join('_Items as Items', 'Items.Serial64', 'TimedJob.Serial64')
             ->join('_RefObjCommon as Common', 'Items.RefItemId', 'Common.ID')
             ->join('_RefObjItem as ObjItem', 'Common.Link', 'ObjItem.ID')
-            ->get();
+            ->select(
+                '_CharCOS.*',
+                'TimedJob.*',
+                'TimedJob.Data3 as inventorysize',
+                'TimedJob.TimeToKeep as inventorykeep',
+                'Items.*',
+                'Common.*',
+                'ObjItem.*'
+            )
+            ->get()->first();
     }
 
     /**
@@ -119,6 +130,7 @@ class InventoryService
                 $aSet[$i]['amount'] = false;
             }
             $aSet[$i]['Slot'] = $i;
+            $aSet[$i]['Serial64'] = $aInfo['Serial64'];
             $aSet[$i]['TypeID2'] = $aInfo['TypeID2'];
             $aSet[$i]['OptLevel'] = $aInfo['OptLevel'];
             $aSet[$i]['RefItemID'] = $aCurItem['RefItemID'] ?? 0;
@@ -143,10 +155,10 @@ class InventoryService
      */
     public function getItemIcon($aItem): string
     {
-        $path = '/image/icon/' . str_replace(['ddj', '\\'], ['PNG', '/'], strtolower($aItem));
+        $path = '/image/sro/' . str_replace(['ddj', '\\'], ['jpg', '/'], strtolower($aItem));
 
         $icon = asset($path);
-        $iconDefault = asset('/image/icon/icon_default.PNG');
+        $iconDefault = asset('/image/sro/icon_default.jpg');
 
         if (file_exists(public_path($path))) {
             return $icon;
@@ -503,7 +515,7 @@ class InventoryService
      */
     protected function getWhiteStats($aItem, $aSpecialInfo): array
     {
-        if ($aItem['TypeID2'] !== 1) {
+        if ($aItem['TypeID2'] !== 1 || $aItem['TypeID3'] === 7) {
             return [];
         }
         $aWhiteStats = [];

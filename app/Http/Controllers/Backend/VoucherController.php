@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Library\Services\VouchersService;
 use App\Voucher;
 use Carbon\Carbon;
-use FrittenKeeZ\Vouchers\Facades\Vouchers;
 use Illuminate\Http\Request;
 use Validator;
 use Yajra\DataTables\DataTables;

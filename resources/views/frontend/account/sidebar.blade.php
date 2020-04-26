@@ -30,7 +30,7 @@
                 <i class="fa fa-fw fa-coins"></i> {{ __('sidebar.home.silk') }}
             </div>
             <div class="float-right">
-                {{ $account->getTbUser->getSkSilk->silk_own }}
+                {{ $SilkGoldProvider['silk'] }}
             </div>
         </li>
         <li class="pb-1">
@@ -38,7 +38,15 @@
                 <i class="fa fa-fw fa-coins"></i> {{ __('sidebar.home.silk-gift') }}
             </div>
             <div class="float-right">
-                {{ $account->getTbUser->getSkSilk->silk_gift }}
+                {{ $SilkGoldProvider['silk_gift'] }}
+            </div>
+        </li>
+        <li class="pb-1">
+            <div class="float-left">
+                <i class="fa fa-fw fa-coins"></i> {{ __('sidebar.home.web-inventory-gold') }}
+            </div>
+            <div class="float-right">
+                {{ number_format($SilkGoldProvider['web_inventory_gold'], 0, ',', '.') }}
             </div>
         </li>
     </ul>
@@ -68,6 +76,9 @@
         </a>
         <a href="{{ route('home-voucher') }}" class="list-group-item list-group-item-action">
             {{ __('sidebar.home.vouchers') }}
+        </a>
+        <a href="{{ route('web-inventory-index') }}" class="list-group-item list-group-item-action">
+            {{ __('sidebar.home.web-inventory') }}
         </a>
     </div>
 </div>

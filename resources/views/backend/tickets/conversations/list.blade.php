@@ -135,7 +135,6 @@
                     fetchMessages();
                     loadConversations();
                 });
-
             });
             $('#ticketModalDelete').on('show.bs.modal', function (e) {
                 $(this).find('.modal-body p').text($(e.relatedTarget).attr('data-message'));

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Model\SRO\Account\SkSilk;
 use App\Model\SRO\Account\TbUser;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -51,6 +52,14 @@ class User extends Authenticatable
     public function getTbUser()
     {
         return $this->belongsTo(TbUser::class, 'jid', 'JID');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function getSkSilk()
+    {
+        return $this->belongsTo(SkSilk::class, 'jid', 'JID');
     }
 
     /**
