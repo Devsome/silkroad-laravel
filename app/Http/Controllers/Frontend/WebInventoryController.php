@@ -12,6 +12,15 @@ use Validator;
 
 class WebInventoryController extends Controller
 {
+
+    /**
+     * WebInventoryController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Showing all the Characters for that User
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -66,11 +75,14 @@ class WebInventoryController extends Controller
             ], 401);
         }
 
+        $inventory = $webInventoryService->getInventoryFromAuth();
+
         return response()->json([
             'characterId' => $accountResponse['characterId'],
             'accountGoldFormatted' => $accountResponse['accountGoldFormatted'],
             'accountGold' => $accountResponse['accountGold'],
-            'accountInventory' => $accountResponse['accountInventory']
+            'accountInventory' => $accountResponse['accountInventory'],
+            'accountWebInventory' => $inventory['data']
         ], 200);
     }
 
@@ -135,6 +147,109 @@ class WebInventoryController extends Controller
         return response()->json([
             'error' => 'Something went wrong, please try again'
         ], 400);
+    }
+
+    /**
+     * @param Request $request
+     * @param WebInventoryService $webInventoryService
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function transferItemToWeb(
+        Request $request,
+        WebInventoryService $webInventoryService
+    )
+    {
+        $validator = Validator::make($request->all(), [
+            'serial64' => 'required|numeric|gt:0',
+            'characterId' => 'required|int',
+            '_token' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 500);
+        }
+
+        $account = User::where('id', Auth::id())
+            ->with('getTbUser.getShardUser')
+            ->with('getTbUser.getShardUser.getCharOnlineOfflineLoggedIn')
+            ->firstOrFail();
+
+        // $characterId, $account, $serial64
+        $transferResponse = $webInventoryService->transferItemToWeb(
+            $request->get('characterId'),
+            $account,
+            $request->get('serial64')
+        );
+
+        if ($transferResponse['state'] === false) {
+            return response()->json([
+                'error' => $transferResponse['error']
+            ], 400);
+        }
+
+        return response()->json([
+            'data' => __('webinventory.submit-transfer-success')
+        ], 200);
+    }
+
+    public function transferItemToGame(
+        Request $request,
+        WebInventoryService $webInventoryService
+    )
+    {
+        $validator = Validator::make($request->all(), [
+            'serial64' => 'required|numeric|gt:0',
+            'characterId' => 'required|int',
+            '_token' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 500);
+        }
+
+        $account = User::where('id', Auth::id())
+            ->with('getTbUser.getShardUser')
+            ->with('getTbUser.getShardUser.getCharOnlineOfflineLoggedIn')
+            ->firstOrFail();
+
+        // $characterId, $account, $serial64
+        $transferResponse = $webInventoryService->transferItemToGame(
+            $request->get('characterId'),
+            $account,
+            $request->get('serial64')
+        );
+
+        if ($transferResponse['state'] === false) {
+            return response()->json([
+                'error' => $transferResponse['error']
+            ], 400);
+        }
+
+        return response()->json([
+            'data' => __('webinventory.submit-transfer-success-game')
+        ], 200);
+    }
+
+    /**
+     * @param WebInventoryService $webInventoryService
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function inventory(
+        WebInventoryService $webInventoryService
+    )
+    {
+        $inventory = $webInventoryService->getInventoryFromAuth();
+
+        if ($inventory['state'] === false) {
+            return response()->json([
+                'error' => 'Error'
+            ], 400);
+        }
+
+        return response()->json([
+            'inventory' => $inventory['data']
+        ], 200);
 
     }
 }

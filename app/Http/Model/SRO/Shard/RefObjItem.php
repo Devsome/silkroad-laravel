@@ -4,7 +4,7 @@ namespace App\Model\SRO\Shard;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RefObjCommon extends Model
+class RefObjItem extends Model
 {
     /**
      * The Database connection name for the model.
@@ -25,7 +25,7 @@ class RefObjCommon extends Model
      *
      * @var string
      */
-    protected $table = 'dbo._RefObjCommon';
+    protected $table = 'dbo._RefObjItem';
 
     /**
      * The attributes that are mass assignable.
@@ -35,12 +35,4 @@ class RefObjCommon extends Model
     protected $fillable = [
         ''
     ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function getRefObjItem()
-    {
-        return $this->hasOne(RefObjItem::class, 'ID', 'Link');
-    }
 }

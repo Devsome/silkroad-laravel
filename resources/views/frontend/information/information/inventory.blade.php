@@ -426,6 +426,9 @@
                     if (element.is("[title]")) {
                         return element.attr("title");
                     }
+                },
+                close: function (event, ui) {
+                    $(".ui-helper-hidden-accessible").remove();
                 }
             });
         }

@@ -1,3 +1,6 @@
+@php
+    array_key_exists('nOptValie', $aItem) ?: $aItem['nOptValue'] = null;
+@endphp
 <img src="{{ asset('/image/sro/equipment/com_itemsign.PNG') }}" class="img-clear" loading="lazy">
     @if($aItem['info']['sox'] || count($aItem['blues']) >= 1)
     @php
@@ -13,6 +16,17 @@
         @if($aItem['info']['sox'] || count($aItem['blues']) >= 1)
     </span>
 @endif
+
+@if($aItem['amount'] > 1)
+    <br>
+    <br>
+    {{ __('inventory.amount', ['amount' => $aItem['amount']]) }}
+@endif
+@if($aItem['MaxStack'] > 1)
+    <br>
+    {{ __('inventory.stack', ['stack' => $aItem['MaxStack']]) }}
+@endif
+
 
 @if($aItem['info']['Degree'] >= 1)
     @isset($aItem['info']['sox'])

@@ -60,4 +60,12 @@ class Inventory extends Model
     {
         return $this->belongsTo(Items::class,'ItemID', 'ID64');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function getSerial64()
+    {
+        return $this->belongsto(Items::class, 'ItemID', 'ID64');
+    }
 }

@@ -10,6 +10,9 @@ return [
     'adv-inuse' => 'Advanced elixir is in effect [+:plus]',
     'awaken' => 'Awaken period',
 
+    'amount' => 'Amount: :amount',
+    'stack' => 'Stackable: :stack',
+
     'pet-summon' => 'Sort of item: Summon Scroll',
     'pet-info' => 'Pet information',
     'pet-name' => 'Pet Name: :name',

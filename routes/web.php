@@ -45,6 +45,9 @@ Route::group(['prefix' => 'account'], function() {
        Route::get('/', 'Frontend\WebInventoryController@index')->name('web-inventory-index');
        Route::get('/select-character', 'Frontend\WebInventoryController@selectCharacter')->name('web-i-select-character');
        Route::post('/update-gold', 'Frontend\WebInventoryController@updateGold')->name('web-i-update-gold');
+       Route::post('/transfer-item-to-web', 'Frontend\WebInventoryController@transferItemToWeb')->name('web-i-transfer-item-to-web');
+       Route::post('/transfer-item-to-game', 'Frontend\WebInventoryController@transferItemToGame')->name('web-i-transfer-item-to-game');
+       Route::get('/inventory', 'Frontend\WebInventoryController@inventory')->name('web-i-inventory');
     });
 });
 

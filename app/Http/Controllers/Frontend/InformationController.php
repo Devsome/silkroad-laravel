@@ -30,7 +30,8 @@ class InformationController extends Controller
 
         $playerInventory = $inventoryService->getInventorySet(
             $player->CharID,
-            13
+            13,
+            0
         );
 
         $playerAvatar = $inventoryService->getInventoryAvatar(

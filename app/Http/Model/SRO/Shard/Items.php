@@ -48,7 +48,8 @@ class Items extends Model
      */
     public function getBindingOptionWithItem()
     {
-        return $this->hasOne(BindingOptionWithItem::class,'nItemDBID');
+        return $this->belongsTo(BindingOptionWithItem::class,'ID64', 'nItemDBID')
+            ->where('nOptValue', '>', 0);
     }
 
     /**
@@ -57,5 +58,14 @@ class Items extends Model
     public function getRefObjCommon()
     {
         return $this->hasOne(RefObjCommon::class, 'ID', 'RefItemID');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function getRefObjCommonCanTrade()
+    {
+        return $this->hasOne(RefObjCommon::class, 'ID', 'RefItemID')
+            ->select('ID','CanTrade');
     }
 }

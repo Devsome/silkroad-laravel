@@ -33,13 +33,15 @@ class InventoryService
     /**
      * @param $characterId
      * @param $maxSlot
+     * @param $minSlot
      * @return array
      */
-    public function getInventorySet($characterId, $maxSlot): array
+    public function getInventorySet($characterId, $maxSlot, $minSlot): array
     {
         $inventory = Inventory::where('CharID', '=', $characterId)
             ->where('ItemID', '>', '0')
             ->where('slot', '<', $maxSlot)
+            ->where('slot', '>=', $minSlot)
 //            ->where('slot', '!=', 8) // For Job Flag
             ->join('_Items as Items', 'Items.ID64', '_Inventory.ItemID')
             ->leftJoin('_BindingOptionWithItem as Binding', static function ($join) {
@@ -104,7 +106,7 @@ class InventoryService
      * @param $inventory
      * @return array
      */
-    private function getInventorySetStats($inventory): array
+    public function getInventorySetStats($inventory): array
     {
         $aSet = [];
         if (!$inventory) {
@@ -124,11 +126,25 @@ class InventoryService
                 $i = $aCurItem['Slot'] ?? $aCurItem['ID64'];
             }
 
+//            if ($aCurItem['MaxStack'] > 1) {
+//                $aSet[$i]['amount'] = $aCurItem['Data'];
+//            } else {
+//                $aSet[$i]['amount'] = false;
+//            }
+
+            if(!isset($aCurItem['MaxStack']))
+            {
+                $aInfo['MaxStack'] = 0;
+            }
+
             if ($aCurItem['MaxStack'] > 1) {
                 $aSet[$i]['amount'] = $aCurItem['Data'];
+                $aInfo['amount'] = $aCurItem['Data'];
             } else {
                 $aSet[$i]['amount'] = false;
+                $aInfo['amount'] = 0;
             }
+
             $aSet[$i]['Slot'] = $i;
             $aSet[$i]['Serial64'] = $aInfo['Serial64'];
             $aSet[$i]['TypeID2'] = $aInfo['TypeID2'];

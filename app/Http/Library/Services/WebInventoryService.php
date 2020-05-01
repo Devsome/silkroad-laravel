@@ -5,7 +5,11 @@ namespace App\Library\Services;
 use App\Library\Services\SRO\Shard\InventoryService;
 use App\Model\Frontend\CharGold;
 use App\Model\Frontend\CharGoldLog;
+use App\Model\Frontend\CharInventory;
+use App\Model\Frontend\CharInventoryLog;
 use App\Model\SRO\Shard\Char;
+use App\Model\SRO\Shard\Inventory;
+use App\Model\SRO\Shard\Items;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -47,7 +51,8 @@ class WebInventoryService
 
         $accountInventory = $this->inventory->getInventorySet(
             $characterId,
-            250
+            250,
+            13
         );
 
         try {
@@ -183,6 +188,100 @@ class WebInventoryService
     }
 
     /**
+     * Transfer that Item and returning the result to the Controller
+     * @param $characterId
+     * @param $account
+     * @param $serial64
+     * @return array
+     * @throws \Exception
+     */
+    public function transferItemToWeb($characterId, $account, $serial64): array
+    {
+        $checkState = $this->checkIfCharOwnAndLoggedOut($characterId, $account);
+        if (!$checkState['state'] === true) {
+            return [
+                'state' => false,
+                'error' => ['data' => $checkState['error']]
+            ];
+        }
+
+        $inventory = Inventory::where('CharID', '=', $characterId)
+            ->where('ItemID', '!=', 0)
+            ->with(['getSerial64' => static function ($query) {
+                $query->select('ID64', 'Serial64');
+            }])->get();
+
+        $inventorySerial64Array = $inventory->pluck('getSerial64')->pluck('Serial64')->toArray();
+
+        $canTrade = Items::where('Serial64', '=', $serial64)
+            ->with('getRefObjCommonCanTrade')
+            ->firstOrFail();
+
+        if($canTrade->getRefObjCommonCanTrade->CanTrade === 0)
+        {
+            return [
+                'state' => false,
+                'error' => ['data' => __('webinventory.cannot-trade')]
+            ];
+        }
+
+        if (in_array($serial64, $inventorySerial64Array, false)) {
+            $itemMoveResponse = $this->itemMoveToWeb($characterId, $serial64);
+
+            if (!$itemMoveResponse['state'] === true) {
+                return [
+                    'state' => false,
+                    'error' => ['data' => $itemMoveResponse['error'], 'e' => $itemMoveResponse['e']]
+                ];
+            }
+        } else {
+            return [
+                'state' => false,
+                'error' => ['data' => __('webinventory.not-your-item')]
+            ];
+        }
+
+        return [
+            'state' => true
+        ];
+    }
+
+    public function transferItemToGame($characterId, $account, $serial64)
+    {
+        $checkState = $this->checkIfCharOwnAndLoggedOut($characterId, $account);
+        if (!$checkState['state'] === true) {
+            return [
+                'state' => false,
+                'error' => ['data' => $checkState['error']]
+            ];
+        }
+
+        $inventoryGameFreeSlot = Inventory::where('CharID', '=', $characterId)
+            ->where('Slot', '>=', 13)
+            ->where('ItemID', '=', 0)
+            ->get();
+
+        if($inventoryGameFreeSlot->count() === 0) {
+            return [
+                'state' => false,
+                'error' => ['data' => __('webinventory.no-ingame-slot-left')]
+            ];
+        }
+
+
+
+        $itemMoveResponse = $this->itemMoveToGame($characterId, $inventoryGameFreeSlot->first()->Slot, $serial64);
+        if (!$itemMoveResponse['state'] === true) {
+            return [
+                'state' => false,
+                'error' => ['data' => $itemMoveResponse['error'], 'e' => $itemMoveResponse['e']]
+            ];
+        }
+
+
+    }
+
+    /**
      * Updating the Gold for that User + Silkroad
      * @param $characterId
      * @param int $amount
@@ -251,6 +350,171 @@ class WebInventoryService
         ]);
     }
 
+    /**
+     * Moving the Item from Silkroad to Web Database
+     * @param $characterId
+     * @param $serial64
+     * @return array
+     * @throws \Exception
+     */
+    private function itemMoveToWeb($characterId, $serial64): array
+    {
+        DB::beginTransaction();
+        DB::connection('shard')->beginTransaction();
+        try {
+            // Getting the ID64 (ItemID) from the Serial64
+            $item = Items::where('Serial64', $serial64)
+                ->select('ID64')
+                ->firstOrFail();
+
+            // Removing the Item from the Inventory
+            Inventory::where('ItemID', '=', $item->ID64)
+                ->update(
+                    [
+                        'ItemID' => 0
+                    ]
+                );
+
+            // Putting that Item into the Web Database
+            CharInventory::create([
+                'user_id' => Auth::id(),
+                'from_charid' => $characterId,
+                'serial64' => $serial64,
+                'item_id64' => $item->ID64
+            ]);
+
+            // Logging that Item Movement
+            $this->transferItemLog($characterId, 'deposit', $serial64, $item->ID64);
+
+            DB::commit();
+            DB::connection('shard')->commit();
+        } catch (Throwable $e) {
+            DB::rollback();
+            DB::connection('shard')->rollback();
+            return [
+                'state' => false,
+                'error' => 'Action rollback, try again please!',
+                'e' => $e
+            ];
+        }
+        return [
+            'state' => true
+        ];
+    }
+
+    private function itemMoveToGame($characterId, $slot, $serial64): array
+    {
+        DB::beginTransaction();
+        DB::connection('shard')->beginTransaction();
+        try {
+            // Getting the ItemID64 from the Web Inventory
+            $webInventory = CharInventory::where('from_charid', '=', $characterId)
+                ->where('user_id', '=', Auth::id())
+                ->where('serial64', '=', $serial64)
+                ->firstOrFail();
+
+            // Putting that Item into the Characters Inventory
+            Inventory::where('CharID', '=', $characterId)
+                ->where('Slot', '=', $slot)
+                ->update(
+                    [
+                        'ItemID' => $webInventory->item_id64
+                    ]
+                );
+
+            // Logging that Item Movement
+            $this->transferItemLog($characterId, 'withdraw', $serial64, $webInventory->item_id64);
+
+            // Final Remove of the Item from the Web Inventory
+            $webInventory->delete();
+
+            DB::commit();
+            DB::connection('shard')->commit();
+        } catch (Throwable $e) {
+            DB::rollback();
+            DB::connection('shard')->rollback();
+            return [
+                'state' => false,
+                'error' => 'Action rollback, try again please!',
+                'e' => $e
+            ];
+        }
+        return [
+            'state' => true
+        ];
+    }
+
+    /**
+     * Logging the Transfer Item Transaction
+     * @param $characterId
+     * @param $state
+     * @param $serial64
+     * @param $itemId64
+     */
+    private function transferItemLog($characterId, $state, $serial64, $itemId64): void
+    {
+        CharInventoryLog::create([
+            'user_id' => Auth::id(),
+            'from_charid' => $characterId,
+            'state' => $state,
+            'serial64' => $serial64,
+            'item_id64' => $itemId64
+        ]);
+    }
+
+    /**
+     * @param null $array
+     * @return array
+     */
+    private function array_flatten($array = null): array {
+        $result = array();
+
+        if (!is_array($array)) {
+            $array = func_get_args();
+        }
+
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                /** @noinspection SlowArrayOperationsInLoopInspection */
+                $result = array_merge($result, $this->array_flatten($value));
+            } else {
+                /** @noinspection SlowArrayOperationsInLoopInspection */
+                $result = array_merge($result, array($key => $value));
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Getting the Web Item Inventory from Auth::id()
+     * @return array
+     */
+    public function getInventoryFromAuth(): array
+    {
+        $inventory = CharInventory::where('user_id', '=', Auth::id())
+            ->with('getItems.getBindingOptionWithItem')
+            ->with('getItems.getRefObjCommon.getRefObjItem')
+            ->get()->flatten(1)->toArray();
+
+        $webInventory = [];
+        foreach ($inventory as $i) {
+            $webInventory[] = $this->array_flatten($i);
+        }
+
+        try {
+            $accountInventory = view('frontend.account.webinventory.inventory', [
+                'aItem' => $this->inventory->getInventorySetStats($webInventory)
+            ])->render();
+        } catch (\Throwable $e) {
+            $accountInventory = [];
+        }
+
+        return [
+            'state' => true,
+            'data' => $accountInventory
+        ];
+    }
 
     /**
      * Check if the Character is logged in & owns
