@@ -169,9 +169,9 @@
     <br>
     <p>
         {{ __('inventory.gm.title') }}<br>
-        {{ __('inventory.gm.itemid', ['id' => $aItem->ItemID]) }}<br>
-        {{ __('inventory.gm.refitemid', ['id' => $aItem->RefItemID]) }}<br>
-        {{ __('inventory.gm.serial64', ['id' => $aItem->Serial64]) }}<br>
+        {{ __('inventory.gm.itemid', ['id' => $aItem['ID64'] ?: '-']) }}<br>
+        {{ __('inventory.gm.refitemid', ['id' => $aItem['RefItemID'] ?: '-']) }}<br>
+        {{ __('inventory.gm.serial64', ['id' => $aItem['Serial64'] ?: '-']) }}<br>
     </p>
 </div>
 @endrole
