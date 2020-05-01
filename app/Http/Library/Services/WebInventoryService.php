@@ -246,6 +246,14 @@ class WebInventoryService
         ];
     }
 
+    /**
+     * Transfer that Item and returning the result to the Controller
+     * @param $characterId
+     * @param $account
+     * @param $serial64
+     * @return array
+     * @throws \Exception
+     */
     public function transferItemToGame($characterId, $account, $serial64)
     {
         $checkState = $this->checkIfCharOwnAndLoggedOut($characterId, $account);
@@ -256,8 +264,13 @@ class WebInventoryService
             ];
         }
 
+        $charMaxInventory = Char::where('CharID', '=', $characterId)
+            ->select('InventorySize')
+            ->firstOrFail();
+
         $inventoryGameFreeSlot = Inventory::where('CharID', '=', $characterId)
             ->where('Slot', '>=', 13)
+            ->where('Slot', '<', $charMaxInventory->InventorySize)
             ->where('ItemID', '=', 0)
             ->get();
 
@@ -267,8 +280,6 @@ class WebInventoryService
                 'error' => ['data' => __('webinventory.no-ingame-slot-left')]
             ];
         }
-
-
 
         $itemMoveResponse = $this->itemMoveToGame($characterId, $inventoryGameFreeSlot->first()->Slot, $serial64);
         if (!$itemMoveResponse['state'] === true) {
@@ -402,6 +413,14 @@ class WebInventoryService
         ];
     }
 
+    /**
+     * Moving the Item from Web Database to SilkroaD
+     * @param $characterId
+     * @param $slot
+     * @param $serial64
+     * @return array
+     * @throws \Exception
+     */
     private function itemMoveToGame($characterId, $slot, $serial64): array
     {
         DB::beginTransaction();
