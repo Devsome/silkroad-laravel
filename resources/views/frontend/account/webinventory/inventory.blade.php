@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="itemInfo">
-            @isset($item)
+            @isset($item['data'])
                 {!! $item['data'] !!}
             @endisset
         </div>
