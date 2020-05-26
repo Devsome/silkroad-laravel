@@ -80,14 +80,11 @@ class BackendController extends Controller
      */
     public function worldmapIndex()
     {
-        $onlineCount = OnlineOfflineLog::where('status', OnlineOfflineLog::STATUS_LOGGED_IN)->count();
+        $onlineCharacters = OnlineOfflineLog::where('status','!=', OnlineOfflineLog::STATUS_LOGGED_OUT);
 
-        $onlineCharacters = OnlineOfflineLog::where('status', OnlineOfflineLog::STATUS_LOGGED_IN)
-            ->with('getCharacter')
-            ->get();
         return view('backend.worldmap.index', [
-            'count' => $onlineCount,
-            'characters' => $onlineCharacters
+            'count' => $onlineCharacters->count(),
+            'characters' => $onlineCharacters->with('getCharacter')->get()
         ]);
     }
 }
