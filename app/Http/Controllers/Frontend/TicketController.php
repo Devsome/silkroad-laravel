@@ -84,7 +84,7 @@ class TicketController extends Controller
         $this->validate($request, [
             '_token' => 'required',
             'title' => ['required', 'string', 'min:2', 'max:16'],
-            'category' => ['required', 'integer'],
+            'category' => ['required', 'integer', 'exists:ticket_categories,id'],
             'prioritys' => ['required', 'integer'],
             'body' => ['required', 'min:10'],
         ]);

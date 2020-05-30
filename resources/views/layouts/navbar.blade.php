@@ -26,6 +26,13 @@
                         {{ __('navbar.nav.ranking') }}
                     </a>
                 </li>
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('auctions-house') }}">
+                            {{ __('navbar.nav.auction-house') }}
+                        </a>
+                    </li>
+                @endauth
             </ul>
             <ul class="navbar-nav ml-auto">
                 @guest

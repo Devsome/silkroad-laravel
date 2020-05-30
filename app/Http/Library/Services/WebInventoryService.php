@@ -56,7 +56,7 @@ class WebInventoryService
         );
 
         try {
-            $accountInventory = view('frontend.account.webinventory.inventory', [
+            $accountInventory = view('frontend.account.webinventory.game-inventory', [
                 'aItem' => $accountInventory
             ])->render();
         } catch (\Throwable $e) {
@@ -254,7 +254,7 @@ class WebInventoryService
      * @return array
      * @throws \Exception
      */
-    public function transferItemToGame($characterId, $account, $serial64)
+    public function transferItemToGame($characterId, $account, $serial64): array
     {
         $checkState = $this->checkIfCharOwnAndLoggedOut($characterId, $account);
         if (!$checkState['state'] === true) {
@@ -289,7 +289,9 @@ class WebInventoryService
             ];
         }
 
-
+        return [
+            'state' => true
+        ];
     }
 
     /**
@@ -386,12 +388,42 @@ class WebInventoryService
                     ]
                 );
 
+            // Getting the Item Information (less sql queries when getting them back)
+            $itemData = $this->inventory->getInventorySlotData($serial64);
+            $itemData = current($itemData);
+
+            // Remove GM Info from the Item (dunno why GM should put item into Web Storage)
+            $itemData['data'] = preg_replace(
+                '/<\/?div id="gm-info"[^>]*\>(.+?)<\/div>/is',
+                '',
+                $itemData['data']
+            );
+
             // Putting that Item into the Web Database
             CharInventory::create([
                 'user_id' => Auth::id(),
                 'from_charid' => $characterId,
                 'serial64' => $serial64,
-                'item_id64' => $item->ID64
+                'item_id64' => $item->ID64,
+                'name' => $itemData['WebInventory']['WebName'],
+                'imgpath' => $itemData['imgpath'],
+                'optlevel' => $itemData['OptLevel'],
+                'amount' => $itemData['amount'] ?: 0,
+                'special' => array_key_exists('special', $itemData) ?
+                    $itemData['special'] : '0',
+                'sort' => array_key_exists('Type', $itemData['WebInventory']) ?
+                    $itemData['WebInventory']['Type'] : 'Unknown',
+                'degree' => array_key_exists('Degree', $itemData['WebInventory']) ?
+                    $itemData['WebInventory']['Degree'] : 0,
+                'level' => array_key_exists('ReqLevel1', $itemData['WebInventory']) ?
+                    $itemData['WebInventory']['ReqLevel1'] : 0,
+                'npc_price' => array_key_exists('Price', $itemData['WebInventory']) ?
+                    $itemData['WebInventory']['Price'] : 0,
+                'race' => array_key_exists('Race', $itemData['WebInventory']) ?
+                    $itemData['WebInventory']['Race'] : '',
+                'sex' => array_key_exists('Sex', $itemData['WebInventory']) ?
+                    $itemData['WebInventory']['Sex'] : '',
+                'data' => $itemData['data']
             ]);
 
             // Logging that Item Movement
@@ -414,7 +446,7 @@ class WebInventoryService
     }
 
     /**
-     * Moving the Item from Web Database to SilkroaD
+     * Moving the Item from Web Database to Silkroad
      * @param $characterId
      * @param $slot
      * @param $serial64
@@ -427,7 +459,9 @@ class WebInventoryService
         DB::connection('shard')->beginTransaction();
         try {
             // Getting the ItemID64 from the Web Inventory
-            $webInventory = CharInventory::where('from_charid', '=', $characterId)
+            $webInventory = CharInventory::select('*')->whereNotIn('id', static function ($query) {
+                $query->select('char_inventory')->from('auction_items');
+            })
                 ->where('user_id', '=', Auth::id())
                 ->where('serial64', '=', $serial64)
                 ->firstOrFail();
@@ -511,19 +545,15 @@ class WebInventoryService
      */
     public function getInventoryFromAuth(): array
     {
-        $inventory = CharInventory::where('user_id', '=', Auth::id())
-            ->with('getItems.getBindingOptionWithItem')
-            ->with('getItems.getRefObjCommon.getRefObjItem')
-            ->get()->flatten(1)->toArray();
-
-        $webInventory = [];
-        foreach ($inventory as $i) {
-            $webInventory[] = $this->array_flatten($i);
-        }
+        $webInventory = CharInventory::select('*')->whereNotIn('id', static function ($query) {
+            $query->select('char_inventory')->from('auction_items');
+        })
+            ->where('user_id', '=', Auth::id())
+            ->get();
 
         try {
-            $accountInventory = view('frontend.account.webinventory.inventory', [
-                'aItem' => $this->inventory->getInventorySetStats($webInventory)
+            $accountInventory = view('frontend.account.webinventory.web-inventory', [
+                'aItem' => $webInventory
             ])->render();
         } catch (\Throwable $e) {
             $accountInventory = [];

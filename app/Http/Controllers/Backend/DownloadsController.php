@@ -80,7 +80,7 @@ class DownloadsController extends Controller
             'name' => 'required|max:150',
             'link' => 'required|max:250',
             'file_size' => 'required',
-            'image_id' => 'nullable '
+            'image_id' => 'nullable'
         ]);
 
         $download = Download::findOrFail($id);

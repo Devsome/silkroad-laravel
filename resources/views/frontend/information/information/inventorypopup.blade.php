@@ -165,7 +165,7 @@
 @endif
 
 @role('backend')
-<div class="text-danger">
+<div id="gm-info" class="text-danger">
     <br>
     <p>
         {{ __('inventory.gm.title') }}<br>

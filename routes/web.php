@@ -55,6 +55,16 @@ Route::group(['prefix' => 'account'], function() {
 Route::get('/player/{CharName16}', 'Frontend\InformationController@player')->name('information-player');
 Route::get('/guild/{name}', 'Frontend\InformationController@guild')->name('information-guild');
 
+// Auctions House
+Auth::routes(['verify' => true]);
+Route::group(['prefix' => 'auctions-house'], function () {
+    Route::get('/', 'Frontend\AuctionsHouseController@index')->name('auctions-house');
+    Route::get('/show/{id}', 'Frontend\AuctionsHouseController@showItem')->name('auctions-house-show-item');
+    Route::get('/add', 'Frontend\AuctionsHouseController@showAddItem')->name('auctions-house-add-item');
+    Route::post('/add-auction', 'Frontend\AuctionsHouseController@submitAddItem')->name('auctions-house-submit-add-item');
+
+    Route::post('/show/{id}/buy', 'Frontend\AuctionsHouseController@submitBuyItemNow')->name('auctions-house-buy-item-now');
+});
 
 // Backend Routes
 Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function () {
