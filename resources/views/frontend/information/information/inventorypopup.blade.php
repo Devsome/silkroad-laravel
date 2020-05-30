@@ -1,6 +1,3 @@
-@php
-    array_key_exists('nOptValie', $aItem) ?: $aItem['nOptValue'] = null;
-@endphp
 <img src="{{ asset('/image/sro/equipment/com_itemsign.PNG') }}" class="img-clear" loading="lazy">
     @if($aItem['info']['sox'] || count($aItem['blues']) >= 1)
     @php
