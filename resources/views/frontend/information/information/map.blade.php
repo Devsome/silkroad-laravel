@@ -4,12 +4,18 @@
             createMinimapCanvas(
                 '{{ asset('image/worldmap/8') }}/',
                 'player-map',
-                150,
-                205,
+                206,
+                206,
                 {{ $player->PosX }},
-                {{ $player->PosY }},
                 {{ $player->PosZ }},
+                {{ $player->PosY }},
                 {{ $player->LatestRegion }}
+            );
+            addMinimapCursor(
+                'player-map',
+                '{{ asset('image/worldmap/icon/mm_sign_otherplayer.png') }}',
+                6,
+                6
             );
         });
     </script>
