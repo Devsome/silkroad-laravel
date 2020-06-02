@@ -66,10 +66,10 @@
         </div>
     </div>
 </div>
-<div class="col-xl-3 col-lg-3 col-md-3 d-none d-lg-block">
+<div class="col-xl-3 col-lg-3 col-md-3 d-lg-block">
     <div class="row">
         <div class="col-12">
-            <label class="small">
+            <label class="small d-block">
                 {{ __('information.player.table.avatar') }}
             </label>
             <img src="{{ asset('image/sro/chars/') }}/{{ $player->RefObjID }}.gif" loading="lazy"
@@ -78,7 +78,7 @@
         @if($playerUnderJob)
         @if($player->getAccountUser->getTbUser->getWebUser && $player->getAccountUser->getTbUser->getWebUser->show_map === 1)
             <div class="col-12 pt-3">
-                <label class="small">
+                <label class="small d-block">
                     {{ __('information.player.table.map-all') }}
                 </label>
                 <div id="player-map"></div>

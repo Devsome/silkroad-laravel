@@ -1,3 +1,4 @@
+@isset($DiscordProvider)
 <p class="font-weight-light font-weight-bold pt-3">
     {{ __('sidebar.discord.title') }} {{ __('sidebar.discord.online', ['online' => $DiscordProvider['presence_count']]) }}
     @if(array_key_exists('instant_invite', $DiscordProvider))
@@ -28,4 +29,4 @@
         {{ __('sidebar.discord.empty') }}
     @endforelse
 </ul>
-
+@endisset

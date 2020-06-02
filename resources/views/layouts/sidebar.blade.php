@@ -71,6 +71,7 @@
     </ul>
 
     <ul class="list-group list-unstyled small pt-3">
+        @if(config('siteSettings.sro_ip_limit'))
         <li class="pb-1">
             <div class="float-left">
                 <i class="fa fa-fw fa-exclamation"></i> {{ __('sidebar.information.ip-limit') }}
@@ -79,6 +80,8 @@
                 {{ config('siteSettings.sro_ip_limit', 1) }}
             </div>
         </li>
+        @endif
+        @if(config('siteSettings.sro_hwid_limit'))
         <li class="pb-1">
             <div class="float-left">
                 <i class="fa fa-fw fa-exclamation"></i> {{ __('sidebar.information.pc-limit') }}
@@ -87,6 +90,7 @@
                 {{ config('siteSettings.sro_hwid_limit', 1) }}
             </div>
         </li>
+        @endif
     </ul>
     @include('layouts.fortress')
 

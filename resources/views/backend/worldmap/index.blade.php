@@ -52,11 +52,11 @@
         $(document).ready(function () {
             @forelse($characters as $char)
             xSROMap.AddPlayer(
-                    {{ $char->CharID }},
-                    '{{ $char->getCharacter->CharName16 }}',
+                    {{  $char->CharID }},
+                    '<a href="{{ route('information-player', ['CharName16' => Str::lower($char->getCharacter->CharName16)]) }}">{{ $char->getCharacter->CharName16 }}</a>',
                     {{ $char->getCharacter->PosX }},
-                    {{ $char->getCharacter->PosY }},
                     {{ $char->getCharacter->PosZ }},
+                    {{ $char->getCharacter->PosY }},
                     {{ $char->getCharacter->LatestRegion }});
             @empty
             // Nope

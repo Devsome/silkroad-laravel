@@ -55,7 +55,7 @@ function createMinimapCanvas(imgHost, elementId, width, height, x, y, z = null, 
     let canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
-    canvas.className = 'img-thumbnail';
+    canvas.className = 'rounded';
     let canvasContext = canvas.getContext("2d");
 
     // center view
@@ -91,4 +91,11 @@ function createMinimapCanvas(imgHost, elementId, width, height, x, y, z = null, 
         i++;
     }
     document.getElementById(elementId).appendChild(canvas);
+}
+
+// Adds the map cursor pointing the image center
+function addMinimapCursor(canvasElementId,imageUrl,height,width) {
+    let canvas = document.getElementById(canvasElementId).children[0];
+    let canvasContext = canvas.getContext("2d");
+    DrawImage(canvasContext,imageUrl,parseInt(canvas.width/2-width/2),parseInt(canvas.height/2-height/2),width,height);            
 }

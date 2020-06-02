@@ -29,7 +29,7 @@ class PlayerCountProvider extends ServiceProvider
             'layouts.playercount',
             static function ($view) {
                 $playerCount = Cache::remember('playerCount', 60 * 5, static function () {
-                    return OnlineOfflineLog::where('status', OnlineOfflineLog::STATUS_LOGGED_IN)->count();
+                    return OnlineOfflineLog::where('status', '!=', OnlineOfflineLog::STATUS_LOGGED_OUT)->count();
                 });
                 $data = [
                     'count' => $playerCount
