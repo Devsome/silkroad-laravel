@@ -70,6 +70,7 @@ class OnlineOfflineLog extends Model
      */
     public function getCharacter() {
         return $this->belongsTo(Char::class, 'CharID', 'CharID')
+            ->whereNotNull('CharName16')
             ->select(['CharID', 'CharName16', 'CurLevel', 'LatestRegion', 'PosX', 'PosY', 'PosZ']);
     }
 }

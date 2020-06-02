@@ -53,7 +53,7 @@
             @forelse($characters as $char)
             xSROMap.AddPlayer(
                     {{  $char->CharID }},
-                    '<a href="{{ route('information-player', ['CharName16' => Str::lower($char->getCharacter->CharName16)]) }}">{{ $char->getCharacter->CharName16 }}</a>',
+                    '<a href="{{ route('information-player', ['CharName16' => Str::lower($char->getCharacter->CharName16)]) }}" target="_blank">{{ $char->getCharacter->CharName16 }}</a>',
                     {{ $char->getCharacter->PosX }},
                     {{ $char->getCharacter->PosZ }},
                     {{ $char->getCharacter->PosY }},
