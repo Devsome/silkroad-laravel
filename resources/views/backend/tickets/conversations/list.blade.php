@@ -105,6 +105,7 @@
     <script>
         $(document).ready(function () {
             moment.locale('{{app()->getLocale()}}');
+            let isFetching = false;
 
                     @if($currentConversation)
             let lastMessage = '{{$currentConversation->getAnswers()->orderBy('created_at', 'asc')->get()->last()->created_at->toIso8601String()}}';
@@ -145,6 +146,10 @@
             });
 
             function fetchMessages() {
+                // Avoid overload
+                if(isFetching)
+                    return;
+                isFetching = true;
                 $.get({
                     url: '{{ route('ticket-fetch-backend') }}',
                     data: {
@@ -158,6 +163,7 @@
                         $chatContent.html(html + d.html);
                         scrollDown();
                     }
+                    isFetching = false;
                 });
             }
 
