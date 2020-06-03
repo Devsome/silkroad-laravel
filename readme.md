@@ -29,18 +29,18 @@ If you want to help me, you can buy a [Coffee](https://www.buymeacoffee.com/Mi0v
         ```
     2. Editing the `SRO_VT_LOG`.`_AddLogChar` mssql Procedure. After all the `set` variables you need to paste this stuff.
         ```sql
+        IF(@EventID = 4 or @EventID = 6)
         BEGIN
-            SET NOCOUNT ON;
-               INSERT INTO loginhistory ([CharID], [status])
-               VALUES (@CharID, @EventId)
-
-               IF EXISTS (SELECT 1 FROM onlineofflinelog WHERE CharID = @CharID)
-                    UPDATE onlineofflinelog
-                    SET    status = @EventID
-                    WHERE  CharID = @CharID
-               ELSE
-                   INSERT INTO onlineofflinelog ([CharID],  [status])
-                   VALUES  (@CharID, @EventID)
+          SET NOCOUNT ON;
+            INSERT INTO loginhistory ([CharID], [status])
+            VALUES (@CharID, @EventId)
+          IF EXISTS (SELECT 1 FROM onlineofflinelog WHERE CharID = @CharID)
+            UPDATE onlineofflinelog
+            SET    status = @EventID
+            WHERE	CharID = @CharID
+          ELSE
+            INSERT INTO onlineofflinelog ([CharID],  [status])
+            VALUES      (@CharID, @EventID)
         END
         IF (@EventID = 6)
         BEGIN
