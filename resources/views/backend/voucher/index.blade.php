@@ -76,6 +76,8 @@
                     {data: 'expires_at', name: 'expires_at'},
                     {data: 'created_at', name: 'created_at', searchable: false},
                     { data: function ( row ) {
+                            if(row.redeemed_at !== null)
+                                return ``;
                             let url = '{{ route('voucher-destroy-backend', ['id' =>  ':id' ]) }}';
                             let msg = '{{ __('backend/voucher.modal-delete-message', ['code' => ':code']) }}';
                             msg = msg.replace(':code', row.code);
