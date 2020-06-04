@@ -6941,7 +6941,7 @@ for (let i = 0; i < TPs.length; i++) {
 // Coordinate search on click/enter
 $('#search .input-group-append').click(function () {
     let value = $('#search input[type="text"]').val();
-    xSROMap.getMarkerByPlayerName(value);
+    xSROMap.GoToPlayer(value);
 });
 $('#search input[type="text"]').keypress(function (e) {
     if (e.which == 13) {
