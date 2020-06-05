@@ -35,15 +35,9 @@ class Notice extends Model
     protected $primaryKey = 'ID';
 
     /**
-     * The attributes format for dates.
-     *
-     * @var array
+     * @var string
      */
-    protected $dates = [
-        'EditDate'
-    ];
-
-    protected $dateFormat = 'Y-m-d H:i:s';
+    protected $dateFormat = 'Y-m-d H:i:s.u';
 
     /**
      * The attributes that are mass assignable.
@@ -56,4 +50,12 @@ class Notice extends Model
         'Article',
         'EditDate'
     ];
+
+    /**
+     * @return string
+     */
+    public function getDateFormat()
+    {
+        return 'Y-m-d H:i:s.u';
+    }
 }
