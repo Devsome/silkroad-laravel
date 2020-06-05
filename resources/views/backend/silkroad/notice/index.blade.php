@@ -33,7 +33,7 @@
                             <tr>
                                 <th scope="row">{{ $notice->ID }}</th>
                                 <td>{{ $notice->Subject }}</td>
-                                <td>{{ Carbon\Carbon::parse($notice->EditDate)->format('d.m.Y H:i \U\h\r') }}</td>
+                                <td>{{ Carbon\Carbon::parse($notice->EditDate) }}</td>
                                 <td>
                                     <div class="row">
                                         <div class="col-3">
