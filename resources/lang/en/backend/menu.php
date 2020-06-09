@@ -17,6 +17,7 @@ return [
     'tickets-settings' => 'Tickets Settings',
     'voucher' => 'Voucher (E-PIN)',
     'backlinks' => 'Backlinks',
+    'supporters' => 'Supporters',
     'settings' => 'Site Settings',
     'auctionshouse' => 'Auctions House',
 

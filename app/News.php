@@ -27,7 +27,7 @@ class News extends Model
      * @var array
      */
     protected $casts = [
-        'published_at' => 'date'
+        'published_at' => 'datetime'
     ];
 
     /**

@@ -188,6 +188,7 @@ return [
         \App\Providers\TimersProvider::class,
         \App\Providers\SiteSettingsProvider::class,
         \App\Providers\SilkGoldProvider::class,
+        \App\Providers\SupportersOnlineProvider::class,
 
     ],
 

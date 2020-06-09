@@ -60,6 +60,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('supporters-online-index-backend') }}">
+            <i class="fas fa-fw fa-hands-helping"></i>
+            <span>{{ __('backend/menu.supporters') }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('auctionshouse-settings-backend') }}">
             <i class="fas fa-fw fa-boxes"></i>
             <span>{{ __('backend/menu.auctionshouse') }}</span>

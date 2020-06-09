@@ -92,6 +92,9 @@
         </li>
         @endif
     </ul>
+
+    @include('layouts.supportersonline')
+
     @include('layouts.fortress')
 
     @include('layouts.jobranking')
