@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Model\Frontend\AuctionItem;
 use App\Model\Frontend\CharGold;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,6 @@ class SilkGoldProvider extends ServiceProvider
         view()->composer(
             'frontend.account.sidebar',
             static function ($view) {
-
                 $data = [];
                 if (Auth::id()) {
                     $charGold = CharGold::where('user_id', Auth::id())->sum('gold');
@@ -44,6 +44,31 @@ class SilkGoldProvider extends ServiceProvider
                     ];
                 }
                 $view->with('SilkGoldProvider', $data);
+            }
+        );
+
+        view()->composer(
+            'frontend.account.auctionsidebar',
+            static function ($view) {
+                $data = [];
+
+                $auctionsItemFilter = AuctionItem::with('getItemSortForFilter')
+                    ->get()
+                    ->pluck('getItemSortForFilter.sort')
+                    ->toArray();
+                $auctionsItemFilter = array_unique($auctionsItemFilter);
+                asort($auctionsItemFilter);
+                // @Todo map the Sort with Silkroad Icons
+
+                if (Auth::id()) {
+                    $charGold = CharGold::where('user_id', Auth::id())->sum('gold');
+
+                    $data = [
+                        'web_inventory_gold' => $charGold,
+                        'filter' => $auctionsItemFilter
+                    ];
+                }
+                $view->with('GoldProvider', $data);
             }
         );
     }

@@ -60,6 +60,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('auctionshouse-settings-backend') }}">
+            <i class="fas fa-fw fa-boxes"></i>
+            <span>{{ __('backend/menu.auctionshouse') }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('site-settings-backend') }}">
             <i class="fas fa-fw fa-cog"></i>
             <span>{{ __('backend/menu.settings') }}</span>

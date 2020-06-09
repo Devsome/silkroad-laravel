@@ -7,9 +7,9 @@
                  @isset($item['imgpath'])
                  style="background:url('{{ $item['imgpath'] }}') no-repeat; background-size: 34px 34px;"
                  data-iteminfo="1" @endisset>
-                <i class="fa fa-check" style="color: red;" hidden></i>
+                <i class="fa fa-check" style="color: red; position: absolute" hidden></i>
                 <span class="qinfo">
-                    @isset($item)
+                    @isset($item['amount'])
                         {{ $item['amount'] }}
                     @endisset
                 </span>

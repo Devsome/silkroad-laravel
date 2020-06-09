@@ -80,7 +80,7 @@ class RankingController extends Controller
         }
 
         if ($type === __('ranking.search.search-job')) {
-            $jobs = CharTrijob::whereHas('getCharacter', function ($q) use ($search, $hideRanking) {
+            $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($search, $hideRanking) {
                 $q->where('NickName16', 'like', '%' . $search . '%');
                 $q->whereNotIn('CharName16', $hideRanking);
             })
@@ -122,7 +122,7 @@ class RankingController extends Controller
         }
 
         if ($mode === __('ranking.search.search-job')) {
-            $jobs = CharTrijob::whereHas('getCharacter', function ($q) use ($hideRanking) {
+            $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking) {
                 $q->whereNotIn('CharName16', $hideRanking);
             })
                 ->with('getCharacter')
