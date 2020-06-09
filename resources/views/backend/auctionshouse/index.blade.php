@@ -16,6 +16,15 @@
                         </button>
                     </div>
                 @endif
+
+                    <div class="row">
+                        <div class="ml-auto mr-3">
+                            <a href="{{ route('auctionshouse-log-backend') }}" type="button" class="btn btn-secondary">
+                                {{ __('backend/auctionshouse.log-btn') }}
+                            </a>
+                        </div>
+                    </div>
+
                 <form method="POST" action="{{ route('auctionshouse-settings-update-backend') }}"
                       enctype="multipart/form-data">
                     @csrf

@@ -139,6 +139,8 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
 
         Route::get('/auctionshouse', 'Backend\AuctionsHouseController@index')->name('auctionshouse-settings-backend');
         Route::post('/auctionshouse/update', 'Backend\AuctionsHouseController@update')->name('auctionshouse-settings-update-backend');
+        Route::get('/auctionshouse/log','Backend\AuctionsHouseController@showLog')->name('auctionshouse-log-backend');
+        Route::get('/auctionshouse/log/datatables', 'Backend\AuctionsHouseController@showLogDatatables')->name('auctionshouse-log-datatables-backend');
 
         Route::group(['prefix' => 'downloads'], function () {
             Route::get('/', 'Backend\DownloadsController@index')->name('downloads-index-backend');

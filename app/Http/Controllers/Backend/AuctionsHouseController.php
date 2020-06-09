@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\AuctionsHouseLog;
 use App\AuctionsHouseSettings;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
+use Yajra\DataTables\DataTables;
 
 class AuctionsHouseController extends Controller
 {
@@ -17,6 +19,23 @@ class AuctionsHouseController extends Controller
         return view('backend.auctionshouse.index', [
             'settings' => AuctionsHouseSettings::first()
         ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showLog()
+    {
+        return view('backend.auctionshouse.log');
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function showLogDatatables()
+    {
+        return DataTables::of(AuctionsHouseLog::query())->make(true);
     }
 
     /**
