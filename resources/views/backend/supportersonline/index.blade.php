@@ -5,7 +5,7 @@
 
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/hideranking.title') }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/supportersonline.title') }}</h1>
         </div>
         <div class="container">
             @if ($message = Session::get('success'))
@@ -18,29 +18,43 @@
                     </div>
                 </div>
             @endif
+            @if ($error = Session::get('error'))
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-danger alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{{ $error }}</strong>
+                        </div>
+                    </div>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-8">
                     <div class="table-responsive">
                         <table id="users" class="table table-striped table-hover dataTable">
                             <thead class="thead-dark">
                             <tr>
-                                <th scope="col">{{ __('backend/hideranking.table.charname') }}</th>
-                                <th scope="col">{{ __('backend/hideranking.table.actions') }}</th>
+                                <th scope="col">{{ __('backend/supportersonline.table.charname') }}</th>
+                                <th scope="col">{{ __('backend/supportersonline.table.charid') }}</th>
+                                <th scope="col">{{ __('backend/supportersonline.table.actions') }}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($hidden as $char)
+                            @foreach ($chars as $char)
                                 <tr>
                                     <td>
                                         {{ $char->charname }}
                                     </td>
                                     <td>
+                                        {{ $char->CharID }}
+                                    </td>
+                                    <td>
                                         <form method="POST" data-form="deleteForm"
-                                              action="{{ route('hide-ranking-destroy-backend', ['id' => $char->id]) }}">
+                                              action="{{ route('supporters-online-destroy-backend', ['id' => $char->id]) }}">
                                             @csrf
                                             <span data-toggle="modal" data-target="#charnameModalDelete"
-                                                  data-title="{{ __('backend/hideranking.delete-title') }}"
-                                                  data-message="{{ __('backend/hideranking.delete-message', ['charname' => $char->charname]) }}"
+                                                  data-title="{{ __('backend/supportersonline.delete-title') }}"
+                                                  data-message="{{ __('backend/supportersonline.delete-message', ['charname' => $char->charname]) }}"
                                                   class="btn btn-danger btn-circle btn-sm" style="cursor: pointer">
                                                     <i class="fa fa-trash"></i>
                                                 </span>
@@ -56,16 +70,16 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0">
-                                {{ __('backend/hideranking.form.title') }}
+                                {{ __('backend/supportersonline.form.title') }}
                             </h6>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('hide-ranking-add-backend') }}">
+                            <form method="POST" action="{{ route('supporters-online-add-backend') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-12">
                                         <label for="charname">
-                                            {{ __('backend/hideranking.form.charname') }}
+                                            {{ __('backend/supportersonline.form.charname') }}
                                         </label>
                                     </div>
                                     <div class="col-8">
@@ -80,7 +94,7 @@
                                     </div>
                                     <div class="col-4">
                                         <button type="submit" class="btn btn-sm btn-primary">
-                                            {{ __('backend/hideranking.form.submit') }}
+                                            {{ __('backend/supportersonline.form.submit') }}
                                         </button>
                                     </div>
                                 </div>

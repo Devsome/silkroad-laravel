@@ -67,11 +67,33 @@
                                         {{ __('ranking.search.guild') }}
                                     </a>
                                 </div>
-                                <div class="btn-group" role="group" aria-label="{{ __('ranking.search.jobname') }}">
+                                <div class="btn-group mr-2" role="group" aria-label="{{ __('ranking.search.jobname') }}">
                                     <a href="{{ route('ranking-index', ['mode' => __('ranking.search.search-job')]) }}"
                                        type="button" class="btn @if($mode === __('ranking.search.search-job'))
                                             btn-dark @else btn-outline-dark @endif">
                                         {{ __('ranking.search.jobname') }}
+                                    </a>
+                                </div>
+
+                                <div class="btn-group mr-2" role="group" aria-label="{{ __('ranking.search.trader') }}">
+                                    <a href="{{ route('ranking-index', ['mode' => __('ranking.search.search-trader')]) }}"
+                                       type="button" class="btn @if($mode === __('ranking.search.search-trader'))
+                                            btn-dark @else btn-outline-dark @endif">
+                                        {{ __('ranking.search.trader') }}
+                                    </a>
+                                </div>
+                                <div class="btn-group mr-2" role="group" aria-label="{{ __('ranking.search.hunter') }}">
+                                    <a href="{{ route('ranking-index', ['mode' => __('ranking.search.search-hunter')]) }}"
+                                       type="button" class="btn @if($mode === __('ranking.search.search-hunter'))
+                                            btn-dark @else btn-outline-dark @endif">
+                                        {{ __('ranking.search.hunter') }}
+                                    </a>
+                                </div>
+                                <div class="btn-group" role="group" aria-label="{{ __('ranking.search.thief') }}">
+                                    <a href="{{ route('ranking-index', ['mode' => __('ranking.search.search-thief')]) }}"
+                                       type="button" class="btn @if($mode === __('ranking.search.search-thief'))
+                                            btn-dark @else btn-outline-dark @endif">
+                                        {{ __('ranking.search.thief') }}
                                     </a>
                                 </div>
                             </div>

@@ -170,12 +170,18 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
         });
 
         Route::group(['prefix' => 'backlinks'], function() {
-           Route::get('/', 'Backend\BacklinksController@index')->name('backlinks-index-backend');
+            Route::get('/', 'Backend\BacklinksController@index')->name('backlinks-index-backend');
             Route::get('/add', 'Backend\BacklinksController@show')->name('backlinks-add-backend');
             Route::post('/create', 'Backend\BacklinksController@create')->name('backlinks-create-backend');
             Route::get('/{backlink}/edit', 'Backend\BacklinksController@edit')->name('backlinks-edit-backend');
             Route::patch('/{backlink}/update', 'Backend\BacklinksController@update')->name('backlinks-update-backend');
             Route::post('/{backlink}/destroy', 'Backend\BacklinksController@destroy')->name('backlinks-destroy-backend');
+        });
+
+        Route::group(['prefix' => 'supporters-online'], function () {
+            Route::get('/', 'Backend\SupportersOnlineController@index')->name('supporters-online-index-backend');
+            Route::post('/add', 'Backend\SupportersOnlineController@add')->name('supporters-online-add-backend');
+            Route::post('/{id}/destroy', 'Backend\SupportersOnlineController@destroy')->name('supporters-online-destroy-backend');
         });
     });
 

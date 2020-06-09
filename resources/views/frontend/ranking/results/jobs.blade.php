@@ -23,10 +23,10 @@
                 @if($jobs->JobType === 1)
                     {{ __('ranking.table.trader') }}
                 @endif
-                @if($jobs->JobType === 2)
-                    {{ __('ranking.table.trader') }}
-                @endif
                 @if($jobs->JobType === 3)
+                    {{ __('ranking.table.hunter') }}
+                @endif
+                @if($jobs->JobType === 2)
                     {{ __('ranking.table.thief') }}
                 @endif
             </td>

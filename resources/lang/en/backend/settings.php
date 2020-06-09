@@ -9,6 +9,12 @@ return [
         'registration-open' => 'Registration State',
         'registration-open-checkbox' => 'Close',
         'silk-name' => 'Silk Name',
+        'facebook-url' => 'Facebook Page',
+        'facebook-url-helper' => 'Your Facebook page url',
+        'youtube-url' => 'Youtube Channel',
+        'youtube-url-helper' => 'Your Youtube channel url',
+        'contact-email' => 'Contact E-Mail',
+        'contact-email-helper' => 'Your Contact E-Mail',
         'discord-id' => 'Discord ID',
         'discord-id-help' => 'Your Discord Server ID',
 

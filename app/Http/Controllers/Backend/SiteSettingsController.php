@@ -28,7 +28,10 @@ class SiteSettingsController extends Controller
         $validator = Validator::make($request->all(), [
             '_token' => 'required',
             'sro_silk_name' => 'required|min:1|max:16',
-            'discord_id' => 'required|numeric',
+            'facebook_url' => 'nullable|url',
+            'youtube_url' => 'nullable|url',
+            'contact_email' => 'nullable|email',
+            'discord_id' => 'nullable|numeric',
             'sro_content_id' => 'required|numeric',
             'sro_max_server' => 'required|numeric',
             'sro_cap' => 'required|numeric',
@@ -48,7 +51,10 @@ class SiteSettingsController extends Controller
 
         $requestToJsonArray = [
             'sro_silk_name' => $request->get('sro_silk_name') ?? 'Silk',
-            'discord_id' => $request->get('discord_id') ?? '674395399011827712',
+            'discord_id' => $request->get('discord_id') ?? '',
+            'facebook_url' => $request->get('facebook_url') ?? '',
+            'youtube_url' => $request->get('youtube_url') ?? '',
+            'contact_email' => $request->get('contact_email') ?? '',
             'registration_close' => $request->get('registration_close') ? true : false,
             'jangan_fortress' => $request->get('jangan_fortress') ? true : false,
             'bandit_fortress' => $request->get('bandit_fortress') ? true : false,
