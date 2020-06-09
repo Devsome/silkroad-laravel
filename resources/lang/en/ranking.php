@@ -4,8 +4,8 @@ return [
     'title' => 'Ranking',
     'table' => [
         'rank' => 'Rank',
-        'charname' => 'Charname',
-        'job-name' => 'Jobname',
+        'charname' => 'Char',
+        'job-name' => 'Job',
         'guild' => 'Guild',
         'level' => 'Level',
         'job-type' => 'Type',
@@ -23,13 +23,19 @@ return [
     'search' => [
         'placeholder' => 'Charname, Guild, Jobname',
         'filter-by' => 'Filter by',
-        'charname' => 'Charname',
+        'charname' => 'Char',
         'guild' => 'Guild',
-        'jobname' => 'Jobname',
+        'jobname' => 'Job',
+        'trader' => 'Trader',
+        'hunter' => 'Hunter',
+        'thief' => 'Thief',
         'submit' => 'Search',
         // do not change this
         'search-charname' => 'charname',
         'search-guild' => 'guild',
-        'search-job' => 'job'
+        'search-job' => 'job',
+        'search-trader' => 'trader',
+        'search-hunter' => 'hunter',
+        'search-thief' => 'thief',
     ]
 ];

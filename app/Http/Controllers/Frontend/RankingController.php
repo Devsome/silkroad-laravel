@@ -121,6 +121,48 @@ class RankingController extends Controller
             ])->render();
         }
 
+        if ($mode === __('ranking.search.search-trader')) {
+            $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking) {
+                $q->whereNotIn('CharName16', $hideRanking);
+            })
+                ->with('getCharacter')
+                ->where('JobType', 1)
+                ->orderBy('Level', 'DESC')
+                ->orderBy('Exp', 'DESC')
+                ->paginate(150);
+            return view('frontend.ranking.results.jobs', [
+                'data' => $jobs
+            ]);
+        }
+
+        if ($mode === __('ranking.search.search-hunter')) {
+            $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking) {
+                $q->whereNotIn('CharName16', $hideRanking);
+            })
+                ->with('getCharacter')
+                ->where('JobType', 3)
+                ->orderBy('Level', 'DESC')
+                ->orderBy('Exp', 'DESC')
+                ->paginate(150);
+            return view('frontend.ranking.results.jobs', [
+                'data' => $jobs
+            ]);
+        }
+
+        if ($mode === __('ranking.search.search-thief')) {
+            $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking) {
+                $q->whereNotIn('CharName16', $hideRanking);
+            })
+                ->with('getCharacter')
+                ->where('JobType', 2)
+                ->orderBy('Level', 'DESC')
+                ->orderBy('Exp', 'DESC')
+                ->paginate(150);
+            return view('frontend.ranking.results.jobs', [
+                'data' => $jobs
+            ]);
+        }
+
         if ($mode === __('ranking.search.search-job')) {
             $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking) {
                 $q->whereNotIn('CharName16', $hideRanking);
