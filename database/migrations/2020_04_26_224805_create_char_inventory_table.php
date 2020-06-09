@@ -19,6 +19,18 @@ class CreateCharInventoryTable extends Migration
             $table->bigInteger('from_charid');
             $table->bigInteger('serial64');
             $table->bigInteger('item_id64');
+            $table->string('name');
+            $table->string('imgpath');
+            $table->string('optlevel');
+            $table->string('amount');
+            $table->string('special')->default('0');
+            $table->string('sort')->default('Unknown');
+            $table->string('degree');
+            $table->integer('level');
+            $table->integer('npc_price')->default(0);
+            $table->string('race')->default('');
+            $table->string('sex')->default('');
+            $table->longText('data');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

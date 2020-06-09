@@ -12,5 +12,6 @@ return [
         'home' => 'Home',
         'download' => 'Download',
         'ranking' => 'Ranking',
+        'auction-house' => 'Auction house',
     ],
 ];

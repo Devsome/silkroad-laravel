@@ -7,6 +7,7 @@ use App\Http\Model\SRO\Shard\ItemPoolName;
 use App\Http\Model\SRO\Shard\MagOpt;
 use App\Model\SRO\Shard\Inventory;
 use App\Model\SRO\Shard\InventoryForAvatar;
+use App\Model\SRO\Shard\Items;
 use Illuminate\Support\Facades\Cache;
 
 class InventoryService
@@ -28,6 +29,25 @@ class InventoryService
             ->where('Slot', '=', $slot)
             ->where('ItemID', '>', '0')
             ->first();
+    }
+
+    /**
+     * Get from the Serial64 the Item Data
+     * @param $serial64
+     * @return array
+     */
+    public function getInventorySlotData($serial64): array
+    {
+        $item = Items::where('Serial64', '=', $serial64)
+            ->leftJoin('_BindingOptionWithItem as Binding', static function ($join) {
+                $join->on('Binding.nItemDBID', 'ID64');
+                $join->where('Binding.nOptValue', '>', '0');
+            })
+            ->join('_RefObjCommon as Common', 'RefItemId', 'Common.ID')
+            ->join('_RefObjItem as ObjItem', 'Common.Link', 'ObjItem.ID')
+            ->get();
+
+        return $this->getInventorySetStats($item);
     }
 
     /**
@@ -126,12 +146,6 @@ class InventoryService
                 $i = $aCurItem['Slot'] ?? $aCurItem['ID64'];
             }
 
-//            if ($aCurItem['MaxStack'] > 1) {
-//                $aSet[$i]['amount'] = $aCurItem['Data'];
-//            } else {
-//                $aSet[$i]['amount'] = false;
-//            }
-
             if(!isset($aCurItem['MaxStack']))
             {
                 $aInfo['MaxStack'] = 0;
@@ -154,6 +168,7 @@ class InventoryService
             $aSet[$i]['ItemID'] = $aCurItem['ID64'];
             $aSet[$i]['ItemName'] = $aInfo['info']['WebName'];
             $aSet[$i]['imgpath'] = $this->getItemIcon($aCurItem['AssocFileIcon128']);
+            $aSet[$i]['WebInventory'] = $aInfo['info'];
             try {
                 $aSet[$i]['data'] = view('frontend.information.information.inventorypopup', [
                     'aItem' => $aInfo
@@ -196,6 +211,7 @@ class InventoryService
         $aData['TypeID2'] = $aItem['TypeID2'];
         $aData['TypeID3'] = $aItem['TypeID3'];
         $aData['TypeID4'] = $aItem['TypeID4'];
+        $aData['Price'] = $aItem['Price']; // Npc Price
         $aData['sox'] = ''; // For Blade
         $aData['Degree'] = 0; // For Blade
         $aData['WebName'] = $this->getItemRealName(

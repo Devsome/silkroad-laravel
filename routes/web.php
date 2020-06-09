@@ -55,6 +55,20 @@ Route::group(['prefix' => 'account'], function() {
 Route::get('/player/{CharName16}', 'Frontend\InformationController@player')->name('information-player');
 Route::get('/guild/{name}', 'Frontend\InformationController@guild')->name('information-guild');
 
+// Auctions House
+Auth::routes(['verify' => true]);
+Route::group(['prefix' => 'auctions-house'], function () {
+    Route::get('/', 'Frontend\AuctionsHouseController@index')->name('auctions-house');
+    Route::get('/filter/{type?}', 'Frontend\AuctionsHouseController@filterType')->name('auction-house-filter');
+    Route::get('/show/{id}', 'Frontend\AuctionsHouseController@showItem')->name('auctions-house-show-item');
+    Route::get('/own', 'Frontend\AuctionsHouseController@showOwn')->name('auction-house-show-own');
+    Route::post('/own/{id}/cancel', 'Frontend\AuctionsHouseController@cancelOwn')->name('auction-house-cancel-own');
+    Route::get('/add', 'Frontend\AuctionsHouseController@showAddItem')->name('auctions-house-add-item');
+    Route::post('/add-auction', 'Frontend\AuctionsHouseController@submitAddItem')->name('auctions-house-submit-add-item');
+
+    Route::post('/show/{id}/bid', 'Frontend\AuctionsHouseController@submitBidItem')->name('auctions-house-bid-item');
+    Route::post('/show/{id}/buy', 'Frontend\AuctionsHouseController@submitBuyItemNow')->name('auctions-house-buy-item-now');
+});
 
 // Backend Routes
 Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function () {
@@ -122,6 +136,11 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
     Route::group(['prefix' => 'web'], function () {
         Route::get('/settings', 'Backend\SiteSettingsController@index')->name('site-settings-backend');
         Route::post('/settings/update', 'Backend\SiteSettingsController@update')->name('site-settings-update-backend');
+
+        Route::get('/auctionshouse', 'Backend\AuctionsHouseController@index')->name('auctionshouse-settings-backend');
+        Route::post('/auctionshouse/update', 'Backend\AuctionsHouseController@update')->name('auctionshouse-settings-update-backend');
+        Route::get('/auctionshouse/log','Backend\AuctionsHouseController@showLog')->name('auctionshouse-log-backend');
+        Route::get('/auctionshouse/log/datatables', 'Backend\AuctionsHouseController@showLogDatatables')->name('auctionshouse-log-datatables-backend');
 
         Route::group(['prefix' => 'downloads'], function () {
             Route::get('/', 'Backend\DownloadsController@index')->name('downloads-index-backend');

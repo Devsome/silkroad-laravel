@@ -18,6 +18,7 @@ return [
     'voucher' => 'Voucher (E-PIN)',
     'backlinks' => 'Backlinks',
     'settings' => 'Site Settings',
+    'auctionshouse' => 'Auctions House',
 
     'notice' => 'Launcher notice',
     'tbuser' => 'Accounts',
