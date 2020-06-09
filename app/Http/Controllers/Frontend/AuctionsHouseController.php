@@ -101,10 +101,12 @@ class AuctionsHouseController extends Controller
     {
         $auctionItem = AuctionItem::where('id', $id)->firstOrFail();
 
-        CharGold::where('user_id', $auctionItem->current_bid_user_id)
-            ->increment(
-                'gold', $auctionItem->current_user_bid_amount
-            );
+        if (isset($auctionItem->current_bid_user_id)) {
+            CharGold::where('user_id', $auctionItem->current_bid_user_id)
+                ->increment(
+                    'gold', $auctionItem->current_user_bid_amount
+                );
+        }
 
         $auctionItem->delete();
 
@@ -210,10 +212,12 @@ class AuctionsHouseController extends Controller
                 ]);
 
             // Giving the Person who bid on that Item the gold back
-            CharGold::where('user_id', $auctionItem->current_bid_user_id)
-                ->increment(
-                    'gold', $auctionItem->current_user_bid_amount
-                );
+            if (isset($auctionItem->current_bid_user_id)) {
+                CharGold::where('user_id', $auctionItem->current_bid_user_id)
+                    ->increment(
+                        'gold', $auctionItem->current_user_bid_amount
+                    );
+            }
 
             // Deleting this Auction
             AuctionItem::where('id', $id)->delete();
@@ -278,7 +282,7 @@ class AuctionsHouseController extends Controller
             return back()->with('error', trans('auctionshouse.notification.bid.not-highest'));
         }
 
-        if($userNewBidPrice >= $auctionItem->price_instead) {
+        if ($userNewBidPrice >= $auctionItem->price_instead) {
             return back()->with('error', trans('auctionshouse.notification.bid.bid-higher'));
         }
 
