@@ -10,7 +10,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <h1>
-                        {{ __('auctionshouse.title') }}
+                        {{ __('auctionshouse.own.title') }}
                     </h1>
 
                     @if(session()->has('success'))
@@ -24,11 +24,8 @@
 
                     <div class="row">
                         <div class="ml-auto mr-3">
-                            <a href="{{ route('auction-house-show-own') }}" type="button" class="btn btn-primary">
-                                {{ __('auctionshouse.your') }}
-                            </a>
-                            <a href="{{ route('auctions-house-add-item') }}" type="button" class="btn btn-secondary">
-                                {{ __('auctionshouse.new') }}
+                            <a href="{{ route('auctions-house') }}" type="button" class="btn btn-secondary">
+                                {{ __('auctionshouse.own.back') }}
                             </a>
                         </div>
                     </div>
@@ -42,11 +39,11 @@
                                 <th scope="col">{{ __('auctionshouse.table.price') }}</th>
                                 <th scope="col">{{ __('auctionshouse.table.price_instead') }}</th>
                                 <th scope="col">{{ __('auctionshouse.table.until') }}</th>
+                                <th scope="col">{{ __('auctionshouse.table.actions') }}</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($items as $item)
-                                @if($item->user_id !== Auth::user()->id)
                                 <tr role="row" class="odd">
                                     <td>
                                         <div id="selectInventory">
@@ -88,13 +85,49 @@
                                     <td>
                                         {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->until)->diffForHumans() }}
                                     </td>
+                                    <td>
+                                        <form method="POST" data-form="cancelForm"
+                                        action="{{ route('auction-house-cancel-own', ['id' => $item->id]) }}">
+                                            @csrf
+                                            <span data-toggle="modal" data-target="#cancelModal"
+                                                  data-title="{{ __('auctionshouse.own.cancel-title') }}"
+                                                  data-message="{{ __('auctionshouse.own.cancel-message', [
+                                                    'item' => $item->getItemInformation->name
+                                                  ]) }}"
+                                                  class="btn btn-danger btn-circle btn-sm" style="cursor: pointer">
+                                                <i class="fa fa-trash"></i>
+                                            </span>
+                                        </form>
+                                    </td>
                                 </tr>
-                                @endif
                             @endforeach
                             </tbody>
                         </table>
                     </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cancelModal" role="dialog" aria-labelledby="cancelModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary"
+                            data-dismiss="modal">{{ __('backend/notification.modal.return') }}</button>
+                    <button type="button" class="btn btn-sm btn-danger"
+                            id="confirm">{{ __('backend/notification.modal.submit') }}</button>
                 </div>
             </div>
         </div>
@@ -107,6 +140,11 @@
                 columnDefs: [
                     {
                         "targets": 0,
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                    {
+                        "targets": 5,
                         "orderable": false,
                         "searchable": false,
                     }
@@ -161,6 +199,26 @@
                 close: function (event, ui) {
                     $(".ui-helper-hidden-accessible").remove();
                 }
+            });
+
+            $(document).ready(function () {
+                $('#cancelModal').find('.modal-footer #confirm').on('click', function () {
+                    $(this).data('form').submit();
+                });
+                $('#cancelModal').on('show.bs.modal', function (e) {
+                    $(this).find('.modal-body p').text($(e.relatedTarget).attr('data-message'));
+                    $(this).find('.modal-title').text($(e.relatedTarget).attr('data-title'));
+
+                    let form = $(e.relatedTarget).closest('form');
+                    $(this).find('.modal-footer #confirm').data('form', form);
+                });
+                $('form[data-form="deleteForm"]').on('click', '.form-delete', function (e) {
+                    e.preventDefault();
+                    $('#confirm').modal({backdrop: 'static', keyboard: false})
+                        .on('click', '#delete-btn', function () {
+                            $('form[data-form="deleteForm"]').submit();
+                        });
+                });
             });
 
         });

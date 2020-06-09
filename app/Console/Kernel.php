@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\UsersCreatedCounts::class,
+        Commands\AuctionsHouse::class,
     ];
 
     /**
@@ -26,6 +27,9 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('users:created-counts')
             ->dailyAt('00:01');
+
+        $schedule->command('auctionshouse:timer')
+            ->everyMinute();
     }
 
     /**

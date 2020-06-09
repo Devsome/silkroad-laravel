@@ -20,9 +20,13 @@ class CreateAuctionItemsTable extends Migration
             $table->timestamp('until')->nullable();
             $table->integer('price');
             $table->integer('price_instead')->nullable();
+            $table->integer('bids')->nullable()->default(0);
+            $table->unsignedBigInteger('current_bid_user_id')->nullable();
+            $table->integer('current_user_bid_amount')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('current_bid_user_id')->references('id')->on('users');
             $table->foreign('char_inventory')->references('id')->on('char_inventories');
         });
     }

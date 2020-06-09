@@ -5,12 +5,15 @@
     </p>
 
     <div class="list-group small">
-        <a href="#" class="list-group-item list-group-item-action">
-            {{ __('auctionshouse.sidebar.weapon') }}
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">
-            {{ __('auctionshouse.sidebar.equipment') }}
-        </a>
+        @forelse($GoldProvider['filter'] as $filter)
+            <a href="{{ route('auction-house-filter', ['type' => Str::slug($filter, '-')]) }}" class="list-group-item list-group-item-action">
+                {{ $filter }}
+            </a>
+        @empty
+            <p class="small">
+                {{ __('auctionshouse.no-filter') }}
+            </p>
+        @endforelse
     </div>
 
     <p class="font-weight-light pt-4 font-weight-bold">

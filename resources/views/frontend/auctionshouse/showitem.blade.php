@@ -88,11 +88,24 @@
                                 <li class="list-item">
                                     <h4 class="step-title">
                                         {{ __('auctionshouse.showitem.bid') }}
+                                        @if($item->bids > 0)
+                                            <span class="small">
+                                                {{ __('auctionshouse.showitem.current_bids', [
+                                                    'amount' => $item->bids
+                                                ]) }}
+                                            </span>
+                                        @endif
+                                        @if($item->current_bid_user_id === Auth::user()->id)
+                                            <span class="small text-primary">
+                                                {{ __('auctionshouse.showitem.highest-user') }}
+                                            </span>
+                                        @endif
                                     </h4>
                                     <div class="step-content helper pl20">
                                         {{ number_format($item->price, 0, ',', '.') }}
                                         {{ __('auctionshouse.showitem.gold') }}
                                     </div>
+
                                 </li>
 
                                 <li class="list-item">
@@ -122,21 +135,25 @@
                             {{ __('auctionshouse.showitem.own-item') }}
                         </div>
                     @else
-                        <div class="col-12">
-                            <form class="form-inline">
-                                <label for="auctionBidPrice" class="col-auto col-form-label">
-                                    {{ __('auctionshouse.showitem.bid_price') }}
-                                </label>
-                                <input type="text" class="form-control mb-2 mr-sm-2"
-                                       id="auctionBidPrice" name="auctionBidPrice" value="{{ $item->price + 5 }}">
-                                <button type="submit" class="btn btn-primary mb-2">
-                                    {{ __('auctionshouse.showitem.bid') }}
-                                </button>
-                            </form>
-                        </div>
+                        @if($item->current_bid_user_id !== Auth::user()->id)
+                            <div class="col-12">
+                                <form class="form form-inline" method="POST"
+                                action="{{ route('auctions-house-bid-item', ['id' => $item->id]) }}">
+                                  @csrf
+                                    <label for="auctionBidPrice" class="col-auto col-form-label">
+                                        {{ __('auctionshouse.showitem.bid_price') }}
+                                    </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-2"
+                                           id="auctionBidPrice" name="auctionBidPrice" value="{{ $item->price + 1 }}">
+                                    <button type="submit" class="btn btn-primary mb-2">
+                                        {{ __('auctionshouse.showitem.bid') }}
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                         <hr>
                         <div class="col-12">
-                            <form class="form-inline" class="form" method="POST"
+                            <form class="form form-inline" method="POST"
                                   action="{{ route('auctions-house-buy-item-now', ['id' => $item->id]) }}">
                                 @csrf
                                 <label for="auctionBidPrice" class="col-auto col-form-label">

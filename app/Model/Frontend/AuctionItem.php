@@ -20,4 +20,12 @@ class AuctionItem extends Model
     {
         return $this->belongsTo(CharInventory::class,'char_inventory', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function getItemSortForFilter()
+    {
+        return $this->belongsTo(CharInventory::class, 'char_inventory', 'id');
+    }
 }

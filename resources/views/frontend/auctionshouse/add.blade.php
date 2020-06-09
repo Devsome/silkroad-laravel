@@ -134,8 +134,15 @@
                                                     </button>
                                                 </div>
                                                 <div class="pt-3">
-                                                    <div class="text-center" id="transferItemStateAuction">
-                                                    </div>
+                                                    @if(isset($auctionsHouseSettings->settings['gold_fees']))
+                                                        <div class="text-center">
+                                                            <p class="small text-danger">
+                                                                {{ __('auctionshouse.add.form.gold-lost', [
+                                                                'percent' => $auctionsHouseSettings->settings['gold_fees']
+                                                                ]) }}
+                                                            </p>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

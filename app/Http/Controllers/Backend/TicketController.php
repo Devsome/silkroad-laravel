@@ -221,7 +221,7 @@ class TicketController extends Controller
             ->groupBy('ticket_id');
 
         if (!is_null($ticket)) {
-            $query->whereHas('conversation', function ($query) use ($ticket) {
+            $query->whereHas('conversation', static function ($query) use ($ticket) {
                 $query->where('ticket_id', $ticket->id);
             });
         }
