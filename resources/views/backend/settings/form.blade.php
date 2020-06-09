@@ -44,6 +44,66 @@
 </div>
 
 <div class="form-group row">
+    <label for="facebook_url" class="col-sm-4 col-form-label">
+        {{ __('backend/settings.form.facebook-url') }}
+    </label>
+    <div class="col-md-4">
+        <input type="text"
+               class="form-control {{ $errors->has('facebook_url') ? ' is-invalid' : '' }}"
+               id="facebook_url" name="facebook_url"
+               value="{{ $data['facebook_url'] ?? Request::old('facebook_url') }}">
+        <small id="facebook_url" class="form-text text-muted">
+            {{ __('backend/settings.form.youtube-url-helper') }}
+        </small>
+        @if ($errors->has('facebook_url'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('facebook_url') }}</strong>
+            </span>
+        @endif
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="youtube_url" class="col-sm-4 col-form-label">
+        {{ __('backend/settings.form.youtube-url') }}
+    </label>
+    <div class="col-md-4">
+        <input type="text"
+               class="form-control {{ $errors->has('youtube_url') ? ' is-invalid' : '' }}"
+               id="youtube_url" name="youtube_url"
+               value="{{ $data['youtube_url'] ?? Request::old('youtube_url') }}">
+        <small id="youtube_url" class="form-text text-muted">
+            {{ __('backend/settings.form.facebook-url-helper') }}
+        </small>
+        @if ($errors->has('youtube_url'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('youtube_url') }}</strong>
+            </span>
+        @endif
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="contact_email" class="col-sm-4 col-form-label">
+        {{ __('backend/settings.form.contact-email') }}
+    </label>
+    <div class="col-md-4">
+        <input type="email"
+               class="form-control {{ $errors->has('contact_email') ? ' is-invalid' : '' }}"
+               id="contact_email" name="contact_email"
+               value="{{ $data['contact_email'] ?? Request::old('contact_email') }}">
+        <small id="contact_email" class="form-text text-muted">
+            {{ __('backend/settings.form.contact-email-helper') }}
+        </small>
+        @if ($errors->has('contact_email'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('contact_email') }}</strong>
+            </span>
+        @endif
+    </div>
+</div>
+
+<div class="form-group row">
     <label for="discord_id" class="col-sm-4 col-form-label">
         {{ __('backend/settings.form.discord-id') }}
     </label>

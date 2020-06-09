@@ -1,10 +1,10 @@
 {
-    "/css/backend/app.css": "/css/backend/app.css?id=2bf12663e05cd9ec60b6",
-    "/css/app.css": "/css/app.css?id=65f28ac889f994ffb88c",
-    "/css/leaflet.css": "/css/leaflet.css?id=fbdb704d770437cb954b",
-    "/js/worldmap.min.js": "/js/worldmap.min.js?id=4011b49cd060dc8fde91",
-    "/css/components.css": "/css/components.css?id=18a1483fb1cab7dd852c",
-    "/js/backend/app.js": "/js/backend/app.js?id=0213ebc7378d180892bb",
-    "/js/app.js": "/js/app.js?id=3640bcc7260099a831f9",
-    "/js/webinventory.js": "/js/webinventory.js?id=55602d8d21968a6738cf"
+    "/css/backend/app.css": "/css/backend/app.css",
+    "/css/app.css": "/css/app.css",
+    "/css/leaflet.css": "/css/leaflet.css",
+    "/js/worldmap.min.js": "/js/worldmap.min.js",
+    "/css/components.css": "/css/components.css",
+    "/js/backend/app.js": "/js/backend/app.js",
+    "/js/app.js": "/js/app.js",
+    "/js/webinventory.js": "/js/webinventory.js"
 }
