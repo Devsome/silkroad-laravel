@@ -209,6 +209,12 @@ class AuctionsHouseController extends Controller
                     'user_id' => Auth::user()->id
                 ]);
 
+            // Giving the Person who bid on that Item the gold back
+            CharGold::where('user_id', $auctionItem->current_bid_user_id)
+                ->increment(
+                    'gold', $auctionItem->current_user_bid_amount
+                );
+
             // Deleting this Auction
             AuctionItem::where('id', $id)->delete();
 
