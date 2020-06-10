@@ -33,6 +33,7 @@ class AuctionsHouseController extends Controller
     {
         $auctionItems = AuctionItem::where('until', '>', Carbon::now())
             ->with('getItemInformation')
+            ->orderBy('until', 'ASC')
             ->get();
 
         return view(
