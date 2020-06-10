@@ -52,7 +52,9 @@ class AuctionsHouseController extends Controller
         $type = ucwords(str_replace('-', ' ', $type));
         $auctionItems = AuctionItem::whereHas('getItemInformation', static function ($q) use ($type) {
             $q->where('sort', $type);
-        })->get();
+        })
+            ->orderBy('until', 'ASC')
+            ->get();
 
         return view(
             'frontend.auctionshouse.index', [
