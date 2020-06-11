@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12 col-lg-8 col-xl-6">
                                 <div class="form-group" id="search">
                                     <label for="player">{{ __('backend/worldmap.search') }}</label>
                                     <div class="input-group mb-3">
@@ -186,14 +186,14 @@
 
             @forelse($characters as $char)
             xSROMap.AddPlayer(
-                    {{  $char->CharID }},
+                    '{{ $char->getCharacter->CharName16 }}'.toLowerCase(),
                 '<a href="{{ route('information-player', ['CharName16' => Str::lower($char->getCharacter->CharName16)]) }}" target="_blank">{{ $char->getCharacter->CharName16 }}</a>',
                     {{ $char->getCharacter->PosX }},
                     {{ $char->getCharacter->PosZ }},
                     {{ $char->getCharacter->PosY }},
                     {{ $char->getCharacter->LatestRegion }});
             // Add to navigation
-            nav.append('<li><a href="#map" onclick="xSROMap.GoToPlayer({{ $char->CharID }})">{{ $char->getCharacter->CharName16 }}</a></li>');
+            nav.append('<li><a href="#map" onclick="xSROMap.GoToPlayer(\'{{ $char->getCharacter->CharName16 }}\'.toLowerCase())">{{ $char->getCharacter->CharName16 }}</a></li>');
             @empty
             // Nope
             @endforelse
