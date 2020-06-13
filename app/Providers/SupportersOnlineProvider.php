@@ -33,7 +33,18 @@ class SupportersOnlineProvider extends ServiceProvider
                     return SupportersOnline::with('getCharOnlineOffline')
                         ->get();
                 });
-                $view->with('SupportersOnlineProvider', $supportersOnline);
+                $onlineCount = 0;
+                $maxCount = $supportersOnline->count();
+                foreach ($supportersOnline as $online) {
+                    if($online->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_IN) {
+                        $onlineCount++;
+                    }
+                }
+                $view->with('SupportersOnlineProvider', [
+                    'onlineCount' => $onlineCount,
+                    'maxCount' => $maxCount,
+                    'data' => $supportersOnline
+                ]);
             }
         );
     }
