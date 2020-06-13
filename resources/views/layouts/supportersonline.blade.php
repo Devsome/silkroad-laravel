@@ -1,6 +1,6 @@
 <div class="accordion" id="accordionSupporter">
         <div id="headingTwo">
-            <p class="collapsed font-weight-light font-weight-bold pt-3 text-primary" type="button"
+            <p class="collapsed font-weight-light font-weight-bold pt-3"
                data-toggle="collapse" data-target="#collapseSupporter" aria-expanded="false" aria-controls="collapseSupporter">
                 {{ __('supportersonline.title') }}
             </p>
