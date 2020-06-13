@@ -55,3 +55,22 @@
 .bg-none {
   background-color: #a8a8a8;
 }
+
+// Supporter online switch
+#headingTwo {
+  cursor:pointer;
+  user-select:none;
+  > p {
+    &:after{
+      font-family: 'Font Awesome 5 Free';
+      content: '\f205';
+      color:#66BB6A;
+      float:right;
+     }
+    &.collapsed:after
+    {
+      content: '\f204';
+      color:#858796;
+    }
+  }
+}
