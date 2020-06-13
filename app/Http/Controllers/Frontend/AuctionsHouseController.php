@@ -87,6 +87,7 @@ class AuctionsHouseController extends Controller
     {
         $auctionItems = AuctionItem::where('user_id', '=', Auth::user()->id)
             ->with('getItemInformation')
+            ->orderBy('until', 'ASC')
             ->get();
 
         return view(
