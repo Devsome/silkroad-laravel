@@ -32,6 +32,9 @@ Route::group(['prefix' => 'account'], function() {
     Route::get('/voucher', 'Frontend\AccountController@voucher')->name('home-voucher');
     Route::get('/voucher-datatables', 'Frontend\AccountController@voucherDatatables')->name('home-voucher-datatables');
     Route::post('/voucher/use', 'Frontend\AccountController@voucherUse')->name('home-voucher-use');
+    Route::get('/notification', 'Frontend\NotificationController@index')->name('notification');
+    Route::get('/notification/{id}', 'Frontend\NotificationController@markAsRead')->name('notification-mark-as-read')->where('id', '[0-9]+');
+    Route::get('/notification/mark-all', 'Frontend\NotificationController@markAllAsRead')->name('notification-mark-all');
     Route::group(['prefix' => 'tickets'], function() {
         Route::get('/', 'Frontend\TicketController@tickets')->name('home-tickets');
         Route::get('/new', 'Frontend\TicketController@ticketsNew')->name('home-tickets-new');

@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Backlinks;
+use App\Notification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,6 +31,15 @@ class AppServiceProvider extends ServiceProvider
             static function ($view) {
                 $backlinks = Backlinks::all();
                 $view->with('BacklinksProvider', $backlinks);
+            }
+        );
+
+        view()->composer(
+            'layouts.navbar',
+            static function ($view) {
+                $notificationsCount = Notification::where('user_id', Auth::user()->id)
+                    ->get()->count();
+                $view->with('NotificationsCountProvider', $notificationsCount);
             }
         );
     }

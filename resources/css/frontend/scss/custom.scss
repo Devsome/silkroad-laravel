@@ -58,19 +58,20 @@
 
 // Supporter online switch
 #headingTwo {
-  cursor:pointer;
-  user-select:none;
+  cursor: pointer;
+  user-select: none;
+
   > p {
-    &:after{
+    &:after {
       font-family: 'Font Awesome 5 Free';
       content: '\f205';
-      color:#66BB6A;
-      float:right;
-     }
-    &.collapsed:after
-    {
+      color: #66BB6A;
+      float: right;
+    }
+
+    &.collapsed:after {
       content: '\f204';
-      color:#858796;
+      color: #858796;
     }
   }
 }

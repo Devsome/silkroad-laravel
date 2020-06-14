@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Frontend\AuctionItem;
 use App\Model\Frontend\CharGold;
 use App\Model\Frontend\CharInventory;
+use App\Notification;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -198,6 +199,10 @@ class AuctionsHouseController extends Controller
             '_token' => 'required',
         ]);
 
+        $currentAuctionBidUser = AuctionItem::where('id', $id)
+            ->whereNotNull('current_bid_user_id')
+            ->get()->first();
+
 
         DB::beginTransaction();
         try {
@@ -228,6 +233,24 @@ class AuctionsHouseController extends Controller
                 ->increment(
                     'gold', $userGoldGain
                 );
+
+            // Giving the user who bid the last the gold amount back
+            if ($currentAuctionBidUser) {
+                CharGold::where('user_id', $currentAuctionBidUser->current_bid_user_id)
+                    ->increment(
+                        'gold', $currentAuctionBidUser->current_user_bid_amount
+                    );
+            }
+
+
+            // Notification for the User who sold that item
+            Notification::create([
+                'user_id' => $sellerUserId,
+                'key' => __('notification.auctionshouse.item-sold', [
+                    'name' => $auctionItem->getItemInformation->name,
+                    'gold' => $userGoldGain
+                ]),
+            ]);
 
             AuctionsHouseLog::create([
                 'price_sold' => $buyNowPrice,
@@ -273,7 +296,7 @@ class AuctionsHouseController extends Controller
             return back()->with('error', trans('auctionshouse.notification.bid.not-highest'));
         }
 
-        if($userNewBidPrice >= $auctionItem->price_instead) {
+        if ($userNewBidPrice >= $auctionItem->price_instead) {
             return back()->with('error', trans('auctionshouse.notification.bid.bid-higher'));
         }
 
@@ -302,6 +325,13 @@ class AuctionsHouseController extends Controller
                     ->increment(
                         'gold', $currentAuctionItem->current_user_bid_amount
                     );
+                Notification::create([
+                    'user_id' => $currentAuctionItem->current_bid_user_id,
+                    'key' => __('notification.auctionshouse.over-bid', [
+                        'gold' => $userNewBidPrice
+                    ]),
+                    'url' => route('auctions-house-show-item', ['id' => $id])
+                ]);
             }
 
             // Updating the new Gold Amount
