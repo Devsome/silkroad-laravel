@@ -9,6 +9,7 @@ use App\Model\Frontend\AuctionItem;
 use App\Model\Frontend\CharGold;
 use App\Model\Frontend\CharInventory;
 use App\Notification;
+use App\Notifications\AuctionDiscordServer;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -160,13 +161,15 @@ class AuctionsHouseController extends Controller
             return back()->with('error', trans('auctionshouse.notification.add.not-item'));
         }
 
-        AuctionItem::create([
+        $auctionItem = AuctionItem::create([
             'user_id' => Auth::user()->id,
             'char_inventory' => $isThisHisItem->first()->id,
             'until' => $request->get('until'),
             'price' => $request->get('price'),
             'price_instead' => $request->get('price_instead'),
         ]);
+
+        $auctionItem->notify(new AuctionDiscordServer($auctionItem, $isThisHisItem->first()));
 
         return back()->with('success', trans('auctionshouse.notification.add.successfully'));
     }

@@ -177,8 +177,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        NotificationChannels\Discord\DiscordServiceProvider::class,
-
         /*
          * Custom Service Providers
          */

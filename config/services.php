@@ -34,8 +34,4 @@ return [
         'secret' => env('SPARKPOST_SECRET'),
     ],
 
-    'discord' => [
-        'token' => env('DISCORD_BOT_TOKEN'),
-    ]
-
 ];

@@ -10,8 +10,8 @@
     "require": {
         "php": "^7.3.8",
         "ext-json": "*",
+        "awssat/discord-notification-channel": "^1.1",
         "fideloper/proxy": "^4.0",
-        "laravel-notification-channels/discord": "^1.1",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
         "spatie/laravel-permission": "^3.4",
