@@ -7,6 +7,7 @@ use App\AuctionsHouseSettings;
 use App\Model\Frontend\AuctionItem;
 use App\Model\Frontend\CharGold;
 use App\Model\Frontend\CharInventory;
+use App\Notification;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -68,6 +69,14 @@ class AuctionsHouse extends Command
                 // Deleting this Auction
                 $item->delete();
 
+                Notification::create([
+                    'user_id' => $item->user_id,
+                    'key' => __('notification.auctionshouse.item-sold', [
+                        'name' => $item->getItemInformation->name,
+                        'gold' => $userGoldGain
+                    ]),
+                ]);
+
                 AuctionsHouseLog::create([
                     'price_sold' => $userGoldGain,
                     'seller_user_id' => $item->user_id,
@@ -81,6 +90,13 @@ class AuctionsHouse extends Command
                         'state' => AuctionsHouseLog::STATE_NOT_SOLD
                     ]);
                     $item->delete();
+
+                    Notification::create([
+                        'user_id' => $item->user_id,
+                        'key' => __('notification.auctionshouse.not-sold', [
+                            'name' => $item->getItemInformation->name
+                        ])
+                    ]);
                 }
             }
         }

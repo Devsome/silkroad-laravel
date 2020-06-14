@@ -3,9 +3,12 @@
 namespace App\Model\Frontend;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class AuctionItem extends Model
 {
+    use Notifiable;
+
     /**
      * @var array
      */
@@ -27,5 +30,15 @@ class AuctionItem extends Model
     public function getItemSortForFilter()
     {
         return $this->belongsTo(CharInventory::class, 'char_inventory', 'id');
+    }
+
+    /**
+     * Route notifications for the Discord channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForDiscord(): string
+    {
+        return 'https://discordapp.com/api/webhooks/721855978240213054/yBEznLCZ52WZipu6BqWTkwtt4828lfdj4IbFtFyqzi7ITDzvF_xPZjxX-MSMDlnyimzA';
     }
 }
