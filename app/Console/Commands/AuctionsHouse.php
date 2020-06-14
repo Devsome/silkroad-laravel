@@ -11,6 +11,8 @@ use App\Notification;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+use App\Notifications\DiscordServer;
+
 class AuctionsHouse extends Command
 {
     /**
@@ -96,6 +98,7 @@ class AuctionsHouse extends Command
                         'key' => __('notification.auctionshouse.not-sold', [
                             'name' => $item->getItemInformation->name
                         ]),
+                        'discord_channel' => '674396800987430955'
                     ]);
                 }
             }

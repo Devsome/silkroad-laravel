@@ -34,13 +34,18 @@ class AppServiceProvider extends ServiceProvider
             }
         );
 
+
         view()->composer(
             'layouts.navbar',
             static function ($view) {
-                $notificationsCount = Notification::where('user_id', Auth::user()->id)
-                    ->get()->count();
+                $notificationsCount = 0;
+                if (Auth::id()) {
+                    $notificationsCount = Notification::where('user_id', Auth::user()->id)
+                        ->get()->count();
+                }
                 $view->with('NotificationsCountProvider', $notificationsCount);
             }
         );
+
     }
 }

@@ -18,6 +18,7 @@ class CreateNotificationsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('key');
             $table->string('channel')->nullable();
+            $table->string('discord_channel')->nullable();
             $table->string('url')->nullable();
             $table->timestamps();
 

@@ -9,12 +9,13 @@
     "license": "MIT",
     "require": {
         "php": "^7.3.8",
+        "ext-json": "*",
         "fideloper/proxy": "^4.0",
+        "laravel-notification-channels/discord": "^1.1",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
         "spatie/laravel-permission": "^3.4",
-        "yajra/laravel-datatables-oracle": "^9.8",
-        "ext-json": "*"
+        "yajra/laravel-datatables-oracle": "^9.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
