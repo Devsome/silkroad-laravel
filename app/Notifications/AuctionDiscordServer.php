@@ -57,15 +57,14 @@ class AuctionDiscordServer extends Notification
         $route = route('auctions-house-show-item', [
             'id' => $auctionItem->id
         ]);
-        $route = 'https://silkroad-laravel.de/test';
 
         $discordMessage = new DiscordMessage();
         $discordMessage->from('Auctions House');
         $discordMessage->embed(static function ($embed) use($charInventory, $auctionItem, $route) {
             $embed
                 ->author($charInventory->name,
-                    $route
-//                    $charInventory->imgpath
+                    $route,
+                    $charInventory->imgpath
                 )
                 ->color('ff0000')
                 ->footer('Until: ' . $auctionItem->until)
