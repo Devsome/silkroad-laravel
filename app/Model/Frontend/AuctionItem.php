@@ -39,6 +39,6 @@ class AuctionItem extends Model
      */
     public function routeNotificationForDiscord(): string
     {
-        return 'https://discordapp.com/api/webhooks/721855978240213054/yBEznLCZ52WZipu6BqWTkwtt4828lfdj4IbFtFyqzi7ITDzvF_xPZjxX-MSMDlnyimzA';
+        return config('services.discord.auction');
     }
 }

@@ -34,4 +34,8 @@ return [
         'secret' => env('SPARKPOST_SECRET'),
     ],
 
+    'discord' => [
+        'auction' => env('DISCORD_WEBHOOK_AUCTION', null)
+    ]
+
 ];

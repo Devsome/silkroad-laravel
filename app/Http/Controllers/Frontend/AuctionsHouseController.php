@@ -174,7 +174,9 @@ class AuctionsHouseController extends Controller
             'price_instead' => $request->get('price_instead'),
         ]);
 
-        $auctionItem->notify(new AuctionDiscordServer($auctionItem, $isThisHisItem->first()));
+        if(config('services.discord.auction')) {
+            $auctionItem->notify(new AuctionDiscordServer($auctionItem, $isThisHisItem->first()));
+        }
 
         return back()->with('success', trans('auctionshouse.notification.add.successfully'));
     }
