@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Cache;
 
 class JobRankingController extends Controller
 {
+    /**
+     * @return mixed
+     */
     public function fetch()
     {
         $oneDay = 86400;

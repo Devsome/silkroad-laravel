@@ -77,6 +77,9 @@ Route::group(['prefix' => 'auctions-house'], function () {
 Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function () {
     Route::get('/', 'Backend\BackendController@index')->name('index-backend');
 
+    // SoX count filter
+    Route::get('/soxcount/{filter?}', 'Backend\BackendController@soxCountFilter')->name('sox-count-filter-backend');
+
     // Ticket
     Route::group(['prefix' => 'ticket'], function () {
         Route::get('/{conversation?}', 'Backend\TicketController@list')->name('ticket-index-list')->where(['conversation' => '[0-9]+']);

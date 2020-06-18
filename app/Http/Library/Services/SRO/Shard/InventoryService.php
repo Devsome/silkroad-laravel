@@ -32,6 +32,45 @@ class InventoryService
     }
 
     /**
+     * Counting all that Server sox parts
+     * @param null $filter
+     * @return array
+     */
+    public function getServerSoxCount($filter = null): array
+    {
+        $soxMapping = [
+            '_A_' => 'Seal of Star',
+            '_B_' => 'Seal of Moon',
+            '_C_' => 'Seal of Sun'
+        ];
+
+        $soxCount = [
+            '_A_' => 0,
+            '_B_' => 0,
+            '_C_' => 0
+        ];
+
+        $items = Items::join('_RefObjCommon as Common', static function ($join) use ($filter) {
+            $join->on('Common.ID', 'RefItemID');
+            if ($filter) {
+                $join->where('Common.CodeName128', 'like', 'ITEM_%' . $filter . '_%_RARE');
+            } else {
+                $join->where('Common.CodeName128', 'like', 'ITEM_%_RARE');
+            }
+        })->get();
+
+        foreach ($items as $item) {
+            foreach ($soxMapping as $key => $itemTest) {
+                if (preg_match('/' . $key . '/', $item->CodeName128)) {
+                    $test[$key] = ++$soxCount[$key];
+                }
+            }
+        }
+
+        return $soxCount;
+    }
+
+    /**
      * Get from the Serial64 the Item Data
      * @param $serial64
      * @return array
@@ -139,15 +178,14 @@ class InventoryService
             $aInfo['blues'] = $this->getBluesStats($aCurItem, $aSpecialInfo);
             $aInfo['whitestats'] = $this->getWhiteStats($aCurItem, $aSpecialInfo);
 
-            if(array_key_exists('Slot', $aInfo['info'])) {
+            if (array_key_exists('Slot', $aInfo['info'])) {
                 //
                 $i = $aInfo['info']['Slot'];
             } else {
                 $i = $aCurItem['Slot'] ?? $aCurItem['ID64'];
             }
 
-            if(!isset($aCurItem['MaxStack']))
-            {
+            if (!isset($aCurItem['MaxStack'])) {
                 $aInfo['MaxStack'] = 0;
             }
 

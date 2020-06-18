@@ -96,9 +96,10 @@
                     <div class="card-body small">
                         <div class="list-group mb-3">
                             @forelse($notices as $notice)
-                            <a href="{{ route('sro-notice-edit-backend', ['id' => $notice->ID]) }}" class="list-group-item list-group-item-action ">
-                                [{{ $notice->ID }}] {{ $notice->Subject }}
-                            </a>
+                                <a href="{{ route('sro-notice-edit-backend', ['id' => $notice->ID]) }}"
+                                   class="list-group-item list-group-item-action ">
+                                    [{{ $notice->ID }}] {{ $notice->Subject }}
+                                </a>
                             @empty
                                 {{ __('backend/index.recent-news-empty') }}
                             @endforelse
@@ -119,7 +120,8 @@
                     <div class="card-body small">
                         <div class="list-group mb-3">
                             @forelse($chars as $char)
-                                <a href="{{ route('sro-players-edit-backend', ['char' => $char->CharID]) }}" class="list-group-item list-group-item-action ">
+                                <a href="{{ route('sro-players-edit-backend', ['char' => $char->CharID]) }}"
+                                   class="list-group-item list-group-item-action ">
                                     {{ __('backend/index.recent-created-chars-list', [
                                         'char' => $char->CharName16,
                                         'level' => $char->CurLevel
@@ -129,14 +131,15 @@
                                 {{ __('backend/index.recent-news-empty') }}
                             @endforelse
                         </div>
-
-                        <a href="{{ route('sro-notice-create-backend') }}">
-                            {{ __('backend/index.recent-news-create-link') }} &rarr;
-                        </a>
                     </div>
                 </div>
             </div>
+        </div>
 
+        <div class="row">
+            @include('backend.soxcount.index', [
+                'soxCount' => $soxCount
+            ])
         </div>
     </div>
 
