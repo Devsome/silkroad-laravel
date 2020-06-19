@@ -399,6 +399,11 @@ class WebInventoryService
                 $itemData['data']
             );
 
+            if(array_key_exists('Type', $itemData['WebInventory']) && $itemData['WebInventory']['Type'] === '')
+            {
+                $itemData['WebInventory']['Type'] = 'Unknown';
+            }
+
             // Putting that Item into the Web Database
             CharInventory::create([
                 'user_id' => Auth::id(),

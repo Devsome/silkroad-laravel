@@ -104,10 +104,12 @@ class AuctionsHouseController extends Controller
     {
         $auctionItem = AuctionItem::where('id', $id)->firstOrFail();
 
-        CharGold::where('user_id', $auctionItem->current_bid_user_id)
-            ->increment(
-                'gold', $auctionItem->current_user_bid_amount
-            );
+        if ($auctionItem->current_bid_user_id) {
+            CharGold::where('user_id', $auctionItem->current_bid_user_id)
+                ->increment(
+                    'gold', $auctionItem->current_user_bid_amount
+                );
+        }
 
         $auctionItem->delete();
 
