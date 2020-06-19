@@ -3,6 +3,7 @@
 return [
     'form-submit' => [
         'success' => 'Your action was successfully.',
+        'role-sync' => 'Your role action was successfully.',
         'error' => 'Error in your action, please try again.',
         'error-title' => 'You got some errors!',
         'error-job' => 'This char is wearing a Job Suite, so no unstuck!',

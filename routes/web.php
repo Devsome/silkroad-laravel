@@ -74,7 +74,7 @@ Route::group(['prefix' => 'auctions-house'], function () {
 });
 
 // Backend Routes
-Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function () {
+Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], function () {
     Route::get('/', 'Backend\BackendController@index')->name('index-backend');
 
     // SoX count filter
@@ -115,6 +115,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
         Route::get('/user', 'Backend\SilkroadController@indexSroUser')->name('sro-user-index-user-backend');
         Route::get('/user-datatables', 'Backend\SilkroadController@sroUserDatatables')->name('sro-user-datatables-backend');
         Route::get('/user/{user}/edit', 'Backend\SilkroadController@sroUserEdit')->name('sro-user-edit-backend');
+        Route::match(['put', 'patch'], '/user/{user}/role', 'Backend\SilkroadController@syncRoles')->name('sro-user-role-sync-backend');
 
         Route::get('/players', 'Backend\SilkroadController@indexSroPlayer')->name('sro-players-index-backend');
         Route::get('/players-datatables', 'Backend\SilkroadController@SroPlayerDatatables')->name('sro-players-datatables-backend');

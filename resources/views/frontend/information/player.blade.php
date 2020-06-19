@@ -8,7 +8,7 @@
                     <h1>{{ __('information.player.title', ['charname16' => $player->CharName16]) }}</h1>
                     <div class="row">
                         @if($player->getAccountUser->getTbUser)
-                            @role('backend')
+                            @role('administrator')
                                 @include('frontend.information.information.player.gm')
                             @else
                                 @auth
@@ -30,7 +30,7 @@
 @endsection
 
 @if($player->getAccountUser->getTbUser)
-    @role('backend')
+    @role('administrator')
         @include('frontend.information.information.map', ['player' => $player])
     @else
     @auth
