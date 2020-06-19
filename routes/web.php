@@ -81,6 +81,10 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], fu
     Route::get('/soxcount/{filter?}', 'Backend\BackendController@soxCountFilter')->name('sox-count-filter-backend');
     Route::get('/show/sox/{filter?}', 'Backend\BackendController@showSoxCount')->name('sox-count-filter-show-backend');
 
+    // SilkroadTodo
+    Route::post('/todo/add', 'Backend\BackendController@todoAdd')->name('todo-add-backend');
+    Route::post('/todo/{id}/delete', 'Backend\BackendController@todoDelete')->name('todo-delete-backend');
+
     // Ticket
     Route::group(['prefix' => 'ticket'], function () {
         Route::get('/{conversation?}', 'Backend\TicketController@list')->name('ticket-index-list')->where(['conversation' => '[0-9]+']);

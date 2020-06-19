@@ -9,12 +9,16 @@ use App\Model\SRO\Account\Punishment;
 use App\Model\SRO\Account\SkSilk;
 use App\Model\SRO\Account\SmcLog;
 use App\Model\SRO\Shard\Char;
+use App\Todo;
 use App\User;
 use App\Voucher;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Validator;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 /**
  * Class BackendController
@@ -40,7 +44,9 @@ class BackendController extends Controller
             'vouchersCount' => Voucher::whereNull('redeemed_at')
                 ->whereNull('expires_at')
                 ->orWhere('expires_at', '>=', Carbon::now())->count(),
-            'soxCount' => $inventoryService->getServerSoxCount()
+            'soxCount' => $inventoryService->getServerSoxCount(),
+            'todos' => Todo::with('getUserName')
+                ->where('state', Todo::TODO_PROGRESS)->get()
         ]);
     }
 
@@ -68,6 +74,45 @@ class BackendController extends Controller
             'filter' => $filter,
             'data' => $inventoryService->getServerSoxFilter($filter)
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function todoAdd(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            '_token' => 'required',
+            'body' => 'required|min:5|max:150',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                ->withErrors($validator);
+        }
+
+        Todo::create([
+            'user_id' => Auth::user()->id,
+            'body' => $request->get('body')
+        ]);
+
+        return response()->json([
+            'state' => 'successfully',
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function todoDelete($id, Request $request)
+    {
+        Todo::findOrFail($id)->update([
+            'state' => Todo::TODO_DONE
+        ]);
+
+        return back()->with('success', trans('backend/notification.form-submit.todo-deleted'));
     }
 
     /**

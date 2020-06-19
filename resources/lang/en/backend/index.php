@@ -26,5 +26,9 @@ return [
         'name' => 'Degree :degree',
         'show-all' => 'Show all Items',
         'link' => 'Show stats',
-    ]
+    ],
+
+    'todo-title' => 'Server ToDos',
+    'empty-todo' => 'Currently no ToDos',
+    'input-placeholder' => 'Your current ToDo',
 ];
