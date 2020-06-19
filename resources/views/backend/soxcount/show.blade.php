@@ -48,10 +48,15 @@
                                         </a>
                                     @endisset
                                     @isset($item['StorageState'])
-                                        <span class="text-info">
+                                        <span class="text-secondary">
                                             {{ __('backend/soxfilter.table.storage') }}
                                         </span>
                                     @endisset
+                                    @if($dataWeb->contains($item['ItemID']))
+                                        <span class="text-secondary">
+                                            {{ __('backend/soxfilter.table.web') }}
+                                        </span>
+                                    @endif
                                 </td>
                                 <td>
                                     {{ $item['WebInventory']['sox'] }}

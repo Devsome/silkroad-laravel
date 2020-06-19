@@ -5,6 +5,7 @@ namespace App\Library\Services\SRO\Shard;
 use App\Http\Model\SRO\Shard\CharCos;
 use App\Http\Model\SRO\Shard\ItemPoolName;
 use App\Http\Model\SRO\Shard\MagOpt;
+use App\Model\Frontend\CharInventory;
 use App\Model\SRO\Shard\Inventory;
 use App\Model\SRO\Shard\InventoryForAvatar;
 use App\Model\SRO\Shard\Items;
@@ -83,6 +84,8 @@ class InventoryService
             $filter = '0' . $filter;
         }
 
+        $getWebInventoryItemId64 = CharInventory::all()->pluck('item_id64');
+
         $items = Items::join('_RefObjCommon as Common', static function ($join) use ($filter) {
             $join->on('Common.ID', 'RefItemID');
             if ($filter) {
@@ -101,7 +104,10 @@ class InventoryService
             ->leftJoin('_Chest as Storage', '_Items.ID64', 'Storage.ItemID')
             ->get();
 
-        return $this->getInventorySetStats($items, true);
+        return [
+            'inventory' => $this->getInventorySetStats($items, true),
+            'webInventory' => $getWebInventoryItemId64
+        ];
     }
 
     /**

@@ -70,9 +70,12 @@ class BackendController extends Controller
      */
     public function showSoxCount(InventoryService $inventoryService, $filter = null)
     {
+        $data = $inventoryService->getServerSoxFilter($filter);
+        
         return view('backend.soxcount.show', [
             'filter' => $filter,
-            'data' => $inventoryService->getServerSoxFilter($filter)
+            'data' => $data['inventory'],
+            'dataWeb' => $data['webInventory']
         ]);
     }
 

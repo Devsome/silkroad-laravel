@@ -9,6 +9,7 @@ return [
         'type' => 'Type',
         'item' => 'Item',
         'storage' => 'Storage',
+        'web' => 'Web Inventory',
         'empty' => 'Degree :degree is not dropped yet.',
     ]
 ];
