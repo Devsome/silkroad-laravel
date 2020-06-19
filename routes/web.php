@@ -79,6 +79,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
 
     // SoX count filter
     Route::get('/soxcount/{filter?}', 'Backend\BackendController@soxCountFilter')->name('sox-count-filter-backend');
+    Route::get('/show/sox/{filter?}', 'Backend\BackendController@showSoxCount')->name('sox-count-filter-show-backend');
 
     // Ticket
     Route::group(['prefix' => 'ticket'], function () {

@@ -45,17 +45,29 @@ class BackendController extends Controller
     }
 
     /**
-     * @param $filter
+     * @param null $filter
      * @param InventoryService $inventoryService
      * @return array|string
-     * @throws \Throwable
      */
-    public function soxCountFilter($filter, InventoryService $inventoryService)
+    public function soxCountFilter(InventoryService $inventoryService, $filter = null)
     {
         return response()->json([
             'success' => true,
             'counts' => $inventoryService->getServerSoxCount($filter)
         ], 200);
+    }
+
+    /**
+     * @param null $filter
+     * @param InventoryService $inventoryService
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showSoxCount(InventoryService $inventoryService, $filter = null)
+    {
+        return view('backend.soxcount.show', [
+            'filter' => $filter,
+            'data' => $inventoryService->getServerSoxFilter($filter)
+        ]);
     }
 
     /**

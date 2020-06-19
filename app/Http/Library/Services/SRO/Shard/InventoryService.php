@@ -71,6 +71,40 @@ class InventoryService
     }
 
     /**
+     * Returning stats for the sox filter - Server
+     * @param null $filter
+     * @return mixed
+     */
+    public function getServerSoxFilter($filter = null)
+    {
+        if ($filter === '0') {
+            $filter = 0;
+        } elseif (strlen($filter) === 1) {
+            $filter = '0' . $filter;
+        }
+
+        $items = Items::join('_RefObjCommon as Common', static function ($join) use ($filter) {
+            $join->on('Common.ID', 'RefItemID');
+            if ($filter) {
+                $join->where('Common.CodeName128', 'like', 'ITEM_%' . $filter . '_%_RARE');
+            } else {
+                $join->where('Common.CodeName128', 'like', 'ITEM_%_RARE');
+            }
+        })
+            ->join('_RefObjItem as ObjItem', 'Common.Link', 'ObjItem.ID')
+            ->leftJoin('_BindingOptionWithItem as Binding', static function ($join) {
+                $join->on('Binding.nItemDBID', 'ID64');
+                $join->where('Binding.nOptValue', '>', '0');
+            })
+            ->leftJoin('_Inventory as Inventory', '_Items.ID64', 'Inventory.ItemID')
+            ->leftJoin('_Char as Char', 'Inventory.CharID', 'Char.CharID')
+            ->leftJoin('_Chest as Storage', '_Items.ID64', 'Storage.ItemID')
+            ->get();
+
+        return $this->getInventorySetStats($items, true);
+    }
+
+    /**
      * Get from the Serial64 the Item Data
      * @param $serial64
      * @return array
@@ -163,9 +197,10 @@ class InventoryService
 
     /**
      * @param $inventory
+     * @param bool $filter
      * @return array
      */
-    public function getInventorySetStats($inventory): array
+    public function getInventorySetStats($inventory, $filter = false): array
     {
         $aSet = [];
         if (!$inventory) {
@@ -207,6 +242,12 @@ class InventoryService
             $aSet[$i]['ItemName'] = $aInfo['info']['WebName'];
             $aSet[$i]['imgpath'] = $this->getItemIcon($aCurItem['AssocFileIcon128']);
             $aSet[$i]['WebInventory'] = $aInfo['info'];
+
+            if ($filter) {
+                $aSet[$i]['CharID'] = $aCurItem['CharID'];
+                $aSet[$i]['CharName'] = $aCurItem['CharName16'];
+                $aSet[$i]['StorageState'] = $aCurItem['UserJID'];
+            }
             try {
                 $aSet[$i]['data'] = view('frontend.information.information.inventorypopup', [
                     'aItem' => $aInfo

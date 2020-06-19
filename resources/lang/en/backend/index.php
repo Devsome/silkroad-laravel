@@ -25,5 +25,6 @@ return [
         'degree' => 'Degree Filter',
         'name' => 'Degree :degree',
         'show-all' => 'Show all Items',
+        'link' => 'Show stats',
     ]
 ];

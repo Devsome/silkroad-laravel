@@ -1,0 +1,288 @@
+.bg-equipment {
+  background-size: 100% 100% !important;
+  width: 181px;
+  height: 357px;
+}
+
+.bg-equipment-avatar {
+  background-size: 100% 100% !important;
+  width: 181px;
+  height: 357px;
+}
+
+.slots {
+  width: 40px;
+  height: 40px;
+}
+
+.itemslot {
+  float: left;
+  width: 40px;
+  height: 40px;
+}
+
+.weapon .itemslot {
+  margin-bottom: 25px;
+  background: url(/../image/sro/equipment/clean.png) repeat !important;
+}
+
+.shield .itemslot {
+  margin-bottom: 25px;
+  background: url(/../image/sro/equipment/clean.png) repeat !important;
+}
+
+.head .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_helm.PNG) no-repeat !important;
+}
+
+.chest .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_mail.PNG) no-repeat !important;
+}
+
+.shoulder .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_shoulderguard.PNG) no-repeat !important;
+}
+
+.hands .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_gauntlet.PNG) no-repeat !important;
+}
+
+.legs .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_pants.PNG) no-repeat !important;
+}
+
+.foot .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_boots.PNG) no-repeat !important;
+}
+
+.earring .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_earring.PNG) no-repeat !important;
+}
+
+.necklace .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_necklace.PNG) no-repeat !important;
+}
+
+.lring .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_l_ring.PNG) no-repeat !important;
+}
+
+.rring .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_r_ring.PNG) no-repeat !important;
+}
+
+.specdress .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_specialdress.PNG) no-repeat !important;
+  margin-top: 10px !important;
+}
+
+.hat .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_helm.PNG) no-repeat !important;
+}
+
+.dress .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_cloth.PNG) no-repeat !important;
+}
+
+.attach .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_pandernt.PNG) no-repeat !important;
+}
+
+.flag .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_plag.PNG) no-repeat !important;
+}
+
+.spec .itemslot {
+  background: url(/../image/sro/interface/equipment/equip_slot_extraneous01.PNG) no-repeat !important;
+}
+
+.slots {
+  width: 23% !important;
+  margin-bottom: 3px !important;
+}
+
+.bg-equipment-avatar .slots {
+  width: 23% !important;
+  margin-bottom: 3px !important;
+}
+
+.slots.right {
+  float: right;
+  clear: right;
+  margin-right: 0;
+  margin-left: 10%;
+}
+
+.slots.left {
+  float: left;
+  clear: left;
+  margin-left: 0;
+  margin-right: 10%;
+}
+
+.slots.weapon,
+.slots.shield {
+  width: 23% !important;
+  margin-bottom: 20px !important;
+
+}
+
+.image .itemslot .image {
+  margin: 3px;
+}
+
+.itemslot .image .qinfo {
+  font-size: 9px;
+  font-weight: lighter;
+  font-style: normal;
+  text-shadow: 0 -0.5px #000;
+  color: #fff;
+  padding: 0 0;
+  float: left;
+}
+
+.itemslot .image {
+  width: 100%;
+  height: 100%;
+  float: left;
+  padding: 0 !important;
+  margin: 3px;
+}
+
+.weapon .itemslot .image {
+  width: 100%;
+  height: 100%;
+  float: left;
+  margin: 2px;
+  padding: 0 !important;
+}
+
+.shield .itemslot .image {
+  width: 100%;
+  height: 100%;
+  float: left;
+  margin: 2px;
+  padding: 0 !important;
+}
+
+.itemInfo {
+  color: #fff;
+  z-index: 80;
+  position: absolute;
+  left: 34px;
+  top: 3px;
+  width: 210px;
+  background: rgba(88, 98, 170, 0.85);
+  border: 2px solid #303d4d;
+  padding: 5px;
+  display: none;
+  line-height: 18px;
+  font-size: 10px;
+}
+
+.ui-tooltip {
+  position: absolute;
+  z-index: 9999;
+  max-width: 190px;
+  padding: 8px !important;
+  background: url(/../image/sro/equipment/com_bg_tile_tl.PNG) no-repeat !important;
+  background-size: 100% 100% !important;
+  box-shadow: none !important;
+  border: none !important;
+  -webkit-border-radius: 1px !important;
+  -moz-border-radius: 1px !important;
+  border-radius: 1px !important;
+}
+
+.ui-tooltip-content {
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 11px !important;
+  line-height: 15px;
+  font-weight: lighter;
+  font-style: normal;
+  text-shadow: 1px 1px #000;
+  color: #fff;
+}
+
+.equip-suit-slot {
+  background: url(/../image/sro/interface/equipment/equip_slot_specialdress.PNG) no-repeat !important;
+  width: 40px !important;
+  height: 40px !important;
+  margin-top: 10px;
+  float: right;
+  clear: right;
+}
+
+.empty-slot {
+  background: url(/../image/sro/equipment/clean.png) no-repeat !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.bg-equipment-avatar .equip-suit-slot {
+  background: url(/../image/sro/interface/equipment/equip_slot_specialdress.PNG) no-repeat !important;
+  width: 40px !important;
+  height: 40px !important;
+  margin-top: 96px;
+  float: right;
+  clear: right;
+}
+
+.equip-suit-slot .image {
+  width: 34px !important;
+  height: 34px !important;
+  margin-left: 2px !important;
+  margin-top: 2px !important;
+}
+
+div.image span.plus {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: url(/../image/sro/equipment/itemplus.png) left top;
+  -webkit-animation: play 1.8s steps(32) infinite;
+  -moz-animation: play 1.8s steps(32) infinite;
+  -ms-animation: play 1.8s steps(32) infinite;
+  -o-animation: play 1.8s steps(32) infinite;
+  animation: play 1.8s steps(32) infinite;
+}
+
+@-webkit-keyframes play {
+  100% {
+    background-position: -1024px;
+  }
+}
+
+@-moz-keyframes play {
+  100% {
+    background-position: -1024px;
+  }
+}
+
+@-ms-keyframes play {
+  100% {
+    background-position: -1024px;
+  }
+}
+
+@-o-keyframes play {
+  100% {
+    background-position: -1024px;
+  }
+}
+
+@keyframes play {
+  100% {
+    background-position: -1024px;
+  }
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.image {
+  background-repeat: no-repeat !important;
+  background-size: 34px 34px !important;
+}

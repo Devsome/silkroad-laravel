@@ -48,12 +48,18 @@
                 </span>
             </div>
         </div>
+        <div class="card-footer">
+            <a id="soxCountLink" href="{{ route('sox-count-filter-show-backend') }}">
+                {{ __('backend/index.filter.link') }}
+            </a>
+        </div>
     </div>
 </div>
 
 @push('javascript')
     <script type="text/javascript">
         $(document).ready(function () {
+            const filterLink = $('#soxCountLink');
             const filterButton = $('[id^="degreeFilter-"]');
             filterButton.click({data: filterButton}, send);
 
@@ -100,10 +106,13 @@
 
             function send(event) {
                 let degreeFilter = $(event.currentTarget).data('id');
+                let href = '{{ route('sox-count-filter-show-backend', ['filter' =>  ':filter' ]) }}';
+                href = href.replace(':filter', degreeFilter);
                 $.get({
                     url: '{{ route('sox-count-filter-backend') }}/' + degreeFilter,
                 }).done(function (d) {
                     if (d.success) {
+                        filterLink.attr('href', href);
                         soxPieChart.data.datasets[0].data = Object.values(d.counts);
                         soxPieChart.update();
                     }
