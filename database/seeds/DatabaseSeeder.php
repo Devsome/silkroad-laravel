@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TicketStatusSeeder::class);
         $this->call(ItemPoolName::class);
         $this->call(MagOptSeeder::class);
+        $this->call(ServerGoldSeeder::class);
     }
 }
