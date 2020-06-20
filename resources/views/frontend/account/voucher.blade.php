@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', __('seo.voucher'))
 @section('sidebar')
     @include('frontend.account.sidebar')
 @endsection

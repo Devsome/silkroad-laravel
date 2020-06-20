@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', __('seo.tickets.show', ['name' => $ticket->title]))
 @section('sidebar')
     @include('frontend.account.sidebar')
 @endsection

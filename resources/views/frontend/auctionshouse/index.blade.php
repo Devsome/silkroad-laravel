@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', __('seo.auctionshouse.index'))
 @section('sidebar')
     @include('frontend.account.auctionsidebar')
 @endsection

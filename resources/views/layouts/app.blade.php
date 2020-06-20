@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Devsome') }}</title>
+    <title>@yield('title', config('app.name', 'Devsome'))</title>
     <meta name="description" content="{{ config('app.description', 'Description') }}">
     <!-- Coded by Devsome.com -->
     <meta name="author" content="Alexander Frank">

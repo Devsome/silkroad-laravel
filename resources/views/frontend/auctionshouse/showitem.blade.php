@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', __('seo.auctionshouse.showitem', ['name' => $item->getItemInformation->name]))
 @section('sidebar')
     @include('frontend.account.auctionsidebar')
 @endsection

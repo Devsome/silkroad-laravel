@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', __('seo.index'))
 @section('content')
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 news-container">
         <div class="latest-news container-fluid">
