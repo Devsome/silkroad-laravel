@@ -7,6 +7,8 @@ return [
         'player-count' => 'Silkroad Characters',
         'silk-count' => 'Total amount of Silk',
         'vouchers-count' => 'Total amount of Vouchers',
+        'web-gold' => 'Total amount of Web Gold gained',
+        'server-gold' => 'Total amount of Server Gold',
     ],
 
     'recent-news-title' => 'Recently created Launcher Notices',

@@ -9,6 +9,7 @@ use App\Model\SRO\Account\Punishment;
 use App\Model\SRO\Account\SkSilk;
 use App\Model\SRO\Account\SmcLog;
 use App\Model\SRO\Shard\Char;
+use App\ServerGold;
 use App\Todo;
 use App\User;
 use App\Voucher;
@@ -44,6 +45,8 @@ class BackendController extends Controller
             'vouchersCount' => Voucher::whereNull('redeemed_at')
                 ->whereNull('expires_at')
                 ->orWhere('expires_at', '>=', Carbon::now())->count(),
+            'webGold' => ServerGold::first(),
+            'serverGold' => Char::all()->sum('RemainGold'),
             'soxCount' => $inventoryService->getServerSoxCount(),
             'todos' => Todo::with('getUserName')
                 ->where('state', Todo::TODO_PROGRESS)->get()
@@ -71,7 +74,7 @@ class BackendController extends Controller
     public function showSoxCount(InventoryService $inventoryService, $filter = null)
     {
         $data = $inventoryService->getServerSoxFilter($filter);
-        
+
         return view('backend.soxcount.show', [
             'filter' => $filter,
             'data' => $data['inventory'],
