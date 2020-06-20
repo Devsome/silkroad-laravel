@@ -18,6 +18,9 @@ Route::group(['prefix' => 'ranking'], function () {
     Route::get('/{mode?}', 'Frontend\RankingController@index')->name('ranking-index');
 });
 
+// Server Information
+Route::get('/server-information', 'Frontend\IndexController@serverInformation')->name('server-information');
+
 // Needed to be logged in after that
 Auth::routes(['verify' => true]);
 
@@ -84,6 +87,16 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], fu
     // SilkroadTodo
     Route::post('/todo/add', 'Backend\BackendController@todoAdd')->name('todo-add-backend');
     Route::post('/todo/{id}/delete', 'Backend\BackendController@todoDelete')->name('todo-delete-backend');
+
+    // Server Information
+    Route::group(['prefix' => 'server-information'], function() {
+        Route::get('/', 'Backend\ServerInformationController@index')->name('server-information-index-backend');
+        Route::get('/create', 'Backend\ServerInformationController@showAdd')->name('server-information-show-add-backend');
+        Route::post('/add', 'Backend\ServerInformationController@add')->name('server-information-add-backend');
+        Route::get('/edit/{id}', 'Backend\ServerInformationController@showEdit')->name('server-information-edit-show-backend');
+        Route::post('/update/{id}', 'Backend\ServerInformationController@update')->name('server-information-update-backend');
+        Route::delete('/destroy/{id}', 'Backend\ServerInformationController@destroy')->name('server-information-destroy-backend');
+    });
 
     // Ticket
     Route::group(['prefix' => 'ticket'], function () {

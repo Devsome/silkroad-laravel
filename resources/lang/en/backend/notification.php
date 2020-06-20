@@ -6,6 +6,8 @@ return [
         'role-sync' => 'Your role action was successfully.',
         'todo-add' => 'Successfully added this ToDo',
         'todo-deleted' => 'Successfully delete this ToDo',
+        'server-information-success' => 'Successfully saved this Server Information',
+        'server-information-delete' => 'Successfully deleted this Server Information',
         'error' => 'Error in your action, please try again.',
         'error-title' => 'You got some errors!',
         'error-job' => 'This char is wearing a Job Suite, so no unstuck!',

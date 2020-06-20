@@ -20,6 +20,7 @@ return [
     'supporters' => 'Supporters',
     'settings' => 'Site Settings',
     'auctionshouse' => 'Auctions House',
+    'serverinformation' => 'Server Information',
 
     'notice' => 'Launcher notice',
     'tbuser' => 'Accounts',

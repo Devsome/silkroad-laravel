@@ -32,6 +32,7 @@ return [
     'information' => [
         'player' => 'Char :name - ' . config('app.name'),
         'guild' => 'Guild :name - ' . config('app.name')
-    ]
+    ],
+    'serverinformation' => 'Server Information - ' . config('app.name'),
 
 ];

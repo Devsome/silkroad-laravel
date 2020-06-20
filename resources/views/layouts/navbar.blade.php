@@ -33,6 +33,11 @@
                         </a>
                     </li>
                 @endauth
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('server-information') }}">
+                        {{ __('navbar.nav.serverinformation') }}
+                    </a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 @guest
