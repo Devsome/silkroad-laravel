@@ -5,6 +5,7 @@ namespace App\Library\Services\SRO\Shard;
 use App\Http\Model\SRO\Shard\CharCos;
 use App\Http\Model\SRO\Shard\ItemPoolName;
 use App\Http\Model\SRO\Shard\MagOpt;
+use App\Model\Frontend\CharInventory;
 use App\Model\SRO\Shard\Inventory;
 use App\Model\SRO\Shard\InventoryForAvatar;
 use App\Model\SRO\Shard\Items;
@@ -29,6 +30,84 @@ class InventoryService
             ->where('Slot', '=', $slot)
             ->where('ItemID', '>', '0')
             ->first();
+    }
+
+    /**
+     * Counting all that Server sox parts
+     * @param null $filter
+     * @return array
+     */
+    public function getServerSoxCount($filter = null): array
+    {
+        $soxMapping = [
+            '_A_' => 'Seal of Star',
+            '_B_' => 'Seal of Moon',
+            '_C_' => 'Seal of Sun'
+        ];
+
+        $soxCount = [
+            '_A_' => 0,
+            '_B_' => 0,
+            '_C_' => 0
+        ];
+
+        $items = Items::join('_RefObjCommon as Common', static function ($join) use ($filter) {
+            $join->on('Common.ID', 'RefItemID');
+            if ($filter) {
+                $join->where('Common.CodeName128', 'like', 'ITEM_%' . $filter . '_%_RARE');
+            } else {
+                $join->where('Common.CodeName128', 'like', 'ITEM_%_RARE');
+            }
+        })->get();
+
+        foreach ($items as $item) {
+            foreach ($soxMapping as $key => $itemTest) {
+                if (preg_match('/' . $key . '/', $item->CodeName128)) {
+                    $test[$key] = ++$soxCount[$key];
+                }
+            }
+        }
+
+        return $soxCount;
+    }
+
+    /**
+     * Returning stats for the sox filter - Server
+     * @param null $filter
+     * @return mixed
+     */
+    public function getServerSoxFilter($filter = null)
+    {
+        if ($filter === '0') {
+            $filter = 0;
+        } elseif (strlen($filter) === 1) {
+            $filter = '0' . $filter;
+        }
+
+        $getWebInventoryItemId64 = CharInventory::all()->pluck('item_id64');
+
+        $items = Items::join('_RefObjCommon as Common', static function ($join) use ($filter) {
+            $join->on('Common.ID', 'RefItemID');
+            if ($filter) {
+                $join->where('Common.CodeName128', 'like', 'ITEM_%' . $filter . '_%_RARE');
+            } else {
+                $join->where('Common.CodeName128', 'like', 'ITEM_%_RARE');
+            }
+        })
+            ->join('_RefObjItem as ObjItem', 'Common.Link', 'ObjItem.ID')
+            ->leftJoin('_BindingOptionWithItem as Binding', static function ($join) {
+                $join->on('Binding.nItemDBID', 'ID64');
+                $join->where('Binding.nOptValue', '>', '0');
+            })
+            ->leftJoin('_Inventory as Inventory', '_Items.ID64', 'Inventory.ItemID')
+            ->leftJoin('_Char as Char', 'Inventory.CharID', 'Char.CharID')
+            ->leftJoin('_Chest as Storage', '_Items.ID64', 'Storage.ItemID')
+            ->get();
+
+        return [
+            'inventory' => $this->getInventorySetStats($items, true),
+            'webInventory' => $getWebInventoryItemId64
+        ];
     }
 
     /**
@@ -124,9 +203,10 @@ class InventoryService
 
     /**
      * @param $inventory
+     * @param bool $filter
      * @return array
      */
-    public function getInventorySetStats($inventory): array
+    public function getInventorySetStats($inventory, $filter = false): array
     {
         $aSet = [];
         if (!$inventory) {
@@ -139,15 +219,14 @@ class InventoryService
             $aInfo['blues'] = $this->getBluesStats($aCurItem, $aSpecialInfo);
             $aInfo['whitestats'] = $this->getWhiteStats($aCurItem, $aSpecialInfo);
 
-            if(array_key_exists('Slot', $aInfo['info'])) {
+            if (array_key_exists('Slot', $aInfo['info'])) {
                 //
                 $i = $aInfo['info']['Slot'];
             } else {
                 $i = $aCurItem['Slot'] ?? $aCurItem['ID64'];
             }
 
-            if(!isset($aCurItem['MaxStack']))
-            {
+            if (!isset($aCurItem['MaxStack'])) {
                 $aInfo['MaxStack'] = 0;
             }
 
@@ -169,6 +248,12 @@ class InventoryService
             $aSet[$i]['ItemName'] = $aInfo['info']['WebName'];
             $aSet[$i]['imgpath'] = $this->getItemIcon($aCurItem['AssocFileIcon128']);
             $aSet[$i]['WebInventory'] = $aInfo['info'];
+
+            if ($filter) {
+                $aSet[$i]['CharID'] = $aCurItem['CharID'];
+                $aSet[$i]['CharName'] = $aCurItem['CharName16'];
+                $aSet[$i]['StorageState'] = $aCurItem['UserJID'];
+            }
             try {
                 $aSet[$i]['data'] = view('frontend.information.information.inventorypopup', [
                     'aItem' => $aInfo

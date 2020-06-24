@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', __('seo.auctionshouse.add'))
 @section('sidebar')
     @include('frontend.account.auctionsidebar')
 @endsection
@@ -48,6 +48,16 @@
                                 </h5>
                                 <div class="row card-text" id="webInventory">
                                     @include('frontend.account.webinventory.web-inventory', ['aItem' => $webInventory])
+                                    @if($webInventory->count() === 0)
+                                        <div class="col-12">
+                                            {{ __('auctionshouse.add.form.no-item-help') }}
+                                            <span>
+                                                <a href="{{ route('web-inventory-index') }}">
+                                                    {{ __('auctionshouse.add.form.no-item-help-href') }}
+                                                </a>
+                                            </span>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="row card-text pt-4">
                                     <div class="col-12">

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', __('seo.charlist'))
 @section('sidebar')
     @include('frontend.account.sidebar')
 @endsection

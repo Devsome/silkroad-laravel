@@ -301,6 +301,36 @@
                         </form>
                     </div>
                 </div>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            {{ __('backend/tbuser.edit.role-title') }}
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <form method="POST"
+                                  action="{{ route('sro-user-role-sync-backend', ['user' => $tbuser->getWebUser->id]) }}">
+                                @method('PUT')
+                                @csrf
+                                @foreach($allRoles as $role)
+                                    <li class="list-group-item">
+                                        <input type="checkbox" name="roles[]"
+                                               id="role-{{ $role->id }}" value="{{ $role->name }}"
+                                                {{ $userRoles->contains($role->name) ? 'checked' : '' }}>
+                                        <label class="form-check-label text-capitalize"
+                                               for="role-{{ $role->id }}">{{ $role->name }}</label>
+                                    </li>
+                                @endforeach
+                                <li class="list-group-item">
+                                    <input type="submit"
+                                           class="btn btn-sm btn-outline-primary float-right"
+                                           value="{{ __('backend/tbuser.edit.role-submit') }}">
+                                </li>
+                            </form>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 

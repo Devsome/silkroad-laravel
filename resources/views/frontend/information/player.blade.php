@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', __('seo.information.player', ['name' => $player->CharName16]))
 @section('content')
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="container">
@@ -8,7 +8,7 @@
                     <h1>{{ __('information.player.title', ['charname16' => $player->CharName16]) }}</h1>
                     <div class="row">
                         @if($player->getAccountUser->getTbUser)
-                            @role('backend')
+                            @role('administrator')
                                 @include('frontend.information.information.player.gm')
                             @else
                                 @auth
@@ -30,7 +30,7 @@
 @endsection
 
 @if($player->getAccountUser->getTbUser)
-    @role('backend')
+    @role('administrator')
         @include('frontend.information.information.map', ['player' => $player])
     @else
     @auth

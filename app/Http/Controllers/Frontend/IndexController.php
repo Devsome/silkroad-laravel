@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Download;
 use App\Http\Controllers\Controller;
 use App\News;
+use App\ServerInformation;
 use Carbon\Carbon;
 
 class IndexController extends Controller
@@ -39,5 +40,15 @@ class IndexController extends Controller
     public function rules()
     {
         return view('frontend.other.rules');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function serverInformation()
+    {
+        return view('frontend.other.serverinformation', [
+            'information' => ServerInformation::orderBy('order', 'ASC')->get()
+        ]);
     }
 }

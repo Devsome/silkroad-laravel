@@ -8,6 +8,7 @@ use App\Model\Frontend\AuctionItem;
 use App\Model\Frontend\CharGold;
 use App\Model\Frontend\CharInventory;
 use App\Notification;
+use App\ServerGold;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -64,6 +65,10 @@ class AuctionsHouse extends Command
                         'gold', $userGoldGain
                     );
 
+                ServerGold::first()->increment(
+                    'gold', $item->price - $userGoldGain
+                );
+
                 $this->info('Item ' . $item->id . ' Successfully traded to ' . $item->current_bid_user_id);
 
                 // Deleting this Auction
@@ -74,6 +79,14 @@ class AuctionsHouse extends Command
                     'key' => __('notification.auctionshouse.item-sold', [
                         'name' => $item->getItemInformation->name,
                         'gold' => $userGoldGain
+                    ]),
+                ]);
+
+                Notification::create([
+                    'user_id' => $item->current_bid_user_id,
+                    'key' => __('notification.auctionshouse.item-bought', [
+                        'name' => $item->getItemInformation->name,
+                        'gold' => $item->price
                     ]),
                 ]);
 

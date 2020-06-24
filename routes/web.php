@@ -18,6 +18,9 @@ Route::group(['prefix' => 'ranking'], function () {
     Route::get('/{mode?}', 'Frontend\RankingController@index')->name('ranking-index');
 });
 
+// Server Information
+Route::get('/server-information', 'Frontend\IndexController@serverInformation')->name('server-information');
+
 // Needed to be logged in after that
 Auth::routes(['verify' => true]);
 
@@ -74,8 +77,26 @@ Route::group(['prefix' => 'auctions-house'], function () {
 });
 
 // Backend Routes
-Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function () {
+Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], function () {
     Route::get('/', 'Backend\BackendController@index')->name('index-backend');
+
+    // SoX count filter
+    Route::get('/soxcount/{filter?}', 'Backend\BackendController@soxCountFilter')->name('sox-count-filter-backend');
+    Route::get('/show/sox/{filter?}', 'Backend\BackendController@showSoxCount')->name('sox-count-filter-show-backend');
+
+    // SilkroadTodo
+    Route::post('/todo/add', 'Backend\BackendController@todoAdd')->name('todo-add-backend');
+    Route::post('/todo/{id}/delete', 'Backend\BackendController@todoDelete')->name('todo-delete-backend');
+
+    // Server Information
+    Route::group(['prefix' => 'server-information'], function() {
+        Route::get('/', 'Backend\ServerInformationController@index')->name('server-information-index-backend');
+        Route::get('/create', 'Backend\ServerInformationController@showAdd')->name('server-information-show-add-backend');
+        Route::post('/add', 'Backend\ServerInformationController@add')->name('server-information-add-backend');
+        Route::get('/edit/{id}', 'Backend\ServerInformationController@showEdit')->name('server-information-edit-show-backend');
+        Route::post('/update/{id}', 'Backend\ServerInformationController@update')->name('server-information-update-backend');
+        Route::delete('/destroy/{id}', 'Backend\ServerInformationController@destroy')->name('server-information-destroy-backend');
+    });
 
     // Ticket
     Route::group(['prefix' => 'ticket'], function () {
@@ -111,6 +132,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:backend']], function
         Route::get('/user', 'Backend\SilkroadController@indexSroUser')->name('sro-user-index-user-backend');
         Route::get('/user-datatables', 'Backend\SilkroadController@sroUserDatatables')->name('sro-user-datatables-backend');
         Route::get('/user/{user}/edit', 'Backend\SilkroadController@sroUserEdit')->name('sro-user-edit-backend');
+        Route::match(['put', 'patch'], '/user/{user}/role', 'Backend\SilkroadController@syncRoles')->name('sro-user-role-sync-backend');
 
         Route::get('/players', 'Backend\SilkroadController@indexSroPlayer')->name('sro-players-index-backend');
         Route::get('/players-datatables', 'Backend\SilkroadController@SroPlayerDatatables')->name('sro-players-datatables-backend');

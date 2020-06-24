@@ -13,5 +13,6 @@ return [
         'download' => 'Download',
         'ranking' => 'Ranking',
         'auction-house' => 'Auction house',
+        'serverinformation' => 'Server Information'
     ],
 ];

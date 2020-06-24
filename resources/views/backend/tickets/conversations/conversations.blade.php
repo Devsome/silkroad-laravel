@@ -1,6 +1,6 @@
 @foreach($conversations as $conversation)
     <li class="list-group-item chatButtons @if($conversation ? $conversation->id : '' === $conversationId)bg-gray-200 @endIf
-            border-left-{{ $conversation->getStatusName->color }}"
+            border-left-{{ $conversation->getStatusName->color ?: 'primary' }}"
         data-id="{{ $conversation->id }}" id="btn-{{ $conversation->id }}">
         <div class="media">
             <div class="media-body">

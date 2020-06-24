@@ -41,7 +41,11 @@ mix.styles([
 // Backend Javascript
 mix.scripts([
     'resources/vendor/jquery/jquery.min.js',
+    'resources/js/frontend/jquery-ui.js', // Item Hover Information
+    'resources/js/frontend/jquery-migrate.js', // Item Hover Information
+    'resources/vendor/jquery-easing/jquery.easing.min.js', // Item Hover Information
     'resources/vendor/bootstrap/js/bootstrap.bundle.min.js',
+    'resources/js/frontend/bsTooltipChange.js', // Item Hover Information
     'resources/vendor/jquery-easing/jquery.easing.min.js',
     'resources/js/backend/sb-admin-2.js',
     'resources/js/backend/summernote-bs4.js',

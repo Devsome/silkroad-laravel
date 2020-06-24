@@ -3,7 +3,7 @@
 ![https://github.com/Devsome/silkroad-laravel/actions?query=workflow%3ACI](https://github.com/Devsome/silkroad-laravel/workflows/CI/badge.svg)
 
 A free and open-source project for the MMORPG Silkroad Online.
-Feel free to create isses or contribute to that project. If you have any questions, just ask!
+Feel free to create issues or contribute to that project. If you have any questions, just ask!
 
 #### Discord
 We now have a Discord [server](https://discord.gg/MNjY4By) for questions, feedback or chit-chat.

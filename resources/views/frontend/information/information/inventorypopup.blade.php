@@ -161,7 +161,7 @@
     @endif
 @endif
 
-@role('backend')
+@role('administrator')
 <div id="gm-info" class="text-danger">
     <br>
     <p>

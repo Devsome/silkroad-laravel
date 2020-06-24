@@ -20,6 +20,8 @@ return [
             'until' => 'Until',
             'until_help' => 'The datetime the Auction is ending.',
             'submit-item' => 'Create Auction',
+            'no-item-help' => 'If you want to add an Item, please go to this page',
+            'no-item-help-href' => 'Web-Inventory',
         ]
     ],
 

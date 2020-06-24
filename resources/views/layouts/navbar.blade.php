@@ -33,6 +33,11 @@
                         </a>
                     </li>
                 @endauth
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('server-information') }}">
+                        {{ __('navbar.nav.serverinformation') }}
+                    </a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 @guest
@@ -74,7 +79,7 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
-                            @role('backend')
+                            @role('administrator')
                             <a class="dropdown-item" href="{{ route('index-backend') }}">
                                 {{ __('navbar.backend') }}
                             </a>

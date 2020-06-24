@@ -14,6 +14,7 @@ use App\Model\SRO\Account\SkSilkBuyList;
 use App\Model\SRO\Account\TbUser;
 use App\Model\SRO\Shard\Char;
 use App\Model\SRO\Shard\User;
+use App\Roles;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Validator;
@@ -53,10 +54,32 @@ class SilkroadController extends Controller
             ->with('getPunishmentUser')
             ->with('getSkSilk')
             ->with('getIsBlockedUser')
+            ->with('getWebUser')
             ->findOrFail($jid);
+
         return view('backend.silkroad.tbuser.edit', [
-            'tbuser' => $tbuser
+            'tbuser' => $tbuser,
+            'userRoles' => $tbuser->getWebUser->getRoleNames(),
+            'allRoles' => Roles::all()
+
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function syncRoles(Request $request, $id)
+    {
+        $request->validate([
+            '_token' => 'required'
+        ]);
+
+        $user = \App\User::findOrFail($id);
+        $user->syncRoles($request->roles);
+
+        return back()->with('success', trans('backend/notification.form-submit.role-sync'));
     }
 
     /**

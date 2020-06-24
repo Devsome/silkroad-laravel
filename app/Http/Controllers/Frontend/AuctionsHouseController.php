@@ -10,6 +10,7 @@ use App\Model\Frontend\CharGold;
 use App\Model\Frontend\CharInventory;
 use App\Notification;
 use App\Notifications\AuctionDiscordServer;
+use App\ServerGold;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -246,6 +247,10 @@ class AuctionsHouseController extends Controller
             $fees = $auctionsHouseSettings->settings['gold_fees'] ?? 0;
             $userGoldGain = $buyNowPrice * ((100 - $fees) / 100);
 
+            ServerGold::first()->increment(
+                'gold', $buyNowPrice - $userGoldGain
+            );
+
             // The Account who sold it need that gold
             CharGold::where('user_id', $sellerUserId)
                 ->increment(
@@ -267,6 +272,14 @@ class AuctionsHouseController extends Controller
                 'key' => __('notification.auctionshouse.item-sold', [
                     'name' => $auctionItem->getItemInformation->name,
                     'gold' => $userGoldGain
+                ]),
+            ]);
+
+            Notification::create([
+                'user_id' => Auth::user()->id,
+                'key' => __('notification.auctionshouse.item-bought', [
+                    'name' => $auctionItem->getItemInformation->name,
+                    'gold' => $buyNowPrice
                 ]),
             ]);
 

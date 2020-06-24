@@ -56,7 +56,7 @@ class ImportSilkroadAccounts extends Command
                 ]);
 
                 if($user->sec_primary === 1 && $user->sec_content === 1) {
-                    $createdUser->assignRole('backend');
+                    $createdUser->assignRole('administrator');
                 }
             }
             $count++;

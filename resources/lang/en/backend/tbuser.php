@@ -47,6 +47,9 @@ return [
         'guild-nickname' => 'Guild Nickname:',
         'no-char' => 'Account does not have any Characters created.',
 
+        'role-title' => 'Role System',
+        'role-submit' => 'Save roles',
+
         'silk-history-empty' => 'This user does not have any silk history',
         'silk-type' => 'Type',
         'silk-reason' => 'Reason',
