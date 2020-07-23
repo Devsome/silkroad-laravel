@@ -46,6 +46,19 @@ class Inventory extends Model
     ];
 
     /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'TypeID1' => 'integer',
+        'TypeID2' => 'integer',
+        'TypeID3' => 'integer',
+        'TypeID4' => 'integer',
+        'MagParamNum' => 'integer',
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function getChar()

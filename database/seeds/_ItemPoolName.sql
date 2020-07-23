@@ -8,8 +8,8 @@ DROP TABLE IF EXISTS [dbo].[_ItemPoolName];
 -- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: sequences, indices, triggers. Do not use it as a backup.
 
 CREATE TABLE [dbo].[_ItemPoolName] (
-    [CodeName] nvarchar(MAX),
-    [RealName] nvarchar(MAX)
+    [CodeName] varchar(255),
+    [RealName] varchar(255)
 );
 
 INSERT INTO [dbo].[_ItemPoolName] ([CodeName], [RealName]) VALUES
