@@ -39,6 +39,10 @@ return [
 
         'required-fields' => 'Required fields *',
 
+        'signature-title' => 'Signature',
+        'signature-help' => 'Click here to upload your Image',
+        'signature-information' => 'This is the original Image',
+
         'save' => 'Save Settings!',
     ]
 ];

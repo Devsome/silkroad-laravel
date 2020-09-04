@@ -6,7 +6,10 @@ use App\Download;
 use App\Http\Controllers\Controller;
 use App\News;
 use App\ServerInformation;
+use App\SiteSettings;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Response;
 
 class IndexController extends Controller
 {
@@ -50,5 +53,31 @@ class IndexController extends Controller
         return view('frontend.other.serverinformation', [
             'information' => ServerInformation::orderBy('order', 'ASC')->get()
         ]);
+    }
+
+    /**
+     * @param null $ref
+     * @return \Illuminate\Http\Response|null
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function signatureRef($ref = null): ?\Illuminate\Http\Response
+    {
+        $siteSettings = SiteSettings::first();
+
+        if ($siteSettings && $siteSettings->settings['signature']) {
+            $imageSignature = Storage::disk('images')->get(
+                $siteSettings->settings['signature']
+            );
+
+            $mimeType = Storage::disk('images')->mimeType(
+                $siteSettings->settings['signature']
+            );
+
+            $response = Response::make($imageSignature);
+            $response->header('Content-Type', $mimeType);
+            return $response;
+        }
+
+        return null;
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\SiteSettings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 
 class SiteSettingsController extends Controller
@@ -22,6 +24,7 @@ class SiteSettingsController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function update(Request $request)
     {
@@ -42,6 +45,7 @@ class SiteSettingsController extends Controller
             'sro_exp_party' => 'required|numeric',
             'sro_ip_limit' => 'required|numeric',
             'sro_hwid_limit' => 'required|numeric',
+            'image_id' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:700'
         ]);
 
         if ($validator->fails()) {
@@ -49,7 +53,28 @@ class SiteSettingsController extends Controller
                 ->withErrors($validator);
         }
 
-        $requestToJsonArray = [
+        $this->jsonSiteSettingsUpdate($request);
+
+        \Cache::forget('siegeFortress');
+
+        return back()->with('success', trans('backend/notification.form-submit.success'));
+    }
+
+    /**
+     * @param Request $request
+     * @return bool
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    private function jsonSiteSettingsUpdate($request): bool
+    {
+        $filename = null;
+        if($request->file('image_id')) {
+            $requestImage = $request->file('image_id');
+            $filename = 'signature.' . $requestImage->getClientOriginalExtension();
+            Storage::disk('images')->put($filename, File::get($requestImage));
+        }
+
+        $data = [
             'sro_silk_name' => $request->get('sro_silk_name') ?? 'Silk',
             'discord_id' => $request->get('discord_id') ?? '',
             'facebook_url' => $request->get('facebook_url') ?? '',
@@ -69,20 +94,20 @@ class SiteSettingsController extends Controller
             'sro_exp_party' => $request->get('sro_exp_party') ?? '1',
             'sro_ip_limit' => $request->get('sro_ip_limit') ?? '1',
             'sro_hwid_limit' => $request->get('sro_hwid_limit') ?? '1',
+            'signature' => $filename ?: '',
         ];
 
         $siteSettings = SiteSettings::first();
         if (empty($siteSettings)) {
             SiteSettings::create([
-                'settings' => $requestToJsonArray
+                'settings' => $data
             ]);
         } else {
-            $siteSettings->settings = $requestToJsonArray;
-            $siteSettings->save();
+            $siteSettings->update([
+                'settings' => $data
+            ]);
         }
 
-        \Cache::forget('siegeFortress');
-
-        return back()->with('success', trans('backend/notification.form-submit.success'));
+        return true;
     }
 }

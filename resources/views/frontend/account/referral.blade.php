@@ -8,10 +8,30 @@
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="container">
             <div class="row justify-content-center">
+                <h1 class="col-md-12">
+                    {{ __('home.ref.title') }}
+                </h1>
+
                 <div class="col-md-12">
-                    <h1>
-                        {{ __('home.ref.title') }}
-                    </h1>
+                    <h3>
+                        {{ __('home.ref.signature') }}
+                    </h3>
+                    @if($signature)
+                        <code class="mb-4">
+                            [URL={{ url("/register?r={$account->reflink}") }}]<br>
+                            [IMG]{{ Storage::disk('images')->url($signature) }}[/IMG]<br>
+                            [/URL]<br><br>
+                        </code>
+                        @else
+                        <p class="py-2">
+                            {{ __('home.ref.no-signature') }}
+                        </p>
+                    @endif
+                </div>
+                <div class="col-md-12">
+                    <h2>
+                        {{ __('home.ref.your-ref') }}
+                    </h2>
                     <div class="table-responsive pt-4">
                         <table id="users" class="table table-striped table-hover dataTable">
                             <thead class="thead-default">

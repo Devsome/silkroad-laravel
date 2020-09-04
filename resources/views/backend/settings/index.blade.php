@@ -16,13 +16,9 @@
                         </button>
                     </div>
                 @endif
-                <form method="POST" action="{{ route('site-settings-update-backend') }}"
-                      enctype="multipart/form-data">
-                    @csrf
-                    @include('backend.settings.form', [
-                        'data' => $settings->settings ?? [''],
-                        ])
-                </form>
+                @include('backend.settings.form', [
+                    'data' => $settings->settings ?? [''],
+                    ])
             </div>
         </div>
     </div>

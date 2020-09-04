@@ -53,7 +53,10 @@ return [
     ],
 
     'ref' => [
-        'title' => 'Your Referral',
+        'title' => 'Referral',
+        'signature' => 'Signature',
+        'no-signature' => 'Currently is no signature added.',
+        'your-ref' => 'Your referral',
         'table' => [
             'name' => 'Account Name',
             'date' => 'Date',

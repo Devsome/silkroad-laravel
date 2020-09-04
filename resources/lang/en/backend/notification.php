@@ -17,6 +17,7 @@ return [
         'supporter-exist' => 'That Charname does not exist, you cannot add it',
         'category-exist' => 'There are tickets with that category',
         'error-image-references' => 'There are :model with that image.',
+        'signature-success' => 'Signature has been uploaded successfully',
     ],
     'modal' => [
         'return' => 'Return',

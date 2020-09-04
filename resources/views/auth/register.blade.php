@@ -127,7 +127,7 @@
                                     <div class="col-md-6">
                                         <input id="referral" type="text"
                                                class="form-control @error('referral') is-invalid @enderror"
-                                               name="referral" value="{{ old('referral') }}">
+                                               name="referral" value="{{ old('referral') ?: app('request')->input('r') }}">
                                         <small id="referralHelp" class="form-text text-muted">
                                             {{ __('auth/register.form.referral-help') }}
                                         </small>
