@@ -15,6 +15,7 @@ Route::get('/news-archive', 'Frontend\NewsController@archive')->name('news-archi
 // Other
 Route::get('/downloads', 'Frontend\IndexController@downloads')->name('downloads-index');
 Route::get('/rules', 'Frontend\IndexController@rules')->name('rules-index');
+Route::get('/worldmap', 'Frontend\IndexController@worldmapIndex')->name('worldmap');
 
 // Ranking
 Route::group(['prefix' => 'ranking'], static function () {

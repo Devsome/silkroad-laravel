@@ -155,4 +155,16 @@ class Char extends Model
     {
         return $this->belongsTo(User::class, 'CharID', 'CharID');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function getJobbingState()
+    {
+        $query = $this->belongsToMany(Items::class, Inventory::class, 'CharID', 'ItemID', '', 'ID64');
+        $query->select(['ID64'])
+            ->where('_Inventory.Slot', 8)
+            ->where('_Items.RefItemID', '!=', 2);
+        return $query;
+    }
 }

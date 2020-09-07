@@ -79,6 +79,7 @@ mix.scripts([
     'resources/js/backend/moment.js',
     'resources/js/frontend/timers.js',
     'resources/js/frontend/minimap.js',
+    'resources/js/backend/vmenuModule.js',
 ], 'public/js/app.js');
 
 

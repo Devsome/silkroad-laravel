@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Download;
 use App\Http\Controllers\Controller;
+use App\Model\SRO\Account\OnlineOfflineLog;
 use App\News;
 use App\ServerInformation;
 use App\SiteSettings;
@@ -79,5 +80,32 @@ class IndexController extends Controller
         }
 
         return null;
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function worldmapIndex()
+    {
+        $onlineCharacters = OnlineOfflineLog::where('status', OnlineOfflineLog::STATUS_LOGGED_IN);
+
+        return view('frontend.other.worldmap', [
+            'count' => $onlineCharacters->count()
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function worldmapApi()
+    {
+        $onlineCharacters = OnlineOfflineLog::where('status', OnlineOfflineLog::STATUS_LOGGED_IN);
+        $onlineCharactersNoJob = $onlineCharacters->with('getCharacter.getJobbingState')
+            ->get()
+            ->pluck('getCharacter');
+
+        return response()->json(
+          $onlineCharactersNoJob
+        );
     }
 }

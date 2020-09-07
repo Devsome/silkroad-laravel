@@ -16,6 +16,7 @@ return [
     'downloads' => 'Downloads - ' . config('app.name'),
     'notification' => 'Notification - ' . config('app.name'),
     'rules' => 'Rules - ' . config('app.name'),
+    'worldmap' => 'Worldmap - ' . config('app.name'),
     'news' => [
         'index' => ':name - ' . config('app.name'),
         'archive' => 'News Archive - ' . config('app.name')

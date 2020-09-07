@@ -38,6 +38,11 @@
                         {{ __('navbar.nav.serverinformation') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('worldmap') }}">
+                        {{ __('navbar.nav.worldmap') }}
+                    </a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 @guest
