@@ -45,10 +45,10 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="box box-small-icon-alt">
-                                <a href="#" class="dashboard-link d-none d-sm-block">
+                                <a href="{{ route('donations-index') }}" class="dashboard-link d-none d-sm-block">
                                     <i class="fa fa-3x fa-money-bill text-dark box-icon box-icon-outline"></i>
                                 </a>
-                                <a href="#" class="dashboard-link">
+                                <a href="{{ route('donations-index') }}" class="dashboard-link">
                                     <h4 class="box-title">
                                         {{ __('home.grid.donation') }}
                                     </h4>

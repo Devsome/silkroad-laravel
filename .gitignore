@@ -12,4 +12,6 @@ yarn-error.log
 .idea/
 .vagrant/*
 /ssl-script/*
+/packages/*
+/packages/devsome
 Thumbs.db

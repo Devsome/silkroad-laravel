@@ -4,6 +4,7 @@ return [
     'index' => 'Startpage - ' . config('app.name'),
     'home' => 'Dashboard - ' . config('app.name'),
     'charlist' => 'Charlist - ' . config('app.name'),
+    'donations' => 'Donations - ' . config('app.name'),
     'settings' => 'Settings - ' . config('app.name'),
     'referral' => 'Referral - ' . config('app.name'),
     'voucher' => 'Voucher - ' . config('app.name'),

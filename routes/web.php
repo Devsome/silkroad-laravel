@@ -59,6 +59,10 @@ Route::group(['prefix' => 'account'], static function() {
        Route::post('/transfer-item-to-game', 'Frontend\WebInventoryController@transferItemToGame')->name('web-i-transfer-item-to-game');
        Route::get('/inventory', 'Frontend\WebInventoryController@inventory')->name('web-i-inventory');
     });
+
+    Route::group(['prefix' => 'donations'], static function () {
+        Route::get('/', 'Frontend\DonationsController@index')->name('donations-index');
+    });
 });
 
 // Character and Guild Information

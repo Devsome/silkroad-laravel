@@ -32,6 +32,10 @@ return [
         'logged-out' => 'Logged out',
     ],
 
+    'donations' => [
+        'title' => 'Donations'
+    ],
+
     'settings' => [
         'title' => 'Settings',
         'form' => [
