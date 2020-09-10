@@ -12,6 +12,7 @@ yarn-error.log
 .idea/
 .vagrant/*
 /ssl-script/*
-/packages/*
-/packages/devsome
+packages/*
+config/payop.php
+database/migrations/*payop_logs_table.php
 Thumbs.db

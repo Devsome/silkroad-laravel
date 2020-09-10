@@ -190,6 +190,16 @@ return [
         \App\Providers\SilkGoldProvider::class,
         \App\Providers\SupportersOnlineProvider::class,
 
+        /*
+         * Own Service Providers
+         * First you need to install it - more coming later
+         *
+         * composer.json
+         * "autoload": { "psr-4": {
+         *  "Devsome\\Payop\\": "packages/devsome/payop/src"
+         * } }
+         */
+//        Devsome\Payop\PayopServiceProvider::class,
     ],
 
     /*
