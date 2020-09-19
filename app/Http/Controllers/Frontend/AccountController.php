@@ -79,7 +79,7 @@ class AccountController extends Controller
 
         $siteSettings = SiteSettings::first();
 
-        if ($siteSettings && $siteSettings->settings['signature']) {
+        if ($siteSettings && array_key_exists('signature', $siteSettings->settings)) {
             $signature = $siteSettings->settings['signature'];
         } else {
             $signature = null;
