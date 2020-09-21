@@ -141,6 +141,9 @@ If you want to help me, you can buy a [Coffee](https://www.buymeacoffee.com/Mi0v
     npm run watch
     ```
 
+### Logo
+at `public/image/logo/logo.png` you can change the poject logo. It used in the E-Mail Templates.
+
 If you want some help, check the [Laravel Compiling Assets (Mix)](https://laravel.com/docs/6.x/mix)
 
 
