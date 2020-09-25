@@ -9,6 +9,7 @@ use App\News;
 use App\ServerInformation;
 use App\SiteSettings;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Response;
 
@@ -107,5 +108,15 @@ class IndexController extends Controller
         return response()->json(
           $onlineCharactersNoJob
         );
+    }
+
+    /**
+     * @param $lang
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function lang($lang)
+    {
+        Session::put('locale', $lang);
+        return back();
     }
 }

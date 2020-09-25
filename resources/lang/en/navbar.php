@@ -16,4 +16,6 @@ return [
         'serverinformation' => 'Server Information',
         'worldmap' => 'Map',
     ],
+
+    'lang-title' => 'Language'
 ];
