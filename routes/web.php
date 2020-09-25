@@ -8,6 +8,9 @@ Route::get('/', 'Frontend\IndexController@index')->name('index');
 // Signature
 Route::get('/signature/{ref?}', 'Frontend\IndexController@signatureRef')->name('signature-index');
 
+// Language setter
+Route::get('/lang/{lang}', 'Frontend\IndexController@lang')->name('change-language');
+
 // News
 Route::get('/news/{slug}', 'Frontend\NewsController@index')->name('news-slug');
 Route::get('/news-archive', 'Frontend\NewsController@archive')->name('news-archive');
@@ -29,7 +32,7 @@ Route::get('/server-information', 'Frontend\IndexController@serverInformation')-
 Auth::routes(['verify' => true]);
 
 // User Dashboard
-Route::group(['prefix' => 'account'], static function() {
+Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function() {
     Route::get('/', 'Frontend\AccountController@index')->name('home');
     Route::get('/chars', 'Frontend\AccountController@charList')->name('home-chars-list');
     Route::get('/settings', 'Frontend\AccountController@settings')->name('home-settings');
