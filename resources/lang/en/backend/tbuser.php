@@ -52,6 +52,7 @@ return [
 
         'silk-history-empty' => 'This user does not have any silk history',
         'silk-type' => 'Type',
+        'silk-method' => 'Method',
         'silk-reason' => 'Reason',
         'silk-remain' => 'Remain',
         'buy-quantity' => 'Quantity',

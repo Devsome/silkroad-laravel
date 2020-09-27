@@ -10,6 +10,7 @@
     </thead>
     <tbody>
     @forelse($data as $key => $player)
+        @if($player->CharName16)
         <tr>
             <th scope="row">
                 {{ $data->firstItem() + $key }}
@@ -37,6 +38,7 @@
             </td>
             <td>{{ $player->ItemPoints }}</td>
         </tr>
+        @endif
     @empty
         <tr>
             <th>{{ __('ranking.no-player') }}</th>

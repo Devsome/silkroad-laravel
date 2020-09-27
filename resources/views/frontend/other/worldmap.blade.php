@@ -1,7 +1,11 @@
 @extends('layouts.app')
 @section('title', __('seo.worldmap'))
+@section('sidebar')
+    <!-- clear it -->
+@endsection
+
 @section('content')
-    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12">

@@ -74,54 +74,6 @@
                     </div>
                 </div>
 
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0">
-                            {{ __('backend/tbuser.silk-history') }}
-                        </h6>
-                    </div>
-                    @if($tbuser->getsksilkhistory->isEmpty())
-                        <div class="card-body">
-                            <div class="container mt-2">
-                                <div class="row">
-                                    {{ __('backend/tbuser.edit.silk-history-empty') }}
-                                </div>
-                            </div>
-                        </div>
-                    @else
-                        <div class="card-body">
-                            <div class="table-responsive table-borderless">
-                                <table class="table" id="silkHistory">
-                                    <thead>
-                                    <tr>
-                                        <th>{{ __('backend/tbuser.edit.buy-quantity') }}</th>
-                                        <th>{{ __('backend/tbuser.edit.silk-remain') }}</th>
-                                        <th>{{ __('backend/tbuser.edit.silk-reason') }}</th>
-                                        <th>{{ __('backend/tbuser.edit.silk-type') }}</th>
-                                        <th>{{ __('backend/tbuser.edit.auth-date') }}</th>
-                                        <th>{{ __('backend/tbuser.edit.silk-ip') }}</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @forelse($tbuser->getsksilkhistory as $silk)
-                                        <tr>
-                                            <td>{{ $silk->BuyQuantity }}</td>
-                                            <td>{{ $silk->Silk_Remain }}</td>
-                                            <td>{{ $silk->Silk_Reason }}</td>
-                                            <td>{{ $silk->Silk_Type }}</td>
-                                            <td>{{ $silk->AuthDate }}</td>
-                                            <td>{{ $silk->IP }}</td>
-                                        </tr>
-                                    @empty
-                                        {{ __('backend/tbuser.edit.silk-history-empty') }}
-                                    @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-
                 <div class="card mb-4">
                     <div class="card-header">
                         {{ __('backend/tbuser.edit.accounts') }}
@@ -336,6 +288,60 @@
 
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0">
+                            {{ __('backend/tbuser.silk-history') }}
+                        </h6>
+                    </div>
+                    @if($tbuser->getsksilkhistory->isEmpty())
+                        <div class="card-body">
+                            <div class="container mt-2">
+                                <div class="row">
+                                    {{ __('backend/tbuser.edit.silk-history-empty') }}
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="card-body">
+                            <div class="table-responsive table-borderless">
+                                <table class="table" id="silkHistory">
+                                    <thead>
+                                    <tr>
+                                        <th>{{ __('backend/tbuser.edit.buy-quantity') }}</th>
+                                        <th>{{ __('backend/tbuser.edit.silk-remain') }}</th>
+                                        <th>{{ __('backend/tbuser.edit.silk-reason') }}</th>
+                                        <th>{{ __('backend/tbuser.edit.silk-type') }}</th>
+                                        <th>{{ __('backend/tbuser.edit.silk-method') }}</th>
+                                        <th>{{ __('backend/tbuser.edit.auth-date') }}</th>
+                                        <th>{{ __('backend/tbuser.edit.silk-ip') }}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @forelse($tbuser->getsksilkhistory as $silk)
+                                        <tr>
+                                            <td>{{ $silk->BuyQuantity }}</td>
+                                            <td>{{ $silk->Silk_Remain }}</td>
+                                            <td>{{ $silk->Silk_Reason }}</td>
+                                            <td>{{ $silk->Silk_Type }}</td>
+                                            <td>{{ $silk->SlipPaper }}</td>
+                                            <td>{{ $silk->AuthDate }}</td>
+                                            <td>{{ $silk->IP }}</td>
+                                        </tr>
+                                    @empty
+                                        {{ __('backend/tbuser.edit.silk-history-empty') }}
+                                    @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card mb-4">
                     <div class="card-header">
                         {{ __('backend/tbuser.edit.punishment') }}
@@ -444,7 +450,7 @@
                     });
             });
             $('#silkHistory').DataTable({
-                "order": [[4, "desc"]],
+                "order": [[5, "desc"]],
                 "lengthMenu": [[5, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('backend/datatables.show-all') }}"]],
                 "language": {
                     "search": "{{ __('backend/datatables.search') }}",

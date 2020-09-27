@@ -1,16 +1,15 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\ServerGold;
 
 class ServerGoldSeeder extends Seeder
 {
     public function run()
     {
-        ServerGold::create(
+        DB::table('server_gold')->insert([
             [
-                'gold' => 0
+                'gold' => 0,
             ]
-        );
+        ]);
     }
 }

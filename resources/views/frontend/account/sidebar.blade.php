@@ -65,7 +65,7 @@
         <a href="{{ route('home-settings') }}" class="list-group-item list-group-item-action">
             {{ __('sidebar.home.settings') }}
         </a>
-        <a href="#" class="list-group-item list-group-item-action">
+        <a href="{{ route('donations-index') }}" class="list-group-item list-group-item-action">
             {{ __('sidebar.home.donate') }}
         </a>
         <a href="{{ route('home-referral') }}" class="list-group-item list-group-item-action">

@@ -55,16 +55,26 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function(
     });
 
     Route::group(['prefix' => 'web-inventory'], static function () {
-       Route::get('/', 'Frontend\WebInventoryController@index')->name('web-inventory-index');
-       Route::get('/select-character', 'Frontend\WebInventoryController@selectCharacter')->name('web-i-select-character');
-       Route::post('/update-gold', 'Frontend\WebInventoryController@updateGold')->name('web-i-update-gold');
-       Route::post('/transfer-item-to-web', 'Frontend\WebInventoryController@transferItemToWeb')->name('web-i-transfer-item-to-web');
-       Route::post('/transfer-item-to-game', 'Frontend\WebInventoryController@transferItemToGame')->name('web-i-transfer-item-to-game');
-       Route::get('/inventory', 'Frontend\WebInventoryController@inventory')->name('web-i-inventory');
+        Route::get('/', 'Frontend\WebInventoryController@index')->name('web-inventory-index');
+        Route::get('/select-character', 'Frontend\WebInventoryController@selectCharacter')->name('web-i-select-character');
+        Route::post('/update-gold', 'Frontend\WebInventoryController@updateGold')->name('web-i-update-gold');
+        Route::post('/transfer-item-to-web', 'Frontend\WebInventoryController@transferItemToWeb')->name('web-i-transfer-item-to-web');
+        Route::post('/transfer-item-to-game', 'Frontend\WebInventoryController@transferItemToGame')->name('web-i-transfer-item-to-game');
+        Route::get('/inventory', 'Frontend\WebInventoryController@inventory')->name('web-i-inventory');
     });
 
     Route::group(['prefix' => 'donations'], static function () {
         Route::get('/', 'Frontend\DonationsController@index')->name('donations-index');
+        Route::get('/method/{method?}', 'Frontend\DonationsController@showMethod')->name('donations-method-index');
+
+        Route::group(['prefix' => 'paypal'], static function () {
+            Route::get('/buy/{id}', 'Frontend\DonationsPaypalController@buy')->where('id', '[0-9]+')->name('donate-paypal');
+            Route::get('/complete', 'Frontend\DonationsPaypalController@complete')->name('donate-paypal-complete');
+            Route::get('/invoice-closed', 'Frontend\DonationsPayPalController@invoiceClosed')->name('donate-paypal-invoice-closed');
+            Route::get('/success', 'Frontend\DonationsPayPalController@success')->name('donate-paypal-success');
+//            Route::get('/notify', 'Frontend\DonationsPayPalController@notify')->name('donate-paypal-notify');
+            Route::get('/error/{id}', 'Frontend\DonationsPayPalController@error')->name('donate-paypal-error');
+        });
     });
 });
 
@@ -218,6 +228,19 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
             Route::get('/', 'Backend\SupportersOnlineController@index')->name('supporters-online-index-backend');
             Route::post('/add', 'Backend\SupportersOnlineController@add')->name('supporters-online-add-backend');
             Route::post('/{id}/destroy', 'Backend\SupportersOnlineController@destroy')->name('supporters-online-destroy-backend');
+        });
+
+        Route::group(['prefix' => 'donations'], static function (){
+            Route::get('/', 'Backend\DonationsController@index')->name('donations-index-backend');
+            Route::get('/logging', 'Backend\DonationsController@logging')->name('donations-logging-backend');
+            Route::get('/logging-datatables', 'Backend\DonationsController@loggingDatatables')->name('donations-logging-datatables-backend');
+            Route::post('/methods/update', 'Backend\DonationsController@updateMethods')->name('donations-update-methods-backend');
+
+            Route::group(['prefix' => 'method'], static function () {
+                Route::get('/paypal', 'Backend\DonationsController@methodPaypal')->name('method-paypal-backend');
+                Route::post('/paypal/add', 'Backend\DonationsController@methodPaypalAdd')->name('method-paypal-add-backend');
+                Route::post('/paypal/{id}/destroy', 'Backend\DonationsController@methodPaypalDestroy')->name('method-paypal-destroy-backend');
+            });
         });
     });
 

@@ -151,7 +151,7 @@ class SilkroadController extends Controller
             'BuyQuantity' => $buyQuantity,
             'OrderNumber' => 0,
             'AuthDate' => Carbon::now()->format('Y-m-d H:i:s'),
-            'SlipPaper' => 'dunno',
+            'SlipPaper' => 'Backend',
             'IP' => $request->ip(),
             'RegDate' => Carbon::now()->format('Y-m-d H:i:s')
         ]);

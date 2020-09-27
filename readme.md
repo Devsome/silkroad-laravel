@@ -45,9 +45,17 @@ If you want to help me, you can buy a [Coffee](https://www.buymeacoffee.com/Mi0v
         IF (@EventID = 6)
         BEGIN
             UPDATE [SRO_VT_SHARD].[dbo]._Char 
-                set ItemPoints = (
-                SELECT
-                ISNULL((sum(ISNULL(Binding.nOptValue, 0)) + sum(ISNULL(OptLevel, 0)) + sum(ISNULL(Common.ReqLevel1, 0))), 0) as ItemPoints
+                set ItemPoints = (  
+                    SELECT
+                    SUM(
+                       CASE
+                           WHEN Common.CodeName128 LIKE '%_A_RARE' THEN ReqLevel1 + 5
+                           WHEN Common.CodeName128 LIKE '%_B_RARE' THEN ReqLevel1 + 10
+                           WHEN Common.CodeName128 LIKE '%_C_RARE' THEN ReqLevel1 + 15
+                       ELSE ReqLevel1
+                       END
+               ) + SUM(ISNULL(Binding.nOptValue, 0)) + SUM(ISNULL(OptLevel, 0)) AS ItemPoints       
+  
                 FROM [SRO_VT_SHARD].[dbo].[_Inventory] as inventory
                 join [SRO_VT_SHARD].[dbo]._Items as Items on Items.ID64  = inventory.ItemID
                 join [SRO_VT_SHARD].[dbo]._RefObjCommon as Common on Items.RefItemId  = Common.ID

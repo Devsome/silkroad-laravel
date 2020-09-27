@@ -156,7 +156,7 @@ class VouchersService
             'BuyQuantity' => $voucher->amount,
             'OrderNumber' => 0,
             'AuthDate' => Carbon::now()->format('Y-m-d H:i:s'),
-            'SlipPaper' => 'dunno',
+            'SlipPaper' => 'Voucher',
             'IP' => $ip,
             'RegDate' => Carbon::now()->format('Y-m-d H:i:s')
         ]);

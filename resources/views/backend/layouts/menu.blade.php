@@ -53,6 +53,37 @@
             <span>{{ __('backend/menu.voucher') }}</span>
         </a>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="collapse"
+           data-target="#collapseDonations" aria-expanded="true" aria-controls="collapseDonations">
+            <i class="fas fa-fw fa-dollar-sign"></i>
+            <span>{{ __('backend/menu.donations.title') }}</span>
+        </a>
+        <div id="collapseDonations" class="collapse"
+             aria-labelledby="headingDonations" data-parent="#accordionSidebar" style="">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('donations-index-backend') }}">
+                    {{ __('backend/menu.donations.settings') }}
+                </a>
+                <a class="collapse-item" href="{{ route('donations-logging-backend') }}">
+                    {{ __('backend/menu.donations.logging') }}
+                </a>
+                <h6 class="collapse-header">
+                    {{ __('backend/menu.donations.head') }}
+                </h6>
+                <a class="collapse-item" href="{{ route('method-paypal-backend') }}">
+                    {{ __('backend/menu.donations.paypal') }}
+                </a>
+                @if(Route::has('dev.payop.index'))
+                    <a class="collapse-item" href="#">
+                        {{ __('backend/menu.donations.payop') }}
+                    </a>
+                @endif
+            </div>
+        </div>
+    </li>
+
     <li class="nav-item">
         <a class="nav-link" href="{{ route('backlinks-index-backend') }}">
             <i class="fas fa-fw fa-link"></i>
