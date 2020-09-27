@@ -16,6 +16,7 @@ class DonationMethodsSeeder extends Seeder
                 'method' => 'paypal',
                 'name' => 'PayPal',
                 'image' => 'paypal.png',
+                'currency' => 'USD',
                 'active' => 0,
                 'created_at' => \Carbon\Carbon::now(),
             ],
