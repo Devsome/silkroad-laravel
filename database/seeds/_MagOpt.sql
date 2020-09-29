@@ -4,9 +4,6 @@
 -- -------------------------------------------------------------
 
 
-DROP TABLE IF EXISTS [dbo].[_Magopt];
--- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: sequences, indices, triggers. Do not use it as a backup.
-
 CREATE TABLE [dbo].[_Magopt] (
     [id] int,
     [name] varchar(128),

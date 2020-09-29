@@ -3,6 +3,7 @@
 return [
     /*
      * Define the mode paypal should be
+     * Can be sandbox or live
      */
     'mode' => env('PAYPAL_MODE', 'sandbox'),
 
