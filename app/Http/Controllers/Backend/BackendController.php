@@ -36,6 +36,12 @@ class BackendController extends Controller
      */
     public function index(InventoryService $inventoryService)
     {
+        if(ServerGold::all()->count() === 0) {
+            ServerGold::create([
+                'gold' => 0
+            ]);
+        }
+
         return view('backend.index', [
             'userCount' => User::count(),
             'playerCount' => Char::count(),
