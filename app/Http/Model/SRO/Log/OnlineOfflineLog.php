@@ -8,22 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class OnlineOfflineLog extends Model
 {
 
-    /*
-     * _AddLogChar Procedure in SRO_VT_LOG
-     * Add this after the set variables
-        BEGIN
-	      -- SET NOCOUNT ON added to prevent extra result sets from
-	      SET NOCOUNT ON;
-	      IF EXISTS (SELECT 1 FROM onlineofflinelog WHERE CharID = @CharID)
-	        UPDATE onlineofflinelog
-	        SET    status = @EventID
-	        WHERE	CharID = @CharID
-	      ELSE
-	        INSERT INTO onlineofflinelog ([CharID],  [status])
-	        VALUES      (@CharID, @EventID)
-	  	END
-     */
-
     /**
      * The Database connection name for the model.
      *
@@ -53,6 +37,15 @@ class OnlineOfflineLog extends Model
     protected $fillable = [
         'CharId',
         'status'
+    ];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'status' => 'integer',
     ];
 
     /**
