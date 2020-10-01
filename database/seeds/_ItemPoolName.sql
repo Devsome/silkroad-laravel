@@ -10,8 +10,10 @@ CREATE TABLE [dbo].[_ItemPoolName] (
 );
 
 INSERT INTO [dbo].[_ItemPoolName] ([CodeName], [RealName]) VALUES
-(N'ITEM_ETC_AMMO_ARROW_01', N'Arrow'),
+(N'ITEM_ETC_AMMO_ARROW_01', N'Arrows'),
 (N'ITEM_ETC_AMMO_BOLT_01', N'Bolt'),
+(N'ITEM_ETC_AMMO_ARROW_01_DEF', N'Arrows'),
+(N'ITEM_ETC_AMMO_BOLT_01_DEF', N'Bolt'),
 (N'ITEM_CH_SWORD_01_A_DEF', N'Copper Sword'),
 (N'ITEM_CH_BLADE_01_A_DEF', N'Copper Blade'),
 (N'ITEM_CH_SPEAR_01_A_DEF', N'Crescent'),
