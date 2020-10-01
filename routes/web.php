@@ -70,10 +70,10 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function(
         Route::group(['prefix' => 'paypal'], static function () {
             Route::get('/buy/{id}', 'Frontend\DonationsPaypalController@buy')->where('id', '[0-9]+')->name('donate-paypal');
             Route::get('/complete', 'Frontend\DonationsPaypalController@complete')->name('donate-paypal-complete');
-            Route::get('/invoice-closed', 'Frontend\DonationsPayPalController@invoiceClosed')->name('donate-paypal-invoice-closed');
-            Route::get('/success', 'Frontend\DonationsPayPalController@success')->name('donate-paypal-success');
-            Route::get('/notify', 'Frontend\DonationsPayPalController@notify')->name('donate-paypal-notify');
-            Route::get('/error/{id}', 'Frontend\DonationsPayPalController@error')->name('donate-paypal-error');
+            Route::get('/invoice-closed', 'Frontend\DonationsPaypalController@invoiceClosed')->name('donate-paypal-invoice-closed');
+            Route::get('/success', 'Frontend\DonationsPaypalController@success')->name('donate-paypal-success');
+            Route::get('/notify', 'Frontend\DonationsPaypalController@notify')->name('donate-paypal-notify');
+            Route::get('/error/{id}', 'Frontend\DonationsPaypalController@error')->name('donate-paypal-error');
         });
     });
 });
