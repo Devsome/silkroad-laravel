@@ -208,7 +208,7 @@ INSERT INTO [dbo].[_ItemPoolName] ([CodeName], [RealName]) VALUES
 (N'ITEM_CH_CLOTHES_01_BA_A_DEF', N'Cotton Suit'),
 (N'ITEM_CH_CLOTHES_01_LA_A_DEF', N'Cotton Trousers'),
 (N'ITEM_CH_CLOTHES_01_FA_A_DEF', N'Cotton Shoes'),
-(N'ITEM_CH_SHIELD_01_A_DEF', N'Copper Shield0'),
+(N'ITEM_CH_SHIELD_01_A_DEF', N'Copper Shield'),
 (N'ITEM_CH_HEAVY_01_HA_A', N'Copper Casque'),
 (N'ITEM_CH_HEAVY_01_HA_B', N'Wrought Copper Casque'),
 (N'ITEM_CH_HEAVY_01_HA_C', N'Refining Copper Casque'),
