@@ -179,6 +179,7 @@ class DonationsPaypalController extends Controller
 
     public function notify()
     {
+        return view('frontend.account.donations.invoiceclosed');
     }
 
     /**
