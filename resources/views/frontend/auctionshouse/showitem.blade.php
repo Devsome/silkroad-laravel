@@ -152,18 +152,21 @@
                             </div>
                         @endif
                         <hr>
-                        <div class="col-12">
-                            <form class="form form-inline" method="POST"
-                                  action="{{ route('auctions-house-buy-item-now', ['id' => $item->id]) }}">
-                                @csrf
-                                <label for="auctionBidPrice" class="col-auto col-form-label">
-                                    {{ __('auctionshouse.showitem.buy_now_text') }}
-                                </label>
-                                <button type="submit" class="btn btn-primary mb-2">
-                                    {{ __('auctionshouse.showitem.buy_now') }}
-                                </button>
-                            </form>
-                        </div>
+                        @if($item->price_instead === 0)
+                            <div class="col-12">
+                                <form class="form form-inline" method="POST"
+                                      action="{{ route('auctions-house-buy-item-now', ['id' => $item->id]) }}">
+                                    @csrf
+                                    <label for="auctionBidPrice" class="col-auto col-form-label">
+                                        {{ __('auctionshouse.showitem.buy_now_text') }}
+                                    </label>
+                                    <button type="submit" class="btn btn-primary mb-2"
+                                    @if($item->price_instead === 0) disabled @endif>
+                                        {{ __('auctionshouse.showitem.buy_now') }}
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                     @endif
 
                 </div>

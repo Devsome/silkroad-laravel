@@ -206,6 +206,10 @@ class AuctionsHouseController extends Controller
             return back()->with('error', trans('auctionshouse.notification.buy.until'));
         }
 
+        if($buyNowPrice === 0) {
+            return back()->with('error', trans('auctionshouse.notification.buy.price-0'));
+        }
+
         $this->validate($request, [
             '_token' => 'required',
         ]);

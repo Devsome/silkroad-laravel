@@ -73,6 +73,7 @@ return [
             'successfully' => 'You bought that Item successfully, check your Web Inventory.',
             'not-enough-gold' => 'You do not have enough Gold on your Web Inventory.',
             'until' => 'The Time for buying that item has passed.',
+            'price-0' => 'The buy now price is 0, so you can not buy it!',
             'error' => 'Something went wrong, please try it again.',
         ],
         'cancel' => [
