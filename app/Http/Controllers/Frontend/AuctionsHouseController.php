@@ -175,7 +175,7 @@ class AuctionsHouseController extends Controller
             'price_instead' => $request->get('price_instead'),
         ]);
 
-        if(config('services.discord.auction')) {
+        if (config('services.discord.auction')) {
             $auctionItem->notify(new AuctionDiscordServer($auctionItem, $isThisHisItem->first()));
         }
 
@@ -327,7 +327,7 @@ class AuctionsHouseController extends Controller
             return back()->with('error', trans('auctionshouse.notification.bid.not-highest'));
         }
 
-        if ($userNewBidPrice >= $auctionItem->price_instead) {
+        if (($auctionItem->price_instead > 0) && $userNewBidPrice >= $auctionItem->price_instead) {
             return back()->with('error', trans('auctionshouse.notification.bid.bid-higher'));
         }
 
