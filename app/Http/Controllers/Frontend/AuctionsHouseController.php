@@ -170,9 +170,9 @@ class AuctionsHouseController extends Controller
         $auctionItem = AuctionItem::create([
             'user_id' => Auth::user()->id,
             'char_inventory' => $isThisHisItem->first()->id,
-            'until' => $request->get('until'),
-            'price' => $request->get('price'),
-            'price_instead' => $request->get('price_instead'),
+            'until' => $request->get('until') ?: '0',
+            'price' => $request->get('price') ?: 0,
+            'price_instead' => $request->get('price_instead') ?: 0,
         ]);
 
         if (config('services.discord.auction')) {
