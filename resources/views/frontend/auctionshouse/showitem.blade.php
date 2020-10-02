@@ -152,7 +152,7 @@
                             </div>
                         @endif
                         <hr>
-                        @if($item->price_instead === 0)
+                        @if($item->price_instead !== 0)
                             <div class="col-12">
                                 <form class="form form-inline" method="POST"
                                       action="{{ route('auctions-house-buy-item-now', ['id' => $item->id]) }}">
