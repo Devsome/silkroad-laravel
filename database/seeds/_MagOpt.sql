@@ -4,15 +4,6 @@
 -- -------------------------------------------------------------
 
 
-CREATE TABLE [dbo].[_Magopt] (
-    [id] int,
-    [name] varchar(128),
-    [desc] varchar(255),
-    [mLevel] int,
-    [extension] varchar(255),
-    [sortkey] int
-);
-
 INSERT INTO [dbo].[_Magopt] ([id], [name], [desc], [mLevel], [extension], [sortkey]) VALUES
 ('468', N'MATTR_SOLID', N'Steady (%desc% Time/times)', '14', N'', '4'),
 ('467', N'MATTR_SOLID', N'Steady (%desc% Time/times)', '13', N'', '4'),
