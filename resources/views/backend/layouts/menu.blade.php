@@ -1,9 +1,11 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('index-backend') }}">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-cog"></i>
+        <div class="sidebar-brand-icon">
+            <img src="{{ asset('image/sdl.png') }}" width="60">
         </div>
-        <div class="sidebar-brand-text mx-3">{{ env('APP_NAME') }}</div>
+        <div class="sidebar-brand-text mx-3">
+            {{ __('backend/menu.title') }}
+        </div>
     </a>
     <hr class="sidebar-divider my-0">
     <li class="nav-item active">

@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'title' => 'Backend',
     'dashboard' => 'Dashboard',
     // Heading
     'web' => 'Web',
