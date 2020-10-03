@@ -11,15 +11,16 @@ class DonationMethodsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('donation_methods')->insert([
+        DB::table('donation_methods')->updateOrInsert(
             [
-                'method' => 'paypal',
+                'method' => 'paypal'
+            ],
+            [
                 'name' => 'PayPal',
                 'image' => 'paypal.png',
                 'currency' => 'USD',
                 'active' => 0,
                 'created_at' => \Carbon\Carbon::now(),
-            ],
-        ]);
+            ]);
     }
 }

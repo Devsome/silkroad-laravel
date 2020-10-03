@@ -6,10 +6,14 @@ class ServerGoldSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('server_gold')->insert([
+        DB::table('server_gold')->updateOrInsert(
+            [
+                'id' => 1
+            ],
             [
                 'gold' => 0,
-            ]
-        ]);
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
+            ]);
     }
 }

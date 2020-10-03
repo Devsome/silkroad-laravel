@@ -4,11 +4,6 @@
 -- -------------------------------------------------------------
 
 
-CREATE TABLE [dbo].[_ItemPoolName] (
-    [CodeName] varchar(255),
-    [RealName] varchar(255)
-);
-
 INSERT INTO [dbo].[_ItemPoolName] ([CodeName], [RealName]) VALUES
 (N'ITEM_ETC_AMMO_ARROW_01', N'Arrows'),
 (N'ITEM_ETC_AMMO_BOLT_01', N'Bolt'),
