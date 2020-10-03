@@ -224,7 +224,8 @@
             data.forEach(obj => {
                 xSROMap.AddPlayer(
                     obj.CharName16.toLowerCase(),
-                    obj.CharName16.toLowerCase(),
+                    '<a href="/player/' + obj.CharName16.toLowerCase() + '" target="_blank">' +
+                    obj.CharName16.toLowerCase() + '</a>',
                     obj.PosX,
                     obj.PosZ,
                     obj.PosY,
