@@ -1,18 +1,18 @@
 <img src="{{ asset('/image/sro/equipment/com_itemsign.PNG') }}" class="img-clear" loading="lazy">
     @if($aItem['info']['sox'] || count($aItem['blues']) >= 1)
-    @php
-        $color = $aItem['info']['sox'] ? '#f2e43d' : '#50cecd';
-    @endphp
-    <span style="color:{{ $color }};font-weight: bold;">
+        @php
+            $color = $aItem['info']['sox'] ? '#f2e43d' : '#50cecd';
+        @endphp
+        <span style="color:{{ $color }};font-weight: bold;">
     @endif
-        {{ $aItem['info']['WebName'] }}
-        @if(($aItem['OptLevel'] + $aItem['nOptValue']) > 0)
-            (+{{ $aItem['OptLevel'] + $aItem['nOptValue'] }})
-        @endif
+    {{ $aItem['info']['WebName'] }}
+    @if(($aItem['OptLevel'] + $aItem['nOptValue']) > 0)
+        (+{{ $aItem['OptLevel'] + $aItem['nOptValue'] }})
+    @endif
 
-        @if($aItem['info']['sox'] || count($aItem['blues']) >= 1)
-    </span>
-@endif
+    @if($aItem['info']['sox'] || count($aItem['blues']) >= 1)
+        </span>
+    @endif
 
 @if($aItem['amount'] > 1)
     <br>
@@ -42,13 +42,13 @@
     {{--    @endif--}}
 
     <span style="color:#efdaa4;">
-        {{ __('inventory.sort', ['type' => $aItem['info']['Type']]) }}
+        {{ __('inventory.sort', ['type' => data_get($aItem['info'], 'Type', '')]) }}
         <br>
         @isset($aItem['info']['Detail'])
-        {{ __('inventory.mounting', ['detail' => $aItem['info']['Detail']]) }}
+        {{ __('inventory.mounting', ['detail' => data_get($aItem['info'], 'Detail', '')]) }}
             <br>
         @endisset
-        {{ __('inventory.degree', ['degree' => $aItem['info']['Degree']]) }}
+        {{ __('inventory.degree', ['degree' => data_get($aItem['info'], 'Degree', '')]) }}
     </span>
     <br>
     <br>

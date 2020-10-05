@@ -239,13 +239,13 @@ class InventoryService
             }
 
             $aSet[$i]['Slot'] = $i;
-            $aSet[$i]['Serial64'] = $aInfo['Serial64'];
-            $aSet[$i]['TypeID2'] = $aInfo['TypeID2'];
-            $aSet[$i]['OptLevel'] = $aInfo['OptLevel'];
-            $aSet[$i]['RefItemID'] = $aCurItem['RefItemID'] ?? 0;
-            $aSet[$i]['special'] = isset($aInfo['info']['sox']) && $aInfo['info']['sox'];
-            $aSet[$i]['ItemID'] = $aCurItem['ID64'];
-            $aSet[$i]['ItemName'] = $aInfo['info']['WebName'];
+            $aSet[$i]['Serial64'] = data_get($aInfo,'Serial64', null);
+            $aSet[$i]['TypeID2'] = data_get($aInfo,'TypeID2', null);
+            $aSet[$i]['OptLevel'] = data_get($aInfo,'OptLevel', null);
+            $aSet[$i]['RefItemID'] = data_get($aCurItem,'RefItemID', 0);
+            $aSet[$i]['special'] = data_get($aInfo['info'],'sox', null);
+            $aSet[$i]['ItemID'] = data_get($aCurItem,'ID64', 0);
+            $aSet[$i]['ItemName'] = data_get($aInfo['info'],'WebName', 'Unknown');
             $aSet[$i]['imgpath'] = $this->getItemIcon($aCurItem['AssocFileIcon128']);
             $aSet[$i]['WebInventory'] = $aInfo['info'];
 
@@ -298,7 +298,7 @@ class InventoryService
         $aData['TypeID4'] = $aItem['TypeID4'];
         $aData['Price'] = $aItem['Price']; // Npc Price
         $aData['sox'] = ''; // For Blade
-        $aData['Degree'] = 0; // For Blade
+        $aData['Degree'] = data_get($aItem, 'ItemClass', 0); // For Blade
         $aData['WebName'] = $this->getItemRealName(
             str_replace(['_W_', '_M_'], ['_', '_'], $aItem['CodeName128'])
         );
