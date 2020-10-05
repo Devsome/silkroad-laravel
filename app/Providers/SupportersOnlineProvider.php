@@ -36,7 +36,8 @@ class SupportersOnlineProvider extends ServiceProvider
                 $onlineCount = 0;
                 $maxCount = $supportersOnline->count();
                 foreach ($supportersOnline as $online) {
-                    if($online->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_IN) {
+                    if (data_get($online->getCharOnlineOffline, 'status', OnlineOfflineLog::STATUS_LOGGED_OUT)
+                        === OnlineOfflineLog::STATUS_LOGGED_IN) {
                         $onlineCount++;
                     }
                 }
