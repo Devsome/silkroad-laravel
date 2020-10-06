@@ -410,6 +410,11 @@ class WebInventoryService
             $reqLevel = data_get($itemData['WebInventory'], 'ReqLevel1', 0);
             $degree = data_get($itemData['WebInventory'], 'Degree', 0);
 
+            // preventing from being empty
+            if($type === '') {
+                $type = 'Unknown';
+            }
+
             // Putting that Item into the Web Database
             CharInventory::create([
                 'user_id' => Auth::id(),
