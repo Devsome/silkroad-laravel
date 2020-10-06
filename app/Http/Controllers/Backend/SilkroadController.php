@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Library\Services\SRO\Shard\CharService;
 use App\Library\Services\SRO\Shard\InventoryService;
 use App\Model\SRO\Account\BlockedUser;
+use App\Model\SRO\Account\SkSilkChangeByWeb;
 use App\Model\SRO\Log\LoginHistoryLog;
 use App\Model\SRO\Account\OnlineOfflineLog;
 use App\Model\SRO\Account\Punishment;
@@ -154,6 +155,14 @@ class SilkroadController extends Controller
             'SlipPaper' => 'Backend',
             'IP' => $request->ip(),
             'RegDate' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
+
+        SkSilkChangeByWeb::create([
+            'JID' => $jid,
+            'silk_remain' => $silkRemain,
+            'silk_offset' => $buyQuantity,
+            'silk_type' => SkSilkChangeByWeb::SilkTypeSilk,
+            'reason' => SkSilkChangeByWeb::SilkReasonAdmin,
         ]);
 
         if ($request->get('state') === 'add') {

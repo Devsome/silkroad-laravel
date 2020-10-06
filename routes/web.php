@@ -167,7 +167,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
         // Patching TB_User
         Route::post('/user/{user}/silk/add', 'Backend\SilkroadController@sroUserSilkAddRemove')->name('sro-user-silk-backend');
         Route::post('/user/{user}/block/add', 'Backend\SilkroadController@sroUserBlockAdd')->name('sro-user-block-add-backend');
-        Route::post('/user/{user}/block/destory', 'Backend\SilkroadController@sroUserBlockDestory')->name('sro-user-block-destroy-backend');
+        Route::post('/user/{user}/block/destroy', 'Backend\SilkroadController@sroUserBlockDestory')->name('sro-user-block-destroy-backend');
 
         // Patching _Char
         Route::post('/players/{char}/unstuck', 'Backend\SilkroadController@sroUnstuckChar')->name('sro-players-unstuck');
