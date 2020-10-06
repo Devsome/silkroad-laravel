@@ -221,7 +221,7 @@ INSERT INTO [dbo].[_Magopt] ([id], [name], [desc], [mLevel], [extension], [sortk
 ('255', N'MATTR_AVATAR_HPRG', N'HP Recovery %desc% Increase', '1', N'', '20'),
 ('254', N'MATTR_AVATAR_MDIA', N'Ignore Monster Defense %desc% Proability', '1', N'', '13'),
 ('253', N'MATTR_AVATAR_DARA', N'Damage Absorption %desc% Increase', '1', N'', '5'),
-('252', N'MATTR_AVATAR_DRUA', N'MATTR_AVATAR_DRUA', '1', N'', '19'),
+('252', N'MATTR_AVATAR_DRUA', N'Damage %desc% Increase', '1', N'', '19'),
 ('251', N'MATTR_AVATAR_MP', N'MP %desc% Increase', '1', N'', '4'),
 ('250', N'MATTR_AVATAR_HP', N'HP %desc% Increase', '1', N'', '18'),
 ('249', N'MATTR_AVATAR_ER', N'Parry rate %desc% Increase', '1', N'', '3'),
