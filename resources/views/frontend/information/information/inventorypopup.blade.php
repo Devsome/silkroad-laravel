@@ -24,106 +24,7 @@
     {{ __('inventory.stack', ['stack' => $aItem['MaxStack']]) }}
 @endif
 
-
-@if($aItem['info']['Degree'] >= 1)
-    @isset($aItem['info']['sox'])
-        <br>
-        @if($aItem['info']['sox'])
-            <br>
-            <span style="color:#f2e43d;font-weight: bold;">
-                {{ $aItem['info']['sox'] }}
-            </span>
-        @endif
-    @endisset
-    <br>
-
-    {{--    @if($aItem['info']['egy'])--}}
-    {{--        <span style="color:#53EE92;font-weight: bold;">{{ $aItem['info']['egy'] }}</span>--}}
-    {{--    @endif--}}
-
-    <span style="color:#efdaa4;">
-        {{ __('inventory.sort', ['type' => data_get($aItem['info'], 'Type', '')]) }}
-        <br>
-        @isset($aItem['info']['Detail'])
-        {{ __('inventory.mounting', ['detail' => data_get($aItem['info'], 'Detail', '')]) }}
-            <br>
-        @endisset
-        {{ __('inventory.degree', ['degree' => data_get($aItem['info'], 'Degree', '')]) }}
-    </span>
-    <br>
-    <br>
-
-    @foreach($aItem['whitestats'] as $iKey => $sWhites)
-        {{ $sWhites }} <br>
-    @endforeach
-
-    <br>
-
-    @isset($aItem['info']['ReqLevel1'])
-        {{ __('inventory.require', ['level' => $aItem['info']['ReqLevel1']]) }}
-        <br>
-    @endif
-    @isset($aItem['info']['Sex'])
-        {{ $aItem['info']['Sex'] }}
-        <br>
-    @endif
-
-    <span style="color:#efdaa4;">
-        {{ __('inventory.max-unit', ['max' => $aItem['MaxMagicOptCount']]) }}
-    </span>
-    <br>
-    @if($aItem['blues'])
-        <br>
-        @foreach($aItem['blues'] as $iKey => $aBlues)
-            <span style="color:{{ '#' . $aBlues['color'] }};font-weight: bold;">
-                {{ $aBlues['name'] }}
-            </span>
-            <br>
-        @endforeach
-    @endif
-
-    @if($aItem['nOptValue'] === null)
-        {{ __('inventory.able-adv') }}
-    @else
-        <b>
-            {{ __('inventory.adv-inuse', ['plus' => $aItem['nOptValue']]) }}
-        </b>
-    @endif
-    <br>
-@elseif ($aItem['info']['Degree'])
-    <br>
-    <br>
-    <span style="color:#efdaa4;">
-        {{ __('inventory.sort', ['type' => $aItem['info']['Type']]) }}
-    </span>
-    <br>
-    <br>
-    {{ $aItem['info']['Sex'] }}
-    <br>
-    <br>
-    @isset($aItem['info']['timeEnd'])
-        <span style="color:#efdaa4;font-weight:bold;">
-            {{ __('inventory.awaken') }}
-        </span>
-        <br>
-        {{ $aItem['info']['timeEnd'] }}
-        <br>
-    @else
-        @isset($aItem['blues'])
-            <span style="color:#efdaa4;">
-                {{ __('inventory.max-unit', ['max' => $aItem['MaxMagicOptCount']]) }}
-            </span>
-            <br>
-            <br>
-            @foreach($aItem['blues'] as $iKey => $aBlues)
-                <span style="color:{{ '#' . $aBlues['color'] }};font-weight: bold;">
-                    {{ $aBlues['name'] }}
-                </span>
-                <br>
-            @endforeach
-        @endisset
-    @endisset
-@elseif (isset($aItem['info']['PetType']))
+@if(data_get($aItem['info'], 'PetState'))
     <br>
     <br>
     <span style="color:#efdaa4;">
@@ -135,31 +36,133 @@
         {{ __('inventory.pet-info') }}
     </span>
     <br/>
-    {{ __('inventory.pet-name', ['name' => $aItem['info']['PetName'] ?: 'No Name']) }}
+    {{ __('inventory.pet-name', ['name' => data_get($aItem['info'], 'PetName') ?: 'No Name']) }}
     <br>
     <br>
-    @if($aItem['info']['PetType'] === 1)
-        {{ __('inventory.pet-level', ['level' => $aItem['info']['PetLevel']]) }}
+    @if(data_get($aItem['info'], 'PetType') === 1)
+        {{ __('inventory.pet-level', ['level' => data_get($aItem['info'], 'PetLevel', 0)]) }}
     @else
         <span style="color:#efdaa4;font-weight:bold;">
             {{ __('inventory.pet-rental') }}
         </span>
         <br/>
-        {{ $aItem['info']['PetEndTime'] }}
+        {{ data_get($aItem['info'], 'PetEndTime', 'Unknown time') }}
     @endif
 
-    @if($aItem['info']['inventorySize'])
+    @if(data_get($aItem['info'], 'inventorySize'))
         <br>
         <br>
         <span style="color:#efdaa4;font-weight:bold;">
             {{ __('inventory.pet-inventory') }}
         </span>
         <br>
-        {{ $aItem['info']['inventoryEndTime'] }}
+        {{ data_get($aItem['info'], 'inventoryEndTime', 'Unknown time') }}
         <br>
-        {{ __('inventory.pet-inventory-size', ['size' => $aItem['info']['inventorySize']]) }}
+        {{ __('inventory.pet-inventory-size', ['size' => data_get($aItem['info'], 'inventorySize', 'unknown')]) }}
+    @endif
+    @else
+
+    @if($aItem['info']['Degree'] >= '1')
+        @isset($aItem['info']['sox'])
+            <br>
+            @if($aItem['info']['sox'])
+                <br>
+                <span style="color:#f2e43d;font-weight: bold;">
+                {{ $aItem['info']['sox'] }}
+            </span>
+            @endif
+        @endisset
+        <br>
+
+        {{--    @if($aItem['info']['egy'])--}}
+        {{--        <span style="color:#53EE92;font-weight: bold;">{{ $aItem['info']['egy'] }}</span>--}}
+        {{--    @endif--}}
+
+        <span style="color:#efdaa4;">
+        {{ __('inventory.sort', ['type' => data_get($aItem['info'], 'Type', '')]) }}
+        <br>
+        @isset($aItem['info']['Detail'])
+                {{ __('inventory.mounting', ['detail' => data_get($aItem['info'], 'Detail', '')]) }}
+                <br>
+            @endisset
+            {{ __('inventory.degree', ['degree' => data_get($aItem['info'], 'Degree', '')]) }}
+    </span>
+        <br>
+        <br>
+
+        @foreach($aItem['whitestats'] as $iKey => $sWhites)
+            {{ $sWhites }} <br>
+        @endforeach
+
+        <br>
+
+        @isset($aItem['info']['ReqLevel1'])
+            {{ __('inventory.require', ['level' => $aItem['info']['ReqLevel1']]) }}
+            <br>
+        @endif
+        @isset($aItem['info']['Sex'])
+            {{ $aItem['info']['Sex'] }}
+            <br>
+        @endif
+
+        <span style="color:#efdaa4;">
+        {{ __('inventory.max-unit', ['max' => $aItem['MaxMagicOptCount']]) }}
+    </span>
+        <br>
+        @if($aItem['blues'])
+            <br>
+            @foreach($aItem['blues'] as $iKey => $aBlues)
+                <span style="color:{{ '#' . $aBlues['color'] }};font-weight: bold;">
+                {{ $aBlues['name'] }}
+            </span>
+                <br>
+            @endforeach
+        @endif
+
+        @if($aItem['nOptValue'] === null)
+            {{ __('inventory.able-adv') }}
+        @else
+            <b>
+                {{ __('inventory.adv-inuse', ['plus' => $aItem['nOptValue']]) }}
+            </b>
+        @endif
+        <br>
+    @elseif ($aItem['info']['Degree'])
+        <br>
+        <br>
+        <span style="color:#efdaa4;">
+            {{ __('inventory.sort', ['type' => $aItem['info']['Type']]) }}
+        </span>
+        <br>
+        <br>
+        {{ $aItem['info']['Sex'] }}
+        <br>
+        <br>
+        @isset($aItem['info']['timeEnd'])
+            <span style="color:#efdaa4;font-weight:bold;">
+                {{ __('inventory.awaken') }}
+            </span>
+            <br>
+            {{ $aItem['info']['timeEnd'] }}
+            <br>
+        @else
+            @isset($aItem['blues'])
+                <span style="color:#efdaa4;">
+                    {{ __('inventory.max-unit', ['max' => $aItem['MaxMagicOptCount']]) }}
+                </span>
+                <br>
+                <br>
+                @foreach($aItem['blues'] as $iKey => $aBlues)
+                    <span style="color:{{ '#' . $aBlues['color'] }};font-weight: bold;">
+                        {{ $aBlues['name'] }}
+                    </span>
+                    <br>
+                @endforeach
+            @endisset
+        @endisset
     @endif
 @endif
+
 
 @role('administrator')
 <div id="gm-info" class="text-danger">

@@ -13,7 +13,7 @@ class CreateCharInventoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('char_inventories', function (Blueprint $table) {
+        Schema::create('char_inventories', static function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->bigInteger('from_charid');

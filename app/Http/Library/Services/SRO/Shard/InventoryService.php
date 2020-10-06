@@ -240,8 +240,8 @@ class InventoryService
 
             $aSet[$i]['Slot'] = $i;
             $aSet[$i]['Serial64'] = data_get($aInfo,'Serial64', null);
-            $aSet[$i]['TypeID2'] = data_get($aInfo,'TypeID2', null);
-            $aSet[$i]['OptLevel'] = data_get($aInfo,'OptLevel', null);
+            $aSet[$i]['TypeID2'] = data_get($aInfo,'TypeID2', 0);
+            $aSet[$i]['OptLevel'] = data_get($aInfo,'OptLevel', 0);
             $aSet[$i]['RefItemID'] = data_get($aCurItem,'RefItemID', 0);
             $aSet[$i]['special'] = data_get($aInfo['info'],'sox', null);
             $aSet[$i]['ItemID'] = data_get($aCurItem,'ID64', 0);
@@ -298,13 +298,15 @@ class InventoryService
         $aData['TypeID4'] = $aItem['TypeID4'];
         $aData['Price'] = $aItem['Price']; // Npc Price
         $aData['sox'] = ''; // For Blade
-        $aData['Degree'] = data_get($aItem, 'ItemClass', 0); // For Blade
+        $aData['OptLevel'] = data_get($aItem, 'OptLevel', 0);
+        $aData['Degree'] = data_get($aItem, 'ItemClass', '0'); // For Blade
         $aData['WebName'] = $this->getItemRealName(
             str_replace(['_W_', '_M_'], ['_', '_'], $aItem['CodeName128'])
         );
 
         if ($this->isPet($aItem)) {
             $aData['PetState'] = true;
+            $aData['Type'] = 'Pet';
             if (!isset($aItem['RentEndTime'])) {
                 $aPet = $this->getPetInformation($aItem['Data']);
 

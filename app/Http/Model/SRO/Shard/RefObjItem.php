@@ -35,4 +35,16 @@ class RefObjItem extends Model
     protected $fillable = [
         ''
     ];
+
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'MaxStack' => 'integer',
+        'ReqGender' => 'integer',
+        'ReqStr' => 'integer',
+        'ReqInt' => 'integer',
+        'ItemClass' => 'integer',
+        'MaxMagicOptOption' => 'integer',
+    ];
 }

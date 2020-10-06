@@ -399,10 +399,16 @@ class WebInventoryService
                 $itemData['data']
             );
 
-            if(array_key_exists('Type', $itemData['WebInventory']) && $itemData['WebInventory']['Type'] === '')
-            {
-                $itemData['WebInventory']['Type'] = 'Unknown';
-            }
+            $webName = data_get($itemData['WebInventory'], 'WebName', 'Unknown Name');
+            $optLevel = data_get($itemData['WebInventory'], 'OptLevel', 0);
+            $type = data_get($itemData['WebInventory'], 'Type', 'Unknown');
+            $special = data_get($itemData['WebInventory'], 'special', '0');
+            $amount = data_get($itemData, 'amount', 0);
+            $sex = data_get($itemData['WebInventory'], 'Sex', 'Unknown');
+            $race = data_get($itemData['WebInventory'], 'Race', '');
+            $price = data_get($itemData['WebInventory'], 'Price', '');
+            $reqLevel = data_get($itemData['WebInventory'], 'ReqLevel1', 0);
+            $degree = data_get($itemData['WebInventory'], 'Degree', 0);
 
             // Putting that Item into the Web Database
             CharInventory::create([
@@ -410,24 +416,17 @@ class WebInventoryService
                 'from_charid' => $characterId,
                 'serial64' => $serial64,
                 'item_id64' => $item->ID64,
-                'name' => $itemData['WebInventory']['WebName'],
+                'name' => $webName,
                 'imgpath' => $itemData['imgpath'],
-                'optlevel' => $itemData['OptLevel'],
-                'amount' => $itemData['amount'] ?: 0,
-                'special' => array_key_exists('special', $itemData) ?
-                    $itemData['special'] : '0',
-                'sort' => array_key_exists('Type', $itemData['WebInventory']) ?
-                    $itemData['WebInventory']['Type'] : 'Unknown',
-                'degree' => array_key_exists('Degree', $itemData['WebInventory']) ?
-                    $itemData['WebInventory']['Degree'] : 0,
-                'level' => array_key_exists('ReqLevel1', $itemData['WebInventory']) ?
-                    $itemData['WebInventory']['ReqLevel1'] : 0,
-                'npc_price' => array_key_exists('Price', $itemData['WebInventory']) ?
-                    $itemData['WebInventory']['Price'] : 0,
-                'race' => array_key_exists('Race', $itemData['WebInventory']) ?
-                    $itemData['WebInventory']['Race'] : '',
-                'sex' => array_key_exists('Sex', $itemData['WebInventory']) ?
-                    $itemData['WebInventory']['Sex'] : '',
+                'optlevel' => $optLevel,
+                'amount' => $amount,
+                'special' => $special,
+                'sort' => $type,
+                'degree' => $degree,
+                'level' => $reqLevel,
+                'npc_price' => $price,
+                'race' => $race,
+                'sex' => $sex,
                 'data' => $itemData['data']
             ]);
 
