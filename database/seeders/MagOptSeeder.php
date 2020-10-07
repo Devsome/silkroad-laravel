@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class MagOptSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class MagOptSeeder extends Seeder
     public function run()
     {
         DB::connection('shard')->unprepared(
-            file_get_contents('database/seeds/_MagOpt.sql')
+            file_get_contents('database/seeders/_MagOpt.sql')
         );
     }
 }

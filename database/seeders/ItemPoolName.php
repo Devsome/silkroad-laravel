@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ItemPoolName extends Seeder
 {
@@ -14,7 +15,7 @@ class ItemPoolName extends Seeder
     public function run()
     {
         DB::connection('shard')->unprepared(
-            file_get_contents('database/seeds/_ItemPoolName.sql')
+            file_get_contents('database/seeders/_ItemPoolName.sql')
         );
     }
 }
