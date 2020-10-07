@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Tickets\TicketStatus;
 use Illuminate\Database\Seeder;
 
