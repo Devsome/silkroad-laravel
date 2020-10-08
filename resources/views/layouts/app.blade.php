@@ -11,6 +11,7 @@
     <meta name="description" content="{{ config('app.description', 'Description') }}">
     <!-- Coded by Devsome.com -->
     <meta name="author" content="Alexander Frank">
+    <link rel="icon" href="{{ asset('image/favicon/favicon.ico') }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
