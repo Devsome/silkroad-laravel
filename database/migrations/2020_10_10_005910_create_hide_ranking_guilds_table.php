@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHideRankingsTable extends Migration
+class CreateHideRankingGuildsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateHideRankingsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('hide_rankings')) {
-            Schema::create('hide_rankings', function (Blueprint $table) {
+        if (!Schema::hasTable('hide_ranking_guilds')) {
+            Schema::create('hide_ranking_guilds', static function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->string('charname');
+                $table->string('guild');
+                $table->integer('guild_id');
                 $table->timestamps();
             });
         }
@@ -29,6 +30,6 @@ class CreateHideRankingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hide_rankings');
+        Schema::dropIfExists('hide_ranking_guilds');
     }
 }

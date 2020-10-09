@@ -172,10 +172,15 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
         // Patching _Char
         Route::post('/players/{char}/unstuck', 'Backend\SilkroadController@sroUnstuckChar')->name('sro-players-unstuck');
 
-        // Hide Ranking
-        Route::get('/hideranking', 'Backend\HideRankingController@index')->name('hide-ranking-index-backend');
-        Route::post('/hideranking/add', 'Backend\HideRankingController@add')->name('hide-ranking-add-backend');
-        Route::post('/hideranking/{id}/destroy', 'Backend\HideRankingController@destroy')->name('hide-ranking-destroy-backend');
+        // Hide Ranking Char
+        Route::get('/hideranking-char', 'Backend\HideRankingController@index')->name('hide-ranking-index-backend');
+        Route::post('/hideranking-char/add', 'Backend\HideRankingController@add')->name('hide-ranking-add-backend');
+        Route::post('/hideranking-char/{id}/destroy', 'Backend\HideRankingController@destroy')->name('hide-ranking-destroy-backend');
+
+        // Hide Ranking Guild
+        Route::get('/hideranking-guild', 'Backend\HideRankingGuildController@index')->name('hide-ranking-guild-index-backend');
+        Route::post('/hideranking-guild/add', 'Backend\HideRankingGuildController@add')->name('hide-ranking-guild-add-backend');
+        Route::post('/hideranking-guild/{id}/destroy', 'Backend\HideRankingGuildController@destroy')->name('hide-ranking-guild-destroy-backend');
     });
 
     // Web

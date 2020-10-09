@@ -37,7 +37,9 @@ return [
     'guild' => 'Guilds',
     'user' => 'Accounts',
     'worldmap' => 'World map',
-    'hide-ranking' => 'Hide Ranking',
+    'hide-ranking' => 'Hide in Ranking',
+    'hide-ranking-char' => 'Char',
+    'hide-ranking-guild' => 'Guild',
 
     'smc-log' => 'SMC Logging',
     'users-created' => 'Users created',

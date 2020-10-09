@@ -151,13 +151,25 @@
             <span>{{ __('backend/menu.worldmap') }}</span>
         </a>
     </li>
+
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('hide-ranking-index-backend') }}">
+        <a class="nav-link" href="#" data-toggle="collapse"
+           data-target="#collapseHideRanking" aria-expanded="true" aria-controls="collapseHideRanking">
             <i class="fas fa-fw fa-eye-slash"></i>
             <span>{{ __('backend/menu.hide-ranking') }}</span>
         </a>
+        <div id="collapseHideRanking" class="collapse"
+             aria-labelledby="headingHideRanking" data-parent="#accordionSidebar" style="">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('hide-ranking-index-backend') }}">
+                    {{ __('backend/menu.hide-ranking-char') }}
+                </a>
+                <a class="collapse-item" href="{{ route('hide-ranking-guild-index-backend') }}">
+                    {{ __('backend/menu.hide-ranking-guild') }}
+                </a>
+            </div>
+        </div>
     </li>
-
 
     <div class="sidebar-heading">
         {{ __('backend/menu.log') }}
