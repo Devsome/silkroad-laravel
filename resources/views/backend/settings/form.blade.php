@@ -206,6 +206,31 @@
         </div>
     </div>
 
+    <div class="form-group row pt-2">
+        <label class="col-sm-4 col-form-label">
+            {{ __('backend/settings.form.fortress-constantinople-enabled') }}
+        </label>
+        <div class="col-sm-8">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="custom-control custom-checkbox d-block pt-2">
+                    <input class="custom-control-input {{ $errors->has('constantinople_fortress') ? ' is-invalid' : '' }}"
+                           type="checkbox" id="constantinople_fortress" name="constantinople_fortress"
+                    @if(array_key_exists('constantinople_fortress', $data))
+                        {{ $data['constantinople_fortress'] ? 'checked' : '' }}
+                            @endif>
+                    <label class="custom-control-label" for="constantinople_fortress">
+                        {{ __('backend/settings.form.fortress-disable') }}
+                    </label>
+                    @if ($errors->has('constantinople_fortress'))
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('constantinople_fortress') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <hr class="mt-2">
     <h4>

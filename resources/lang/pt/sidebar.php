@@ -44,6 +44,7 @@ return [
         'jangan' => 'Jangan',
         'bandit' => 'Bandit',
         'hotan' => 'Hotan',
+        'constantinople' => 'Constantinople',
         'unknown' => 'Desconhecido',
         'empty' => 'Não há força',
     ],

@@ -84,6 +84,7 @@ class SiteSettingsController extends Controller
             'jangan_fortress' => $request->get('jangan_fortress') ? true : false,
             'bandit_fortress' => $request->get('bandit_fortress') ? true : false,
             'hotan_fortress' => $request->get('hotan_fortress') ? true : false,
+            'constantinople_fortress' => $request->get('constantinople_fortress') ? true : false,
             'sro_content_id' => $request->get('sro_content_id') ?? '22',
             'sro_max_server' => $request->get('sro_max_server') ?? '1000',
             'sro_cap' => $request->get('sro_cap') ?? '110',

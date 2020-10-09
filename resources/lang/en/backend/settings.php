@@ -22,6 +22,7 @@ return [
         'fortress-jangan-enabled' => 'Jangan Fortress',
         'fortress-hotan-enabled' => 'Hotan Fortress',
         'fortress-bandit-enabled' => 'Bandit Fortress',
+        'fortress-constantinople-enabled' => 'Constantinople Fortress',
         'fortress-disable' => 'Disable',
 
         'silkroad' => 'Silkroad Rates',

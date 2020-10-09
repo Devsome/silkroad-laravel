@@ -14,7 +14,8 @@ class SiegeFortressController extends Controller
         $fortressMapping = [
             1 => __('sidebar.fortress.jangan'),
             3 => __('sidebar.fortress.hotan'),
-            6 => __('sidebar.fortress.bandit')
+            6 => __('sidebar.fortress.bandit'),
+            9 => __('sidebar.fortress.constantinople'),
         ];
         $siteSettings = config('siteSettings');
 
@@ -42,7 +43,10 @@ class SiegeFortressController extends Controller
                             $data->FortressImage = asset('image/sro/etc/fort_hotan.jpg');
                         }
                         if ($data->FortressID === 6) {
-                            $data->FortressImage = asset('image/sro/etc/fort_donwhang.jpg');
+                            $data->FortressImage = asset('image/sro/etc/fort_bijeokdan.jpg');
+                        }
+                        if ($data->FortressID === 4) {
+                            $data->FortressImage = asset('image/sro/etc/fort_constantinople.jpg');
                         }
                     }
                     return $data;
