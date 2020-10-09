@@ -67,6 +67,9 @@
                                         <label for="guild">
                                             {{ __('backend/hideranking.guild.form.guild') }}
                                         </label>
+                                        <p class="small">
+                                            {{ __('backend/hideranking.guild.form.title-help') }}
+                                        </p>
                                     </div>
                                     <div class="col-8">
                                         <input id="guild"
