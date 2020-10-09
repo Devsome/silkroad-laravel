@@ -87,6 +87,7 @@ return [
     'locale_enabled' => [
         'en' => 'English',
         'de' => 'German',
+        'pt' => 'Portugues'
     ],
 
     /*
