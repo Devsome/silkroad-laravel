@@ -206,7 +206,7 @@ class AuctionsHouseController extends Controller
             return back()->with('error', trans('auctionshouse.notification.buy.until'));
         }
 
-        if($buyNowPrice === 0) {
+        if ($buyNowPrice === 0) {
             return back()->with('error', trans('auctionshouse.notification.buy.price-0'));
         }
 
@@ -256,10 +256,20 @@ class AuctionsHouseController extends Controller
             );
 
             // The Account who sold it need that gold
-            CharGold::where('user_id', $sellerUserId)
-                ->increment(
-                    'gold', $userGoldGain
-                );
+            $sellerGold = CharGold::where('user_id', $sellerUserId)
+                ->get()
+                ->first();
+            if ($sellerGold === null) {
+                CharGold::create([
+                    'user_id' => $sellerUserId,
+                    'gold' => $userGoldGain
+                ]);
+            } else {
+                CharGold::where('user_id', $sellerUserId)
+                    ->increment(
+                        'gold', $userGoldGain
+                    );
+            }
 
             // Giving the user who bid the last the gold amount back
             if ($currentAuctionBidUser) {

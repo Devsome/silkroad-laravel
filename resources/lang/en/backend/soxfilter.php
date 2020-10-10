@@ -8,7 +8,7 @@ return [
         'owner' => 'Owner',
         'type' => 'Type',
         'item' => 'Item',
-        'storage' => 'Storage',
+        'storage' => 'In Storage',
         'web' => 'Web Inventory',
         'empty' => 'Degree :degree is not dropped yet.',
     ]

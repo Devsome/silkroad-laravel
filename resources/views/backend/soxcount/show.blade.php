@@ -48,12 +48,15 @@
                                         </a>
                                     @endisset
                                     @isset($item['StorageState'])
-                                        <span class="text-secondary">
+                                        <span class="text-secondary small">
                                             {{ __('backend/soxfilter.table.storage') }}
+                                            <a href="{{ route('sro-user-edit-backend', ['user' => $item['StorageState']]) }}" target="_blank">
+                                                <i class="fas fa-external-link-alt"></i>
+                                            </a>
                                         </span>
                                     @endisset
                                     @if($dataWeb->contains($item['ItemID']))
-                                        <span class="text-secondary">
+                                        <span class="text-secondary small">
                                             {{ __('backend/soxfilter.table.web') }}
                                         </span>
                                     @endif
