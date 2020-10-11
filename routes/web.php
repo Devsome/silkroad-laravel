@@ -119,6 +119,15 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
         Route::delete('/destroy/{id}', 'Backend\ServerInformationController@destroy')->name('server-information-destroy-backend');
     });
 
+    // Server Rules
+    Route::group(['prefix' => 'rules'], static function () {
+       Route::get('/','Backend\RulesController@index')->name('server-rules-index-backend');
+        Route::get('/create', 'Backend\RulesController@showAdd')->name('server-rules-show-add-backend');
+        Route::post('/add', 'Backend\RulesController@add')->name('server-rules-add-backend');
+        Route::get('/edit/{id}', 'Backend\RulesController@showEdit')->name('server-rules-edit-show-backend');
+        Route::post('/update/{id}', 'Backend\RulesController@update')->name('server-rules-update-backend');
+    });
+
     // Ticket
     Route::group(['prefix' => 'ticket'], static function () {
         Route::get('/{conversation?}', 'Backend\TicketController@list')->name('ticket-index-list')->where(['conversation' => '[0-9]+']);

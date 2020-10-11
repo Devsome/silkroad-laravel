@@ -6,6 +6,7 @@ use App\Download;
 use App\Http\Controllers\Controller;
 use App\Model\SRO\Account\OnlineOfflineLog;
 use App\News;
+use App\Rules;
 use App\ServerInformation;
 use App\SiteSettings;
 use Carbon\Carbon;
@@ -44,7 +45,10 @@ class IndexController extends Controller
      */
     public function rules()
     {
-        return view('theme::frontend.other.rules');
+        $rules = Rules::all()->first();
+        return view('theme::frontend.other.rules', [
+            'rules' => $rules
+        ]);
     }
 
     /**

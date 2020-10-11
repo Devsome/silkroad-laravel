@@ -8,7 +8,11 @@
                     <h1>{{ __('rules.title') }}</h1>
                     <div class="row">
                         <div class="col-12">
-                            {{ __('rules.body') }}
+                            @if($rules)
+                                {!! $rules->body !!}
+                                @else
+                                {{ __('rules.empty') }}
+                            @endif
                         </div>
                     </div>
                 </div>

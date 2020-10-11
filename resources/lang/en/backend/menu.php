@@ -30,6 +30,7 @@ return [
     'settings' => 'Site Settings',
     'auctionshouse' => 'Auctions House',
     'serverinformation' => 'Server Information',
+    'serverrules' => 'Server Rules',
 
     'notice' => 'Launcher notice',
     'tbuser' => 'Accounts',

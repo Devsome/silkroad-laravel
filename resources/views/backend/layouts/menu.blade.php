@@ -111,6 +111,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('server-rules-index-backend') }}">
+            <i class="fas fa-fw fa-paragraph"></i>
+            <span>{{ __('backend/menu.serverrules') }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('site-settings-backend') }}">
             <i class="fas fa-fw fa-cog"></i>
             <span>{{ __('backend/menu.settings') }}</span>
