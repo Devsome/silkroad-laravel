@@ -63,10 +63,15 @@ class ServerInformationController extends Controller
     public function showEdit($id)
     {
         return view('backend.serverinformation.edit', [
-            'information' => ServerInformation::findOrFail($id)->first()
+            'information' => ServerInformation::findOrFail($id)
         ]);
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($id, Request $request)
     {
         $validator = Validator::make($request->all(), [
