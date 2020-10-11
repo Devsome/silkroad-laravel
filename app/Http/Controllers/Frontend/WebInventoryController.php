@@ -33,7 +33,7 @@ class WebInventoryController extends Controller
 
         $webGold = CharGold::where('user_id', Auth::id())->sum('gold');
 
-        return view('frontend.account.webinventory.index', [
+        return view('theme::frontend.account.webinventory.index', [
             'account' => $account,
             'webGold' => $webGold
         ]);

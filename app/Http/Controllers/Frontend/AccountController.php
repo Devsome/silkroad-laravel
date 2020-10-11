@@ -33,7 +33,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('theme::home');
     }
 
     /**
@@ -49,7 +49,7 @@ class AccountController extends Controller
             ->with('getTbUser.getShardUser.getCharOnlineOfflineLoggedIn')
             ->firstOrFail();
 
-        return view('frontend.account.charslist', [
+        return view('theme::frontend.account.charslist', [
             'account' => $account
         ]);
     }
@@ -64,7 +64,7 @@ class AccountController extends Controller
         $account = User::where('id', Auth::id())
             ->firstOrFail();
 
-        return view('frontend.account.settings', [
+        return view('theme::frontend.account.settings', [
             'account' => $account
         ]);
     }
@@ -85,7 +85,7 @@ class AccountController extends Controller
             $signature = null;
         }
 
-        return view('frontend.account.referral', [
+        return view('theme::frontend.account.referral', [
             'account' => $account,
             'signature' => $signature
         ]);
@@ -111,7 +111,7 @@ class AccountController extends Controller
         $account = User::where('id', Auth::id())
             ->firstOrFail();
 
-        return view('frontend.account.voucher', [
+        return view('theme::frontend.account.voucher', [
             'account' => $account
         ]);
     }

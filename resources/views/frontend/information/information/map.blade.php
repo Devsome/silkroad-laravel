@@ -1,4 +1,4 @@
-@push('javascript')
+@push('theme::javascript')
     <script type="text/javascript">
         $(document).ready(function () {
             createMinimapCanvas(

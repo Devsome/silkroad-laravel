@@ -40,7 +40,7 @@ class InformationController extends Controller
 
         $jobItem = $inventoryService->getInventorySlot($player->CharID, 8);
 
-        return view('frontend.information.player', [
+        return view('theme::frontend.information.player', [
             'player' => $player,
             'playerInventory' => $playerInventory,
             'playerAvatar' => $playerAvatar,
@@ -59,7 +59,7 @@ class InformationController extends Controller
             ->with('getGuildMembers.getCharItemPoints')
             ->firstOrFail();
 
-        return view('frontend.information.guild', [
+        return view('theme::frontend.information.guild', [
             'guild' => $guild
         ]);
     }

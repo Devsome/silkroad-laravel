@@ -186,6 +186,7 @@ return [
         /*
          * Custom Service Providers
          */
+        \App\Providers\ThemeServiceProvider::class,
         \App\Providers\TicketNewCountProvider::class,
         \App\Providers\PlayerCountProvider::class,
         \App\Providers\DiscordProvider::class,

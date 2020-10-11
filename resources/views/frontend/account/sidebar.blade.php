@@ -8,7 +8,7 @@
                 <i class="fa fa-fw fa-desktop"></i> {{ __('sidebar.information.online') }}
             </div>
             <div class="float-right">
-                @include('layouts.playercount')
+                @include('theme::layouts.playercount')
             </div>
         </li>
         <li class="pb-1 pt-2">

@@ -149,7 +149,7 @@ class DonationsPaypalController extends Controller
      */
     public function success()
     {
-        return view('frontend.account.donations.success');
+        return view('theme::frontend.account.donations.success');
     }
 
     public function error($id)
@@ -166,7 +166,7 @@ class DonationsPaypalController extends Controller
         $invoice->state = PaypalInvoices::STATE_CANCELED;
         $invoice->save();
 
-        return view('frontend.account.donations.error');
+        return view('theme::frontend.account.donations.error');
     }
 
     /**
@@ -174,12 +174,12 @@ class DonationsPaypalController extends Controller
      */
     public function invoiceClosed()
     {
-        return view('frontend.account.donations.invoiceclosed');
+        return view('theme::frontend.account.donations.invoiceclosed');
     }
 
     public function notify()
     {
-        return view('frontend.account.donations.invoiceclosed');
+        return view('theme::frontend.account.donations.invoiceclosed');
     }
 
     /**

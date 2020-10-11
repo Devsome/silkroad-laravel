@@ -1,10 +1,10 @@
-@extends('layouts.app')
-@section('title', __('seo.auctionshouse.showitem', ['name' => $item->getItemInformation->name]))
-@section('sidebar')
-    @include('frontend.account.auctionsidebar')
+@extends('theme::layouts.app')
+@section('theme::title', __('seo.auctionshouse.showitem', ['name' => $item->getItemInformation->name]))
+@section('theme::sidebar')
+    @include('theme::frontend.account.auctionsidebar')
 @endsection
 
-@section('content')
+@section('theme::content')
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="container">
             <div class="row justify-content-center">
@@ -174,7 +174,7 @@
         </div>
     </div>
 @endsection
-@push('javascript')
+@push('theme::javascript')
     <script>
         $(document).ready(function () {
             $(document).tooltip({

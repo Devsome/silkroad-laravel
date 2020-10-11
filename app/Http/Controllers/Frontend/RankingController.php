@@ -44,12 +44,12 @@ class RankingController extends Controller
                 ->whereNotIn('GuildID', $hideRankingGuild)
                 ->with('getGuildUser')
                 ->paginate(150);
-            $data = view('frontend.ranking.results.chars', [
+            $data = view('theme::frontend.ranking.results.chars', [
                 'data' => $chars,
             ])->render();
         }
 
-        return view('frontend.ranking.index', [
+        return view('theme::frontend.ranking.index', [
             'data' => $data,
             'mode' => $mode
         ]);
@@ -71,7 +71,7 @@ class RankingController extends Controller
                 ->whereNotIn('GuildID', $hideRankingGuild)
                 ->with('getGuildUser')
                 ->paginate(150);
-            return view('frontend.ranking.results.chars', [
+            return view('theme::frontend.ranking.results.chars', [
                 'data' => $chars,
             ])->render();
         }
@@ -81,7 +81,7 @@ class RankingController extends Controller
                 ->where('Name', 'like', '%' . $search . '%')
                 ->whereNotIn('ID', $hideRankingGuild)
                 ->paginate(150);
-            return view('frontend.ranking.results.guilds', [
+            return view('theme::frontend.ranking.results.guilds', [
                 'data' => $guilds,
             ])->render();
         }
@@ -97,7 +97,7 @@ class RankingController extends Controller
                 ->orderBy('Level', 'DESC')
                 ->orderBy('Exp', 'DESC')
                 ->paginate(150);
-            return view('frontend.ranking.results.jobs', [
+            return view('theme::frontend.ranking.results.jobs', [
                 'data' => $jobs
             ])->render();
         }
@@ -117,7 +117,7 @@ class RankingController extends Controller
                 ->whereNotIn('GuildID', $hideRankingGuild)
                 ->with('getGuildUser')
                 ->paginate(150);
-            return view('frontend.ranking.results.chars', [
+            return view('theme::frontend.ranking.results.chars', [
                 'data' => $chars,
             ])->render();
         }
@@ -126,7 +126,7 @@ class RankingController extends Controller
             $guilds = Guild::orderBy('ItemPoints', 'DESC')
                 ->whereNotIn('ID', $hideRankingGuild)
                 ->paginate(150);
-            return view('frontend.ranking.results.guilds', [
+            return view('theme::frontend.ranking.results.guilds', [
                 'data' => $guilds,
             ])->render();
         }
@@ -141,7 +141,7 @@ class RankingController extends Controller
                 ->orderBy('Level', 'DESC')
                 ->orderBy('Exp', 'DESC')
                 ->paginate(150);
-            return view('frontend.ranking.results.jobs', [
+            return view('theme::frontend.ranking.results.jobs', [
                 'data' => $jobs
             ]);
         }
@@ -156,7 +156,7 @@ class RankingController extends Controller
                 ->orderBy('Level', 'DESC')
                 ->orderBy('Exp', 'DESC')
                 ->paginate(150);
-            return view('frontend.ranking.results.jobs', [
+            return view('theme::frontend.ranking.results.jobs', [
                 'data' => $jobs
             ]);
         }
@@ -171,7 +171,7 @@ class RankingController extends Controller
                 ->orderBy('Level', 'DESC')
                 ->orderBy('Exp', 'DESC')
                 ->paginate(150);
-            return view('frontend.ranking.results.jobs', [
+            return view('theme::frontend.ranking.results.jobs', [
                 'data' => $jobs
             ]);
         }
@@ -186,7 +186,7 @@ class RankingController extends Controller
                 ->orderBy('Level', 'DESC')
                 ->orderBy('Exp', 'DESC')
                 ->paginate(150);
-            return view('frontend.ranking.results.jobs', [
+            return view('theme::frontend.ranking.results.jobs', [
                 'data' => $jobs
             ]);
         }

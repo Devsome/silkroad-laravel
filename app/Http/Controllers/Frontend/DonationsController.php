@@ -16,7 +16,7 @@ class DonationsController extends Controller
     public function index()
     {
         $donationMethods = DonationMethods::where('active', '=', 1)->get();
-        return view('frontend.account.donations', [
+        return view('theme::frontend.account.donations', [
             'donationMethods' => $donationMethods
         ]);
     }
@@ -38,7 +38,7 @@ class DonationsController extends Controller
             $pendingInvoices = PaypalInvoices::where('user_id', '=', \Auth::id())
                 ->where('state', '=', PaypalInvoices::STATE_PENDING)
                 ->get();
-            return view('frontend.account.donations.paypal', [
+            return view('theme::frontend.account.donations.paypal', [
                 'method' => $donationMethod,
                 'paypal' => $paypal,
                 'invoices' => $pendingInvoices

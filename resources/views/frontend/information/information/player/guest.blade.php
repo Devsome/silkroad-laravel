@@ -62,7 +62,7 @@
     <h2>{{ __('information.player.equipment.title') }}</h2>
     <div class="col-md-12">
         <div class="row">
-            @include('frontend.information.information.inventory', ['items' => $playerInventory])
+            @include('theme::frontend.information.information.inventory', ['items' => $playerInventory])
         </div>
     </div>
 </div>

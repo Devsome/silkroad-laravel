@@ -18,7 +18,7 @@ class NotificationController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
-        return view('frontend.other.notification', [
+        return view('theme::frontend.other.notification', [
             'notifications' => $notification
         ]);
     }

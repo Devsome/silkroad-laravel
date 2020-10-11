@@ -1,10 +1,10 @@
-@extends('layouts.app')
-@section('title', __('seo.referral'))
-@section('sidebar')
-    @include('frontend.account.sidebar')
+@extends('theme::layouts.app')
+@section('theme::title', __('seo.referral'))
+@section('theme::sidebar')
+    @include('theme::frontend.account.sidebar')
 @endsection
 
-@section('content')
+@section('theme::content')
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="container">
             <div class="row justify-content-center">
@@ -50,7 +50,7 @@
         </div>
     </div>
 @endsection
-@push('javascript')
+@push('theme::javascript')
     <script>
         $(document).ready(function() {
             $('#users').DataTable( {

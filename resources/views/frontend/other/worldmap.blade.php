@@ -1,10 +1,10 @@
-@extends('layouts.app')
-@section('title', __('seo.worldmap'))
-@section('sidebar')
+@extends('theme::layouts.app')
+@section('theme::title', __('seo.worldmap'))
+@section('theme::sidebar')
     <!-- clear it -->
 @endsection
 
-@section('content')
+@section('theme::content')
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="container">
             <div class="row justify-content-center">
@@ -192,7 +192,7 @@
     </div>
 @endsection
 
-@push('javascript')
+@push('theme::javascript')
     <script src="{{ asset('js/worldmap.min.js') }}"></script>
     <script type="text/javascript">
         // Just stop default hash click behavior
@@ -243,7 +243,7 @@
         });
     </script>
 @endpush
-@push('css')
+@push('theme::css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/leaflet.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/components.css') }}">
     <style>

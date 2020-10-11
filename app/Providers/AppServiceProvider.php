@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer(
-            'layouts.footer',
+            'theme::layouts.footer',
             static function ($view) {
                 $backlinks = Backlinks::all();
                 $view->with('BacklinksProvider', $backlinks);
@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
 
 
         view()->composer(
-            'layouts.navbar',
+            'theme::layouts.navbar',
             static function ($view) {
                 $notificationsCount = 0;
                 if (Auth::id()) {

@@ -52,14 +52,10 @@ class SkSilkChangeByWeb extends Model
      */
     public const SilkTypeSilk = 0;
 
-    /**
-     * Reason 3 is for Web
-     */
-    public const SilkReasonBuy = 0;
 
     /**
-     * Reason 1 is for Admin
+     * Reason 1 is for Gift (Activity Points)
      */
-    public const SilkReasonAdmin = 1;
+    public const SilkReasonGift = 1;
 
 }

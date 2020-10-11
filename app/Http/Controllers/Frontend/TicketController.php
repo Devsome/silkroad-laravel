@@ -27,7 +27,7 @@ class TicketController extends Controller
             ->with('getTbUser.getSkSilk')
             ->firstOrFail();
 
-        return view('frontend.account.tickets.index', [
+        return view('theme::frontend.account.tickets.index', [
             'account' => $account
         ]);
     }
@@ -61,7 +61,7 @@ class TicketController extends Controller
         $ticketCategories = TicketCategories::all();
         $ticketPrioritys = TicketPrioritys::all();
 
-        return view('frontend.account.tickets.new', [
+        return view('theme::frontend.account.tickets.new', [
             'account' => $account,
             'ticketCategories' => $ticketCategories,
             'ticketPrioritys' => $ticketPrioritys
@@ -127,7 +127,7 @@ class TicketController extends Controller
             ->with('getCategoryName')
             ->firstOrFail();
 
-        return view('frontend.account.tickets.show', [
+        return view('theme::frontend.account.tickets.show', [
             'account' => $account,
             'ticket' => $ticket
         ]);

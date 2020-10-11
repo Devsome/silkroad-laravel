@@ -162,7 +162,7 @@ class SilkroadController extends Controller
             'silk_remain' => $silkRemain,
             'silk_offset' => $buyQuantity,
             'silk_type' => SkSilkChangeByWeb::SilkTypeSilk,
-            'reason' => SkSilkChangeByWeb::SilkReasonAdmin,
+            'reason' => SkSilkChangeByWeb::SilkTypeSilk,
         ]);
 
         if ($request->get('state') === 'add') {

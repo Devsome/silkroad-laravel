@@ -28,7 +28,7 @@ class SilkGoldProvider extends ServiceProvider
     public function boot()
     {
         view()->composer(
-            'frontend.account.sidebar',
+            'theme::frontend.account.sidebar',
             static function ($view) {
                 $data = [
                     'silk' => 0,
@@ -52,7 +52,7 @@ class SilkGoldProvider extends ServiceProvider
         );
 
         view()->composer(
-            'frontend.account.auctionsidebar',
+            'theme::frontend.account.auctionsidebar',
             static function ($view) {
                 $data = [];
 

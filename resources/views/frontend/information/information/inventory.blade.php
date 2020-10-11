@@ -414,7 +414,7 @@
         </table>
     </div>
 </div>
-@push('javascript')
+@push('theme::javascript')
     <script type="text/javascript">
         function itemInfo() {
             $(document).tooltip({

@@ -22,7 +22,7 @@ class IndexController extends Controller
     {
         $news = News::where('published_at', '<=', Carbon::Now())
             ->orderBy('published_at', 'DESC')->with('image')->take(4)->get();
-        return view('index', [
+        return view('theme::index', [
             'news' => $news
         ]);
     }
@@ -34,7 +34,7 @@ class IndexController extends Controller
     {
         $downloads = Download::orderBy('name', 'asc')->get();
 
-        return view('frontend.other.downloads', [
+        return view('theme::frontend.other.downloads', [
             'downloads' => $downloads
         ]);
     }
@@ -44,7 +44,7 @@ class IndexController extends Controller
      */
     public function rules()
     {
-        return view('frontend.other.rules');
+        return view('theme::frontend.other.rules');
     }
 
     /**
@@ -52,7 +52,7 @@ class IndexController extends Controller
      */
     public function serverInformation()
     {
-        return view('frontend.other.serverinformation', [
+        return view('theme::frontend.other.serverinformation', [
             'information' => ServerInformation::orderBy('order', 'ASC')->get()
         ]);
     }
@@ -90,7 +90,7 @@ class IndexController extends Controller
     {
         $onlineCharacters = OnlineOfflineLog::where('status', OnlineOfflineLog::STATUS_LOGGED_IN);
 
-        return view('frontend.other.worldmap', [
+        return view('theme::frontend.other.worldmap', [
             'count' => $onlineCharacters->count()
         ]);
     }

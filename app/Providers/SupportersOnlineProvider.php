@@ -27,7 +27,7 @@ class SupportersOnlineProvider extends ServiceProvider
     public function boot()
     {
         view()->composer(
-            'layouts.supportersonline',
+            'theme::layouts.supportersonline',
             static function ($view) {
                 $supportersOnline = Cache::remember('supportersOnline', 60 * 1, static function () {
                     return SupportersOnline::with('getCharOnlineOffline')
