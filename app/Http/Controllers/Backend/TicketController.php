@@ -3,17 +3,20 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\TicketNotification;
 use App\Tickets\Ticket;
 use App\Tickets\TicketAnswer;
 use App\Tickets\TicketCategories;
 use App\Tickets\TicketPrioritys;
 use App\Tickets\TicketStatus;
+use App\User;
 use DB;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
+use Illuminate\Support\Facades\Mail;
 
 class TicketController extends Controller
 {
@@ -37,14 +40,32 @@ class TicketController extends Controller
     {
         $ticket = Ticket::find($request->conversationId);
 
+        $closed = false;
+
         if ($ticket->ticket_status_id === TicketStatus::STATUS_CLOSED) {
+            $closed = true;
             $state = TicketStatus::STATUS_FINAL_CLOSE;
         } else {
+            $closed = true;
             $state = TicketStatus::STATUS_CLOSED;
         }
         $ticket->update([
             'ticket_status_id' => $state
         ]);
+
+        $reciever = User::where('id', '=', $ticket->user_id)->firstOrFail();
+
+        $data = new \stdClass();
+        $data->url = route('home-tickets-show', [
+            'id' => $ticket->id
+        ]);
+        $data->recieverName = $reciever->name;
+        $data->ticketTitle = $ticket->title;
+        $data->closedState = $closed;
+
+        Mail::to(
+            $reciever
+        )->queue(new TicketNotification($data));
 
         return ['success' => true];
     }
@@ -321,6 +342,23 @@ class TicketController extends Controller
             Ticket::findOrFail($request->conversationId)->update([
                 'ticket_status_id' => TicketStatus::STATUS_PENDING
             ]);
+        }
+
+        if ($conversation->user_id !== \Auth::id()) {
+            // When the user who is answering is not the same
+            $reciever = User::where('id', '=', $conversation->user_id)->firstOrFail();
+
+            $data = new \stdClass();
+            $data->url = route('home-tickets-show', [
+                'id' => $conversation->id
+            ]);
+            $data->recieverName = $reciever->name;
+            $data->ticketTitle = $conversation->title;
+            $data->closedState = false;
+
+            Mail::to(
+                $reciever
+            )->queue(new TicketNotification($data));
         }
 
         TicketAnswer::create([
