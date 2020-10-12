@@ -71,6 +71,11 @@ class SiteSettingsController extends Controller
         if($request->file('image_id')) {
             $requestImage = $request->file('image_id');
             $filename = 'signature.' . $requestImage->getClientOriginalExtension();
+
+            if (Storage::disk('images')->exists($filename)) {
+                Storage::disk('images')->delete($filename);
+            }
+
             Storage::disk('images')->put($filename, File::get($requestImage));
         }
 
