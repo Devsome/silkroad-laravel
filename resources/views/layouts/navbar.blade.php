@@ -50,7 +50,7 @@
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ __('navbar.lang-title') }} <i class="fa fa-language"></i><span class="caret"></span>
+                        {{ config('app.locale_enabled.' . Session::get('locale', 'en')) }} <i class="fa fa-language"></i><span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     @foreach(config('app.locale_enabled') as $key => $lang)
