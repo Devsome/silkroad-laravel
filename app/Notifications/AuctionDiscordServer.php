@@ -67,14 +67,14 @@ class AuctionDiscordServer extends Notification
                     $charInventory->imgpath
                 )
                 ->color('ff0000')
-                ->footer('Until: ' . $auctionItem->until)
+                ->footer('Until: ' . data_get($auctionItem, 'until', 'Unknown'))
 
-                ->field('Bid Price', $auctionItem->price, false)
-                ->field('Buy now Price', $auctionItem->price_instead, false)
-                ->field('Plus', $charInventory->optlevel, true)
-                ->field('Sox', $charInventory->special ? 'Yes' : 'No', true)
-                ->field('Degree', $charInventory->degree, true)
-                ->field('Type', $charInventory->sort, true);
+                ->field('Bid Price', data_get($auctionItem, 'price', 'Unknown'), false)
+                ->field('Buy now Price', data_get($auctionItem, 'price_instead', 'Unknown'), false)
+                ->field('Plus', data_get($auctionItem, 'optlevel', 'Unknown'), true)
+                ->field('Sox', data_get($auctionItem, 'special', false) ? 'Yes' : 'No', true)
+                ->field('Degree', data_get($auctionItem, 'degree', 'Unknown'), true)
+                ->field('Type', data_get($auctionItem, 'sort', 'Unknown'), true);
         });
 
         return $discordMessage;

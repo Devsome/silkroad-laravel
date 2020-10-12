@@ -176,7 +176,11 @@ class AuctionsHouseController extends Controller
         ]);
 
         if (config('services.discord.auction')) {
-            $auctionItem->notify(new AuctionDiscordServer($auctionItem, $isThisHisItem->first()));
+            try {
+                $auctionItem->notify(new AuctionDiscordServer($auctionItem, $isThisHisItem->first()));
+            } catch (\Exception $exception) {
+                return back()->with('success', trans('auctionshouse.notification.add.successfully'));
+            }
         }
 
         return back()->with('success', trans('auctionshouse.notification.add.successfully'));
