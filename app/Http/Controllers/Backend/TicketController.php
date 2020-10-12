@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Mail\TicketNotification;
+use App\Notification;
 use App\Tickets\Ticket;
 use App\Tickets\TicketAnswer;
 use App\Tickets\TicketCategories;
@@ -62,6 +63,13 @@ class TicketController extends Controller
         $data->recieverName = $reciever->name;
         $data->ticketTitle = $ticket->title;
         $data->closedState = $closed;
+
+        // Send notification
+        Notification::create([
+            'user_id' => $ticket->user_id,
+            'key' => __('notification.tickets.closed'),
+            'url' => $data->url
+        ]);
 
         Mail::to(
             $reciever
@@ -359,6 +367,13 @@ class TicketController extends Controller
             Mail::to(
                 $reciever
             )->queue(new TicketNotification($data));
+
+            // Send notification
+            Notification::create([
+                'user_id' => $conversation->user_id,
+                'key' => __('notification.tickets.updated'),
+                'url' => $data->url
+            ]);
         }
 
         TicketAnswer::create([
