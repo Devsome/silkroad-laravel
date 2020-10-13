@@ -22,7 +22,7 @@ return [
     'auctionshouse' => [
         'over-bid' => 'Someone outbid you with :gold Gold',
         'item-sold' => 'You have successfully sold ":name" for :gold Gold',
-        'item-bought' => 'You have successfully bold ":name" for :gold Gold',
+        'item-bought' => 'You have successfully sold ":name" for :gold Gold',
         'not-sold' => 'The auction ":name" has ended and no one has bought your item.',
     ],
 
