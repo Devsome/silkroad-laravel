@@ -31,6 +31,7 @@ class SiteSettingsController extends Controller
         $validator = Validator::make($request->all(), [
             '_token' => 'required',
             'sro_silk_name' => 'required|min:1|max:16',
+            'sro_silk_gift_name' => 'required|min:1|max:16',
             'facebook_url' => 'nullable|url',
             'youtube_url' => 'nullable|url',
             'contact_email' => 'nullable|email',
@@ -81,6 +82,7 @@ class SiteSettingsController extends Controller
 
         $data = [
             'sro_silk_name' => $request->get('sro_silk_name') ?? 'Silk',
+            'sro_silk_gift_name' => $request->get('sro_silk_gift_name') ?? 'Silk Gift',
             'discord_id' => $request->get('discord_id') ?? '',
             'facebook_url' => $request->get('facebook_url') ?? '',
             'youtube_url' => $request->get('youtube_url') ?? '',

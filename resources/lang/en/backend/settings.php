@@ -9,6 +9,7 @@ return [
         'registration-open' => 'Registration State',
         'registration-open-checkbox' => 'Close',
         'silk-name' => 'Silk Name',
+        'silk-gift-name' => 'Silk Gift Name',
         'facebook-url' => 'Facebook Page',
         'facebook-url-helper' => 'Your Facebook page url',
         'youtube-url' => 'Youtube Channel',

@@ -29,7 +29,7 @@ return [
         'charlist' => 'व्यक्ति सूची',
         'currency' => 'मुद्रा',
         'silk' => config('siteSettings.sro_silk_name', 'सिल्क'),
-        'silk-gift' => 'रेशम उपहार',
+        'silk-gift' => config('siteSettings.sro_silk_gift_name', 'रेशम उपहार'),
         'web-inventory-gold' => 'वेब गोल्ड',
         'change-password' => 'पासवर्ड परिवर्तन',
         'donate' => 'डोनेट',

@@ -29,7 +29,7 @@ return [
         'charlist' => 'Lista de Caracteres',
         'currency' => 'Moeda',
         'silk' => config('siteSettings.sro_silk_name', 'Silk'),
-        'silk-gift' => 'Silk Presente',
+        'silk-gift' => config('siteSettings.sro_silk_gift_name', 'Silk Gift'),
         'web-inventory-gold' => 'Ouro',
         'change-password' => 'Mudança de senha',
         'donate' => 'Doação',

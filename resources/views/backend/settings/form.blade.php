@@ -47,6 +47,23 @@
     </div>
 
     <div class="form-group row">
+        <label for="sro_silk_gift_name" class="col-sm-4 col-form-label">
+            {{ __('backend/settings.form.silk-gift-name') }}
+        </label>
+        <div class="col-md-4">
+            <input type="text"
+                   class="form-control {{ $errors->has('sro_silk_gift_name') ? ' is-invalid' : '' }}"
+                   id="sro_silk_gift_name" name="sro_silk_gift_name"
+                   value="{{ $data['sro_silk_gift_name'] ?? Request::old('sro_silk_gift_name') }}">
+            @if ($errors->has('sro_silk_gift_name'))
+                <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('sro_silk_gift_name') }}</strong>
+            </span>
+            @endif
+        </div>
+    </div>
+
+    <div class="form-group row">
         <label for="facebook_url" class="col-sm-4 col-form-label">
             {{ __('backend/settings.form.facebook-url') }}
         </label>
