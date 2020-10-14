@@ -64,7 +64,7 @@ class RankingController extends Controller
      */
     private function searching($type, $search, $hideRanking, $hideRankingGuild)
     {
-        if ($type === __('ranking.search.search-charname')) {
+        if ($type === config('ranking.search-charname')) {
             $chars = Char::orderBy('ItemPoints', 'DESC')
                 ->where('CharName16', 'like', '%' . $search . '%')
                 ->whereNotIn('CharName16', $hideRanking)
@@ -76,7 +76,7 @@ class RankingController extends Controller
             ])->render();
         }
 
-        if ($type === __('ranking.search.search-guild')) {
+        if ($type === config('ranking.search-guild')) {
             $guilds = Guild::orderBy('ItemPoints', 'DESC')
                 ->where('Name', 'like', '%' . $search . '%')
                 ->whereNotIn('ID', $hideRankingGuild)
@@ -86,7 +86,7 @@ class RankingController extends Controller
             ])->render();
         }
 
-        if ($type === __('ranking.search.search-job')) {
+        if ($type === config('ranking.search-job')) {
             $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($search, $hideRanking, $hideRankingGuild) {
                 $q->where('NickName16', 'like', '%' . $search . '%');
                 $q->whereNotIn('CharName16', $hideRanking);
@@ -111,7 +111,7 @@ class RankingController extends Controller
      */
     private function mode($mode, $hideRanking, $hideRankingGuild)
     {
-        if ($mode === __('ranking.search.search-charname')) {
+        if ($mode === config('ranking.search-charname')) {
             $chars = Char::orderBy('ItemPoints', 'DESC')
                 ->whereNotIn('CharName16', $hideRanking)
                 ->whereNotIn('GuildID', $hideRankingGuild)
@@ -122,7 +122,7 @@ class RankingController extends Controller
             ])->render();
         }
 
-        if ($mode === __('ranking.search.search-guild')) {
+        if ($mode === config('ranking.search-guild')) {
             $guilds = Guild::orderBy('ItemPoints', 'DESC')
                 ->whereNotIn('ID', $hideRankingGuild)
                 ->paginate(150);
@@ -131,7 +131,7 @@ class RankingController extends Controller
             ])->render();
         }
 
-        if ($mode === __('ranking.search.search-trader')) {
+        if ($mode === config('ranking.search-trader')) {
             $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking, $hideRankingGuild) {
                 $q->whereNotIn('CharName16', $hideRanking);
                 $q->whereNotIn('GuildID', $hideRankingGuild);
@@ -146,7 +146,7 @@ class RankingController extends Controller
             ]);
         }
 
-        if ($mode === __('ranking.search.search-hunter')) {
+        if ($mode === config('ranking.search-hunter')) {
             $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking, $hideRankingGuild) {
                 $q->whereNotIn('CharName16', $hideRanking);
                 $q->whereNotIn('GuildID', $hideRankingGuild);
@@ -161,7 +161,7 @@ class RankingController extends Controller
             ]);
         }
 
-        if ($mode === __('ranking.search.search-thief')) {
+        if ($mode === config('ranking.search-thief')) {
             $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking, $hideRankingGuild) {
                 $q->whereNotIn('CharName16', $hideRanking);
                 $q->whereNotIn('GuildID', $hideRankingGuild);
@@ -176,7 +176,7 @@ class RankingController extends Controller
             ]);
         }
 
-        if ($mode === __('ranking.search.search-job')) {
+        if ($mode === config('ranking.search-job')) {
             $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking, $hideRankingGuild) {
                 $q->whereNotIn('CharName16', $hideRanking);
                 $q->whereNotIn('GuildID', $hideRankingGuild);

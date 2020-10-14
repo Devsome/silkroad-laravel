@@ -30,12 +30,5 @@ return [
         'hunter' => 'Cazador',
         'thief' => 'Ladrón',
         'submit' => 'Buscar',
-        // do not change this
-        'search-charname' => 'charname',
-        'search-guild' => 'guild',
-        'search-job' => 'job',
-        'search-trader' => 'trader',
-        'search-hunter' => 'hunter',
-        'search-thief' => 'thief',
     ]
 ];

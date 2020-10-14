@@ -86,7 +86,8 @@ return [
 
     'locale_enabled' => [
         'en' => 'English',
-        'de' => 'German',
+        'es' => 'Español',
+        'hi' => 'हिन्दी',
         'pt' => 'Portugues'
     ],
 
