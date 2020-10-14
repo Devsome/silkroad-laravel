@@ -5,11 +5,11 @@ return [
         'title' => 'Información del servidor',
         'social' => 'Social',
         'grand' => 'Gran apertura',
-        'time' => 'Tiempo del servidor',
+        'time' => 'Hora del servidor',
         'online' => 'Online',
         'cap' => 'Cap',
         'exp-sp' => 'EXP & SP',
-        'party-exp' => 'EXP Fiesta',
+        'party-exp' => 'EXP en Party',
         'gold' => 'Oro',
         'drop' => 'Soltar',
         'trade-goods' => 'Comerciar bienes',
@@ -29,7 +29,7 @@ return [
         'charlist' => 'Lista de personajes',
         'currency' => 'Moneda',
         'silk' => config('siteSettings.sro_silk_name', 'Silk'),
-        'silk-gift' => 'Regalo Silk',
+        'silk-gift' => 'Silk de Regalo',
         'web-inventory-gold' => 'Oro Web',
         'change-password' => 'Cambio de contraseña',
         'donate' => 'Donar',
@@ -60,7 +60,7 @@ return [
 
     'timers' => [
         'title' => 'Temporizadores',
-        'server-time' => 'Tiempo del servidor',
+        'server-time' => 'Hora del servidor',
         'empty' => 'No hay temporizadores',
     ],
 
