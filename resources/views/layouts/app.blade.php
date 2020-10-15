@@ -18,11 +18,12 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
-
-    @if (Session::get('locale') === 'ar')
-        <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css" integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
+    @if(Session::get('locale') === 'ar')
+        <link href="{{ mix('/css/app-rtl.css') }}" rel="stylesheet">
+    @else
+        <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     @endif
+
 
     @stack('theme::css')
 </head>
