@@ -1,10 +1,5 @@
 <!doctype html>
-<html
-@if (Session::get('locale') === 'ar')
-dir="rtl"
-@endif
-lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +26,7 @@ lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
     @stack('theme::css')
 </head>
-<body>
+<body dir="{{( Session::get('locale') === 'ar' ? 'rtl' : 'ltr' )}}">
 <div id="app">
     @include('theme::layouts.navbar')
     <main role="main" class="container">
