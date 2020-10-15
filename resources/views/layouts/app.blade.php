@@ -18,10 +18,16 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+    @if(Session::get('locale') === 'ar')
+        <link href="{{ mix('/css/app-rtl.css') }}" rel="stylesheet">
+    @else
+        <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+    @endif
+
+
     @stack('theme::css')
 </head>
-<body>
+<body dir="{{( Session::get('locale') === 'ar' ? 'rtl' : 'ltr' )}}">
 <div id="app">
     @include('theme::layouts.navbar')
     <main role="main" class="container">

@@ -63,6 +63,12 @@ mix.sass(
     'public/css/app.css'
 );
 
+// Frontend css for arabic
+mix.sass(
+    'resources/css/frontend/scss/main-rtl.scss',
+    'public/css/app-rtl.css'
+);
+
 // Frontend Javascript
 mix.scripts([
     'resources/vendor/jquery/jquery.min.js',

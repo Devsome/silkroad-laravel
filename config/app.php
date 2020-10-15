@@ -88,7 +88,8 @@ return [
         'en' => 'English',
         'es' => 'Español',
         'hi' => 'हिन्दी',
-        'pt' => 'Portugues'
+        'pt' => 'Portugues',
+        'ar' => 'العربية'
     ],
 
     /*
