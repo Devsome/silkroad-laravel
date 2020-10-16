@@ -20,8 +20,11 @@ class RankingController extends Controller
      */
     public function index(Request $request, $mode = null)
     {
-        $hideRanking = HideRanking::all()->pluck('charname');
-        $hideRankingGuild = HideRankingGuild::all()->pluck('guild_id');
+        $hideRanking = HideRanking::all()
+            ->pluck('charname');
+        $hideRankingGuild = HideRankingGuild::all()
+            ->pluck('guild_id')
+            ->diff([0]);
         $search = $request->get('search');
         $type = $request->get('type');
 
