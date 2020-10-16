@@ -83,6 +83,7 @@ class RankingController extends Controller
             $guilds = Guild::orderBy('ItemPoints', 'DESC')
                 ->where('Name', 'like', '%' . $search . '%')
                 ->whereNotIn('ID', $hideRankingGuild)
+                ->where('ID', '!=', 0)
                 ->paginate(150);
             return view('theme::frontend.ranking.results.guilds', [
                 'data' => $guilds,
@@ -128,6 +129,7 @@ class RankingController extends Controller
         if ($mode === config('ranking.search-guild')) {
             $guilds = Guild::orderBy('ItemPoints', 'DESC')
                 ->whereNotIn('ID', $hideRankingGuild)
+                ->where('ID', '!=', 0)
                 ->paginate(150);
             return view('theme::frontend.ranking.results.guilds', [
                 'data' => $guilds,
