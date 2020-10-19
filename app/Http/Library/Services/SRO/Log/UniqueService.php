@@ -14,8 +14,10 @@ class UniqueService
         $uniquePoints = config('unique');
 
         // If the unique example is not copied - Fallback
-        if (data_get($uniquePoints, 'example')) {
+        if (!file_exists(__DIR__ . '/../../../../../../config/unique.php')) {
             $uniquePoints = config('unique.example');
+        } else {
+            unset($uniquePoints['example']);
         }
         $uniquePoints = $collection->map(static function ($data) use ($uniquePoints) {
 
