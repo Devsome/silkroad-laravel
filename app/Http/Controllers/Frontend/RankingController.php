@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use App\HideRanking;
 use App\HideRankingGuild;
 use App\Http\Controllers\Controller;
+use App\Library\Services\SRO\Log\UniqueService;
+use App\Model\SRO\Account\UniqueKillLog;
 use App\Model\SRO\Shard\Char;
 use App\Model\SRO\Shard\CharTrijob;
 use App\Model\SRO\Shard\Guild;
@@ -12,6 +14,20 @@ use Illuminate\Http\Request;
 
 class RankingController extends Controller
 {
+    /**
+     * @var UniqueService
+     */
+    public $uniqueService;
+
+    /**
+     * RankingController constructor.
+     * @param UniqueService $uniqueService
+     */
+    public function __construct(UniqueService $uniqueService)
+    {
+        $this->uniqueService = $uniqueService;
+    }
+
     /**
      * @param Request $request
      * @param null|string $mode
@@ -177,6 +193,24 @@ class RankingController extends Controller
                 ->orderBy('Exp', 'DESC')
                 ->paginate(150);
             return view('theme::frontend.ranking.results.jobs', [
+                'data' => $jobs
+            ]);
+        }
+
+        if ($mode === config('ranking.search-unique')) {
+            $jobs = UniqueKillLog::whereNotIn('CharName16', $hideRanking)
+                ->with([
+                    'getCharacter' => static function($query) use ($hideRankingGuild){
+                        $query->whereNotIn('GuildID', $hideRankingGuild);
+                    }
+                ])
+                ->with('getCharacter')
+                ->paginate(50);
+
+            $this->uniqueService->getUniquePoints(
+                $jobs
+            );
+            return view('theme::frontend.ranking.results.unique', [
                 'data' => $jobs
             ]);
         }

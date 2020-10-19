@@ -10,4 +10,5 @@ return [
     'search-trader' => 'trader',
     'search-hunter' => 'hunter',
     'search-thief' => 'thief',
+    'search-unique' => 'unique',
 ];

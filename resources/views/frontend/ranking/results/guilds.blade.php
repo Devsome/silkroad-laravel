@@ -14,7 +14,6 @@
                 {{ $data->firstItem() + $key }}
             </td>
             <td>
-                <a href="#"></a>
                 <a href="{{ route('information-guild', ['name' => Str::lower($guild->Name)]) }}">
                     {{ $guild->Name }}</a>
                 <a class="small"

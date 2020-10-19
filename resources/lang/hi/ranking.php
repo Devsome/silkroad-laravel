@@ -13,12 +13,14 @@ return [
         'hunter' => 'शिकारी',
         'thief' => 'चोर',
         'itempoints' => 'आइटम के लिए अंक',
+        'unique-points' => 'Unique points',
         'exp' => 'अनुभव',
         'job-level' => ':exp अनुभव स्तर :level के साथ',
     ],
     'no-player' => 'उस सर्वर पर कोई व्यक्ति नहीं मिला',
     'no-guild' => 'उस सर्वर पर कोई समाज नहीं मिला',
     'no-job' => 'उस सर्वर पर कोई जॉब कैरेक्टर नहीं मिला',
+    'no-unique' => 'No Unique kill records found on that server',
 
     'search' => [
         'placeholder' => 'व्यक्ति का नाम, समाज, काम',
@@ -29,6 +31,7 @@ return [
         'trader' => 'व्यापारी',
         'hunter' => 'शिकारी',
         'thief' => 'चोर',
+        'unique' => 'Unique',
         'submit' => 'खोज'
     ],
 ];

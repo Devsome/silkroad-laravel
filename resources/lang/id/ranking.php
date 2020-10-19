@@ -13,12 +13,14 @@ return [
         'hunter' => 'Pemburu',
         'thief' => 'Pencuri',
         'itempoints' => 'Itempoints',
+        'unique-points' => 'Unique points',
         'exp' => 'Exp',
         'job-level' => 'Level :level dengan :exp Exp',
     ],
     'no-player' => 'Tidak ada Karakter yang ditemukan di server itu',
     'no-guild' => 'Tidak ada Guild yang ditemukan di server itu',
     'no-job' => 'Tidak ada Job Karakter yang ditemukan di server itu',
+    'no-unique' => 'No Unique kill records found on that server',
 
     'search' => [
         'placeholder' => 'Nama Karakter, Guild, Nama Pekerjaan',
@@ -29,6 +31,7 @@ return [
         'trader' => 'Pedagang',
         'hunter' => 'Pemburu',
         'thief' => 'Pencuri',
+        'unique' => 'Unique',
         'submit' => 'Cari',
     ]
 ];

@@ -13,12 +13,14 @@ return [
         'hunter' => 'Cazador',
         'thief' => 'Ladrón',
         'itempoints' => 'Itempoints',
+        'unique-points' => 'Unique points',
         'exp' => 'Exp',
         'job-level' => 'Nivel :level con :exp Exp',
     ],
     'no-player' => 'No se encontraron Personajes en ese servidor',
     'no-guild' => 'No se encontró el Gremio en ese servidor',
     'no-job' => 'No se encontró la Ocupación del Personaje en ese servidor',
+    'no-unique' => 'No Unique kill records found on that server',
 
     'search' => [
         'placeholder' => 'Nombre del Personaje, Gremio, Nombre de ocupación',
@@ -29,6 +31,7 @@ return [
         'trader' => 'Comerciante',
         'hunter' => 'Cazador',
         'thief' => 'Ladrón',
+        'unique' => 'Unique',
         'submit' => 'Buscar',
     ]
 ];

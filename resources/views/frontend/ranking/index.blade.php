@@ -89,11 +89,18 @@
                                         {{ __('ranking.search.hunter') }}
                                     </a>
                                 </div>
-                                <div class="btn-group" role="group" aria-label="{{ __('ranking.search.thief') }}">
+                                <div class="btn-group mr-2" role="group" aria-label="{{ __('ranking.search.thief') }}">
                                     <a href="{{ route('ranking-index', ['mode' => config('ranking.search-thief')]) }}"
                                        type="button" class="btn @if($mode === config('ranking.search-thief'))
                                             btn-dark @else btn-outline-dark @endif">
                                         {{ __('ranking.search.thief') }}
+                                    </a>
+                                </div>
+                                <div class="btn-group" role="group" aria-label="{{ __('ranking.search.unique') }}">
+                                    <a href="{{ route('ranking-index', ['mode' => config('ranking.search-unique')]) }}"
+                                       type="button" class="btn @if($mode === config('ranking.search-unique'))
+                                            btn-dark @else btn-outline-dark @endif">
+                                        {{ __('ranking.search.unique') }}
                                     </a>
                                 </div>
                             </div>

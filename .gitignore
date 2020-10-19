@@ -16,3 +16,4 @@ packages/*
 config/payop.php
 database/migrations/*payop_logs_table.php
 Thumbs.db
+config/unique.php
