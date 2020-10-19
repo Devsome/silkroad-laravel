@@ -7,10 +7,13 @@
     </tr>
     </thead>
     <tbody>
+    @php
+    $count = 1;
+    @endphp
     @forelse($data as $charname => $key)
         <tr class="live-search-list">
             <td>
-                {{ $data->firstItem() }}
+                {{ $count }}
             </td>
             <td>
                 <a href="{{ route('information-player', ['CharName16' => Str::lower($charname)]) }}">
@@ -23,6 +26,9 @@
             </td>
             <td>{{ $key['points'] }}</td>
         </tr>
+        @php
+            ++$count
+        @endphp
     @empty
         <tr>
             <th>{{ __('ranking.no-unique') }}</th>
