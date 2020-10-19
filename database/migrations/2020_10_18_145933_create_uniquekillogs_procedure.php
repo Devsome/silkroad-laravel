@@ -20,7 +20,7 @@ class CreateUniquekillogsProcedure extends Migration
                VALUES(@CharName16, @UniqueName);
         ';
 
-        DB::connection('log')->unprepared('DROP procedure IF EXISTS _ExecUniquekilllogs');
+//        DB::connection('log')->unprepared('DROP procedure IF EXISTS _ExecUniquekilllogs');
         DB::connection('log')->unprepared($procedure);
     }
 
