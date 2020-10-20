@@ -14,7 +14,7 @@ class UniqueService
         $uniquePoints = config('unique');
 
         // If the unique example is not copied - Fallback
-        if (!file_exists(__DIR__ . '/../../../../../../config/unique.php')) {
+        if (!\File::exists(config_path() . '/unique.php')) {
             $uniquePoints = config('unique.example');
         } else {
             unset($uniquePoints['example']);
