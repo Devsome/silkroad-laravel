@@ -16,4 +16,8 @@ packages/*
 config/payop.php
 database/migrations/*payop_logs_table.php
 Thumbs.db
+
+
+# For Server configuration
 config/unique.php
+public/image/logo/logo.png
