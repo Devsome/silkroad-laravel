@@ -20,4 +20,5 @@ Thumbs.db
 
 # For Server configuration
 config/unique.php
+config/language.php
 public/image/logo/logo.png

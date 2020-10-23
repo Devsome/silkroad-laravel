@@ -84,14 +84,6 @@ return [
 
     'locale' => 'en',
 
-    'locale_enabled' => [
-        'en' => 'English',
-        'es' => 'Español',
-        'hi' => 'हिन्दी',
-        'pt' => 'Portugues',
-        'ar' => 'العربية'
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale

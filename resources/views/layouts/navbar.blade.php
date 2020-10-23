@@ -45,18 +45,19 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-
-                @if(count(config('app.locale_enabled')) > 1)
+                @if(count(config('language')) > 1)
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ config('app.locale_enabled.' . Session::get('locale', 'en')) }} <i class="fa fa-language"></i><span class="caret"></span>
+                        {{ config('language.' . Session::get('locale', 'en') . '.name') }} <i class="fa fa-language"></i><span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    @foreach(config('app.locale_enabled') as $key => $lang)
-                        <a class="dropdown-item" href="{{ route('change-language', ['lang' => $key]) }}">
-                            {{ $lang }}
-                        </a>
+                    @foreach(config('language') as $key => $lang)
+                        @if($key !== 'example')
+                            <a class="dropdown-item" href="{{ route('change-language', ['lang' => $key]) }}">
+                                <img class="small" src="{{ $lang['icon'] }}" width="26px" height="16px"> {{ $lang['name'] }}
+                            </a>
+                        @endif
                     @endforeach
                     </div>
                 </li>
