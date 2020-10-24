@@ -1,0 +1,45 @@
+grumphp:
+  tasks:
+    git_commit_message:
+      allow_empty_message: false
+      max_body_width: 72
+      max_subject_width: 60
+      multiline: true
+    git_blacklist:
+      keywords:
+        - "die("
+        - "var_dump("
+        - "exit;"
+        - "exit("
+        - "dd("
+      whitelist_patterns:
+        - /^app\/(?!Console)(.*)/
+        - /^bootstrap\/(.*)/
+        - /^config\/(.*)/
+        - /^database\/(.*)/
+        - /^routes\/(.*)/
+        - /^tests\/(.*)/
+      triggered_by: ['php']
+      regexp_type: G
+    phpcs:
+      standard: PSR2
+      severity: ~
+      error_severity: ~
+      warning_severity: ~
+      tab_width: ~
+      whitelist_patterns:
+        - /^app\/(.*)/
+        - /^bootstrap\/(.*)/
+        - /^config\/(.*)/
+      encoding: ~
+      ignore_patterns:
+        - /^node_modules\/(.*)/
+        - /^vendor\/(.*)/
+        - /^storage\/(.*)/
+        - /^public\/(.*)/
+        - /^resources\/(.*)/
+        - /^tests\/(.*)/
+        - /^database\/(.*)/
+        - /^routes\/(.*)/
+      sniffs: []
+      triggered_by: [php]

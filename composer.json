@@ -29,7 +29,10 @@
         "laravel/ui": "^3.0",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.0"
+        "phpro/grumphp": "^1.0",
+        "phpspec/phpspec": "^6.2",
+        "phpunit/phpunit": "^9.4",
+        "squizlabs/php_codesniffer": "^3.5"
     },
     "config": {
         "optimize-autoloader": true,
