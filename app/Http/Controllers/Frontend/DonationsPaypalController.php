@@ -66,6 +66,7 @@ class DonationsPaypalController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     * @throws \Throwable
      */
     public function complete(Request $request)
     {
@@ -84,7 +85,6 @@ class DonationsPaypalController extends Controller
         }
 
         if ($data['state'] === 'approved') {
-
             DB::beginTransaction();
             DB::connection('account')->beginTransaction();
             try {
@@ -152,6 +152,10 @@ class DonationsPaypalController extends Controller
         return view('theme::frontend.account.donations.success');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function error($id)
     {
         $invoice = PaypalInvoices::where('id', '=', $id)
@@ -177,6 +181,9 @@ class DonationsPaypalController extends Controller
         return view('theme::frontend.account.donations.invoiceclosed');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function notify()
     {
         return view('theme::frontend.account.donations.invoiceclosed');
@@ -199,7 +206,6 @@ class DonationsPaypalController extends Controller
             } else {
                 throw new \Exception('Missing Paypal Live Keys ');
             }
-
         } else {
             if (config('paypal.sandbox.clientId') && config('paypal.sandbox.secret')) {
                 $gateway->setClientId(config('paypal.sandbox.clientId'));
