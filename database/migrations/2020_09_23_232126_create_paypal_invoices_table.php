@@ -23,7 +23,10 @@ class CreatePaypalInvoicesTable extends Migration
             $table->enum('state', ['pending', 'canceled', 'paid']);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

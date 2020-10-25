@@ -25,9 +25,20 @@ class CreateAuctionItemsTable extends Migration
             $table->bigInteger('current_user_bid_amount')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('current_bid_user_id')->references('id')->on('users');
-            $table->foreign('char_inventory')->references('id')->on('char_inventories');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->foreign('current_bid_user_id')
+                ->references('id')->on('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->foreign('char_inventory')
+                ->references('id')->on('char_inventories')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
         });
     }
 

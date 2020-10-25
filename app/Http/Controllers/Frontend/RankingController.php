@@ -198,9 +198,15 @@ class RankingController extends Controller
         }
 
         if ($mode === config('ranking.search-unique')) {
+            /** @var array $uniques */
+            $all_uniques = app('config')->get('unique');
+            foreach ($all_uniques as $key => $unique) {
+                $uniques[] = $key;
+            }
             $jobs = UniqueKillLog::whereNotIn('CharName16', $hideRanking)
+                ->whereIn('UniqueName', $uniques)
                 ->with([
-                    'getCharacter' => static function($query) use ($hideRankingGuild){
+                    'getCharacter' => static function ($query) use ($hideRankingGuild) {
                         $query->whereNotIn('GuildID', $hideRankingGuild);
                     }
                 ])

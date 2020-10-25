@@ -40,7 +40,7 @@ class AuctionsHouseController extends Controller
             ->get();
 
         return view(
-            'frontend.auctionshouse.index', [
+            'theme::frontend.auctionshouse.index', [
                 'items' => $auctionItems
             ]
         );
@@ -60,7 +60,7 @@ class AuctionsHouseController extends Controller
             ->get();
 
         return view(
-            'frontend.auctionshouse.index', [
+            'theme::frontend.auctionshouse.index', [
                 'items' => $auctionItems
             ]
         );
@@ -77,7 +77,7 @@ class AuctionsHouseController extends Controller
             ->firstOrFail();
 
         return view(
-            'frontend.auctionshouse.showitem', [
+            'theme::frontend.auctionshouse.showitem', [
                 'item' => $auctionItem
             ]
         );
@@ -94,7 +94,7 @@ class AuctionsHouseController extends Controller
             ->get();
 
         return view(
-            'frontend.auctionshouse.own', [
+            'theme::frontend.auctionshouse.own', [
                 'items' => $auctionItems
             ]
         );
@@ -132,7 +132,7 @@ class AuctionsHouseController extends Controller
             ->get();
 
         return view(
-            'frontend.auctionshouse.add', [
+            'theme::frontend.auctionshouse.add', [
                 'webInventory' => $webInventory,
                 'auctionsHouseSettings' => AuctionsHouseSettings::first()
             ]
