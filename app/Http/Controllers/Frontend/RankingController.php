@@ -10,14 +10,18 @@ use App\Model\SRO\Account\UniqueKillLog;
 use App\Model\SRO\Shard\Char;
 use App\Model\SRO\Shard\CharTrijob;
 use App\Model\SRO\Shard\Guild;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\View\View;
+use Throwable;
 
 class RankingController extends Controller
 {
     /**
      * @var UniqueService
      */
-    public $uniqueService;
+    public UniqueService $uniqueService;
 
     /**
      * RankingController constructor.
@@ -31,8 +35,8 @@ class RankingController extends Controller
     /**
      * @param Request $request
      * @param null|string $mode
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Throwable
+     * @return array|Factory|View
+     * @throws Throwable
      */
     public function index(Request $request, $mode = null)
     {
@@ -50,7 +54,7 @@ class RankingController extends Controller
                 $hideRanking,
                 $hideRankingGuild
             );
-        } else if ($search && $type) {
+        } elseif ($search && $type) {
             $data = $this->searching(
                 $type,
                 $search,
@@ -63,6 +67,7 @@ class RankingController extends Controller
                 ->whereNotIn('GuildID', $hideRankingGuild)
                 ->with('getGuildUser')
                 ->paginate(150);
+
             $data = view('theme::frontend.ranking.results.chars', [
                 'data' => $chars,
             ])->render();
@@ -79,7 +84,7 @@ class RankingController extends Controller
      * @param $search
      * @param $hideRanking
      * @param $hideRankingGuild
-     * @return array|void
+     * @return string
      */
     private function searching($type, $search, $hideRanking, $hideRankingGuild)
     {
@@ -127,7 +132,7 @@ class RankingController extends Controller
      * @param $mode
      * @param $hideRanking
      * @param $hideRankingGuild
-     * @return void|array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @return void|array|Factory|View|string
      */
     private function mode($mode, $hideRanking, $hideRankingGuild)
     {
@@ -211,14 +216,32 @@ class RankingController extends Controller
                     }
                 ])
                 ->with('getCharacter')
-                ->paginate(50);
+                ->get();
 
-            $this->uniqueService->getUniquePoints(
-                $jobs
+            //get the character unique kills points
+            $jobs = $this->uniqueService->getUniquePoints($jobs);
+
+            //get current page number
+            $page = (isset($_GET['page'])) ? $_GET['page'] : 1;
+
+            //this is the number of results per page
+            $perPage = 15;
+
+            //start the paginating
+            $jobs = new LengthAwarePaginator(
+                $jobs->forPage($page, $perPage),
+                $jobs->count(),
+                $perPage,
+                $page,
+                [
+                    'path' => route('ranking-index', ['mode' => config('ranking.search-unique')]),
+                    'pageName' => 'page'
+                ]
             );
+
             return view('theme::frontend.ranking.results.unique', [
                 'data' => $jobs
-            ]);
+            ])->render();
         }
 
         if ($mode === config('ranking.search-job')) {

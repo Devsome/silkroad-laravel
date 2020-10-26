@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Model\SRO\Account\Notice;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -20,7 +21,7 @@ class SilkroadNoticeController extends Controller
      */
     public function noticeIndex()
     {
-        return view('backend.silkroad.notice.index', [
+        return view('theme::backend.silkroad.notice.index', [
             'notices' => Notice::all()
         ]);
     }
@@ -30,12 +31,12 @@ class SilkroadNoticeController extends Controller
      */
     public function noticeCreate()
     {
-        return view('backend.silkroad.notice.create');
+        return view('theme::backend.silkroad.notice.create');
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function noticeSave(Request $request)
     {
@@ -67,7 +68,7 @@ class SilkroadNoticeController extends Controller
      */
     public function noticeEdit($id)
     {
-        return view('backend.silkroad.notice.edit',[
+        return view('theme::backend.silkroad.notice.edit', [
            'notice' => Notice::findOrFail($id)
         ]);
     }
@@ -75,7 +76,7 @@ class SilkroadNoticeController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function noticeEditPatch(Request $request, $id)
     {
@@ -100,7 +101,7 @@ class SilkroadNoticeController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function noticeDestroy($id)
     {

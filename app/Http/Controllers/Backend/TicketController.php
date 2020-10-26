@@ -11,11 +11,13 @@ use App\Tickets\TicketCategories;
 use App\Tickets\TicketPrioritys;
 use App\Tickets\TicketStatus;
 use App\User;
+use Auth;
 use DB;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
+use stdClass;
 use Validator;
 use Illuminate\Support\Facades\Mail;
 
@@ -26,7 +28,7 @@ class TicketController extends Controller
      */
     public function settings()
     {
-        return view('backend.tickets.settings', [
+        return view('theme::backend.tickets.settings', [
             'categories' => TicketCategories::all(),
             'prioritys' => TicketPrioritys::all(),
             'status' => TicketStatus::all()
@@ -56,7 +58,7 @@ class TicketController extends Controller
 
         $reciever = User::where('id', '=', $ticket->user_id)->firstOrFail();
 
-        $data = new \stdClass();
+        $data = new stdClass();
         $data->url = route('home-tickets-show', [
             'id' => $ticket->id
         ]);
@@ -105,7 +107,7 @@ class TicketController extends Controller
             return response('saved', 200);
         }
 
-        return view('backend.tickets.update-category-modal', [
+        return view('theme::backend.tickets.update-category-modal', [
             'category' => $category,
         ]);
     }
@@ -134,7 +136,7 @@ class TicketController extends Controller
 
             return response('saved', 200);
         }
-        return view('backend.tickets.update-category-modal', [
+        return view('theme::backend.tickets.update-category-modal', [
             'category' => null,
         ]);
     }
@@ -184,7 +186,7 @@ class TicketController extends Controller
             return response('saved', 200);
         }
 
-        return view('backend.tickets.update-priority-modal', [
+        return view('theme::backend.tickets.update-priority-modal', [
             'priority' => $priority,
             'colors' => TicketPrioritys::COLORS
         ]);
@@ -216,7 +218,7 @@ class TicketController extends Controller
 
             return response('saved', 200);
         }
-        return view('backend.tickets.update-priority-modal', [
+        return view('theme::backend.tickets.update-priority-modal', [
             'priority' => null,
             'colors' => TicketPrioritys::COLORS
         ]);
@@ -271,7 +273,7 @@ class TicketController extends Controller
             $currentTicket = $ticket;
         }
 
-        return view('backend.tickets.conversations.list', [
+        return view('theme::backend.tickets.conversations.list', [
             'conversations' => $conversations,
             'currentConversation' => $currentTicket,
         ]);
@@ -285,7 +287,7 @@ class TicketController extends Controller
     public function fetchConversations(Request $request, Ticket $ticket = null)
     {
         $conversations = $this->getConversationsInOrder($ticket);
-        return view('backend.tickets.conversations.conversations', [
+        return view('theme::backend.tickets.conversations.conversations', [
             'conversations' => $conversations,
             'conversationId' => $request->conversationId,
         ]);
@@ -301,21 +303,24 @@ class TicketController extends Controller
     {
         $conversation = Ticket::find($request->conversationId);
 
-        if (!is_null($ticket) && $conversation->project_id != $ticket->id)
+        if (!is_null($ticket) && $conversation->project_id != $ticket->id) {
             return ['success' => false];
+        }
 
-        if (is_null($conversation))
+        if (is_null($conversation)) {
             return ['success' => false];
+        }
 
         $query = $conversation->getAnswers()->where('ticket_id', $conversation->id)->orderBy('created_at', 'asc');
-        if ($request->has('lastMessage'))
+        if ($request->has('lastMessage')) {
             $query->where('created_at', '>', Carbon::rawCreateFromFormat(Carbon::ISO8601, $request->lastMessage));
+        }
         $messages = $query->get();
 
         return [
             'found' => $messages->count() != 0,
             'lastMessage' => $messages->count() == 0 ? '' : $messages->last()->created_at->toIso8601String(),
-            'html' => view('backend.tickets.conversations.chat', [
+            'html' => view('theme::backend.tickets.conversations.chat', [
                 'messages' => $messages,
                 'ticket' => $conversation
             ])->render(),
@@ -336,11 +341,13 @@ class TicketController extends Controller
             return ['success' => false];
         }
 
-        if ($ticket && $conversation->project_id !== $ticket->id)
+        if ($ticket && $conversation->project_id !== $ticket->id) {
             return ['success' => false];
+        }
 
-        if (!$conversation || !$request->has('text') || !$request->text)
+        if (!$conversation || !$request->has('text') || !$request->text) {
             return ['success' => false];
+        }
 
         if ($conversation->ticket_status_id === TicketStatus::STATUS_CLOSED) {
             Ticket::findOrFail($request->conversationId)->update([
@@ -352,11 +359,11 @@ class TicketController extends Controller
             ]);
         }
 
-        if ($conversation->user_id !== \Auth::id()) {
+        if ($conversation->user_id !== Auth::id()) {
             // When the user who is answering is not the same
             $reciever = User::where('id', '=', $conversation->user_id)->firstOrFail();
 
-            $data = new \stdClass();
+            $data = new stdClass();
             $data->url = route('home-tickets-show', [
                 'id' => $conversation->id
             ]);
@@ -378,7 +385,7 @@ class TicketController extends Controller
 
         TicketAnswer::create([
             'ticket_id' => $request->conversationId,
-            'user_id' => \Auth::id(),
+            'user_id' => Auth::id(),
             'body' => $request->text
         ]);
 

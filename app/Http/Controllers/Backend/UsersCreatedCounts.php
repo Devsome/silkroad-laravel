@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Carbon;
+use Illuminate\View\View;
 
 class UsersCreatedCounts extends Controller
 {
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Exception
+     * @return Factory|View
+     * @throws Exception
      */
     public function index()
     {
@@ -22,7 +25,7 @@ class UsersCreatedCounts extends Controller
 
         $firstDayCached = \App\UsersCreatedCounts::whereBetween('cached_at', [$start, $end])->orderBy('cached_at', 'ASC')->pluck('cached_at')->first();
 
-        return view('backend.logging.users', [
+        return view('theme::backend.logging.users', [
             'users' => \App\UsersCreatedCounts::whereBetween('cached_at', [$start, $end])->orderBy('cached_at', 'ASC')->get(),
             'firstDate' => $firstDayCached ? Carbon::parse($firstDayCached)->day : 1,
             'endDate' => $endDate

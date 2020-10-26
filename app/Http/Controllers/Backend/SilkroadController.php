@@ -17,6 +17,7 @@ use App\Model\SRO\Shard\Char;
 use App\Model\SRO\Shard\User;
 use App\Roles;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Validator;
 use Yajra\DataTables\DataTables;
@@ -33,7 +34,7 @@ class SilkroadController extends Controller
      */
     public function indexSroUser()
     {
-        return view('backend.silkroad.tbuser.index');
+        return view('theme::backend.silkroad.tbuser.index');
     }
 
     /**
@@ -58,7 +59,7 @@ class SilkroadController extends Controller
             ->with('getWebUser')
             ->findOrFail($jid);
 
-        return view('backend.silkroad.tbuser.edit', [
+        return view('theme::backend.silkroad.tbuser.edit', [
             'tbuser' => $tbuser,
             'userRoles' => $tbuser->getWebUser->getRoleNames(),
             'allRoles' => Roles::all()
@@ -69,7 +70,7 @@ class SilkroadController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function syncRoles(Request $request, $id)
     {
@@ -88,7 +89,7 @@ class SilkroadController extends Controller
      */
     public function indexSroPlayer()
     {
-        return view('backend.silkroad.chars.index');
+        return view('theme::backend.silkroad.chars.index');
     }
 
     /**
@@ -110,7 +111,7 @@ class SilkroadController extends Controller
         $loggedInHistory = LoginHistoryLog::where('CharID', $char->CharID)->get();
         $tbUser = User::where('CharID', $char->CharID)->get()->first();
 
-        return view('backend.silkroad.chars.edit', [
+        return view('theme::backend.silkroad.chars.edit', [
             'char' => $char,
             'loggedInHistory' => $loggedInHistory,
             'tbUser' => $tbUser->UserJID
@@ -120,7 +121,7 @@ class SilkroadController extends Controller
     /**
      * @param $jid
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function sroUserSilkAddRemove($jid, Request $request)
     {
@@ -168,12 +169,14 @@ class SilkroadController extends Controller
         if ($request->get('state') === 'add') {
             SkSilk::where('JID', $jid)
                 ->increment(
-                    'silk_own', $request->get('amount')
+                    'silk_own',
+                    $request->get('amount')
                 );
         } else {
             SkSilk::where('JID', $jid)
                 ->decrement(
-                    'silk_own', $request->get('amount')
+                    'silk_own',
+                    $request->get('amount')
                 );
         }
 
@@ -184,7 +187,7 @@ class SilkroadController extends Controller
     /**
      * @param $jid
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function sroUserBlockAdd($jid, Request $request)
     {
@@ -237,7 +240,7 @@ class SilkroadController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function sroUserBlockDestory(Request $request)
     {
@@ -263,15 +266,14 @@ class SilkroadController extends Controller
      * @param Request $request
      * @param CharService $charService
      * @param InventoryService $inventoryService
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function sroUnstuckChar(
         $charId,
         Request $request,
         CharService $charService,
         InventoryService $inventoryService
-    )
-    {
+    ) {
         $validator = Validator::make($request->all(), [
             '_token' => 'required'
         ]);
@@ -287,7 +289,7 @@ class SilkroadController extends Controller
         if ($getChar->getCharOnlineOffline) {
             if ($getChar->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_IN) {
                 return back()->with('error', trans('backend/notification.form-submit.still-logged-in'));
-            } else if ($getChar->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_OUT) {
+            } elseif ($getChar->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_OUT) {
                 $jobItem = $inventoryService->getInventorySlot($charId, 8);
 
                 if ($jobItem) {

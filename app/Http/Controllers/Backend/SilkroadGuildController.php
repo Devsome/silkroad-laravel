@@ -19,7 +19,7 @@ class SilkroadGuildController extends Controller
      */
     public function indexSroGuild()
     {
-        return view('backend.silkroad.guild.index');
+        return view('theme::backend.silkroad.guild.index');
     }
 
     /**
@@ -38,7 +38,7 @@ class SilkroadGuildController extends Controller
     public function sroGuildEdit($guildId)
     {
         $guild = Guild::findOrFail($guildId);
-        return view('backend.silkroad.guild.edit', [
+        return view('theme::backend.silkroad.guild.edit', [
             'guild' => $guild
         ]);
     }
@@ -52,5 +52,4 @@ class SilkroadGuildController extends Controller
     {
         return DataTables::of(GuildMember::where('GuildID', $guildId))->make(true);
     }
-
 }

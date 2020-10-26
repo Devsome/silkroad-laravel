@@ -6,35 +6,39 @@ use App\DonationMethods;
 use App\DonationPaypals;
 use App\Http\Controllers\Controller;
 use App\PaypalInvoices;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Validator;
 use Yajra\DataTables\DataTables;
 
 class DonationsController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
         $donationMethods = DonationMethods::all();
 
-        return view('backend.donations.index', [
+        return view('theme::backend.donations.index', [
             'donationMethods' => $donationMethods
         ]);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function logging()
     {
-        return view('backend.donations.logging');
+        return view('theme::backend.donations.logging');
     }
 
     /**
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function loggingDatatables()
     {
@@ -44,7 +48,7 @@ class DonationsController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function updateMethods(Request $request)
     {
@@ -58,13 +62,13 @@ class DonationsController extends Controller
         }
 
         // More then the _token
-        if($request->all() > 1) {
+        if ($request->all() > 1) {
             // Setting all to 0
             DonationMethods::query()->update(['active' => false]);
 
             // Looping the request
-            foreach($request->all() as $key => $data) {
-                if($key === '_token') {
+            foreach ($request->all() as $key => $data) {
+                if ($key === '_token') {
                     continue;
                 }
                 DonationMethods::where('id', '=', $key)
@@ -76,7 +80,7 @@ class DonationsController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function methodPaypal()
     {
@@ -85,7 +89,7 @@ class DonationsController extends Controller
 
         $paypal = DonationPaypals::all();
 
-        return view('backend.donations.paypal', [
+        return view('theme::backend.donations.paypal', [
             'method' => $method,
             'paypal' => $paypal
         ]);
@@ -93,7 +97,7 @@ class DonationsController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function methodPaypalAdd(Request $request)
     {
@@ -119,7 +123,7 @@ class DonationsController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function methodPaypalDestroy(Request $request, $id)
     {

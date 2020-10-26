@@ -14,7 +14,11 @@ use App\Todo;
 use App\User;
 use App\Voucher;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Validator;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Response;
@@ -36,13 +40,13 @@ class BackendController extends Controller
      */
     public function index(InventoryService $inventoryService)
     {
-        if(ServerGold::all()->count() === 0) {
+        if (ServerGold::all()->count() === 0) {
             ServerGold::create([
                 'gold' => 0
             ]);
         }
 
-        return view('backend.index', [
+        return view('theme::backend.index', [
             'userCount' => User::count(),
             'playerCount' => Char::count(),
             'silkCount' => SkSilk::all()->sum('silk_own'),
@@ -75,13 +79,13 @@ class BackendController extends Controller
     /**
      * @param null $filter
      * @param InventoryService $inventoryService
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showSoxCount(InventoryService $inventoryService, $filter = null)
     {
         $data = $inventoryService->getServerSoxFilter($filter);
 
-        return view('backend.soxcount.show', [
+        return view('theme::backend.soxcount.show', [
             'filter' => $filter,
             'data' => $data['inventory'],
             'dataWeb' => $data['webInventory']
@@ -90,7 +94,7 @@ class BackendController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function todoAdd(Request $request)
     {
@@ -116,7 +120,7 @@ class BackendController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function todoDelete($id, Request $request)
     {
@@ -128,16 +132,16 @@ class BackendController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function smclogIndex()
     {
-        return view('backend.logging.smc');
+        return view('theme::backend.logging.smc');
     }
 
     /**
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function smclogDatatables()
     {
@@ -145,16 +149,16 @@ class BackendController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function blockedAccountsIndex()
     {
-        return view('backend.logging.blocked');
+        return view('theme::backend.logging.blocked');
     }
 
     /**
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function blockedAccountsDatatables()
     {
@@ -162,13 +166,13 @@ class BackendController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function worldmapIndex()
     {
         $onlineCharacters = OnlineOfflineLog::where('status', OnlineOfflineLog::STATUS_LOGGED_IN);
 
-        return view('backend.worldmap.index', [
+        return view('theme::backend.worldmap.index', [
             'count' => $onlineCharacters->count(),
             'characters' => $onlineCharacters->with('getCharacter')->get()
         ]);

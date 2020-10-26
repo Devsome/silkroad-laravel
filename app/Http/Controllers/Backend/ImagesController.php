@@ -17,7 +17,7 @@ class ImagesController extends Controller
      */
     public function index()
     {
-        return view('backend.image.index', [
+        return view('theme::backend.image.index', [
             'images' => Image::paginate(25)
         ]);
     }
@@ -55,7 +55,7 @@ class ImagesController extends Controller
      */
     public function show()
     {
-        return view('backend.image.create', [
+        return view('theme::backend.image.create', [
             'models' => Image::$models
         ]);
     }
@@ -100,7 +100,8 @@ class ImagesController extends Controller
             $image->delete();
             return back()->with('success', __('backend/notification.form-submit.success'));
         }
-        return back()->with('error',
+        return back()->with(
+            'error',
             __('backend/notification.form-submit.error-image-references', ['model' => $image->model])
         );
     }

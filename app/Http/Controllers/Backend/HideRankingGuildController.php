@@ -5,25 +5,28 @@ namespace App\Http\Controllers\Backend;
 use App\HideRankingGuild;
 use App\Http\Controllers\Controller;
 use App\Model\SRO\Shard\Guild;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Validator;
 
 class HideRankingGuildController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
         $hidePlayers = HideRankingGuild::all();
-        return view('backend.hideranking.guild', [
+        return view('theme::backend.hideranking.guild', [
             'hidden' => $hidePlayers
         ]);
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function add(Request $request)
     {
@@ -52,7 +55,7 @@ class HideRankingGuildController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Request $request, $id)
     {

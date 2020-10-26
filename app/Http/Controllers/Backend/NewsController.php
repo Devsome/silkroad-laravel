@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Image;
 use App\News;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -23,7 +24,7 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::orderByDesc('id')->get();
-        return view('backend.news.index', [
+        return view('theme::backend.news.index', [
             'news' => $news
         ]);
     }
@@ -36,7 +37,7 @@ class NewsController extends Controller
     public function create()
     {
         $newsImages = Image::where('model', News::class)->orderByDesc('id')->get();
-        return view('backend.news.create', [
+        return view('theme::backend.news.create', [
             'images' => $newsImages
         ]);
     }
@@ -67,7 +68,7 @@ class NewsController extends Controller
         $news->title = $request->title;
         $news->slug = $request->slug;
         $news->body = $request->body;
-        $news->image_id = $request->image_id === 'null' ? NULL : $request->image_id;
+        $news->image_id = $request->image_id === 'null' ? null : $request->image_id;
         $news->published_at = Carbon::create($request->published_at);
 
         $news->save();
@@ -85,7 +86,7 @@ class NewsController extends Controller
     {
         $news = News::findOrFail($id);
         $newsImages = Image::where('model', News::class)->orderByDesc('id')->get();
-        return view('backend.news.edit', [
+        return view('theme::backend.news.edit', [
             'news' => $news,
             'images' => $newsImages
         ]);
@@ -96,7 +97,7 @@ class NewsController extends Controller
      *
      * @param Request $request
      * @param  int $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -116,7 +117,7 @@ class NewsController extends Controller
         $news->title = $request->title;
         $news->slug = $request->slug;
         $news->body = $request->body;
-        $news->image_id = $request->image_id === 'null' ? NULL : $request->image_id;
+        $news->image_id = $request->image_id === 'null' ? null : $request->image_id;
         $news->published_at = Carbon::create($request->published_at);
         $news->save();
 
@@ -135,5 +136,4 @@ class NewsController extends Controller
         $news->delete();
         return back()->with('success', trans('backend/notification.form-submit.success'));
     }
-
 }

@@ -3,24 +3,27 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Rules;
+use Illuminate\View\View;
 
 class RulesController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
-        return view('backend.rules.index', [
+        return view('theme::backend.rules.index', [
             'rules' => Rules::all()
         ]);
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Factory|\Illuminate\Contracts\View\View
      */
     public function add(Request $request)
     {
@@ -30,26 +33,26 @@ class RulesController extends Controller
 
         Rules::create($data);
 
-        return view('backend.rules.index', [
+        return view('theme::backend.rules.index', [
             'rules' => Rules::all()
         ])->with('success', __('backend/notification.form-submit.success'));
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showAdd()
     {
-        return view('backend.rules.create');
+        return view('theme::backend.rules.create');
     }
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showEdit($id)
     {
-        return view('backend.rules.edit', [
+        return view('theme::backend.rules.edit', [
             'rules' => Rules::findOrFail($id)
         ]);
     }
@@ -57,7 +60,7 @@ class RulesController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -68,7 +71,7 @@ class RulesController extends Controller
         $rules = Rules::findOrFail($id);
         $rules->update($data);
 
-        return view('backend.rules.index', [
+        return view('theme::backend.rules.index', [
             'rules' => Rules::all()
         ])->with('success', __('backend/notification.form-submit.success'));
     }

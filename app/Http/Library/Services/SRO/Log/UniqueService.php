@@ -2,6 +2,8 @@
 
 namespace App\Library\Services\SRO\Log;
 
+use File;
+
 class UniqueService
 {
     /**
@@ -10,11 +12,12 @@ class UniqueService
      */
     public function getUniquePoints($data)
     {
-        $collection = $data->getCollection();
+
+        $collection = $data;
         $uniquePoints = config('unique');
 
         // If the unique example is not copied - Fallback
-        if (!\File::exists(config_path() . '/unique.php')) {
+        if (!File::exists(config_path() . '/unique.php')) {
             $uniquePoints = config('unique.example');
         } else {
             unset($uniquePoints['example']);
@@ -26,9 +29,15 @@ class UniqueService
 
             if ($uniqueMappingPoints === null) {
                 $test = array_search(
-                    $data->UniqueName, array_map(static function ($a) {
-                    return $a['name'];
-                }, $uniquePoints), true);
+                    $data->UniqueName,
+                    array_map(
+                        static function ($a) {
+                            return $a['name'];
+                        },
+                        $uniquePoints
+                    ),
+                    true
+                );
 
 
                 $a = array_map(static function ($a) {
@@ -46,8 +55,6 @@ class UniqueService
             $data->Points = (integer)$uniqueMappingPoints;
             return $data;
         });
-
-
         $uniquePoints = $uniquePoints->groupBy('CharName16')
             ->map(static function ($d) {
                 return [
@@ -56,8 +63,6 @@ class UniqueService
             });
         $uniquePoints = $uniquePoints->sortDesc();
         $uniquePoints->values()->all();
-
-        $data->setCollection($uniquePoints);
-        return $data;
+        return $uniquePoints;
     }
 }
