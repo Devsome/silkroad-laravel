@@ -204,14 +204,14 @@ class DonationsPaypalController extends Controller
                 $gateway->setClientId(config('paypal.live.clientId'));
                 $gateway->setSecret(config('paypal.live.secret'));
             } else {
-                throw new \Exception('Missing Paypal Live Keys ');
+                throw new \Exception(__('donations.notification.error.missing-keys'));
             }
         } else {
             if (config('paypal.sandbox.clientId') && config('paypal.sandbox.secret')) {
                 $gateway->setClientId(config('paypal.sandbox.clientId'));
                 $gateway->setSecret(config('paypal.sandbox.secret'));
             } else {
-                throw new \Exception('Missing Paypal Sandbox Keys ');
+                throw new \Exception(__('donations.notification.error.missing-keys'));
             }
             $gateway->setTestMode(true);
         }

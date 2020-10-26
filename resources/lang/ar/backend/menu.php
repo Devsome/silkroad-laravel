@@ -20,9 +20,9 @@ return [
     'donations' => [
         'title' => 'Donations',
         'settings' => 'Settings',
-        'logging' => 'Logging',
         'head' => 'Methods',
         'paypal' => 'PayPal',
+        'stripe' => 'Stripe',
         'payop' => 'PayOp',
     ],
     'backlinks' => 'Backlinks',

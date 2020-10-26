@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ffb1f2464d35cd82f05865c696aac034",
+    "content-hash": "9bf7655e6d09e797cc0baf054d2f82ee",
     "packages": [
         {
             "name": "awssat/discord-notification-channel",
@@ -1872,6 +1872,65 @@
                 "purchase"
             ],
             "time": "2018-05-15T10:35:58+00:00"
+        },
+        {
+            "name": "omnipay/stripe",
+            "version": "v3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/omnipay-stripe.git",
+                "reference": "37df2a791e8feab45543125f4c5f22d5d305096d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/omnipay-stripe/zipball/37df2a791e8feab45543125f4c5f22d5d305096d",
+                "reference": "37df2a791e8feab45543125f4c5f22d5d305096d",
+                "shasum": ""
+            },
+            "require": {
+                "omnipay/common": "^3"
+            },
+            "require-dev": {
+                "omnipay/tests": "^3",
+                "phpro/grumphp": "^0.14",
+                "squizlabs/php_codesniffer": "^3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Omnipay\\Stripe\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adrian Macneil",
+                    "email": "adrian@adrianmacneil.com"
+                },
+                {
+                    "name": "Omnipay Contributors",
+                    "homepage": "https://github.com/thephpleague/omnipay-stripe/contributors"
+                }
+            ],
+            "description": "Stripe driver for the Omnipay payment processing library",
+            "homepage": "https://github.com/thephpleague/omnipay-stripe",
+            "keywords": [
+                "gateway",
+                "merchant",
+                "omnipay",
+                "pay",
+                "payment",
+                "stripe"
+            ],
+            "time": "2019-08-31T10:55:06+00:00"
         },
         {
             "name": "opis/closure",

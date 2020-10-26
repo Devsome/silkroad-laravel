@@ -68,14 +68,14 @@
                 <a class="collapse-item" href="{{ route('donations-index-backend') }}">
                     {{ __('backend/menu.donations.settings') }}
                 </a>
-                <a class="collapse-item" href="{{ route('donations-logging-backend') }}">
-                    {{ __('backend/menu.donations.logging') }}
-                </a>
                 <h6 class="collapse-header">
                     {{ __('backend/menu.donations.head') }}
                 </h6>
                 <a class="collapse-item" href="{{ route('method-paypal-backend') }}">
                     {{ __('backend/menu.donations.paypal') }}
+                </a>
+                <a class="collapse-item" href="{{ route('method-stripe-backend') }}">
+                    {{ __('backend/menu.donations.stripe') }}
                 </a>
                 @if(Route::has('dev.payop.index'))
                     <a class="collapse-item" href="#">

@@ -25,5 +25,17 @@ class DonationMethodsSeeder extends Seeder
                 'active' => 0,
                 'created_at' => \Carbon\Carbon::now(),
             ]);
+
+        DB::table('donation_methods')->updateOrInsert(
+            [
+                'method' => 'stripe'
+            ],
+            [
+                'name' => 'Stripe',
+                'image' => 'stripe.png',
+                'currency' => 'USD',
+                'active' => 0,
+                'created_at' => \Carbon\Carbon::now(),
+            ]);
     }
 }

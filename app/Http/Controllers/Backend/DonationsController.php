@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Backend;
 
 use App\DonationMethods;
 use App\DonationPaypals;
+use App\DonationStripes;
 use App\Http\Controllers\Controller;
 use App\PaypalInvoices;
+use App\StripeInvoices;
 use Illuminate\Http\Request;
 use Validator;
 use Yajra\DataTables\DataTables;
@@ -25,20 +27,22 @@ class DonationsController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return mixed
+     * @throws \Exception
      */
-    public function logging()
+    public function loggingPaypalDatatables()
     {
-        return view('backend.donations.logging');
+        return DataTables::of(PaypalInvoices::where('state', '=', PaypalInvoices::STATE_PAID))
+            ->make(true);
     }
 
     /**
      * @return mixed
      * @throws \Exception
      */
-    public function loggingDatatables()
+    public function loggingStripeDatatables()
     {
-        return DataTables::of(PaypalInvoices::where('state', '=', PaypalInvoices::STATE_PAID))
+        return DataTables::of(StripeInvoices::where('state', '=', PaypalInvoices::STATE_PAID))
             ->make(true);
     }
 
@@ -58,13 +62,13 @@ class DonationsController extends Controller
         }
 
         // More then the _token
-        if($request->all() > 1) {
+        if ($request->all() > 1) {
             // Setting all to 0
             DonationMethods::query()->update(['active' => false]);
 
             // Looping the request
-            foreach($request->all() as $key => $data) {
-                if($key === '_token') {
+            foreach ($request->all() as $key => $data) {
+                if ($key === '_token') {
                     continue;
                 }
                 DonationMethods::where('id', '=', $key)
@@ -95,7 +99,7 @@ class DonationsController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function methodPaypalAdd(Request $request)
+    public function methodPaypalAdding(Request $request)
     {
         $validator = Validator::make($request->all(), [
             '_token' => 'required',
@@ -124,6 +128,59 @@ class DonationsController extends Controller
     public function methodPaypalDestroy(Request $request, $id)
     {
         DonationPaypals::findOrFail($id)->delete();
+
+        return back()->with('success', __('backend/notification.form-submit.success'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function methodStripe()
+    {
+        $method = DonationMethods::where('method', '=', 'stripe')
+            ->firstOrFail();
+
+        $stripe = DonationStripes::all();
+
+        return view('backend.donations.stripe', [
+            'method' => $method,
+            'stripe' => $stripe
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function methodStripeAdding(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            '_token' => 'required',
+            'name' => 'required|max:50',
+            'description' => 'required|max:250',
+            'price' => 'required|numeric|min:0|not_in:0',
+            'silk' => 'required|integer|min:0|not_in:0',
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        DonationStripes::create($request->all());
+
+        return back()->with('success', __('backend/notification.form-submit.success'));
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function methodStripeDestroy(Request $request, $id)
+    {
+        DonationStripes::findOrFail($id)->delete();
 
         return back()->with('success', __('backend/notification.form-submit.success'));
     }

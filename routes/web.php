@@ -75,6 +75,14 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function(
             Route::get('/notify', 'Frontend\DonationsPaypalController@notify')->name('donate-paypal-notify');
             Route::get('/error/{id}', 'Frontend\DonationsPaypalController@error')->name('donate-paypal-error');
         });
+
+        Route::group(['prefix' => 'stripe'], static function () {
+            Route::get('/buy/{id}', 'Frontend\DonationsStripeController@buy')->where('id', '[0-9]+')->name('donate-stripe');
+            Route::post('/buy/{id}', 'Frontend\DonationsStripeController@buyPost')->where('id', '[0-9]+')->name('donate-stripe-post');
+            Route::post('/confirm', 'Frontend\DonationsStripeController@confirm')->name('donate-stripe-confirm');
+            Route::get('/success', 'Frontend\DonationsStripeController@success')->name('donate-stripe-success');
+            Route::get('/error', 'Frontend\DonationsStripeController@error')->name('donate-stripe-error');
+        });
     });
 });
 
@@ -246,14 +254,18 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
 
         Route::group(['prefix' => 'donations'], static function (){
             Route::get('/', 'Backend\DonationsController@index')->name('donations-index-backend');
-            Route::get('/logging', 'Backend\DonationsController@logging')->name('donations-logging-backend');
-            Route::get('/logging-datatables', 'Backend\DonationsController@loggingDatatables')->name('donations-logging-datatables-backend');
             Route::post('/methods/update', 'Backend\DonationsController@updateMethods')->name('donations-update-methods-backend');
 
             Route::group(['prefix' => 'method'], static function () {
                 Route::get('/paypal', 'Backend\DonationsController@methodPaypal')->name('method-paypal-backend');
-                Route::post('/paypal/add', 'Backend\DonationsController@methodPaypalAdd')->name('method-paypal-add-backend');
+                Route::post('/paypal/add', 'Backend\DonationsController@methodPaypalAdding')->name('method-paypal-add-backend');
                 Route::post('/paypal/{id}/destroy', 'Backend\DonationsController@methodPaypalDestroy')->name('method-paypal-destroy-backend');
+                Route::get('/paypal-logging-datatables', 'Backend\DonationsController@loggingPaypalDatatables')->name('donations-logging-paypal-datatables-backend');
+
+                Route::get('/stripe', 'Backend\DonationsController@methodStripe')->name('method-stripe-backend');
+                Route::post('/stripe/add', 'Backend\DonationsController@methodStripeAdding')->name('method-stripe-add-backend');
+                Route::post('/stripe/{id}/destroy', 'Backend\DonationsController@methodStripeDestroy')->name('method-stripe-destroy-backend');
+                Route::get('/stripe-logging-datatables', 'Backend\DonationsController@loggingStripeDatatables')->name('donations-logging-stripe-datatables-backend');
             });
         });
     });

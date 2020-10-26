@@ -18,8 +18,9 @@ return [
             'date' => 'Created at',
         ]
     ],
-    'paypal' => [
-        'title' => 'PayPal',
+    'method' => [
+        'title-paypal' => 'PayPal',
+        'title-stripe' => 'Stripe',
         'disabled' => 'This method is currently disabled.',
 
         'panel-title' => 'Add new amount',

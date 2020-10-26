@@ -10,6 +10,23 @@ return [
 
         'pending' => 'You have pending payments!',
     ],
+    'stripe' => [
+        'title' => 'Pay with Stripe',
+        'disabled' => 'This method is currently disabled.',
+        'empty' => 'Currently are none price packages added, please contact the support.',
+        'pay-text' => 'Pay :price :currency for :amount :silk_name',
+        'submit' => 'Buy now!',
+
+        'pending' => 'You have pending payments!',
+
+        'buy' => [
+            'title' => 'Buy now with Stripe',
+            'info' => 'Your information',
+            'info-body' => 'You are about to buy :silk ' . config('siteSettings.sro_silk_name', 'Silk') . ' for :amount :currency',
+            'card-holder' => 'Card holder',
+            'submit' => 'Pay now!',
+        ]
+    ],
     'notification' => [
         'buy' => [
             'success-title' => 'Done',
@@ -26,6 +43,9 @@ return [
             'error-ahref' => 'Go back',
 
             'notification' => 'Successfully bought :amount ' . config('siteSettings.sro_silk_name', 'Silk'),
+        ],
+        'error' => [
+            'missing-keys' => 'We are missing some Keys for the payment method, please contact an administrator.',
         ]
     ],
 ];

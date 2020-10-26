@@ -5,7 +5,7 @@
 
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/donations.method.title-paypal') }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/donations.method.title-stripe') }}</h1>
         </div>
         <div class="container">
 
@@ -33,7 +33,7 @@
                             </h6>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('method-paypal-add-backend') }}">
+                            <form method="POST" action="{{ route('method-stripe-add-backend') }}">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-lg-3 col-md-4 col-sm-4">
@@ -132,7 +132,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($paypal as $data)
+                            @foreach ($stripe as $data)
                                 <tr>
                                     <td>
                                         {{ $data->name }}
@@ -148,7 +148,7 @@
                                     </td>
                                     <td>
                                         <form method="POST" data-form="deleteForm"
-                                              action="{{ route('method-paypal-destroy-backend', ['id' => $data->id]) }}">
+                                              action="{{ route('method-stripe-destroy-backend', ['id' => $data->id]) }}">
                                             @csrf
                                             <span data-toggle="modal" data-target="#methodModalDelete"
                                                   data-title="{{ __('backend/donations.method.modal.title') }}"
@@ -167,7 +167,7 @@
                 </div>
                 <div class="col-12 pb-3">
                     <div class="table-responsive">
-                        <table id="paypalLogging" class="table table-striped table-hover dataTable">
+                        <table id="stripeLogging" class="table table-striped table-hover dataTable">
                             <thead class="thead-dark">
                             <tr>
                                 <th scope="col">{{ __('backend/donations.logging.table.user_id') }}</th>
@@ -230,10 +230,10 @@
                     });
             });
 
-            $('#paypalLogging').DataTable( {
+            $('#stripeLogging').DataTable( {
                 "processing": true,
                 "serverSide": true,
-                "ajax": '{{ route('donations-logging-paypal-datatables-backend') }}',
+                "ajax": '{{ route('donations-logging-stripe-datatables-backend') }}',
                 "columns": [
                     { data: 'user_id', name: 'user_id' },
                     { data: 'name', name: 'name' },
