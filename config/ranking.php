@@ -11,4 +11,6 @@ return [
     'search-hunter' => 'hunter',
     'search-thief' => 'thief',
     'search-unique' => 'unique',
+    'search-free-pvp' => 'free-pvp',
+    'search-job-pvp' => 'job-pvp',
 ];

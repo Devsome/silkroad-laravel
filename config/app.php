@@ -191,6 +191,7 @@ return [
         \App\Providers\SilkGoldProvider::class,
         \App\Providers\SupportersOnlineProvider::class,
         \App\Providers\LatestUniqueKillsProvider::class,
+        \App\Providers\LatestPvpKillsProvider::class,
 
         /*
          * Own Service Providers

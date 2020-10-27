@@ -7,12 +7,14 @@ use App\HideRankingGuild;
 use App\Http\Controllers\Controller;
 use App\Library\Services\SRO\Log\UniqueService;
 use App\Model\SRO\Account\UniqueKillLog;
+use App\Model\SRO\Log\PvpRecordsLog;
 use App\Model\SRO\Shard\Char;
 use App\Model\SRO\Shard\CharTrijob;
 use App\Model\SRO\Shard\Guild;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Throwable;
 
@@ -241,6 +243,85 @@ class RankingController extends Controller
 
             return view('theme::frontend.ranking.results.unique', [
                 'data' => $jobs
+            ])->render();
+        }
+
+        if ($mode === config('ranking.search-free-pvp')) {
+            $chars = PvpRecordsLog::whereNotIn('CharName', $hideRanking)
+                ->whereType(0)
+                ->with([
+                    'getKillerCharacter' => static function ($query) use ($hideRankingGuild) {
+                        $query->whereNotIn('GuildID', $hideRankingGuild);
+                    }
+                ])
+                ->select(DB::raw('count(pvp_records.CharName) as points'), 'CharName')
+                ->groupBy('CharName')
+                ->orderBy('points', 'DESC')
+                ->get();
+            foreach ($chars as $key => $char) {
+                $chars[$key]['count'] = $key + 1;
+            }
+            //get current page number
+            $page = (isset($_GET['page'])) ? $_GET['page'] : 1;
+
+            //this is the number of results per page
+            $perPage = 15;
+
+            //start the paginating
+            $chars = new LengthAwarePaginator(
+                $chars->forPage($page, $perPage),
+                $chars->count(),
+                $perPage,
+                $page,
+                [
+                    'path' => route('ranking-index', ['mode' => config('ranking.search-free-pvp')]),
+                    'pageName' => 'page'
+                ]
+            );
+            return view('theme::frontend.ranking.results.free-pvp', [
+                'data' => $chars
+            ])->render();
+        }
+
+
+        if ($mode === config('ranking.search-job-pvp')) {
+            $chars = PvpRecordsLog::whereNotIn('CharName', $hideRanking)
+                ->where('type', '>', 0)
+                ->with([
+                    'getKillerCharacter' => static function ($query) use ($hideRankingGuild) {
+                        $query->whereNotIn('GuildID', $hideRankingGuild);
+                    }
+                ])
+                ->select(DB::raw('count(pvp_records.CharName) as points'), 'pvp_records.CharName')
+                ->groupBy('CharName')
+                ->orderBy('points', 'DESC')
+                ->get();
+            foreach ($chars as $key => $char) {
+                $chars[$key]['count'] = $key + 1;
+                $type = PvpRecordsLog::where('CharName', $char->CharName)
+                    ->where('type', '>', 0)
+                    ->first()->type;
+                $chars[$key]['type'] = ($type == 1) ? "Trader" : (($type == 2) ? "Theif" : "Hunter");
+            }
+            //get current page number
+            $page = $_GET['page'] ?? 1;
+
+            //this is the number of results per page
+            $perPage = 15;
+
+            //start the paginating
+            $chars = new LengthAwarePaginator(
+                $chars->forPage($page, $perPage),
+                $chars->count(),
+                $perPage,
+                $page,
+                [
+                    'path' => route('ranking-index', ['mode' => config('ranking.search-free-pvp')]),
+                    'pageName' => 'page'
+                ]
+            );
+            return view('theme::frontend.ranking.results.job-pvp', [
+                'data' => $chars
             ])->render();
         }
 
