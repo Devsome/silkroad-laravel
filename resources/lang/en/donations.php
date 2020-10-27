@@ -15,7 +15,7 @@ return [
         'disabled' => 'This method is currently disabled.',
         'empty' => 'Currently are none price packages added, please contact the support.',
         'pay-text' => 'Pay :price :currency for :amount :silk_name',
-        'submit' => 'Buy now!',
+        'submit' => 'Select this',
 
         'pending' => 'You have pending payments!',
 
@@ -25,6 +25,10 @@ return [
             'info-body' => 'You are about to buy :silk ' . config('siteSettings.sro_silk_name', 'Silk') . ' for :amount :currency',
             'card-holder' => 'Card holder',
             'submit' => 'Pay now!',
+        ],
+        'error' => [
+            'error-title' => 'Your transaction was canceled!',
+            'error-body' => 'Your transaction is saved, whenever you  want to make a new Payment, you are good to go.',
         ]
     ],
     'notification' => [
@@ -46,6 +50,7 @@ return [
         ],
         'error' => [
             'missing-keys' => 'We are missing some Keys for the payment method, please contact an administrator.',
+            'missing-methods' => 'There are missing Payment Methods',
         ]
     ],
 ];

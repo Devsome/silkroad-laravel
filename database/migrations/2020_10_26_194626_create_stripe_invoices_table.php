@@ -17,6 +17,7 @@ class CreateStripeInvoicesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->string('payment_reference');
+            $table->string('payment_id');
             $table->string('name');
             $table->double('price', 5);
             $table->integer('silk');

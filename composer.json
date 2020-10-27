@@ -17,8 +17,8 @@
         "laravel/tinker": "^2.4.1",
         "league/omnipay": "^3.0",
         "omnipay/paypal": "^3.0",
-        "omnipay/stripe": "^3.1",
         "spatie/laravel-permission": "^3.4",
+        "stripe/stripe-php": "^7.61",
         "yajra/laravel-datatables-oracle": "^9.8"
     },
     "require-dev": {
