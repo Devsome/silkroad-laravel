@@ -101,7 +101,7 @@ class DonationsStripeController extends Controller
                         'description' => $stripe->description,
                     ]],
                     'mode' => 'payment',
-                    'success_url' => route('donate-stripe-test-success') . '?session_id={CHECKOUT_SESSION_ID}' .
+                    'success_url' => route('donate-stripe-success') . '?session_id={CHECKOUT_SESSION_ID}' .
                         '&sid=' . $id,
                     'cancel_url' => route('donate-stripe-error'),
                 ]);
