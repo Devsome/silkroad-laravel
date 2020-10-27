@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\HideRankingGuild;
 use App\Http\Controllers\Controller;
-use App\Model\SRO\Shard\Guild;
+use App\Http\Model\SRO\Shard\Guild;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

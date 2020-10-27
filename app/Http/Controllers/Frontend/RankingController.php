@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Frontend;
 use App\HideRanking;
 use App\HideRankingGuild;
 use App\Http\Controllers\Controller;
-use App\Library\Services\SRO\Log\UniqueService;
-use App\Model\SRO\Account\UniqueKillLog;
-use App\Model\SRO\Log\PvpRecordsLog;
-use App\Model\SRO\Shard\Char;
-use App\Model\SRO\Shard\CharTrijob;
-use App\Model\SRO\Shard\Guild;
+use App\Http\Library\Services\SRO\Log\UniqueService;
+use App\Http\Model\SRO\Account\UniqueKillLog;
+use App\Http\Model\SRO\Log\PvpRecordsLog;
+use App\Http\Model\SRO\Shard\Char;
+use App\Http\Model\SRO\Shard\CharTrijob;
+use App\Http\Model\SRO\Shard\Guild;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -49,6 +49,7 @@ class RankingController extends Controller
         $hideRanking = HideRanking::all()
             ->pluck('charname')
             ->union($deleted_chars);
+
         //check for hidden guilds from ranking.
         $hideRankingGuild = HideRankingGuild::all()
             ->pluck('guild_id')

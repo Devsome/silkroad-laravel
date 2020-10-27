@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model\SRO\Log;
+namespace App\Http\Model\SRO\Log;
 
-use App\Model\SRO\Shard\Char;
+use App\Http\Model\SRO\Shard\Char;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

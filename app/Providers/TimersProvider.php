@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Library\Services\TimersService;
+use App\Http\Library\Services\TimersService;
 use Illuminate\Support\ServiceProvider;
 
 class TimersProvider extends ServiceProvider

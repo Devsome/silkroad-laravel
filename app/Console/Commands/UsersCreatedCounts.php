@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Model\SRO\Account\TbUser;
+use App\Http\Model\SRO\Account\TbUser;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 

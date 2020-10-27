@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Library\Services\SRO\Log;
+namespace App\Http\Library\Services\SRO\Log;
 
 use File;
 

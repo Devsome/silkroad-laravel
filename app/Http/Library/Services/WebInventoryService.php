@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Library\Services;
+namespace App\Http\Library\Services;
 
-use App\Library\Services\SRO\Shard\InventoryService;
+use App\Http\Library\Services\SRO\Shard\InventoryService;
 use App\Model\Frontend\CharGold;
 use App\Model\Frontend\CharGoldLog;
 use App\Model\Frontend\CharInventory;
 use App\Model\Frontend\CharInventoryLog;
-use App\Model\SRO\Shard\Char;
-use App\Model\SRO\Shard\Inventory;
-use App\Model\SRO\Shard\Items;
+use App\Http\Model\SRO\Shard\Char;
+use App\Http\Model\SRO\Shard\Inventory;
+use App\Http\Model\SRO\Shard\Items;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -17,7 +17,7 @@ use Throwable;
 
 /**
  * Class WebInventoryService
- * @package App\Library\Services
+ * @package App\Http\Library\Services
  */
 class WebInventoryService
 {

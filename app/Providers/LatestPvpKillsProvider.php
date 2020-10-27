@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\HideRanking;
 use App\HideRankingGuild;
-use App\Model\SRO\Log\PvpRecordsLog;
+use App\Http\Model\SRO\Log\PvpRecordsLog;
 use Illuminate\Support\ServiceProvider;
 
 class LatestPvpKillsProvider extends ServiceProvider

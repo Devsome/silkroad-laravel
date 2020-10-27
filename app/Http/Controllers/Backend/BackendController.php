@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Library\Services\SRO\Shard\InventoryService;
-use App\Model\SRO\Account\Notice;
-use App\Model\SRO\Account\OnlineOfflineLog;
-use App\Model\SRO\Account\Punishment;
-use App\Model\SRO\Account\SkSilk;
-use App\Model\SRO\Account\SmcLog;
-use App\Model\SRO\Shard\Char;
+use App\Http\Library\Services\SRO\Shard\InventoryService;
+use App\Http\Model\SRO\Account\Notice;
+use App\Http\Model\SRO\Account\OnlineOfflineLog;
+use App\Http\Model\SRO\Account\Punishment;
+use App\Http\Model\SRO\Account\SkSilk;
+use App\Http\Model\SRO\Account\SmcLog;
+use App\Http\Model\SRO\Shard\Char;
 use App\ServerGold;
 use App\Todo;
 use App\User;
@@ -36,16 +36,16 @@ class BackendController extends Controller
      * Display a listing of the resource.
      *
      * @param InventoryService $inventoryService
-     * @return Response
+     * @return \Illuminate\Contracts\Foundation\Application|Factory|\Illuminate\Contracts\View\View|Response
      */
     public function index(InventoryService $inventoryService)
     {
+
         if (ServerGold::all()->count() === 0) {
             ServerGold::create([
                 'gold' => 0
             ]);
         }
-
         return view('theme::backend.index', [
             'userCount' => User::count(),
             'playerCount' => Char::count(),

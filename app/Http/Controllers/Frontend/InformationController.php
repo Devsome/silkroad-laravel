@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Library\Services\SRO\Shard\InventoryService;
-use App\Model\SRO\Shard\Char;
-use App\Model\SRO\Shard\Guild;
+use App\Http\Library\Services\SRO\Shard\InventoryService;
+use App\Http\Model\SRO\Shard\Char;
+use App\Http\Model\SRO\Shard\Guild;
 
 class InformationController extends Controller
 {

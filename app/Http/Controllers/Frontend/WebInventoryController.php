@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Library\Services\WebInventoryService;
+use App\Http\Library\Services\WebInventoryService;
 use App\Model\Frontend\CharGold;
 use App\User;
 use Illuminate\Http\Request;

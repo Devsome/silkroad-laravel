@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Library\Services;
+namespace App\Http\Library\Services;
 
 /**
  * Class TimersService
- * @package App\Library\Services
+ * @package App\Http\Library\Services
  */
 class TimersService
 {

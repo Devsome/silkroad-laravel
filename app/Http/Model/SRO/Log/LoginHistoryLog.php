@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\SRO\Log;
+namespace App\Http\Model\SRO\Log;
 
 use Illuminate\Database\Eloquent\Model;
 

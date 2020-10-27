@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\HideRanking;
 use App\HideRankingGuild;
-use App\Model\SRO\Account\UniqueKillLog;
+use App\Http\Model\SRO\Account\UniqueKillLog;
 use Illuminate\Support\ServiceProvider;
 
 class LatestUniqueKillsProvider extends ServiceProvider

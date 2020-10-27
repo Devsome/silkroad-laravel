@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Model\SRO\Account;
+namespace App\Http\Model\SRO\Account;
 
-use App\Model\SRO\Shard\Char;
-use App\Model\SRO\Shard\Chest;
-use App\Model\SRO\Shard\Items;
+use App\Http\Model\SRO\Shard\Char;
+use App\Http\Model\SRO\Shard\Chest;
+use App\Http\Model\SRO\Shard\Items;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Model\SRO\Shard\Guild;
-use App\Model\SRO\Shard\GuildMember;
+use App\Http\Model\SRO\Shard\Guild;
+use App\Http\Model\SRO\Shard\GuildMember;
 use Yajra\DataTables\DataTables;
 
 /**

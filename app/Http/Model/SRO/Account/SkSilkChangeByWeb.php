@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\SRO\Account;
+namespace App\Http\Model\SRO\Account;
 
 use Illuminate\Database\Eloquent\Model;
 

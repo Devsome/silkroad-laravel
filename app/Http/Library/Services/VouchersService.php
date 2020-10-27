@@ -2,8 +2,8 @@
 
 namespace App\Http\Library\Services;
 
-use App\Model\SRO\Account\SkSilk;
-use App\Model\SRO\Account\SkSilkBuyList;
+use App\Http\Model\SRO\Account\SkSilk;
+use App\Http\Model\SRO\Account\SkSilkBuyList;
 use App\User;
 use App\UserVoucher;
 use App\Voucher;

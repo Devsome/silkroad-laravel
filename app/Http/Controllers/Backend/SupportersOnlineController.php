@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Model\SRO\Shard\Char;
+use App\Http\Model\SRO\Shard\Char;
 use App\SupportersOnline;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
