@@ -128,6 +128,11 @@ class DonationsStripeController extends Controller
             ->json($response);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Throwable
+     */
     public function success(Request $request)
     {
         $intent = false;
@@ -258,6 +263,14 @@ class DonationsStripeController extends Controller
             return redirect()->route('donate-stripe-error')
                 ->with('error', $e->getMessage());
         }
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function error()
+    {
+        return view('theme::frontend.account.donations.stripe.error');
     }
 
 
