@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Library\Services\WebInventoryService;
+use App\Http\Library\Services\WebInventoryService;
 use App\Model\Frontend\CharGold;
 use App\User;
 use Illuminate\Http\Request;
@@ -48,8 +48,7 @@ class WebInventoryController extends Controller
     public function selectCharacter(
         Request $request,
         WebInventoryService $webInventoryService
-    )
-    {
+    ) {
         $validator = Validator::make($request->all(), [
             'characterId' => 'required|int',
             '_token' => 'required'
@@ -95,8 +94,7 @@ class WebInventoryController extends Controller
     public function updateGold(
         Request $request,
         WebInventoryService $webInventoryService
-    )
-    {
+    ) {
         $validator = Validator::make($request->all(), [
             'amount' => 'required|numeric|gt:0',
             'characterId' => 'required|int',
@@ -141,7 +139,9 @@ class WebInventoryController extends Controller
                     'data' => __('webinventory.submit-gold-success'),
                     'gold' => $goldResponse['goldArray'],
                     'goldWeb' => $goldResponse['goldWebArray']
-                ], 200);
+                ],
+                200
+            );
         }
 
         return response()->json([
@@ -158,8 +158,7 @@ class WebInventoryController extends Controller
     public function transferItemToWeb(
         Request $request,
         WebInventoryService $webInventoryService
-    )
-    {
+    ) {
         $validator = Validator::make($request->all(), [
             'serial64' => 'required|numeric|gt:0',
             'characterId' => 'required|int',
@@ -196,8 +195,7 @@ class WebInventoryController extends Controller
     public function transferItemToGame(
         Request $request,
         WebInventoryService $webInventoryService
-    )
-    {
+    ) {
         $validator = Validator::make($request->all(), [
             'serial64' => 'required|numeric|gt:0',
             'characterId' => 'required|int',
@@ -237,8 +235,7 @@ class WebInventoryController extends Controller
      */
     public function inventory(
         WebInventoryService $webInventoryService
-    )
-    {
+    ) {
         $inventory = $webInventoryService->getInventoryFromAuth();
 
         if ($inventory['state'] === false) {
@@ -250,6 +247,5 @@ class WebInventoryController extends Controller
         return response()->json([
             'inventory' => $inventory['data']
         ], 200);
-
     }
 }

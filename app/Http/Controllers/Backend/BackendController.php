@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Library\Services\SRO\Shard\InventoryService;
+use App\Http\Library\Services\SRO\Shard\InventoryService;
 use App\Model\SRO\Account\Notice;
 use App\Model\SRO\Account\OnlineOfflineLog;
 use App\Model\SRO\Account\Punishment;
@@ -36,7 +36,7 @@ class BackendController extends Controller
      */
     public function index(InventoryService $inventoryService)
     {
-        if(ServerGold::all()->count() === 0) {
+        if (ServerGold::all()->count() === 0) {
             ServerGold::create([
                 'gold' => 0
             ]);

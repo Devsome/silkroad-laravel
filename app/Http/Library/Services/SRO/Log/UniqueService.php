@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Library\Services\SRO\Log;
+namespace App\Http\Library\Services\SRO\Log;
 
 class UniqueService
 {
@@ -26,9 +26,15 @@ class UniqueService
 
             if ($uniqueMappingPoints === null) {
                 $test = array_search(
-                    $data->UniqueName, array_map(static function ($a) {
-                    return $a['name'];
-                }, $uniquePoints), true);
+                    $data->UniqueName,
+                    array_map(
+                        static function ($a) {
+                            return $a['name'];
+                        },
+                        $uniquePoints
+                    ),
+                    true
+                );
 
 
                 $a = array_map(static function ($a) {

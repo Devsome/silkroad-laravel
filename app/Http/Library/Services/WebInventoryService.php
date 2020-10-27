@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Library\Services;
+namespace App\Http\Library\Services;
 
-use App\Library\Services\SRO\Shard\InventoryService;
+use App\Http\Library\Services\SRO\Shard\InventoryService;
 use App\Model\Frontend\CharGold;
 use App\Model\Frontend\CharGoldLog;
 use App\Model\Frontend\CharInventory;
@@ -13,7 +13,6 @@ use App\Model\SRO\Shard\Items;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Throwable;
-
 
 /**
  * Class WebInventoryService
@@ -105,7 +104,9 @@ class WebInventoryService
         }
 
         $goldResponse = $this->updateGold(
-            $characterId, $deposit, true
+            $characterId,
+            $deposit,
+            true
         );
 
         if (!$goldResponse['state'] === true) {
@@ -159,7 +160,10 @@ class WebInventoryService
         }
 
         $goldResponse = $this->updateGold(
-            $characterId, $withdraw, false, true
+            $characterId,
+            $withdraw,
+            false,
+            true
         );
 
         if (!$goldResponse['state'] === true) {
@@ -217,8 +221,7 @@ class WebInventoryService
             ->with('getRefObjCommonCanTrade')
             ->firstOrFail();
 
-        if($canTrade->getRefObjCommonCanTrade->CanTrade === 0)
-        {
+        if ($canTrade->getRefObjCommonCanTrade->CanTrade === 0) {
             return [
                 'state' => false,
                 'error' => ['data' => __('webinventory.cannot-trade')]
@@ -274,7 +277,7 @@ class WebInventoryService
             ->where('ItemID', '=', 0)
             ->get();
 
-        if($inventoryGameFreeSlot->count() === 0) {
+        if ($inventoryGameFreeSlot->count() === 0) {
             return [
                 'state' => false,
                 'error' => ['data' => __('webinventory.no-ingame-slot-left')]
@@ -411,7 +414,7 @@ class WebInventoryService
             $degree = data_get($itemData['WebInventory'], 'Degree', 0);
 
             // preventing from being empty
-            if($type === '') {
+            if ($type === '') {
                 $type = 'Unknown';
             }
 
@@ -461,6 +464,7 @@ class WebInventoryService
      * @param $serial64
      * @return array
      * @throws \Exception
+     * @throws Throwable
      */
     private function itemMoveToGame($characterId, $slot, $serial64): array
     {
@@ -528,7 +532,8 @@ class WebInventoryService
      * @param null $array
      * @return array
      */
-    private function array_flatten($array = null): array {
+    private function arrayFlatten($array = null): array
+    {
         $result = array();
 
         if (!is_array($array)) {
@@ -538,7 +543,7 @@ class WebInventoryService
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 /** @noinspection SlowArrayOperationsInLoopInspection */
-                $result = array_merge($result, $this->array_flatten($value));
+                $result = array_merge($result, $this->arrayFlatten($value));
             } else {
                 /** @noinspection SlowArrayOperationsInLoopInspection */
                 $result = array_merge($result, array($key => $value));
@@ -582,8 +587,7 @@ class WebInventoryService
      */
     private function checkIfCharOwnAndLoggedOut($characterId, $account): array
     {
-        if (
-        !in_array(
+        if (!in_array(
             $characterId,
             $account->getTbUser->getShardUser->pluck('CharID')->toArray(),
             false
@@ -592,7 +596,9 @@ class WebInventoryService
             return ['state' => false, 'error' => 'Error Code: 1 [Wrong Character]'];
         }
 
-        $loggedState = $account->getTbUser->getShardUser->where('CharID', $characterId)->first()->getCharOnlineOfflineLoggedIn;
+        $loggedState = $account->getTbUser->getShardUser
+            ->where('CharID', $characterId)
+            ->first()->getCharOnlineOfflineLoggedIn;
         if ($loggedState) {
             return ['state' => false, 'error' => __('webinventory.logged-in')];
         }

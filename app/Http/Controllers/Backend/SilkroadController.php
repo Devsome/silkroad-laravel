@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Library\Services\SRO\Shard\CharService;
-use App\Library\Services\SRO\Shard\InventoryService;
+use App\Http\Library\Services\SRO\Shard\CharService;
+use App\Http\Library\Services\SRO\Shard\InventoryService;
 use App\Model\SRO\Account\BlockedUser;
 use App\Model\SRO\Account\SkSilkChangeByWeb;
 use App\Model\SRO\Log\LoginHistoryLog;
@@ -168,12 +168,14 @@ class SilkroadController extends Controller
         if ($request->get('state') === 'add') {
             SkSilk::where('JID', $jid)
                 ->increment(
-                    'silk_own', $request->get('amount')
+                    'silk_own',
+                    $request->get('amount')
                 );
         } else {
             SkSilk::where('JID', $jid)
                 ->decrement(
-                    'silk_own', $request->get('amount')
+                    'silk_own',
+                    $request->get('amount')
                 );
         }
 
@@ -270,8 +272,7 @@ class SilkroadController extends Controller
         Request $request,
         CharService $charService,
         InventoryService $inventoryService
-    )
-    {
+    ) {
         $validator = Validator::make($request->all(), [
             '_token' => 'required'
         ]);
@@ -287,7 +288,7 @@ class SilkroadController extends Controller
         if ($getChar->getCharOnlineOffline) {
             if ($getChar->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_IN) {
                 return back()->with('error', trans('backend/notification.form-submit.still-logged-in'));
-            } else if ($getChar->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_OUT) {
+            } elseif ($getChar->getCharOnlineOffline->status === OnlineOfflineLog::STATUS_LOGGED_OUT) {
                 $jobItem = $inventoryService->getInventorySlot($charId, 8);
 
                 if ($jobItem) {

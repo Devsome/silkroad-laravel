@@ -11,7 +11,6 @@ grumphp:
         - "var_dump("
         - "exit;"
         - "exit("
-        - "dd("
       whitelist_patterns:
         - /^app\/(?!Console)(.*)/
         - /^bootstrap\/(.*)/

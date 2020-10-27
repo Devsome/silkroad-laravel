@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Library\Services\SRO\Shard;
+namespace App\Http\Library\Services\SRO\Shard;
 
 use App\Http\Model\SRO\Shard\CharCos;
 use App\Http\Model\SRO\Shard\ItemPoolName;
@@ -239,13 +239,13 @@ class InventoryService
             }
 
             $aSet[$i]['Slot'] = $i;
-            $aSet[$i]['Serial64'] = data_get($aInfo,'Serial64', null);
-            $aSet[$i]['TypeID2'] = data_get($aInfo,'TypeID2', 0);
-            $aSet[$i]['OptLevel'] = data_get($aInfo,'OptLevel', 0);
-            $aSet[$i]['RefItemID'] = data_get($aCurItem,'RefItemID', 0);
-            $aSet[$i]['special'] = data_get($aInfo['info'],'sox', null);
-            $aSet[$i]['ItemID'] = data_get($aCurItem,'ID64', 0);
-            $aSet[$i]['ItemName'] = data_get($aInfo['info'],'WebName', 'Unknown');
+            $aSet[$i]['Serial64'] = data_get($aInfo, 'Serial64', null);
+            $aSet[$i]['TypeID2'] = data_get($aInfo, 'TypeID2', 0);
+            $aSet[$i]['OptLevel'] = data_get($aInfo, 'OptLevel', 0);
+            $aSet[$i]['RefItemID'] = data_get($aCurItem, 'RefItemID', 0);
+            $aSet[$i]['special'] = data_get($aInfo['info'], 'sox', null);
+            $aSet[$i]['ItemID'] = data_get($aCurItem, 'ID64', 0);
+            $aSet[$i]['ItemName'] = data_get($aInfo['info'], 'WebName', 'Unknown');
             $aSet[$i]['imgpath'] = $this->getItemIcon($aCurItem['AssocFileIcon128']);
             $aSet[$i]['WebInventory'] = $aInfo['info'];
 
@@ -319,12 +319,16 @@ class InventoryService
             $aData['PetType'] = $aData['TypeID4'];
             $aData['PetName'] = $aPet['CharName'];
             $aTime = self::diffTime(strtotime($aPet['RentEndTime']) - time() - 60 * 60 * 24);
-            $aData['PetEndTime'] = ((time() > strtotime($aPet['RentEndTime'])) ? '0Day 0Hour 0Minute' : (int)$aTime['day'] . 'Day ' . (int)$aTime['hour'] . 'Hour ' . (int)$aTime['min'] . 'Minute');
+            $aData['PetEndTime'] = ((time() > strtotime($aPet['RentEndTime'])) ?
+                '0Day 0Hour 0Minute' :
+                (int)$aTime['day'] . 'Day ' . (int)$aTime['hour'] . 'Hour ' . (int)$aTime['min'] . 'Minute');
             $aData['PetLevel'] = $aPet['Lvl'];
             if ($aPet['inventorysize'] !== null) {
                 $aTime = self::diffTime($aPet['inventorykeep'] - time() - 60 * 60 * 24);
                 $aData['inventorySize'] = $aPet['inventorysize'];
-                $aData['inventoryEndTime'] = ((time() > $aPet['inventorykeep']) ? '0Day 0Hour 0Minute' : (int)$aTime['day'] . 'Day ' . (int)$aTime['hour'] . 'Hour ' . (int)$aTime['min'] . 'Minute');
+                $aData['inventoryEndTime'] = ((time() > $aPet['inventorykeep']) ?
+                    '0Day 0Hour 0Minute' :
+                    (int)$aTime['day'] . 'Day ' . (int)$aTime['hour'] . 'Hour ' . (int)$aTime['min'] . 'Minute');
             }
         }
         if ($aData['TypeID2'] !== 1) {
@@ -398,7 +402,9 @@ class InventoryService
                 $aData['Degree'] = 'devil';
                 $aData['Sex'] = $aSEX[$aItem['ReqGender']];
                 $aTime = self::diffTime($aItem['Data'] - time());
-                $buffer = ((time() > $aItem['Data']) ? '0Day 0Hour 0Minute' : $aTime['day'] . 'Day ' . $aTime['hour'] . 'Hour ' . $aTime['min'] . 'Minute');
+                $buffer = ((time() > $aItem['Data']) ?
+                    '0Day 0Hour 0Minute' :
+                    $aTime['day'] . 'Day ' . $aTime['hour'] . 'Hour ' . $aTime['min'] . 'Minute');
                 $aData['timeEnd'] = $aItem['Data'] === 0 ? '28Day' : $buffer;
                 $aData['Slot'] = 0;
                 break;
@@ -406,7 +412,9 @@ class InventoryService
              * DRESS
              */
             case 13:
-                $aData['Type'] = $aStats[2] . ' ' . ((!isset($aStats[5]) || is_numeric($aStats[5])) ? 'dress' : $aStats[5]);
+                $aData['Type'] = $aStats[2] . ' ' . ((!isset($aStats[5]) || is_numeric($aStats[5])) ?
+                        'dress' :
+                        $aStats[5]);
                 $aData['Degree'] = $aStats[3];
                 $aData['Sex'] = $aSEX[$aItem['ReqGender']];
                 $aData['Slot'] = $aItem['TypeID4'];
@@ -617,7 +625,9 @@ class InventoryService
         if ($_aMagOptLevel[$iState]['name'] === 'MATTR_REPAIR') {
             $iValue--;
         }
-        $aSpecialInfo[$_aMagOptLevel[$iState]['name']] = (isset($aSpecialInfo[$_aMagOptLevel[$iState]['name']])) ? ($aSpecialInfo[$_aMagOptLevel[$iState]['name']] + $iValue) : $iValue;
+        $aSpecialInfo[$_aMagOptLevel[$iState]['name']] = (isset($aSpecialInfo[$_aMagOptLevel[$iState]['name']])) ?
+            ($aSpecialInfo[$_aMagOptLevel[$iState]['name']] + $iValue) :
+            $iValue;
 
         return [
             'name' => str_replace('%desc%', $iValue, $_aMagOptLevel[$iState]['desc']),
@@ -697,30 +707,80 @@ class InventoryService
         switch ($aItem['TypeID3']) {
             case self::WEAPON:
                 $aStats = [
-                    0 => 'Phy. atk. pwr. ' . self::calcOPTValue(self::getValue($aItem['PAttackMin_L'],
-                            $aItem['PAttackMin_U'], $aWhiteStats[4]), $aItem['PAttackInc'],
-                            ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])) . ' ~ ' . self::calcOPTValue(self::getValue($aItem['PAttackMax_L'],
-                            $aItem['PAttackMax_U'], $aWhiteStats[4]), $aItem['PAttackInc'],
-                            ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])) . ' (+' . $aWhiteStats[4] . '%)',
-                    1 => 'Mag. atk. pwr. ' . self::calcOPTValue(self::getValue($aItem['MAttackMin_L'],
-                            $aItem['MAttackMin_U'], $aWhiteStats[5]), $aItem['MAttackInc'],
-                            ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])) . ' ~ ' . self::calcOPTValue(self::getValue($aItem['MAttackMax_L'],
-                            $aItem['MAttackMax_U'], $aWhiteStats[5]), $aItem['MAttackInc'],
-                            ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])) . ' (+' . $aWhiteStats[5] . '%)',
-                    2 => 'Durability ' . $aItem['Data'] . '/' . self::getDuraMaxValue(self::getValue($aItem['Dur_L'],
-                            $aItem['Dur_U'], $aWhiteStats[0]), $aSpecialInfo) . ' (+' . $aWhiteStats[0] . '%)',
-                    3 => 'Attack rating ' . self::calcOPTValue(self::getBlueValue(self::getValue($aItem['HR_L'],
-                            $aItem['HR_U'], $aWhiteStats[3]),
-                            $aSpecialInfo['MATTR_HR'] ?? 0), $aItem['HRInc'],
-                            ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])) . ' (+' . $aWhiteStats[3] . '%)',
-                    4 => 'Critical ' . self::getValue($aItem['CHR_L'], $aItem['CHR_U'],
-                            $aWhiteStats[6]) . ' (+' . $aWhiteStats[6] . '%)',
-                    5 => 'Phy. reinforce ' . self::getValue($aItem['PAStrMin_L'], $aItem['PAStrMin_U'],
-                            $aWhiteStats[1]) / 10 . ' % ~ ' . self::getValue($aItem['PAStrMax_L'], $aItem['PAStrMax_U'],
-                            $aWhiteStats[1]) / 10 . ' % (+' . $aWhiteStats[1] . '%)',
-                    6 => 'Mag. reinforce ' . self::getValue($aItem['MAInt_Min_L'], $aItem['MAInt_Min_U'],
-                            $aWhiteStats[2]) / 10 . ' % ~ ' . self::getValue($aItem['MAInt_Max_L'],
-                            $aItem['MAInt_Max_U'], $aWhiteStats[2]) / 10 . ' % (+' . $aWhiteStats[2] . '%)'
+                    0 => 'Phy. atk. pwr. ' . self::calcOPTValue(
+                        self::getValue(
+                            $aItem['PAttackMin_L'],
+                            $aItem['PAttackMin_U'],
+                            $aWhiteStats[4]
+                        ),
+                        $aItem['PAttackInc'],
+                        ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])
+                    ) . ' ~ ' . self::calcOPTValue(
+                        self::getValue(
+                            $aItem['PAttackMax_L'],
+                            $aItem['PAttackMax_U'],
+                            $aWhiteStats[4]
+                        ),
+                        $aItem['PAttackInc'],
+                        ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])
+                    ) . ' (+' . $aWhiteStats[4] . '%)',
+                    1 => 'Mag. atk. pwr. ' . self::calcOPTValue(
+                        self::getValue(
+                            $aItem['MAttackMin_L'],
+                            $aItem['MAttackMin_U'],
+                            $aWhiteStats[5]
+                        ),
+                        $aItem['MAttackInc'],
+                        ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])
+                    ) . ' ~ ' . self::calcOPTValue(
+                        self::getValue(
+                            $aItem['MAttackMax_L'],
+                            $aItem['MAttackMax_U'],
+                            $aWhiteStats[5]
+                        ),
+                        $aItem['MAttackInc'],
+                        ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])
+                    ) . ' (+' . $aWhiteStats[5] . '%)',
+                    2 => 'Durability ' . $aItem['Data'] . '/' . self::getDuraMaxValue(self::getValue(
+                        $aItem['Dur_L'],
+                        $aItem['Dur_U'],
+                        $aWhiteStats[0]
+                    ), $aSpecialInfo) . ' (+' . $aWhiteStats[0] . '%)',
+                    3 => 'Attack rating ' . self::calcOPTValue(
+                        self::getBlueValue(
+                            self::getValue(
+                                $aItem['HR_L'],
+                                $aItem['HR_U'],
+                                $aWhiteStats[3]
+                            ),
+                            $aSpecialInfo['MATTR_HR'] ?? 0
+                        ),
+                        $aItem['HRInc'],
+                        ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])
+                    ) . ' (+' . $aWhiteStats[3] . '%)',
+                    4 => 'Critical ' . self::getValue(
+                        $aItem['CHR_L'],
+                        $aItem['CHR_U'],
+                        $aWhiteStats[6]
+                    ) . ' (+' . $aWhiteStats[6] . '%)',
+                    5 => 'Phy. reinforce ' . self::getValue(
+                        $aItem['PAStrMin_L'],
+                        $aItem['PAStrMin_U'],
+                        $aWhiteStats[1]
+                    ) / 10 . ' % ~ ' . self::getValue(
+                        $aItem['PAStrMax_L'],
+                        $aItem['PAStrMax_U'],
+                        $aWhiteStats[1]
+                    ) / 10 . ' % (+' . $aWhiteStats[1] . '%)',
+                    6 => 'Mag. reinforce ' . self::getValue(
+                        $aItem['MAInt_Min_L'],
+                        $aItem['MAInt_Min_U'],
+                        $aWhiteStats[2]
+                    ) / 10 . ' % ~ ' . self::getValue(
+                        $aItem['MAInt_Max_L'],
+                        $aItem['MAInt_Max_U'],
+                        $aWhiteStats[2]
+                    ) / 10 . ' % (+' . $aWhiteStats[2] . '%)'
                 ];
                 if ($aItem['PAttackMin_L'] === 0) {
                     unset($aStats[0], $aStats[5]);
@@ -732,51 +792,116 @@ class InventoryService
                 break;
             case self::SHIELD:
                 $aStats = [
-                    0 => 'Phy. def. pwr. ' . self::calcOPTValue(self::getValue($aItem['PD_L'] * 10, $aItem['PD_U'] * 10,
-                            $aWhiteStats[4]), $aItem['PDInc'] * 10,
-                            ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])) / 10 . ' (+' . $aWhiteStats[4] . '%)',
-                    1 => 'Mag. def. pwr. ' . self::calcOPTValue(self::getValue($aItem['MD_L'] * 10, $aItem['MD_U'] * 10,
-                            $aWhiteStats[5]), $aItem['MDInc'] * 10,
-                            ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])) / 10 . ' (+' . $aWhiteStats[5] . '%)',
-                    2 => 'Durability ' . $aItem['Data'] . '/' . self::getDuraMaxValue(self::getValue($aItem['Dur_L'],
-                            $aItem['Dur_U'], $aWhiteStats[0]), $aSpecialInfo) . ' (+' . $aWhiteStats[0] . '%)',
-                    3 => 'Blocking rate ' . self::getValue($aItem['BR_L'], $aItem['BR_U'],
-                            $aWhiteStats[3]) . ' (+' . $aWhiteStats[3] . '%)',
-                    4 => 'Phy. reinforce ' . self::getValue($aItem['PDStr_L'], $aItem['PDStr_U'],
-                            $aWhiteStats[1]) / 10 . ' % (+' . $aWhiteStats[1] . '%)',
-                    5 => 'Mag. reinforce ' . self::getValue($aItem['MDInt_L'], $aItem['MDInt_U'],
-                            $aWhiteStats[2]) / 10 . ' % (+' . $aWhiteStats[2] . '%)'
+                    0 => 'Phy. def. pwr. ' . self::calcOPTValue(
+                        self::getValue(
+                            $aItem['PD_L'] * 10,
+                            $aItem['PD_U'] * 10,
+                            $aWhiteStats[4]
+                        ),
+                        $aItem['PDInc'] * 10,
+                        ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])
+                    ) / 10 . ' (+' . $aWhiteStats[4] . '%)',
+                    1 => 'Mag. def. pwr. ' . self::calcOPTValue(
+                        self::getValue(
+                            $aItem['MD_L'] * 10,
+                            $aItem['MD_U'] * 10,
+                            $aWhiteStats[5]
+                        ),
+                        $aItem['MDInc'] * 10,
+                        ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])
+                    ) / 10 . ' (+' . $aWhiteStats[5] . '%)',
+                    2 => 'Durability ' . $aItem['Data'] . '/' . self::getDuraMaxValue(self::getValue(
+                        $aItem['Dur_L'],
+                        $aItem['Dur_U'],
+                        $aWhiteStats[0]
+                    ), $aSpecialInfo) . ' (+' . $aWhiteStats[0] . '%)',
+                    3 => 'Blocking rate ' . self::getValue(
+                        $aItem['BR_L'],
+                        $aItem['BR_U'],
+                        $aWhiteStats[3]
+                    ) . ' (+' . $aWhiteStats[3] . '%)',
+                    4 => 'Phy. reinforce ' . self::getValue(
+                        $aItem['PDStr_L'],
+                        $aItem['PDStr_U'],
+                        $aWhiteStats[1]
+                    ) / 10 . ' % (+' . $aWhiteStats[1] . '%)',
+                    5 => 'Mag. reinforce ' . self::getValue(
+                        $aItem['MDInt_L'],
+                        $aItem['MDInt_U'],
+                        $aWhiteStats[2]
+                    ) / 10 . ' % (+' . $aWhiteStats[2] . '%)'
                 ];
                 break;
             case 12:
             case self::ACC:
                 $aStats = [
-                    0 => 'Phy. absorption ' . self::calcOPTValue(self::getValue($aItem['PAR_L'] * 10,
-                            $aItem['PAR_U'] * 10, $aWhiteStats[0]), $aItem['PARInc'] * 10,
-                            ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])) / 10 . ' (+' . $aWhiteStats[0] . '%)',
-                    1 => 'Mag. absorption ' . self::calcOPTValue(self::getValue($aItem['MAR_L'] * 10,
-                            $aItem['MAR_U'] * 10, $aWhiteStats[1]), $aItem['MARInc'] * 10,
-                            ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])) / 10 . ' (+' . $aWhiteStats[1] . '%)'
+                    0 => 'Phy. absorption ' . self::calcOPTValue(
+                        self::getValue(
+                            $aItem['PAR_L'] * 10,
+                            $aItem['PAR_U'] * 10,
+                            $aWhiteStats[0]
+                        ),
+                        $aItem['PARInc'] * 10,
+                        ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])
+                    ) / 10 . ' (+' . $aWhiteStats[0] . '%)',
+                    1 => 'Mag. absorption ' . self::calcOPTValue(
+                        self::getValue(
+                            $aItem['MAR_L'] * 10,
+                            $aItem['MAR_U'] * 10,
+                            $aWhiteStats[1]
+                        ),
+                        $aItem['MARInc'] * 10,
+                        ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])
+                    ) / 10 . ' (+' . $aWhiteStats[1] . '%)'
                 ];
                 break;
             default:
                 $aStats = [
-                    0 => 'Phy. def. pwr. ' . self::calcOPTValue(self::getValue($aItem['PD_L'] * 10, $aItem['PD_U'] * 10,
-                            $aWhiteStats[3]), $aItem['PDInc'] * 10,
-                            ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])) / 10 . ' (+' . $aWhiteStats[3] . '%)',
-                    1 => 'Mag. def. pwr. ' . self::calcOPTValue(self::getValue($aItem['MD_L'] * 10, $aItem['MD_U'] * 10,
-                            $aWhiteStats[4]), $aItem['MDInc'] * 10,
-                            ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])) / 10 . ' (+' . $aWhiteStats[4] . '%)',
-                    2 => 'Durability ' . $aItem['Data'] . '/' . self::getDuraMaxValue(self::getValue($aItem['Dur_L'],
-                            $aItem['Dur_U'], $aWhiteStats[0]), $aSpecialInfo) . ' (+' . $aWhiteStats[0] . '%)',
-                    3 => 'Parry rate ' . self::calcOPTValue(self::getBlueValue(self::getValue($aItem['ER_L'],
-                            $aItem['ER_U'], $aWhiteStats[5]),
-                            $aSpecialInfo['MATTR_ER'] ?? 0), $aItem['ERInc'],
-                            ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])) . ' (+' . $aWhiteStats[5] . '%)',
-                    4 => 'Phy. reinforce ' . self::getValue($aItem['PDStr_L'], $aItem['PDStr_U'],
-                            $aWhiteStats[1]) / 10 . ' % (+' . $aWhiteStats[1] . '%)',
-                    5 => 'Mag. reinforce ' . self::getValue($aItem['MDInt_L'], $aItem['MDInt_U'],
-                            $aWhiteStats[2]) / 10 . ' % (+' . $aWhiteStats[2] . '%)'
+                    0 => 'Phy. def. pwr. ' . self::calcOPTValue(
+                        self::getValue(
+                            $aItem['PD_L'] * 10,
+                            $aItem['PD_U'] * 10,
+                            $aWhiteStats[3]
+                        ),
+                        $aItem['PDInc'] * 10,
+                        ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])
+                    ) / 10 . ' (+' . $aWhiteStats[3] . '%)',
+                    1 => 'Mag. def. pwr. ' . self::calcOPTValue(
+                        self::getValue(
+                            $aItem['MD_L'] * 10,
+                            $aItem['MD_U'] * 10,
+                            $aWhiteStats[4]
+                        ),
+                        $aItem['MDInc'] * 10,
+                        ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])
+                    ) / 10 . ' (+' . $aWhiteStats[4] . '%)',
+                    2 => 'Durability ' . $aItem['Data'] . '/' . self::getDuraMaxValue(self::getValue(
+                        $aItem['Dur_L'],
+                        $aItem['Dur_U'],
+                        $aWhiteStats[0]
+                    ), $aSpecialInfo) . ' (+' . $aWhiteStats[0] . '%)',
+                    3 => 'Parry rate ' . self::calcOPTValue(
+                        self::getBlueValue(
+                            self::getValue(
+                                $aItem['ER_L'],
+                                $aItem['ER_U'],
+                                $aWhiteStats[5]
+                            ),
+                            $aSpecialInfo['MATTR_ER'] ?? 0
+                        ),
+                        $aItem['ERInc'],
+                        ((int)$aItem['nOptValue'] + (int)$aItem['OptLevel'])
+                    ) . ' (+' . $aWhiteStats[5] . '%)',
+                    4 => 'Phy. reinforce ' . self::getValue(
+                        $aItem['PDStr_L'],
+                        $aItem['PDStr_U'],
+                        $aWhiteStats[1]
+                    ) / 10 . ' % (+' . $aWhiteStats[1] . '%)',
+                    5 => 'Mag. reinforce ' . self::getValue(
+                        $aItem['MDInt_L'],
+                        $aItem['MDInt_U'],
+                        $aWhiteStats[2]
+                    ) / 10 . ' % (+' . $aWhiteStats[2] . '%)'
                 ];
                 break;
         }

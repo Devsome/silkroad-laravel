@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\HideRanking;
 use App\HideRankingGuild;
 use App\Http\Controllers\Controller;
-use App\Library\Services\SRO\Log\UniqueService;
+use App\Http\Library\Services\SRO\Log\UniqueService;
 use App\Model\SRO\Account\UniqueKillLog;
 use App\Model\SRO\Shard\Char;
 use App\Model\SRO\Shard\CharTrijob;
@@ -50,7 +50,7 @@ class RankingController extends Controller
                 $hideRanking,
                 $hideRankingGuild
             );
-        } else if ($search && $type) {
+        } elseif ($search && $type) {
             $data = $this->searching(
                 $type,
                 $search,
@@ -107,11 +107,14 @@ class RankingController extends Controller
         }
 
         if ($type === config('ranking.search-job')) {
-            $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($search, $hideRanking, $hideRankingGuild) {
-                $q->where('NickName16', 'like', '%' . $search . '%');
-                $q->whereNotIn('CharName16', $hideRanking);
-                $q->whereNotIn('GuildID', $hideRankingGuild);
-            })
+            $jobs = CharTrijob::whereHas(
+                'getCharacter',
+                static function ($q) use ($search, $hideRanking, $hideRankingGuild) {
+                    $q->where('NickName16', 'like', '%' . $search . '%');
+                    $q->whereNotIn('CharName16', $hideRanking);
+                    $q->whereNotIn('GuildID', $hideRankingGuild);
+                }
+            )
                 ->with('getCharacter')
                 ->whereIn('JobType', [1, 2, 3])
                 ->orderBy('Level', 'DESC')
@@ -200,7 +203,7 @@ class RankingController extends Controller
         if ($mode === config('ranking.search-unique')) {
             $jobs = UniqueKillLog::whereNotIn('CharName16', $hideRanking)
                 ->with([
-                    'getCharacter' => static function($query) use ($hideRankingGuild){
+                    'getCharacter' => static function ($query) use ($hideRankingGuild) {
                         $query->whereNotIn('GuildID', $hideRankingGuild);
                     }
                 ])

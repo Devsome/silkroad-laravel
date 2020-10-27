@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Library\Services\SRO\Shard\InventoryService;
+use App\Http\Library\Services\SRO\Shard\InventoryService;
 use App\Model\SRO\Shard\Char;
 use App\Model\SRO\Shard\Guild;
 
@@ -17,8 +17,7 @@ class InformationController extends Controller
     public function player(
         $CharName16,
         InventoryService $inventoryService
-    )
-    {
+    ) {
         $player = Char::where('CharName16', $CharName16)
             ->with('getCharOnlineOfflineLoggedIn')
             ->with('getGuildUser')

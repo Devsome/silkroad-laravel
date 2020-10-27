@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Library\Services;
+namespace App\Http\Library\Services;
 
 /**
  * Class TimersService

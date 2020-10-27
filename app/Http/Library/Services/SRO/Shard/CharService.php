@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Library\Services\SRO\Shard;
+namespace App\Http\Library\Services\SRO\Shard;
+
 use App\Model\SRO\Shard\Char;
 
 class CharService
