@@ -42,11 +42,18 @@ class RankingController extends Controller
      */
     public function index(Request $request, $mode = null)
     {
+        //check for deleted Characters
+        $deleted_chars = Char::where('Deleted', true)
+            ->pluck('CharName16');
+        // check for hide ranking and add deleted_chars to it
         $hideRanking = HideRanking::all()
-            ->pluck('charname');
+            ->pluck('charname')
+            ->union($deleted_chars);
+        //check for hidden guilds from ranking.
         $hideRankingGuild = HideRankingGuild::all()
             ->pluck('guild_id')
             ->diff([0]);
+
         $search = $request->get('search');
         $type = $request->get('type');
 
