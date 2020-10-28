@@ -16,8 +16,8 @@
             @endphp
             @forelse($SupportersOnlineProvider['data'] as $supporter)
                 @if(
-                data_get($supporter->getCharOnlineOffline, 'status', \App\Http\Model\SRO\Account\OnlineOfflineLog::STATUS_LOGGED_OUT)
-                === \App\Http\Model\SRO\Account\OnlineOfflineLog::STATUS_LOGGED_IN)
+                data_get($supporter->getCharOnlineOffline, 'status', \App\Http\Model\SRO\Log\OnlineOfflineLog::STATUS_LOGGED_OUT)
+                === \App\Http\Model\SRO\Log\OnlineOfflineLog::STATUS_LOGGED_IN)
                     <li style="padding-left: 16px;" class="pb-1">
                         <a href="{{ route('information-player', [
                                 'CharName16' => Str::lower($supporter->charname)
