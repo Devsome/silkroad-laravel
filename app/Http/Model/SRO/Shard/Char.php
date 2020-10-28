@@ -2,7 +2,7 @@
 
 namespace App\Http\Model\SRO\Shard;
 
-use App\Http\Model\SRO\Account\OnlineOfflineLog;
+use App\Http\Model\SRO\Log\OnlineOfflineLog;
 use Illuminate\Database\Eloquent\Model;
 
 class Char extends Model

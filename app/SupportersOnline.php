@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Http\Model\SRO\Account\OnlineOfflineLog;
+use App\Http\Model\SRO\Log\OnlineOfflineLog;
 use Illuminate\Database\Eloquent\Model;
 
 class SupportersOnline extends Model
