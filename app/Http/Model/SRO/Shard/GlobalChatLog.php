@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\SRO\Shard;
+namespace App\Http\Model\SRO\Shard;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -58,6 +58,6 @@ class GlobalChatLog extends Model
 
     public function getTbUser()
     {
-        return $this->belongsTo(TbUser::class,'CharName', 'StrUserID');
+        return $this->belongsTo(TbUser::class, 'CharName', 'StrUserID');
     }
 }

@@ -19,6 +19,11 @@ class CreateTicketAnswersTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->text('body');
             $table->timestamps();
+
+            $table->foreign('ticket_id')
+                ->references('id')->on('tickets')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

@@ -25,7 +25,7 @@ class FortressProvider extends ServiceProvider
     public function boot()
     {
         view()->composer(
-            'layouts.fortress',
+            'theme::layouts.fortress',
             static function ($view) {
                 $siegeFortress = new SiegeFortressController();
                 $data = $siegeFortress->fetch();

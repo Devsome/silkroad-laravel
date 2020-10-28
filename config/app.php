@@ -180,6 +180,7 @@ return [
         /*
          * Custom Service Providers
          */
+        \App\Providers\ThemeServiceProvider::class,
         \App\Providers\TicketNewCountProvider::class,
         \App\Providers\PlayerCountProvider::class,
         \App\Providers\DiscordProvider::class,
@@ -189,7 +190,19 @@ return [
         \App\Providers\SiteSettingsProvider::class,
         \App\Providers\SilkGoldProvider::class,
         \App\Providers\SupportersOnlineProvider::class,
+        \App\Providers\LatestUniqueKillsProvider::class,
+        \App\Providers\LatestPvpKillsProvider::class,
 
+        /*
+         * Own Service Providers
+         * First you need to install it - more coming later
+         *
+         * composer.json
+         * "autoload": { "psr-4": {
+         *  "Devsome\\Payop\\": "packages/devsome/payop/src"
+         * } }
+         */
+//        Devsome\Payop\PayopServiceProvider::class,
     ],
 
     /*

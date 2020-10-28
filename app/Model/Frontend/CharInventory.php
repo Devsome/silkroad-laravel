@@ -2,7 +2,7 @@
 
 namespace App\Model\Frontend;
 
-use App\Model\SRO\Shard\Items;
+use App\Http\Model\SRO\Shard\Items;
 use Illuminate\Database\Eloquent\Model;
 
 class CharInventory extends Model

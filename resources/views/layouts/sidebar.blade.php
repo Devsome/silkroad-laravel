@@ -6,7 +6,7 @@
                 <i class="fa fa-fw fa-desktop"></i> {{ __('sidebar.information.online') }}
             </div>
             <div class="float-right">
-                @include('layouts.playercount')
+                @include('theme::layouts.playercount')
             </div>
         </li>
         <li class="pb-1 pt-2">
@@ -93,13 +93,17 @@
         @endif
     </ul>
 
-    @include('layouts.supportersonline')
+    @include('theme::layouts.supportersonline')
 
-    @include('layouts.fortress')
+    @include('theme::layouts.latestkills')
 
-    @include('layouts.jobranking')
+    @include('theme::layouts.pvprecords')
 
-    @include('layouts.timers')
+    @include('theme::layouts.fortress')
 
-    @include('layouts.discord')
+    @include('theme::layouts.jobranking')
+
+    @include('theme::layouts.timers')
+
+    @include('theme::layouts.discord')
 </div>

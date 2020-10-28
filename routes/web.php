@@ -5,6 +5,12 @@ Auth::routes();
 
 Route::get('/', 'Frontend\IndexController@index')->name('index');
 
+// Signature
+Route::get('/signature/{ref?}', 'Frontend\IndexController@signatureRef')->name('signature-index');
+
+// Language setter
+Route::get('/lang/{lang}', 'Frontend\IndexController@lang')->name('change-language');
+
 // News
 Route::get('/news/{slug}', 'Frontend\NewsController@index')->name('news-slug');
 Route::get('/news-archive', 'Frontend\NewsController@archive')->name('news-archive');
@@ -12,9 +18,10 @@ Route::get('/news-archive', 'Frontend\NewsController@archive')->name('news-archi
 // Other
 Route::get('/downloads', 'Frontend\IndexController@downloads')->name('downloads-index');
 Route::get('/rules', 'Frontend\IndexController@rules')->name('rules-index');
+Route::get('/worldmap', 'Frontend\IndexController@worldmapIndex')->name('worldmap');
 
 // Ranking
-Route::group(['prefix' => 'ranking'], function () {
+Route::group(['prefix' => 'ranking'], static function () {
     Route::get('/{mode?}', 'Frontend\RankingController@index')->name('ranking-index');
 });
 
@@ -25,7 +32,7 @@ Route::get('/server-information', 'Frontend\IndexController@serverInformation')-
 Auth::routes(['verify' => true]);
 
 // User Dashboard
-Route::group(['prefix' => 'account'], function() {
+Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function() {
     Route::get('/', 'Frontend\AccountController@index')->name('home');
     Route::get('/chars', 'Frontend\AccountController@charList')->name('home-chars-list');
     Route::get('/settings', 'Frontend\AccountController@settings')->name('home-settings');
@@ -38,7 +45,7 @@ Route::group(['prefix' => 'account'], function() {
     Route::get('/notification', 'Frontend\NotificationController@index')->name('notification');
     Route::get('/notification/{id}', 'Frontend\NotificationController@markAsRead')->name('notification-mark-as-read')->where('id', '[0-9]+');
     Route::get('/notification/mark-all', 'Frontend\NotificationController@markAllAsRead')->name('notification-mark-all');
-    Route::group(['prefix' => 'tickets'], function() {
+    Route::group(['prefix' => 'tickets'], static function() {
         Route::get('/', 'Frontend\TicketController@tickets')->name('home-tickets');
         Route::get('/new', 'Frontend\TicketController@ticketsNew')->name('home-tickets-new');
         Route::post('/new', 'Frontend\TicketController@ticketsNewSubmit')->name('home-tickets-new-submit');
@@ -47,13 +54,35 @@ Route::group(['prefix' => 'account'], function() {
         Route::post('/show/{id}/reply', 'Frontend\TicketController@ticketShowSubmit')->name('home-tickets-show-submit');
     });
 
-    Route::group(['prefix' => 'web-inventory'], function () {
-       Route::get('/', 'Frontend\WebInventoryController@index')->name('web-inventory-index');
-       Route::get('/select-character', 'Frontend\WebInventoryController@selectCharacter')->name('web-i-select-character');
-       Route::post('/update-gold', 'Frontend\WebInventoryController@updateGold')->name('web-i-update-gold');
-       Route::post('/transfer-item-to-web', 'Frontend\WebInventoryController@transferItemToWeb')->name('web-i-transfer-item-to-web');
-       Route::post('/transfer-item-to-game', 'Frontend\WebInventoryController@transferItemToGame')->name('web-i-transfer-item-to-game');
-       Route::get('/inventory', 'Frontend\WebInventoryController@inventory')->name('web-i-inventory');
+    Route::group(['prefix' => 'web-inventory'], static function () {
+        Route::get('/', 'Frontend\WebInventoryController@index')->name('web-inventory-index');
+        Route::get('/select-character', 'Frontend\WebInventoryController@selectCharacter')->name('web-i-select-character');
+        Route::post('/update-gold', 'Frontend\WebInventoryController@updateGold')->name('web-i-update-gold');
+        Route::post('/transfer-item-to-web', 'Frontend\WebInventoryController@transferItemToWeb')->name('web-i-transfer-item-to-web');
+        Route::post('/transfer-item-to-game', 'Frontend\WebInventoryController@transferItemToGame')->name('web-i-transfer-item-to-game');
+        Route::get('/inventory', 'Frontend\WebInventoryController@inventory')->name('web-i-inventory');
+    });
+
+    Route::group(['prefix' => 'donations'], static function () {
+        Route::get('/', 'Frontend\DonationsController@index')->name('donations-index');
+        Route::get('/method/{method?}', 'Frontend\DonationsController@showMethod')->name('donations-method-index');
+
+        Route::group(['prefix' => 'paypal'], static function () {
+            Route::get('/buy/{id}', 'Frontend\DonationsPaypalController@buy')->where('id', '[0-9]+')->name('donate-paypal');
+            Route::get('/complete', 'Frontend\DonationsPaypalController@complete')->name('donate-paypal-complete');
+            Route::get('/invoice-closed', 'Frontend\DonationsPaypalController@invoiceClosed')->name('donate-paypal-invoice-closed');
+            Route::get('/success', 'Frontend\DonationsPaypalController@success')->name('donate-paypal-success');
+            Route::get('/notify', 'Frontend\DonationsPaypalController@notify')->name('donate-paypal-notify');
+            Route::get('/error/{id}', 'Frontend\DonationsPaypalController@error')->name('donate-paypal-error');
+        });
+
+        Route::group(['prefix' => 'stripe'], static function () {
+            Route::get('/buy/{id}', 'Frontend\DonationsStripeController@buy')->where('id', '[0-9]+')->name('donate-stripe');
+            Route::post('/buy/{id}', 'Frontend\DonationsStripeController@buyPost')->where('id', '[0-9]+')->name('donate-stripe-post');
+            Route::post('/confirm', 'Frontend\DonationsStripeController@confirm')->name('donate-stripe-confirm');
+            Route::get('/success', 'Frontend\DonationsStripeController@success')->name('donate-stripe-success');
+            Route::get('/error', 'Frontend\DonationsStripeController@error')->name('donate-stripe-error');
+        });
     });
 });
 
@@ -63,7 +92,7 @@ Route::get('/guild/{name}', 'Frontend\InformationController@guild')->name('infor
 
 // Auctions House
 Auth::routes(['verify' => true]);
-Route::group(['prefix' => 'auctions-house'], function () {
+Route::group(['prefix' => 'auctions-house'], static function () {
     Route::get('/', 'Frontend\AuctionsHouseController@index')->name('auctions-house');
     Route::get('/filter/{type?}', 'Frontend\AuctionsHouseController@filterType')->name('auction-house-filter');
     Route::get('/show/{id}', 'Frontend\AuctionsHouseController@showItem')->name('auctions-house-show-item');
@@ -77,7 +106,7 @@ Route::group(['prefix' => 'auctions-house'], function () {
 });
 
 // Backend Routes
-Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], function () {
+Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], static function () {
     Route::get('/', 'Backend\BackendController@index')->name('index-backend');
 
     // SoX count filter
@@ -89,7 +118,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], fu
     Route::post('/todo/{id}/delete', 'Backend\BackendController@todoDelete')->name('todo-delete-backend');
 
     // Server Information
-    Route::group(['prefix' => 'server-information'], function() {
+    Route::group(['prefix' => 'server-information'], static function() {
         Route::get('/', 'Backend\ServerInformationController@index')->name('server-information-index-backend');
         Route::get('/create', 'Backend\ServerInformationController@showAdd')->name('server-information-show-add-backend');
         Route::post('/add', 'Backend\ServerInformationController@add')->name('server-information-add-backend');
@@ -98,20 +127,29 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], fu
         Route::delete('/destroy/{id}', 'Backend\ServerInformationController@destroy')->name('server-information-destroy-backend');
     });
 
+    // Server Rules
+    Route::group(['prefix' => 'rules'], static function () {
+       Route::get('/','Backend\RulesController@index')->name('server-rules-index-backend');
+        Route::get('/create', 'Backend\RulesController@showAdd')->name('server-rules-show-add-backend');
+        Route::post('/add', 'Backend\RulesController@add')->name('server-rules-add-backend');
+        Route::get('/edit/{id}', 'Backend\RulesController@showEdit')->name('server-rules-edit-show-backend');
+        Route::post('/update/{id}', 'Backend\RulesController@update')->name('server-rules-update-backend');
+    });
+
     // Ticket
-    Route::group(['prefix' => 'ticket'], function () {
+    Route::group(['prefix' => 'ticket'], static function () {
         Route::get('/{conversation?}', 'Backend\TicketController@list')->name('ticket-index-list')->where(['conversation' => '[0-9]+']);
         Route::get('/fetch', 'Backend\TicketController@fetch')->name('ticket-fetch-backend');
         Route::post('/send', 'Backend\TicketController@send')->name('ticket-send-backend');
         Route::get('/conversations', 'Backend\TicketController@fetchConversations')->name('ticket-conversations-backend');
         Route::get('/settings', 'Backend\TicketController@settings')->name('ticket-settings-backend');
         Route::post('/close', 'Backend\TicketController@close')->name('ticket-close-backend');
-        Route::group(['prefix' => 'category'], function () {
+        Route::group(['prefix' => 'category'], static function () {
             Route::match(['get', 'post'], '/create', 'Backend\TicketController@categoryCreate')->name('ticket-category-create');
             Route::match(['get', 'post'], '/{id}', 'Backend\TicketController@categoryUpdate')->name('ticket-category-update');
             Route::post('/delete/{id}', 'Backend\TicketController@categoryDelete')->name('ticket-category-delete');
         });
-        Route::group(['prefix' => 'priority'], function () {
+        Route::group(['prefix' => 'priority'], static function () {
             Route::match(['get', 'post'], '/create', 'Backend\TicketController@priorityCreate')->name('ticket-priority-create');
             Route::match(['get', 'post'], '/{id}', 'Backend\TicketController@priorityUpdate')->name('ticket-priority-update');
             Route::post('/delete/{id}', 'Backend\TicketController@priorityDelete')->name('ticket-priority-delete');
@@ -119,8 +157,8 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], fu
     });
 
     // Silkroad
-    Route::group(['prefix' => 'silkroad'], function () {
-        Route::group(['prefix' => 'notice'], function () {
+    Route::group(['prefix' => 'silkroad'], static function () {
+        Route::group(['prefix' => 'notice'], static function () {
             Route::get('/', 'Backend\SilkroadNoticeController@noticeIndex')->name('sro-notice-index-backend');
             Route::get('/create', 'Backend\SilkroadNoticeController@noticeCreate')->name('sro-notice-create-backend');
             Route::post('/save', 'Backend\SilkroadNoticeController@noticeSave')->name('sro-notice-save-backend');
@@ -146,19 +184,24 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], fu
         // Patching TB_User
         Route::post('/user/{user}/silk/add', 'Backend\SilkroadController@sroUserSilkAddRemove')->name('sro-user-silk-backend');
         Route::post('/user/{user}/block/add', 'Backend\SilkroadController@sroUserBlockAdd')->name('sro-user-block-add-backend');
-        Route::post('/user/{user}/block/destory', 'Backend\SilkroadController@sroUserBlockDestory')->name('sro-user-block-destroy-backend');
+        Route::post('/user/{user}/block/destroy', 'Backend\SilkroadController@sroUserBlockDestory')->name('sro-user-block-destroy-backend');
 
         // Patching _Char
         Route::post('/players/{char}/unstuck', 'Backend\SilkroadController@sroUnstuckChar')->name('sro-players-unstuck');
 
-        // Hide Ranking
-        Route::get('/hideranking', 'Backend\HideRankingController@index')->name('hide-ranking-index-backend');
-        Route::post('/hideranking/add', 'Backend\HideRankingController@add')->name('hide-ranking-add-backend');
-        Route::post('/hideranking/{id}/destroy', 'Backend\HideRankingController@destroy')->name('hide-ranking-destroy-backend');
+        // Hide Ranking Char
+        Route::get('/hideranking-char', 'Backend\HideRankingController@index')->name('hide-ranking-index-backend');
+        Route::post('/hideranking-char/add', 'Backend\HideRankingController@add')->name('hide-ranking-add-backend');
+        Route::post('/hideranking-char/{id}/destroy', 'Backend\HideRankingController@destroy')->name('hide-ranking-destroy-backend');
+
+        // Hide Ranking Guild
+        Route::get('/hideranking-guild', 'Backend\HideRankingGuildController@index')->name('hide-ranking-guild-index-backend');
+        Route::post('/hideranking-guild/add', 'Backend\HideRankingGuildController@add')->name('hide-ranking-guild-add-backend');
+        Route::post('/hideranking-guild/{id}/destroy', 'Backend\HideRankingGuildController@destroy')->name('hide-ranking-guild-destroy-backend');
     });
 
     // Web
-    Route::group(['prefix' => 'web'], function () {
+    Route::group(['prefix' => 'web'], static function () {
         Route::get('/settings', 'Backend\SiteSettingsController@index')->name('site-settings-backend');
         Route::post('/settings/update', 'Backend\SiteSettingsController@update')->name('site-settings-update-backend');
 
@@ -167,7 +210,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], fu
         Route::get('/auctionshouse/log','Backend\AuctionsHouseController@showLog')->name('auctionshouse-log-backend');
         Route::get('/auctionshouse/log/datatables', 'Backend\AuctionsHouseController@showLogDatatables')->name('auctionshouse-log-datatables-backend');
 
-        Route::group(['prefix' => 'downloads'], function () {
+        Route::group(['prefix' => 'downloads'], static function () {
             Route::get('/', 'Backend\DownloadsController@index')->name('downloads-index-backend');
             Route::get('/add', 'Backend\DownloadsController@show')->name('downloads-add-backend');
             Route::post('/create', 'Backend\DownloadsController@create')->name('downloads-create-backend');
@@ -175,7 +218,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], fu
             Route::patch('/{download}/update', 'Backend\DownloadsController@update')->name('downloads-update-backend');
             Route::post('/{download}/destroy', 'Backend\DownloadsController@destroy')->name('downloads-destroy-backend');
         });
-        Route::group(['prefix' => 'images'], function () {
+        Route::group(['prefix' => 'images'], static function () {
             Route::get('/', 'Backend\ImagesController@index')->name('images-index-backend');
             Route::get('/add', 'Backend\ImagesController@show')->name('images-show-backend');
             Route::post('/create', 'Backend\ImagesController@create')->name('images-create-backend');
@@ -186,7 +229,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], fu
             'as' => 'backend-news'
         ]);
 
-        Route::group(['prefix' => 'voucher'], function () {
+        Route::group(['prefix' => 'voucher'], static function () {
             Route::get('/', 'Backend\VoucherController@index')->name('voucher-index-backend');
             Route::get('/datatables', 'Backend\VoucherController@indexDatatables')->name('voucher-index-datatables-backend');
             Route::get('/add', 'Backend\VoucherController@addForm')->name('voucher-add-backend');
@@ -194,7 +237,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], fu
             Route::post('/{id}/destroy', 'Backend\VoucherController@destroy')->name('voucher-destroy-backend');
         });
 
-        Route::group(['prefix' => 'backlinks'], function() {
+        Route::group(['prefix' => 'backlinks'], static function() {
             Route::get('/', 'Backend\BacklinksController@index')->name('backlinks-index-backend');
             Route::get('/add', 'Backend\BacklinksController@show')->name('backlinks-add-backend');
             Route::post('/create', 'Backend\BacklinksController@create')->name('backlinks-create-backend');
@@ -203,10 +246,27 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], fu
             Route::post('/{backlink}/destroy', 'Backend\BacklinksController@destroy')->name('backlinks-destroy-backend');
         });
 
-        Route::group(['prefix' => 'supporters-online'], function () {
+        Route::group(['prefix' => 'supporters-online'], static function () {
             Route::get('/', 'Backend\SupportersOnlineController@index')->name('supporters-online-index-backend');
             Route::post('/add', 'Backend\SupportersOnlineController@add')->name('supporters-online-add-backend');
             Route::post('/{id}/destroy', 'Backend\SupportersOnlineController@destroy')->name('supporters-online-destroy-backend');
+        });
+
+        Route::group(['prefix' => 'donations'], static function (){
+            Route::get('/', 'Backend\DonationsController@index')->name('donations-index-backend');
+            Route::post('/methods/update', 'Backend\DonationsController@updateMethods')->name('donations-update-methods-backend');
+
+            Route::group(['prefix' => 'method'], static function () {
+                Route::get('/paypal', 'Backend\DonationsController@methodPaypal')->name('method-paypal-backend');
+                Route::post('/paypal/add', 'Backend\DonationsController@methodPaypalAdding')->name('method-paypal-add-backend');
+                Route::post('/paypal/{id}/destroy', 'Backend\DonationsController@methodPaypalDestroy')->name('method-paypal-destroy-backend');
+                Route::get('/paypal-logging-datatables', 'Backend\DonationsController@loggingPaypalDatatables')->name('donations-logging-paypal-datatables-backend');
+
+                Route::get('/stripe', 'Backend\DonationsController@methodStripe')->name('method-stripe-backend');
+                Route::post('/stripe/add', 'Backend\DonationsController@methodStripeAdding')->name('method-stripe-add-backend');
+                Route::post('/stripe/{id}/destroy', 'Backend\DonationsController@methodStripeDestroy')->name('method-stripe-destroy-backend');
+                Route::get('/stripe-logging-datatables', 'Backend\DonationsController@loggingStripeDatatables')->name('donations-logging-stripe-datatables-backend');
+            });
         });
     });
 

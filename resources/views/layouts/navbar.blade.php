@@ -38,8 +38,31 @@
                         {{ __('navbar.nav.serverinformation') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('worldmap') }}">
+                        {{ __('navbar.nav.worldmap') }}
+                    </a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
+                @if(count(config('language')) > 1)
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ config('language.' . Session::get('locale', 'en') . '.name') }} <i class="fa fa-language"></i><span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    @foreach(config('language') as $key => $lang)
+                        @if($key !== 'example')
+                            <a class="dropdown-item" href="{{ route('change-language', ['lang' => $key]) }}">
+                                <img class="small" src="{{ $lang['icon'] }}" width="26px" height="16px"> {{ $lang['name'] }}
+                            </a>
+                        @endif
+                    @endforeach
+                    </div>
+                </li>
+                @endif
+
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('navbar.login') }}</a>
@@ -50,18 +73,6 @@
                         </li>
                     @endif
                 @else
-
-                    <li class="nav-item">
-                        <a href="{{ route('notification') }}" class="nav-link">
-                            <i class="fas fa-bell"></i>
-                            @if($NotificationsCountProvider > 0)
-                                <span class="badge badge-danger align-top">
-                                    {{ $NotificationsCountProvider }}
-                                </span>
-                            @endif
-                        </a>
-                    </li>
-
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -85,6 +96,16 @@
                             </a>
                             @endrole
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('notification') }}" class="nav-link">
+                            <i class="fas fa-bell"></i>
+                            @if($NotificationsCountProvider > 0)
+                                <span class="badge badge-danger align-top">
+                                {{ $NotificationsCountProvider }}
+                            </span>
+                            @endif
+                        </a>
                     </li>
                 @endguest
             </ul>

@@ -6,6 +6,7 @@ use App\Backlinks;
 use App\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Session;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,23 +27,30 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (!Session::has('locale')) {
+            Session::put('locale', 'en');
+        }
+
         view()->composer(
-            'layouts.footer',
+            'theme::layouts.footer',
             static function ($view) {
                 $backlinks = Backlinks::all();
                 $view->with('BacklinksProvider', $backlinks);
             }
         );
 
+
         view()->composer(
-            'layouts.navbar',
+            'theme::layouts.navbar',
             static function ($view) {
+                $notificationsCount = 0;
                 if (Auth::id()) {
                     $notificationsCount = Notification::where('user_id', Auth::user()->id)
                         ->get()->count();
-                    $view->with('NotificationsCountProvider', $notificationsCount);
                 }
+                $view->with('NotificationsCountProvider', $notificationsCount);
             }
         );
+
     }
 }

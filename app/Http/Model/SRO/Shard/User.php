@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Model\SRO\Shard;
+namespace App\Http\Model\SRO\Shard;
 
-use App\Model\SRO\Account\SkSilk;
-use App\Model\SRO\Account\TbUser;
+use App\Http\Model\SRO\Account\SkSilk;
+use App\Http\Model\SRO\Account\TbUser;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model

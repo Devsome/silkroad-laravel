@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Library\Services;
+namespace App\Http\Library\Services;
 
-use App\Library\Services\SRO\Shard\InventoryService;
+use App\Http\Library\Services\SRO\Shard\InventoryService;
 use App\Model\Frontend\CharGold;
 use App\Model\Frontend\CharGoldLog;
 use App\Model\Frontend\CharInventory;
 use App\Model\Frontend\CharInventoryLog;
-use App\Model\SRO\Shard\Char;
-use App\Model\SRO\Shard\Inventory;
-use App\Model\SRO\Shard\Items;
+use App\Http\Model\SRO\Shard\Char;
+use App\Http\Model\SRO\Shard\Inventory;
+use App\Http\Model\SRO\Shard\Items;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
-
 /**
  * Class WebInventoryService
- * @package App\Library\Services
+ * @package App\Http\Library\Services
  */
 class WebInventoryService
 {
@@ -105,7 +104,9 @@ class WebInventoryService
         }
 
         $goldResponse = $this->updateGold(
-            $characterId, $deposit, true
+            $characterId,
+            $deposit,
+            true
         );
 
         if (!$goldResponse['state'] === true) {
@@ -159,7 +160,10 @@ class WebInventoryService
         }
 
         $goldResponse = $this->updateGold(
-            $characterId, $withdraw, false, true
+            $characterId,
+            $withdraw,
+            false,
+            true
         );
 
         if (!$goldResponse['state'] === true) {
@@ -217,8 +221,7 @@ class WebInventoryService
             ->with('getRefObjCommonCanTrade')
             ->firstOrFail();
 
-        if($canTrade->getRefObjCommonCanTrade->CanTrade === 0)
-        {
+        if ($canTrade->getRefObjCommonCanTrade->CanTrade === 0) {
             return [
                 'state' => false,
                 'error' => ['data' => __('webinventory.cannot-trade')]
@@ -274,7 +277,7 @@ class WebInventoryService
             ->where('ItemID', '=', 0)
             ->get();
 
-        if($inventoryGameFreeSlot->count() === 0) {
+        if ($inventoryGameFreeSlot->count() === 0) {
             return [
                 'state' => false,
                 'error' => ['data' => __('webinventory.no-ingame-slot-left')]
@@ -399,9 +402,20 @@ class WebInventoryService
                 $itemData['data']
             );
 
-            if(array_key_exists('Type', $itemData['WebInventory']) && $itemData['WebInventory']['Type'] === '')
-            {
-                $itemData['WebInventory']['Type'] = 'Unknown';
+            $webName = data_get($itemData['WebInventory'], 'WebName', 'Unknown Name');
+            $optLevel = data_get($itemData['WebInventory'], 'OptLevel', 0);
+            $type = data_get($itemData['WebInventory'], 'Type', 'Unknown');
+            $special = data_get($itemData['WebInventory'], 'special', '0');
+            $amount = data_get($itemData, 'amount', 0);
+            $sex = data_get($itemData['WebInventory'], 'Sex', 'Unknown');
+            $race = data_get($itemData['WebInventory'], 'Race', '');
+            $price = data_get($itemData['WebInventory'], 'Price', '');
+            $reqLevel = data_get($itemData['WebInventory'], 'ReqLevel1', 0);
+            $degree = data_get($itemData['WebInventory'], 'Degree', 0);
+
+            // preventing from being empty
+            if ($type === '') {
+                $type = 'Unknown';
             }
 
             // Putting that Item into the Web Database
@@ -410,24 +424,17 @@ class WebInventoryService
                 'from_charid' => $characterId,
                 'serial64' => $serial64,
                 'item_id64' => $item->ID64,
-                'name' => $itemData['WebInventory']['WebName'],
+                'name' => $webName,
                 'imgpath' => $itemData['imgpath'],
-                'optlevel' => $itemData['OptLevel'],
-                'amount' => $itemData['amount'] ?: 0,
-                'special' => array_key_exists('special', $itemData) ?
-                    $itemData['special'] : '0',
-                'sort' => array_key_exists('Type', $itemData['WebInventory']) ?
-                    $itemData['WebInventory']['Type'] : 'Unknown',
-                'degree' => array_key_exists('Degree', $itemData['WebInventory']) ?
-                    $itemData['WebInventory']['Degree'] : 0,
-                'level' => array_key_exists('ReqLevel1', $itemData['WebInventory']) ?
-                    $itemData['WebInventory']['ReqLevel1'] : 0,
-                'npc_price' => array_key_exists('Price', $itemData['WebInventory']) ?
-                    $itemData['WebInventory']['Price'] : 0,
-                'race' => array_key_exists('Race', $itemData['WebInventory']) ?
-                    $itemData['WebInventory']['Race'] : '',
-                'sex' => array_key_exists('Sex', $itemData['WebInventory']) ?
-                    $itemData['WebInventory']['Sex'] : '',
+                'optlevel' => $optLevel,
+                'amount' => $amount,
+                'special' => $special,
+                'sort' => $type,
+                'degree' => $degree,
+                'level' => $reqLevel,
+                'npc_price' => $price,
+                'race' => $race,
+                'sex' => $sex,
                 'data' => $itemData['data']
             ]);
 
@@ -457,6 +464,7 @@ class WebInventoryService
      * @param $serial64
      * @return array
      * @throws \Exception
+     * @throws Throwable
      */
     private function itemMoveToGame($characterId, $slot, $serial64): array
     {
@@ -524,7 +532,8 @@ class WebInventoryService
      * @param null $array
      * @return array
      */
-    private function array_flatten($array = null): array {
+    private function arrayFlatten($array = null): array
+    {
         $result = array();
 
         if (!is_array($array)) {
@@ -534,7 +543,7 @@ class WebInventoryService
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 /** @noinspection SlowArrayOperationsInLoopInspection */
-                $result = array_merge($result, $this->array_flatten($value));
+                $result = array_merge($result, $this->arrayFlatten($value));
             } else {
                 /** @noinspection SlowArrayOperationsInLoopInspection */
                 $result = array_merge($result, array($key => $value));
@@ -578,8 +587,7 @@ class WebInventoryService
      */
     private function checkIfCharOwnAndLoggedOut($characterId, $account): array
     {
-        if (
-        !in_array(
+        if (!in_array(
             $characterId,
             $account->getTbUser->getShardUser->pluck('CharID')->toArray(),
             false
@@ -588,7 +596,9 @@ class WebInventoryService
             return ['state' => false, 'error' => 'Error Code: 1 [Wrong Character]'];
         }
 
-        $loggedState = $account->getTbUser->getShardUser->where('CharID', $characterId)->first()->getCharOnlineOfflineLoggedIn;
+        $loggedState = $account->getTbUser->getShardUser
+            ->where('CharID', $characterId)
+            ->first()->getCharOnlineOfflineLoggedIn;
         if ($loggedState) {
             return ['state' => false, 'error' => __('webinventory.logged-in')];
         }

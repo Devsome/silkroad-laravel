@@ -9,6 +9,7 @@ return [
         'registration-open' => 'Registration State',
         'registration-open-checkbox' => 'Close',
         'silk-name' => 'Silk Name',
+        'silk-gift-name' => 'Silk Gift Name',
         'facebook-url' => 'Facebook Page',
         'facebook-url-helper' => 'Your Facebook page url',
         'youtube-url' => 'Youtube Channel',
@@ -22,6 +23,7 @@ return [
         'fortress-jangan-enabled' => 'Jangan Fortress',
         'fortress-hotan-enabled' => 'Hotan Fortress',
         'fortress-bandit-enabled' => 'Bandit Fortress',
+        'fortress-constantinople-enabled' => 'Constantinople Fortress',
         'fortress-disable' => 'Disable',
 
         'silkroad' => 'Silkroad Rates',
@@ -38,6 +40,10 @@ return [
         'sro-hwid-limit' => 'HWID Limit',
 
         'required-fields' => 'Required fields *',
+
+        'signature-title' => 'Signature',
+        'signature-help' => 'Click here to upload your Image',
+        'signature-information' => 'This is the original Image',
 
         'save' => 'Save Settings!',
     ]

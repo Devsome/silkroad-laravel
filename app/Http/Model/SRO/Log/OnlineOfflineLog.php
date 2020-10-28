@@ -1,28 +1,12 @@
 <?php
 
-namespace App\Model\SRO\Account;
+namespace App\Http\Model\SRO\Account;
 
-use App\Model\SRO\Shard\Char;
+use App\Http\Model\SRO\Shard\Char;
 use Illuminate\Database\Eloquent\Model;
 
 class OnlineOfflineLog extends Model
 {
-
-    /*
-     * _AddLogChar Procedure in SRO_VT_LOG
-     * Add this after the set variables
-        BEGIN
-	      -- SET NOCOUNT ON added to prevent extra result sets from
-	      SET NOCOUNT ON;
-	      IF EXISTS (SELECT 1 FROM onlineofflinelog WHERE CharID = @CharID)
-	        UPDATE onlineofflinelog
-	        SET    status = @EventID
-	        WHERE	CharID = @CharID
-	      ELSE
-	        INSERT INTO onlineofflinelog ([CharID],  [status])
-	        VALUES      (@CharID, @EventID)
-	  	END
-     */
 
     /**
      * The Database connection name for the model.
@@ -56,6 +40,15 @@ class OnlineOfflineLog extends Model
     ];
 
     /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'status' => 'integer',
+    ];
+
+    /**
      * If the Char is logged in
      */
     const STATUS_LOGGED_IN = 4;
@@ -68,7 +61,8 @@ class OnlineOfflineLog extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function getCharacter() {
+    public function getCharacter()
+    {
         return $this->belongsTo(Char::class, 'CharID', 'CharID')
             ->whereNotNull('CharName16')
             ->select(['CharID', 'CharName16', 'CurLevel', 'LatestRegion', 'PosX', 'PosY', 'PosZ']);

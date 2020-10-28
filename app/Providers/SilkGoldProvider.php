@@ -28,9 +28,13 @@ class SilkGoldProvider extends ServiceProvider
     public function boot()
     {
         view()->composer(
-            'frontend.account.sidebar',
+            'theme::frontend.account.sidebar',
             static function ($view) {
-                $data = [];
+                $data = [
+                    'silk' => 0,
+                    'silk_gift' => 0,
+                    'web_inventory_gold' => 0
+                ];
                 if (Auth::id()) {
                     $charGold = CharGold::where('user_id', Auth::id())->sum('gold');
 
@@ -48,7 +52,7 @@ class SilkGoldProvider extends ServiceProvider
         );
 
         view()->composer(
-            'frontend.account.auctionsidebar',
+            'theme::frontend.account.auctionsidebar',
             static function ($view) {
                 $data = [];
 

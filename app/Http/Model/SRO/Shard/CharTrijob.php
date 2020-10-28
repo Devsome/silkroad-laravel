@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\SRO\Shard;
+namespace App\Http\Model\SRO\Shard;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,7 +30,8 @@ class CharTrijob extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function getCharacter() {
+    public function getCharacter()
+    {
         return $this->belongsTo(Char::class, 'CharID', 'CharID');
     }
 }

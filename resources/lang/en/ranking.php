@@ -12,13 +12,18 @@ return [
         'trader' => 'Trader',
         'hunter' => 'Hunter',
         'thief' => 'Thief',
+        'unique' => 'Unique',
         'itempoints' => 'Itempoints',
+        'unique-points' => 'Unique points',
         'exp' => 'Exp',
         'job-level' => 'Level :level with :exp Exp',
     ],
     'no-player' => 'No Characters found on that server',
     'no-guild' => 'No Guild found on that server',
     'no-job' => 'No Job Character found on that server',
+    'no-unique' => 'No Unique kill records found on that server',
+    'no-job-kills' => 'No Job kills made on this server',
+    'no-pvp-kills' => 'No PvP kills made on this server',
 
     'search' => [
         'placeholder' => 'Charname, Guild, Jobname',
@@ -29,13 +34,9 @@ return [
         'trader' => 'Trader',
         'hunter' => 'Hunter',
         'thief' => 'Thief',
+        'unique' => 'Unique',
+        'pvp' => 'Free PVP',
+        'job' => 'Job PVP',
         'submit' => 'Search',
-        // do not change this
-        'search-charname' => 'charname',
-        'search-guild' => 'guild',
-        'search-job' => 'job',
-        'search-trader' => 'trader',
-        'search-hunter' => 'hunter',
-        'search-thief' => 'thief',
     ]
 ];

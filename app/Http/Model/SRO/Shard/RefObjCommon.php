@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\SRO\Shard;
+namespace App\Http\Model\SRO\Shard;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,6 +34,45 @@ class RefObjCommon extends Model
      */
     protected $fillable = [
         ''
+    ];
+
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'CashItem' => 'integer',
+        'Bionic' => 'integer',
+        'TypeID1' => 'integer',
+        'TypeID2' => 'integer',
+        'TypeID3' => 'integer',
+        'TypeID4' => 'integer',
+        'DecayTime' => 'integer',
+        'Country' => 'integer',
+        'Rarity' => 'integer',
+        'CanTrade' => 'integer',
+        'CanSell' => 'integer',
+        'CanBuy' => 'integer',
+        'CanBorrow' => 'integer',
+        'CanDrop' => 'integer',
+        'CanPick' => 'integer',
+        'CanRepair' => 'integer',
+        'CanUse' => 'integer',
+        'CanThrow' => 'integer',
+        'Price' => 'integer',
+        'CostRepair' => 'integer',
+        'CostRevive' => 'integer',
+        'CostBorrow' => 'integer',
+        'KeepingFee' => 'integer',
+        'SellPrice' => 'integer',
+        'ReqLevelType1' => 'integer',
+        'ReqLevel1' => 'integer',
+        'ReqLevelType2' => 'integer',
+        'ReqLevel2' => 'integer',
+        'ReqLevelType3' => 'integer',
+        'ReqLevel3' => 'integer',
+        'ReqLevelType4' => 'integer',
+        'ReqLevel4' => 'integer',
+        'MaxContain' => 'integer',
     ];
 
     /**

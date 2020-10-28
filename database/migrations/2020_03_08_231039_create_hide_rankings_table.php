@@ -13,7 +13,7 @@ class CreateHideRankingsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::connection('log')->hasTable('hide_rankings')) {
+        if (!Schema::hasTable('hide_rankings')) {
             Schema::create('hide_rankings', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('charname');

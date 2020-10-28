@@ -64,10 +64,12 @@
                     @forelse($BacklinksProvider as $backlink)
                         <li>
                             <a href="{{ $backlink->url }}" target="_blank" rel="noopener">
-                                <img src="{{ Storage::disk('images')->url($backlink->image->filename) }}"
-                                     loading="lazy"
-                                     class="img-fluid d-none d-sm-inline"
-                                     width="24" height="24" alt="{{ $backlink->name }}">
+                                @if($backlink->image)
+                                    <img src="{{ Storage::disk('images')->url($backlink->image->filename) }}"
+                                         loading="lazy"
+                                         class="img-fluid d-none d-sm-inline"
+                                         width="24" height="24" alt="{{ $backlink->name }}">
+                                @endif
                                 {{ $backlink->name }}
                             </a>
                         </li>

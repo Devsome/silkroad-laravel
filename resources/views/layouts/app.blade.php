@@ -7,37 +7,44 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', config('app.name', 'Devsome'))</title>
+    <title>@yield('theme::title', config('app.name', 'Devsome'))</title>
     <meta name="description" content="{{ config('app.description', 'Description') }}">
     <!-- Coded by Devsome.com -->
     <meta name="author" content="Alexander Frank">
+    <link rel="icon" href="{{ asset('image/favicon/favicon.ico') }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
-    @stack('css')
+    @if(Session::get('locale') === 'ar')
+        <link href="{{ mix('/css/app-rtl.css') }}" rel="stylesheet">
+    @else
+        <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+    @endif
+
+
+    @stack('theme::css')
 </head>
-<body>
+<body dir="{{( Session::get('locale') === 'ar' ? 'rtl' : 'ltr' )}}">
 <div id="app">
-    @include('layouts.navbar')
+    @include('theme::layouts.navbar')
     <main role="main" class="container">
         <div class="row mt-5">
-            @section('sidebar')
-                @include('layouts.sidebar')
+            @section('theme::sidebar')
+                @include('theme::layouts.sidebar')
             @show
-            @yield('content')
+            @yield('theme::content')
         </div>
     </main>
-    @include('layouts.footer')
+    @include('theme::layouts.footer')
 </div>
 <script>
     const serverTime = new Date({{ \Carbon\Carbon::now()->format('Y, n, j, G, i, s') }});
     const currentTimestamp = {{ \Carbon\Carbon::now()->format('U') }} - Math.round(+new Date() / 1000);
 </script>
 <script src="{{ mix('/js/app.js') }}"></script>
-@stack('javascript')
+@stack('theme::javascript')
 </body>
 </html>

@@ -20,7 +20,10 @@ class CreateTodosTable extends Migration
             $table->enum('state', ['done', 'progress'])->default('progress');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

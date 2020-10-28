@@ -9,6 +9,7 @@ use App\Model\Frontend\AuctionItem;
 use App\Model\Frontend\CharGold;
 use App\Model\Frontend\CharInventory;
 use App\Notification;
+use App\Notifications\AuctionDiscordServer;
 use App\ServerGold;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -39,7 +40,8 @@ class AuctionsHouseController extends Controller
             ->get();
 
         return view(
-            'frontend.auctionshouse.index', [
+            'theme::frontend.auctionshouse.index',
+            [
                 'items' => $auctionItems
             ]
         );
@@ -54,10 +56,13 @@ class AuctionsHouseController extends Controller
         $type = ucwords(str_replace('-', ' ', $type));
         $auctionItems = AuctionItem::whereHas('getItemInformation', static function ($q) use ($type) {
             $q->where('sort', $type);
-        })->get();
+        })
+            ->orderBy('until', 'ASC')
+            ->get();
 
         return view(
-            'frontend.auctionshouse.index', [
+            'theme::frontend.auctionshouse.index',
+            [
                 'items' => $auctionItems
             ]
         );
@@ -74,7 +79,8 @@ class AuctionsHouseController extends Controller
             ->firstOrFail();
 
         return view(
-            'frontend.auctionshouse.showitem', [
+            'theme::frontend.auctionshouse.showitem',
+            [
                 'item' => $auctionItem
             ]
         );
@@ -87,10 +93,12 @@ class AuctionsHouseController extends Controller
     {
         $auctionItems = AuctionItem::where('user_id', '=', Auth::user()->id)
             ->with('getItemInformation')
+            ->orderBy('until', 'ASC')
             ->get();
 
         return view(
-            'frontend.auctionshouse.own', [
+            'theme::frontend.auctionshouse.own',
+            [
                 'items' => $auctionItems
             ]
         );
@@ -104,10 +112,11 @@ class AuctionsHouseController extends Controller
     {
         $auctionItem = AuctionItem::where('id', $id)->firstOrFail();
 
-        if ($auctionItem->current_bid_user_id) {
+        if (isset($auctionItem->current_bid_user_id)) {
             CharGold::where('user_id', $auctionItem->current_bid_user_id)
                 ->increment(
-                    'gold', $auctionItem->current_user_bid_amount
+                    'gold',
+                    $auctionItem->current_user_bid_amount
                 );
         }
 
@@ -128,7 +137,8 @@ class AuctionsHouseController extends Controller
             ->get();
 
         return view(
-            'frontend.auctionshouse.add', [
+            'theme::frontend.auctionshouse.add',
+            [
                 'webInventory' => $webInventory,
                 'auctionsHouseSettings' => AuctionsHouseSettings::first()
             ]
@@ -163,13 +173,21 @@ class AuctionsHouseController extends Controller
             return back()->with('error', trans('auctionshouse.notification.add.not-item'));
         }
 
-        AuctionItem::create([
+        $auctionItem = AuctionItem::create([
             'user_id' => Auth::user()->id,
             'char_inventory' => $isThisHisItem->first()->id,
-            'until' => $request->get('until'),
-            'price' => $request->get('price'),
-            'price_instead' => $request->get('price_instead'),
+            'until' => $request->get('until') ?: '0',
+            'price' => $request->get('price') ?: 0,
+            'price_instead' => $request->get('price_instead') ?: 0,
         ]);
+
+        if (config('services.discord.auction')) {
+            try {
+                $auctionItem->notify(new AuctionDiscordServer($auctionItem, $isThisHisItem->first()));
+            } catch (\Exception $exception) {
+                return back()->with('success', trans('auctionshouse.notification.add.successfully'));
+            }
+        }
 
         return back()->with('success', trans('auctionshouse.notification.add.successfully'));
     }
@@ -198,6 +216,10 @@ class AuctionsHouseController extends Controller
             return back()->with('error', trans('auctionshouse.notification.buy.until'));
         }
 
+        if ($buyNowPrice === 0) {
+            return back()->with('error', trans('auctionshouse.notification.buy.price-0'));
+        }
+
         $this->validate($request, [
             '_token' => 'required',
         ]);
@@ -218,6 +240,15 @@ class AuctionsHouseController extends Controller
                     'user_id' => Auth::user()->id
                 ]);
 
+            // Giving the Person who bid on that Item the gold back
+            if (isset($auctionItem->current_bid_user_id)) {
+                CharGold::where('user_id', $auctionItem->current_bid_user_id)
+                    ->increment(
+                        'gold',
+                        $auctionItem->current_user_bid_amount
+                    );
+            }
+
             // Deleting this Auction
             AuctionItem::where('id', $id)->delete();
 
@@ -232,22 +263,36 @@ class AuctionsHouseController extends Controller
             $userGoldGain = $buyNowPrice * ((100 - $fees) / 100);
 
             ServerGold::first()->increment(
-                'gold', $buyNowPrice - $userGoldGain
+                'gold',
+                $buyNowPrice - $userGoldGain
             );
 
             // The Account who sold it need that gold
-            CharGold::where('user_id', $sellerUserId)
-                ->increment(
-                    'gold', $userGoldGain
-                );
+            $sellerGold = CharGold::where('user_id', $sellerUserId)
+                ->get()
+                ->first();
+            if ($sellerGold === null) {
+                CharGold::create([
+                    'user_id' => $sellerUserId,
+                    'gold' => $userGoldGain
+                ]);
+            } else {
+                CharGold::where('user_id', $sellerUserId)
+                    ->increment(
+                        'gold',
+                        $userGoldGain
+                    );
+            }
 
             // Giving the user who bid the last the gold amount back
             if ($currentAuctionBidUser) {
                 CharGold::where('user_id', $currentAuctionBidUser->current_bid_user_id)
                     ->increment(
-                        'gold', $currentAuctionBidUser->current_user_bid_amount
+                        'gold',
+                        $currentAuctionBidUser->current_user_bid_amount
                     );
             }
+
 
             // Notification for the User who sold that item
             Notification::create([
@@ -279,7 +324,8 @@ class AuctionsHouseController extends Controller
             return back()->with('error', trans('auctionshouse.notification.buy.error'));
         }
 
-        return redirect()->route('auctions-house')->with('success', __('auctionshouse.notification.buy.successfully'));
+        return redirect()->route('auctions-house')
+            ->with('success', __('auctionshouse.notification.buy.successfully'));
     }
 
     /**
@@ -310,7 +356,7 @@ class AuctionsHouseController extends Controller
             return back()->with('error', trans('auctionshouse.notification.bid.not-highest'));
         }
 
-        if ($userNewBidPrice >= $auctionItem->price_instead) {
+        if (($auctionItem->price_instead > 0) && $userNewBidPrice >= $auctionItem->price_instead) {
             return back()->with('error', trans('auctionshouse.notification.bid.bid-higher'));
         }
 
@@ -337,7 +383,8 @@ class AuctionsHouseController extends Controller
             if ($currentAuctionItem) {
                 CharGold::where('user_id', $currentAuctionItem->current_bid_user_id)
                     ->increment(
-                        'gold', $currentAuctionItem->current_user_bid_amount
+                        'gold',
+                        $currentAuctionItem->current_user_bid_amount
                     );
                 Notification::create([
                     'user_id' => $currentAuctionItem->current_bid_user_id,
@@ -362,7 +409,8 @@ class AuctionsHouseController extends Controller
 
             AuctionItem::where('id', $id)
                 ->increment(
-                    'bids', 1
+                    'bids',
+                    1
                 );
 
             DB::commit();

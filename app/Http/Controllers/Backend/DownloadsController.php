@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Download;
 use App\Http\Controllers\Controller;
 use App\Image;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,18 +16,18 @@ class DownloadsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
-        return view('backend.downloads.index', [
+        return view('theme::backend.downloads.index', [
             'downloads' => Download::paginate(15)
         ]);
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function create(Request $request)
     {
@@ -44,11 +46,11 @@ class DownloadsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show()
     {
-        return view('backend.downloads.create', [
+        return view('theme::backend.downloads.create', [
             'images' => Image::where('model', Download::class)->orderByDesc('id')->get(),
         ]);
     }
@@ -57,11 +59,11 @@ class DownloadsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
-        return view('backend.downloads.edit', [
+        return view('theme::backend.downloads.edit', [
             'download' => Download::findOrFail($id),
             'images' => Image::where('model', Download::class)->get(),
         ]);
@@ -70,9 +72,9 @@ class DownloadsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -93,7 +95,7 @@ class DownloadsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

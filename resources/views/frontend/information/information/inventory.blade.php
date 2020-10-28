@@ -339,7 +339,9 @@
                             </div>
                             <div class="itemInfo">
                                 @isset($playerAvatar[1])
-                                    {!! $playerAvatar[1]['data'] !!}
+                                    @if(data_get($playerAvatar[1], 'data'))
+                                        {!! $playerAvatar[1]['data'] !!}
+                                    @endif
                                 @endisset
                             </div>
                         </div>
@@ -353,7 +355,9 @@
                             </div>
                             <div class="itemInfo">
                                 @isset($playerAvatar[4])
-                                    {!! $playerAvatar[4]['data'] !!}
+                                    @if(data_get($playerAvatar[4], 'data'))
+                                        {!! $playerAvatar[4]['data'] !!}
+                                    @endif
                                 @endisset
                             </div>
                         </div>
@@ -367,7 +371,9 @@
                             </div>
                             <div class="itemInfo">
                                 @isset($playerAvatar[3])
-                                    {!! $playerAvatar[3]['data'] !!}
+                                    @if(data_get($playerAvatar[3], 'data'))
+                                        {!! $playerAvatar[3]['data'] !!}
+                                    @endif
                                 @endisset
                             </div>
                         </div>
@@ -381,7 +387,9 @@
                             </div>
                             <div class="itemInfo">
                                 @isset($playerAvatar[2])
-                                    {!! $playerAvatar[2]['data'] !!}
+                                    @if(data_get($playerAvatar[2], 'data'))
+                                        {!! $playerAvatar[2]['data'] !!}
+                                    @endif
                                 @endisset
                             </div>
                         </div>
@@ -406,7 +414,7 @@
         </table>
     </div>
 </div>
-@push('javascript')
+@push('theme::javascript')
     <script type="text/javascript">
         function itemInfo() {
             $(document).tooltip({

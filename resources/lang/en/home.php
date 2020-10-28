@@ -32,6 +32,12 @@ return [
         'logged-out' => 'Logged out',
     ],
 
+    'donations' => [
+        'title' => 'Donations',
+        'text' => 'You can choose one of several providers where you can donate money. In return you get ' . config('siteSettings.sro_silk_name', 'Silk') . ' on our server.',
+        'no_methods' => 'No methods where found, the administrator did not activated one.',
+    ],
+
     'settings' => [
         'title' => 'Settings',
         'form' => [
@@ -53,7 +59,10 @@ return [
     ],
 
     'ref' => [
-        'title' => 'Your Referral',
+        'title' => 'Referral',
+        'signature' => 'Signature',
+        'no-signature' => 'Currently is no signature added.',
+        'your-ref' => 'Your referral',
         'table' => [
             'name' => 'Account Name',
             'date' => 'Date',

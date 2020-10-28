@@ -19,6 +19,11 @@ class CreateBacklinksTable extends Migration
             $table->string('url');
             $table->unsignedInteger('image_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('image_id')
+                ->references('id')->on('images')
+                ->onUpdate('SET NULL')
+                ->onDelete('SET NULL');
         });
     }
 

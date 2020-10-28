@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Model\SRO\Account\TbUser;
+use App\Http\Model\SRO\Account\TbUser;
 use App\User;
 use Illuminate\Console\Command;
 
@@ -41,11 +41,12 @@ class ImportSilkroadAccounts extends Command
     {
         $tbUser = TbUser::whereNotNull('Email')->where('Email', '!=', '')->get();
         $count = 0;
-        foreach($tbUser as $user)
-        {
-            $this->info('Importing -> ' .$user->StrUserID);
-            $existUser = User::where('jid', '=', $user->JID)->get();
-            if($existUser->isEmpty()) {
+        foreach ($tbUser as $user) {
+            $this->info('Importing -> ' . $user->StrUserID);
+            $existUser = User::where('jid', '=', $user->JID)
+                ->orWhere('email', '=', $user->Email)
+                ->get();
+            if ($existUser->isEmpty()) {
                 $createdUser = User::create([
                     'name' => $user->Name ?: $user->StrUserID,
                     'silkroad_id' => $user->StrUserID,
@@ -55,8 +56,8 @@ class ImportSilkroadAccounts extends Command
                     'reflink' => \Str::uuid()
                 ]);
 
-                if($user->sec_primary === 1 && $user->sec_content === 1) {
-                    $createdUser->assignRole('backend');
+                if ($user->sec_primary === 1 && $user->sec_content === 1) {
+                    $createdUser->assignRole('administrator');
                 }
             }
             $count++;

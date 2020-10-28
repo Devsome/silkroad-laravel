@@ -108,7 +108,7 @@ class AuctionsHouse extends Command
                         'user_id' => $item->user_id,
                         'key' => __('notification.auctionshouse.not-sold', [
                             'name' => $item->getItemInformation->name
-                        ]),
+                        ])
                     ]);
                 }
             }

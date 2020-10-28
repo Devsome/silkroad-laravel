@@ -1,10 +1,10 @@
-@extends('layouts.app')
-@section('title', __('seo.auctionshouse.own'))
-@section('sidebar')
-    @include('frontend.account.auctionsidebar')
+@extends('theme::layouts.app')
+@section('theme::title', __('seo.auctionshouse.own'))
+@section('theme::sidebar')
+    @include('theme::frontend.account.auctionsidebar')
 @endsection
 
-@section('content')
+@section('theme::content')
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="container">
             <div class="row justify-content-center">
@@ -133,7 +133,7 @@
         </div>
     </div>
 @endsection
-@push('javascript')
+@push('theme::javascript')
     <script>
         $(document).ready(function () {
             $('#items').DataTable({
@@ -149,7 +149,7 @@
                         "searchable": false,
                     }
                 ],
-                "order": [[4, "desc"]],
+                "aaSorting": [],
                 "lengthMenu": [[10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('datatables.show-all') }}"]],
                 "language": {
                     "search": "{{ __('datatables.search') }}",

@@ -89,7 +89,7 @@
                 <td>
                     @if($player->getCharOnlineOfflineLoggedIn)
                         @if($player->getCharOnlineOfflineLoggedIn->status ===
-                        \App\Model\SRO\Account\OnlineOfflineLog::STATUS_LOGGED_IN)
+                        \App\Http\Model\SRO\Account\OnlineOfflineLog::STATUS_LOGGED_IN)
                             {{ __('information.player.table.logged-in') }}
                         @endif
                     @else
@@ -117,7 +117,7 @@
     <h2>{{ __('information.player.equipment.title') }}</h2>
     <div class="col-md-12">
         <div class="row">
-            @include('frontend.information.information.inventory', ['items' => $playerInventory])
+            @include('theme::frontend.information.information.inventory', ['items' => $playerInventory])
         </div>
     </div>
 </div>

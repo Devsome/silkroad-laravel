@@ -1,10 +1,10 @@
-@extends('layouts.app')
-@section('title', __('seo.auctionshouse.showitem', ['name' => $item->getItemInformation->name]))
-@section('sidebar')
-    @include('frontend.account.auctionsidebar')
+@extends('theme::layouts.app')
+@section('theme::title', __('seo.auctionshouse.showitem', ['name' => $item->getItemInformation->name]))
+@section('theme::sidebar')
+    @include('theme::frontend.account.auctionsidebar')
 @endsection
 
-@section('content')
+@section('theme::content')
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="container">
             <div class="row justify-content-center">
@@ -152,18 +152,21 @@
                             </div>
                         @endif
                         <hr>
-                        <div class="col-12">
-                            <form class="form form-inline" method="POST"
-                                  action="{{ route('auctions-house-buy-item-now', ['id' => $item->id]) }}">
-                                @csrf
-                                <label for="auctionBidPrice" class="col-auto col-form-label">
-                                    {{ __('auctionshouse.showitem.buy_now_text') }}
-                                </label>
-                                <button type="submit" class="btn btn-primary mb-2">
-                                    {{ __('auctionshouse.showitem.buy_now') }}
-                                </button>
-                            </form>
-                        </div>
+                        @if($item->price_instead !== 0)
+                            <div class="col-12">
+                                <form class="form form-inline" method="POST"
+                                      action="{{ route('auctions-house-buy-item-now', ['id' => $item->id]) }}">
+                                    @csrf
+                                    <label for="auctionBidPrice" class="col-auto col-form-label">
+                                        {{ __('auctionshouse.showitem.buy_now_text') }}
+                                    </label>
+                                    <button type="submit" class="btn btn-primary mb-2"
+                                    @if($item->price_instead === 0) disabled @endif>
+                                        {{ __('auctionshouse.showitem.buy_now') }}
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                     @endif
 
                 </div>
@@ -171,7 +174,7 @@
         </div>
     </div>
 @endsection
-@push('javascript')
+@push('theme::javascript')
     <script>
         $(document).ready(function () {
             $(document).tooltip({

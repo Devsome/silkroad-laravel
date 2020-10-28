@@ -21,8 +21,15 @@ class CreateAuctionsHouseLogTable extends Migration
             $table->enum('state', ['sold', 'notsold']);
             $table->timestamps();
 
-            $table->foreign('seller_user_id')->references('id')->on('users');
-            $table->foreign('buyer_user_id')->references('id')->on('users');
+            $table->foreign('seller_user_id')
+                ->references('id')->on('users')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->foreign('buyer_user_id')
+                ->references('id')->on('users')
+                ->onUpdate('SET NULL')
+                ->onDelete('SET NULL');
         });
     }
 

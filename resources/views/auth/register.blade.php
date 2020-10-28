@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('theme::layouts.app')
 
-@section('content')
+@section('theme::content')
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="container">
             <div class="row justify-content-center">
@@ -127,7 +127,7 @@
                                     <div class="col-md-6">
                                         <input id="referral" type="text"
                                                class="form-control @error('referral') is-invalid @enderror"
-                                               name="referral" value="{{ old('referral') }}">
+                                               name="referral" value="{{ old('referral') ?: app('request')->input('r') }}">
                                         <small id="referralHelp" class="form-text text-muted">
                                             {{ __('auth/register.form.referral-help') }}
                                         </small>

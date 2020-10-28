@@ -1,0 +1,77 @@
+// Import Custom own variables (Overrides Default Bootstrap Variables)
+@import "variables.scss";
+
+// Import Bootstrap rtl
+@import "~bootstrap-v4-rtl/scss/bootstrap-rtl";
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    .float#{$infix}-left {
+      @include float-right;
+    }
+    .float#{$infix}-right {
+      @include float-left;
+    }
+    .float#{$infix}-none {
+      @include float-none;
+    }
+  }
+}
+
+// Import Custom utilities
+@import "utilities";
+
+// Custom Components
+@import "dropdowns.scss";
+@import "navs.scss";
+@import "buttons.scss";
+@import "cards.scss";
+@import "charts.scss";
+@import "login.scss";
+@import "error.scss";
+@import "footer.scss";
+
+// Import dataTables and Summernote for News
+@import "../../../vendor/datatables/dataTables.bootstrap4.css";
+@import "../summernote-bs4.css";
+
+// Import Font-Awesome
+@import "../../../vendor/fontawesome-free/scss/fontawesome.scss";
+@import "../../../vendor/fontawesome-free/scss/regular.scss";
+@import "../../../vendor/fontawesome-free/scss/brands.scss";
+@import "../../../vendor/fontawesome-free/scss/solid.scss";
+@import "../../../vendor/fontawesome-free/scss/v4-shims.scss";
+
+@import "news";
+@import "custom";
+@import "box";
+@import "chat";
+@import "footer";
+@import "auctionshouse";
+@import "../jquery-ui.css";
+
+// Inventory Styling
+@import "inventory";
+
+/*
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575px) {
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+}
+*/

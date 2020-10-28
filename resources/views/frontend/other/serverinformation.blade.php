@@ -1,6 +1,6 @@
-@extends('layouts.app')
-@section('title', __('seo.serverinformation'))
-@section('content')
+@extends('theme::layouts.app')
+@section('theme::title', __('seo.serverinformation'))
+@section('theme::content')
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="container">
             <div class="row justify-content-center">

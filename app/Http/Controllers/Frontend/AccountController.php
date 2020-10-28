@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Library\Services\VouchersService;
+use App\SiteSettings;
 use App\User;
 use App\UserVoucher;
 use Carbon\Carbon;
@@ -32,7 +33,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('theme::home');
     }
 
     /**
@@ -48,7 +49,7 @@ class AccountController extends Controller
             ->with('getTbUser.getShardUser.getCharOnlineOfflineLoggedIn')
             ->firstOrFail();
 
-        return view('frontend.account.charslist', [
+        return view('theme::frontend.account.charslist', [
             'account' => $account
         ]);
     }
@@ -63,7 +64,7 @@ class AccountController extends Controller
         $account = User::where('id', Auth::id())
             ->firstOrFail();
 
-        return view('frontend.account.settings', [
+        return view('theme::frontend.account.settings', [
             'account' => $account
         ]);
     }
@@ -76,8 +77,17 @@ class AccountController extends Controller
         $account = User::where('id', Auth::id())
             ->firstOrFail();
 
-        return view('frontend.account.referral', [
-            'account' => $account
+        $siteSettings = SiteSettings::first();
+
+        if ($siteSettings && array_key_exists('signature', $siteSettings->settings)) {
+            $signature = $siteSettings->settings['signature'];
+        } else {
+            $signature = null;
+        }
+
+        return view('theme::frontend.account.referral', [
+            'account' => $account,
+            'signature' => $signature
         ]);
     }
 
@@ -101,7 +111,7 @@ class AccountController extends Controller
         $account = User::where('id', Auth::id())
             ->firstOrFail();
 
-        return view('frontend.account.voucher', [
+        return view('theme::frontend.account.voucher', [
             'account' => $account
         ]);
     }

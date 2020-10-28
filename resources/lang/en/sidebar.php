@@ -29,7 +29,7 @@ return [
         'charlist' => 'Char list',
         'currency' => 'Currency',
         'silk' => config('siteSettings.sro_silk_name', 'Silk'),
-        'silk-gift' => 'Silk Gift',
+        'silk-gift' => config('siteSettings.sro_silk_gift_name', 'Silk Gift'),
         'web-inventory-gold' => 'Web Gold',
         'change-password' => 'Password change',
         'donate' => 'Donate',
@@ -44,8 +44,21 @@ return [
         'jangan' => 'Jangan',
         'bandit' => 'Bandit',
         'hotan' => 'Hotan',
+        'constantinople' => 'Constantinople',
         'unknown' => 'Unknown',
         'empty' => 'There is no Fortress',
+    ],
+
+    'unique' => [
+        'title' => 'Latest Unique Kills',
+        'killed' => 'Killed',
+        'empty' => 'There is no records!',
+    ],
+
+    'pvp' => [
+        'title' => 'Latest PVP Records',
+        'killed' => 'Killed',
+        'empty' => 'No one died in pvp, yet',
     ],
 
     'job-ranking' => [

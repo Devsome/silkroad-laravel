@@ -8,7 +8,7 @@
                 <i class="fa fa-fw fa-desktop"></i> {{ __('sidebar.information.online') }}
             </div>
             <div class="float-right">
-                @include('layouts.playercount')
+                @include('theme::layouts.playercount')
             </div>
         </li>
         <li class="pb-1 pt-2">
@@ -65,7 +65,7 @@
         <a href="{{ route('home-settings') }}" class="list-group-item list-group-item-action">
             {{ __('sidebar.home.settings') }}
         </a>
-        <a href="#" class="list-group-item list-group-item-action">
+        <a href="{{ route('donations-index') }}" class="list-group-item list-group-item-action">
             {{ __('sidebar.home.donate') }}
         </a>
         <a href="{{ route('home-referral') }}" class="list-group-item list-group-item-action">

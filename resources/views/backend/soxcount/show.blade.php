@@ -1,7 +1,7 @@
-@extends('backend.layouts.app')
+@extends('theme::backend.layouts.app')
 
-@section('backend-content')
-    @include('backend.layouts.navbar')
+@section('theme::backend-content')
+    @include('theme::backend.layouts.navbar')
 
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -48,12 +48,15 @@
                                         </a>
                                     @endisset
                                     @isset($item['StorageState'])
-                                        <span class="text-secondary">
+                                        <span class="text-secondary small">
                                             {{ __('backend/soxfilter.table.storage') }}
+                                            <a href="{{ route('sro-user-edit-backend', ['user' => $item['StorageState']]) }}" target="_blank">
+                                                <i class="fas fa-external-link-alt"></i>
+                                            </a>
                                         </span>
                                     @endisset
                                     @if($dataWeb->contains($item['ItemID']))
-                                        <span class="text-secondary">
+                                        <span class="text-secondary small">
                                             {{ __('backend/soxfilter.table.web') }}
                                         </span>
                                     @endif
@@ -108,7 +111,7 @@
     </div>
 @endsection
 
-@push('javascript')
+@push('theme::javascript')
     <script type="text/javascript">
         $(document).ready(function () {
             $(document).tooltip({

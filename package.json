@@ -11,16 +11,24 @@
     },
     "devDependencies": {
         "axios": "^0.19",
-        "bootstrap": "^4.0.0-alpha.6",
+        "bootstrap": "^4.5.3",
         "cross-env": "^5.1",
-        "jquery": "^3.5",
+        "dot-prop": "^6.0.0",
+        "elliptic": ">=6.5.3",
+        "jquery": "^3.5.1",
         "laravel-mix": "^4.0.7",
-        "lodash": "^4.17.13",
+        "lodash": "^4.17.20",
+        "node-forge": ">=0.10.0",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.26.3",
+        "sass": "^1.27.0",
         "sass-loader": "^7.1.0",
-        "vue": "^2.5.17",
-        "vue-template-compiler": "^2.6.10"
+        "serialize-javascript": "^5.0.1",
+        "vue": "^2.6.12",
+        "vue-template-compiler": "^2.6.12",
+        "object-path": ">=0.11.5"
+    },
+    "dependencies": {
+        "bootstrap-v4-rtl": "^4.5.2-1"
     }
 }

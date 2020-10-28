@@ -13,6 +13,9 @@ return [
         'download' => 'Download',
         'ranking' => 'Ranking',
         'auction-house' => 'Auction house',
-        'serverinformation' => 'Server Information'
+        'serverinformation' => 'Server Information',
+        'worldmap' => 'Map',
     ],
+
+    'lang-title' => 'Language'
 ];

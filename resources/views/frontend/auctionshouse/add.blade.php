@@ -1,10 +1,10 @@
-@extends('layouts.app')
-@section('title', __('seo.auctionshouse.add'))
-@section('sidebar')
-    @include('frontend.account.auctionsidebar')
+@extends('theme::layouts.app')
+@section('theme::title', __('seo.auctionshouse.add'))
+@section('theme::sidebar')
+    @include('theme::frontend.account.auctionsidebar')
 @endsection
 
-@section('content')
+@section('theme::content')
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="container">
             <div class="row justify-content-center">
@@ -47,7 +47,7 @@
                                     <i class="inventorySpinner fas fa-circle-notch fa-1x fa-spin" hidden></i>
                                 </h5>
                                 <div class="row card-text" id="webInventory">
-                                    @include('frontend.account.webinventory.web-inventory', ['aItem' => $webInventory])
+                                    @include('theme::frontend.account.webinventory.web-inventory', ['aItem' => $webInventory])
                                     @if($webInventory->count() === 0)
                                         <div class="col-12">
                                             {{ __('auctionshouse.add.form.no-item-help') }}
@@ -170,7 +170,7 @@
     </div>
 @endsection
 
-@push('javascript')
+@push('theme::javascript')
     <script>
         $(document).ready(function () {
             let checkMarkWeb = null;
