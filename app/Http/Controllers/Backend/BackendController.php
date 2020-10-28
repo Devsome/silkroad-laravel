@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Controller;
 use App\Http\Library\Services\SRO\Shard\InventoryService;
 
 use App\Http\Model\SRO\Account\Notice;
-use App\Http\Model\SRO\Account\OnlineOfflineLog;
+use App\Http\Model\SRO\Log\OnlineOfflineLog;
 use App\Http\Model\SRO\Account\Punishment;
 use App\Http\Model\SRO\Account\SkSilk;
 use App\Http\Model\SRO\Account\SmcLog;
@@ -18,13 +19,12 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Validator;
 use Yajra\DataTables\DataTables;
-use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 /**
  * Class BackendController

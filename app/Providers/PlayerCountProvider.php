@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Http\Model\SRO\Account\OnlineOfflineLog;
+use App\Http\Model\SRO\Log\OnlineOfflineLog;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Model\SRO\Account;
+namespace App\Http\Model\SRO\Log;
 
 use App\Http\Model\SRO\Shard\Char;
 use Illuminate\Database\Eloquent\Model;
