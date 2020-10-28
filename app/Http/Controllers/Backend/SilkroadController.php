@@ -5,18 +5,19 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Library\Services\SRO\Shard\CharService;
 use App\Http\Library\Services\SRO\Shard\InventoryService;
-use App\Model\SRO\Account\BlockedUser;
-use App\Model\SRO\Account\SkSilkChangeByWeb;
-use App\Model\SRO\Log\LoginHistoryLog;
-use App\Model\SRO\Account\OnlineOfflineLog;
-use App\Model\SRO\Account\Punishment;
-use App\Model\SRO\Account\SkSilk;
-use App\Model\SRO\Account\SkSilkBuyList;
-use App\Model\SRO\Account\TbUser;
-use App\Model\SRO\Shard\Char;
-use App\Model\SRO\Shard\User;
+use App\Http\Model\SRO\Account\BlockedUser;
+use App\Http\Model\SRO\Account\SkSilkChangeByWeb;
+use App\Http\Model\SRO\Log\LoginHistoryLog;
+use App\Http\Model\SRO\Account\OnlineOfflineLog;
+use App\Http\Model\SRO\Account\Punishment;
+use App\Http\Model\SRO\Account\SkSilk;
+use App\Http\Model\SRO\Account\SkSilkBuyList;
+use App\Http\Model\SRO\Account\TbUser;
+use App\Http\Model\SRO\Shard\Char;
+use App\Http\Model\SRO\Shard\User;
 use App\Roles;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Validator;
 use Yajra\DataTables\DataTables;
@@ -33,7 +34,7 @@ class SilkroadController extends Controller
      */
     public function indexSroUser()
     {
-        return view('backend.silkroad.tbuser.index');
+        return view('theme::backend.silkroad.tbuser.index');
     }
 
     /**
@@ -58,7 +59,7 @@ class SilkroadController extends Controller
             ->with('getWebUser')
             ->findOrFail($jid);
 
-        return view('backend.silkroad.tbuser.edit', [
+        return view('theme::backend.silkroad.tbuser.edit', [
             'tbuser' => $tbuser,
             'userRoles' => $tbuser->getWebUser->getRoleNames(),
             'allRoles' => Roles::all()
@@ -69,7 +70,7 @@ class SilkroadController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function syncRoles(Request $request, $id)
     {
@@ -88,7 +89,7 @@ class SilkroadController extends Controller
      */
     public function indexSroPlayer()
     {
-        return view('backend.silkroad.chars.index');
+        return view('theme::backend.silkroad.chars.index');
     }
 
     /**
@@ -110,7 +111,7 @@ class SilkroadController extends Controller
         $loggedInHistory = LoginHistoryLog::where('CharID', $char->CharID)->get();
         $tbUser = User::where('CharID', $char->CharID)->get()->first();
 
-        return view('backend.silkroad.chars.edit', [
+        return view('theme::backend.silkroad.chars.edit', [
             'char' => $char,
             'loggedInHistory' => $loggedInHistory,
             'tbUser' => $tbUser->UserJID
@@ -120,7 +121,7 @@ class SilkroadController extends Controller
     /**
      * @param $jid
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function sroUserSilkAddRemove($jid, Request $request)
     {
@@ -144,8 +145,8 @@ class SilkroadController extends Controller
 
         SkSilkBuyList::create([
             'UserJID' => $jid,
-            'Silk_Type' => SkSilkBuyList::SilkTypeWeb,
-            'Silk_Reason' => SkSilkBuyList::SilkReasonWeb,
+            'Silk_Type' => SkSilkBuyList::SILKTYPEWEB,
+            'Silk_Reason' => SkSilkBuyList::SILKREASONWEB,
             'Silk_Offset' => SkSilk::where('JID', $jid)->pluck('silk_own')->first(),
             'Silk_Remain' => $silkRemain,
             'ID' => $jid,
@@ -161,8 +162,8 @@ class SilkroadController extends Controller
             'JID' => $jid,
             'silk_remain' => $silkRemain,
             'silk_offset' => $buyQuantity,
-            'silk_type' => SkSilkChangeByWeb::SilkTypeSilk,
-            'reason' => SkSilkChangeByWeb::SilkTypeSilk,
+            'silk_type' => SkSilkChangeByWeb::SILKTYPESILK,
+            'reason' => SkSilkChangeByWeb::SILKTYPESILK,
         ]);
 
         if ($request->get('state') === 'add') {
@@ -186,7 +187,7 @@ class SilkroadController extends Controller
     /**
      * @param $jid
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function sroUserBlockAdd($jid, Request $request)
     {
@@ -239,7 +240,7 @@ class SilkroadController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function sroUserBlockDestory(Request $request)
     {
@@ -265,7 +266,7 @@ class SilkroadController extends Controller
      * @param Request $request
      * @param CharService $charService
      * @param InventoryService $inventoryService
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function sroUnstuckChar(
         $charId,

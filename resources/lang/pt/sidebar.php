@@ -49,6 +49,12 @@ return [
         'empty' => 'Não há força',
     ],
 
+    'unique' => [
+        'title' => 'Latest Unique Kills',
+        'killed' => 'Killed',
+        'empty' => 'There is no records!',
+    ],
+
     'job-ranking' => [
         'title' => 'Ranking de Trabalhos',
         'trader' => 'Negociante',

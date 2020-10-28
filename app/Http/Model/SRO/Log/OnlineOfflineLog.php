@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model\SRO\Account;
+namespace App\Http\Model\SRO\Account;
 
-use App\Model\SRO\Shard\Char;
+use App\Http\Model\SRO\Shard\Char;
 use Illuminate\Database\Eloquent\Model;
 
 class OnlineOfflineLog extends Model
@@ -61,7 +61,8 @@ class OnlineOfflineLog extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function getCharacter() {
+    public function getCharacter()
+    {
         return $this->belongsTo(Char::class, 'CharID', 'CharID')
             ->whereNotNull('CharName16')
             ->select(['CharID', 'CharName16', 'CurLevel', 'LatestRegion', 'PosX', 'PosY', 'PosZ']);

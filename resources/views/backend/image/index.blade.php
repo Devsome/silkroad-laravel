@@ -1,7 +1,7 @@
-@extends('backend.layouts.app')
+@extends('theme::backend.layouts.app')
 
-@section('backend-content')
-    @include('backend.layouts.navbar')
+@section('theme::backend-content')
+    @include('theme::backend.layouts.navbar')
 
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -94,7 +94,7 @@
     </div>
 @endsection
 
-@push('javascript')
+@push('theme::javascript')
     <script type="text/javascript">
         $(document).ready(function () {
             $('#imagesModalDelete').find('.modal-footer #confirm').on('click', function () {

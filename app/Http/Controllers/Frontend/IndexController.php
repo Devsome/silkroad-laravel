@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Download;
 use App\Http\Controllers\Controller;
-use App\Model\SRO\Account\OnlineOfflineLog;
+use App\Http\Model\SRO\Account\OnlineOfflineLog;
 use App\News;
 use App\Rules;
 use App\ServerInformation;
@@ -110,7 +110,7 @@ class IndexController extends Controller
             ->pluck('getCharacter');
 
         return response()->json(
-          $onlineCharactersNoJob
+            $onlineCharactersNoJob
         );
     }
 

@@ -49,6 +49,12 @@ return [
         'empty' => 'There is no Fortress',
     ],
 
+    'unique' => [
+        'title' => 'Latest Unique Kills',
+        'killed' => 'Killed',
+        'empty' => 'There is no records!',
+    ],
+
     'job-ranking' => [
         'title' => 'Job Ranking',
         'trader' => 'Trader',

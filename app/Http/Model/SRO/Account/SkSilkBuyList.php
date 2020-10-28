@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\SRO\Account;
+namespace App\Http\Model\SRO\Account;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -65,15 +65,15 @@ class SkSilkBuyList extends Model
     /**
      * Type 3 is for Web
      */
-    public const SilkTypeWeb = 3;
+    public const SILKTYPEWEB = 3;
 
     /**
      * Type 2 is for Web
      */
-    public const SilkTypeVoucher = 2;
+    public const SILKTYPEVOUCHER = 2;
 
     /**
      * Reason 3 is for Web
      */
-    public const SilkReasonWeb = 3;
+    public const SILKREASONWEB = 3;
 }

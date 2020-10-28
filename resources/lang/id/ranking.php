@@ -21,6 +21,8 @@ return [
     'no-guild' => 'Tidak ada Guild yang ditemukan di server itu',
     'no-job' => 'Tidak ada Job Karakter yang ditemukan di server itu',
     'no-unique' => 'No Unique kill records found on that server',
+    'no-job-kills' => 'No Job kills made on this server',
+    'no-pvp-kills' => 'No PvP kills made on this server',
 
     'search' => [
         'placeholder' => 'Nama Karakter, Guild, Nama Pekerjaan',

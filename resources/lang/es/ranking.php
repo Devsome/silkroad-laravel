@@ -21,6 +21,8 @@ return [
     'no-guild' => 'No se encontró el Gremio en ese servidor',
     'no-job' => 'No se encontró la Ocupación del Personaje en ese servidor',
     'no-unique' => 'No Unique kill records found on that server',
+    'no-job-kills' => 'No Job kills made on this server',
+    'no-pvp-kills' => 'No PvP kills made on this server',
 
     'search' => [
         'placeholder' => 'Nombre del Personaje, Gremio, Nombre de ocupación',

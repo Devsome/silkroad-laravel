@@ -95,6 +95,10 @@
 
     @include('theme::layouts.supportersonline')
 
+    @include('theme::layouts.latestkills')
+
+    @include('theme::layouts.pvprecords')
+
     @include('theme::layouts.fortress')
 
     @include('theme::layouts.jobranking')

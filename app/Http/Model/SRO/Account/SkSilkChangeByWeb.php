@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\SRO\Account;
+namespace App\Http\Model\SRO\Account;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -50,12 +50,11 @@ class SkSilkChangeByWeb extends Model
     /**
      * Type 0 is regular Silk
      */
-    public const SilkTypeSilk = 0;
+    public const SILKTYPESILK = 0;
 
 
     /**
      * Reason 1 is for Gift (Activity Points)
      */
-    public const SilkReasonGift = 1;
-
+    public const SILKREASONGIFT = 1;
 }

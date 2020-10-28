@@ -21,6 +21,8 @@ return [
     'no-guild' => 'Guilda não encontrada nesse servidor',
     'no-job' => 'Trabalho do caracter não encontrado nesse servidor',
     'no-unique' => 'No Unique kill records found on that server',
+    'no-job-kills' => 'No Job kills made on this server',
+    'no-pvp-kills' => 'No PvP kills made on this server',
 
     'search' => [
         'placeholder' => 'Nome do caractere, Guilda, Trabalho',

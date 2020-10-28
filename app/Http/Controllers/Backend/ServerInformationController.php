@@ -5,32 +5,35 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\ServerInformation;
 use Grpc\Server;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Validator;
 
 class ServerInformationController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
-        return view('backend.serverinformation.index', [
+        return view('theme::backend.serverinformation.index', [
             'information' => ServerInformation::orderBy('order', 'ASC')->get()
         ]);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showAdd()
     {
-        return view('backend.serverinformation.create');
+        return view('theme::backend.serverinformation.create');
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function add(Request $request)
     {
@@ -58,11 +61,11 @@ class ServerInformationController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showEdit($id)
     {
-        return view('backend.serverinformation.edit', [
+        return view('theme::backend.serverinformation.edit', [
             'information' => ServerInformation::findOrFail($id)
         ]);
     }
@@ -70,7 +73,7 @@ class ServerInformationController extends Controller
     /**
      * @param $id
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update($id, Request $request)
     {
@@ -99,7 +102,7 @@ class ServerInformationController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy($id)
     {

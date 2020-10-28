@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model\SRO\Shard;
+namespace App\Http\Model\SRO\Shard;
 
-use App\Model\SRO\Account\OnlineOfflineLog;
+use App\Http\Model\SRO\Account\OnlineOfflineLog;
 use Illuminate\Database\Eloquent\Model;
 
 class Char extends Model

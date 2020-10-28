@@ -1,7 +1,7 @@
-@extends('backend.layouts.app')
+@extends('theme::backend.layouts.app')
 
-@section('backend-content')
-    @include('backend.layouts.navbar')
+@section('theme::backend-content')
+    @include('theme::backend.layouts.navbar')
 
     <div class="container-fluid">
         <div class="row">
@@ -35,7 +35,7 @@
                                     <div class="col-4 col-4 col-md-5 col-lg-5 h-100 scroll">
                                         <div class="inbox_chat support-content">
                                             <ul class="list-group fa-padding">
-                                                @include('backend.tickets.conversations.conversations', [
+                                                @include('theme::backend.tickets.conversations.conversations', [
                                                     'conversations' => $conversations,
                                                     'conversationId' => $currentConversation->id,
                                                 ])
@@ -48,7 +48,7 @@
                                             <i class="fas fa-circle-notch fa-10x fa-spin"></i>
                                         </div>
                                         <div class="chatContent scroll">
-                                            @include('backend.tickets.conversations.chat', [
+                                            @include('theme::backend.tickets.conversations.chat', [
                                                 'messages' => $currentConversation->getAnswers()->orderBy('created_at', 'asc')->get(),
                                                 'ticket' => $currentConversation
                                             ])
@@ -101,7 +101,7 @@
 
 @endsection
 
-@push('javascript')
+@push('theme::javascript')
     <script>
         $(document).ready(function () {
             moment.locale('{{app()->getLocale()}}');

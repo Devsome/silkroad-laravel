@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\DonationMethods;
 use App\DonationPaypals;
-use App\Model\SRO\Account\SkSilk;
-use App\Model\SRO\Account\SkSilkBuyList;
+use App\Http\Model\SRO\Account\SkSilk;
+use App\Http\Model\SRO\Account\SkSilkBuyList;
 use App\Notification;
 use App\PaypalInvoices;
 use Carbon\Carbon;
@@ -96,8 +96,8 @@ class DonationsPaypalController extends Controller
 
                 SkSilkBuyList::create([
                     'UserJID' => $user->jid,
-                    'Silk_Type' => SkSilkBuyList::SilkTypeWeb,
-                    'Silk_Reason' => SkSilkBuyList::SilkReasonWeb,
+                    'Silk_Type' => SkSilkBuyList::SILKTYPEWEB,
+                    'Silk_Reason' => SkSilkBuyList::SILKREASONWEB,
                     'Silk_Offset' => $currentSilk,
                     'Silk_Remain' => $currentSilk + $invoice->silk,
                     'ID' => $user->jid,

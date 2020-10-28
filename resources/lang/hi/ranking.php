@@ -21,6 +21,8 @@ return [
     'no-guild' => 'उस सर्वर पर कोई समाज नहीं मिला',
     'no-job' => 'उस सर्वर पर कोई जॉब कैरेक्टर नहीं मिला',
     'no-unique' => 'No Unique kill records found on that server',
+    'no-job-kills' => 'No Job kills made on this server',
+    'no-pvp-kills' => 'No PvP kills made on this server',
 
     'search' => [
         'placeholder' => 'व्यक्ति का नाम, समाज, काम',

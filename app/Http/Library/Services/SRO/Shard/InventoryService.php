@@ -6,9 +6,9 @@ use App\Http\Model\SRO\Shard\CharCos;
 use App\Http\Model\SRO\Shard\ItemPoolName;
 use App\Http\Model\SRO\Shard\MagOpt;
 use App\Model\Frontend\CharInventory;
-use App\Model\SRO\Shard\Inventory;
-use App\Model\SRO\Shard\InventoryForAvatar;
-use App\Model\SRO\Shard\Items;
+use App\Http\Model\SRO\Shard\Inventory;
+use App\Http\Model\SRO\Shard\InventoryForAvatar;
+use App\Http\Model\SRO\Shard\Items;
 use Illuminate\Support\Facades\Cache;
 
 class InventoryService

@@ -232,8 +232,8 @@ class DonationsStripeController extends Controller
 
             SkSilkBuyList::create([
                 'UserJID' => $userJid,
-                'Silk_Type' => SkSilkBuyList::SilkTypeWeb,
-                'Silk_Reason' => SkSilkBuyList::SilkReasonWeb,
+                'Silk_Type' => SkSilkBuyList::SILKTYPEWEB,
+                'Silk_Reason' => SkSilkBuyList::SILKREASONWEB,
                 'Silk_Offset' => $currentSilk,
                 'Silk_Remain' => $currentSilk + $invoice->silk,
                 'ID' => $userJid,

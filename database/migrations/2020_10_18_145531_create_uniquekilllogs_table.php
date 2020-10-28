@@ -30,6 +30,6 @@ class CreateUniquekilllogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('uniquekilllogs');
+        Schema::connection('log')->dropIfExists('uniquekilllogs');
     }
 }

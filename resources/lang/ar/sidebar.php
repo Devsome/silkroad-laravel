@@ -49,6 +49,12 @@ return [
         'empty' => 'لايوجد هناك قلعة مفعلة',
     ],
 
+    'unique' => [
+        'title' => 'Latest Unique Kills',
+        'killed' => 'Killed',
+        'empty' => 'There is no records!',
+    ],
+
     'job-ranking' => [
         'title' => 'Job Ranking',
         'trader' => 'Trader',

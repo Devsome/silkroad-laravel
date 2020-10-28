@@ -16,7 +16,7 @@ class SiteSettingsController extends Controller
      */
     public function index()
     {
-        return view('backend.settings.index', [
+        return view('theme::backend.settings.index', [
             'settings' => SiteSettings::first()
         ]);
     }
@@ -69,7 +69,7 @@ class SiteSettingsController extends Controller
     private function jsonSiteSettingsUpdate($request): bool
     {
         $filename = null;
-        if($request->file('image_id')) {
+        if ($request->file('image_id')) {
             $requestImage = $request->file('image_id');
             $filename = 'signature.' . $requestImage->getClientOriginalExtension();
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Library\Services\SRO\Shard;
 
-use App\Model\SRO\Shard\Char;
+use App\Http\Model\SRO\Shard\Char;
 
 class CharService
 {

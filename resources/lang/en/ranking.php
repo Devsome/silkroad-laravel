@@ -22,6 +22,8 @@ return [
     'no-guild' => 'No Guild found on that server',
     'no-job' => 'No Job Character found on that server',
     'no-unique' => 'No Unique kill records found on that server',
+    'no-job-kills' => 'No Job kills made on this server',
+    'no-pvp-kills' => 'No PvP kills made on this server',
 
     'search' => [
         'placeholder' => 'Charname, Guild, Jobname',
@@ -33,6 +35,8 @@ return [
         'hunter' => 'Hunter',
         'thief' => 'Thief',
         'unique' => 'Unique',
+        'pvp' => 'Free PVP',
+        'job' => 'Job PVP',
         'submit' => 'Search',
     ]
 ];

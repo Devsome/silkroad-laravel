@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
@@ -24,9 +24,14 @@ class CreateUsersTable extends Migration
             $table->boolean('show_map')->default(1);
             $table->uuid('reflink')->unique();
             $table->unsignedBigInteger('referrer_id')->nullable();
-            $table->foreign('referrer_id')->references('id')->on('users');
             $table->rememberToken();
             $table->timestamps();
+
+
+            $table->foreign('referrer_id')
+                ->references('id')->on('users')
+                ->onUpdate('SET NULL')
+                ->onDelete('SET NULL');
         });
     }
 

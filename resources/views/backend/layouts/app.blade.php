@@ -15,16 +15,16 @@
           rel="stylesheet">
 
     <link href="{{ asset('css/backend/app.css') }}" rel="stylesheet">
-    @stack('css')
+    @stack('theme::css')
 </head>
 
 <body id="page-top">
 
 <div id="wrapper">
-    @include('backend.layouts.menu')
+    @include('theme::backend.layouts.menu')
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            @yield('backend-content')
+            @yield('theme::backend-content')
         </div>
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
@@ -41,6 +41,6 @@
 </a>
 
 <script src="{{ asset('js/backend/app.js') }}"></script>
-@stack('javascript')
+@stack('theme::javascript')
 </body>
 </html>

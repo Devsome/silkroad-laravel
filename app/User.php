@@ -2,8 +2,8 @@
 
 namespace App;
 
-use App\Model\SRO\Account\SkSilk;
-use App\Model\SRO\Account\TbUser;
+use App\Http\Model\SRO\Account\SkSilk;
+use App\Http\Model\SRO\Account\TbUser;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;

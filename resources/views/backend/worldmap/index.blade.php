@@ -1,7 +1,7 @@
-@extends('backend.layouts.app')
+@extends('theme::backend.layouts.app')
 
-@section('backend-content')
-    @include('backend.layouts.navbar')
+@section('theme::backend-content')
+    @include('theme::backend.layouts.navbar')
 
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -170,7 +170,7 @@
         </div>
     </div>
 @endsection
-@push('javascript')
+@push('theme::javascript')
     <script src="{{ asset('js/worldmap.min.js') }}"></script>
     <script type="text/javascript">
         // Just stop default hash click behavior
@@ -207,7 +207,7 @@
         });
     </script>
 @endpush
-@push('css')
+@push('theme::css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/leaflet.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/components.css') }}">
     <style>

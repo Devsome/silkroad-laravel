@@ -3,7 +3,7 @@ grumphp:
     git_commit_message:
       allow_empty_message: false
       max_body_width: 72
-      max_subject_width: 60
+      max_subject_width: 250
       multiline: true
     git_blacklist:
       keywords:

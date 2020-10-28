@@ -49,6 +49,12 @@ return [
         'empty' => 'No hay Fortaleza',
     ],
 
+    'unique' => [
+        'title' => 'Latest Unique Kills',
+        'killed' => 'Killed',
+        'empty' => 'There is no records!',
+    ],
+
     'job-ranking' => [
         'title' => 'Ranking de Ocupaciones',
         'trader' => 'Comerciante',

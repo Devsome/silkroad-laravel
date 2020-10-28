@@ -2,8 +2,8 @@
 
 namespace App\Http\Library\Services;
 
-use App\Model\SRO\Account\SkSilk;
-use App\Model\SRO\Account\SkSilkBuyList;
+use App\Http\Model\SRO\Account\SkSilk;
+use App\Http\Model\SRO\Account\SkSilkBuyList;
 use App\User;
 use App\UserVoucher;
 use App\Voucher;
@@ -131,8 +131,7 @@ class VouchersService
     {
         $voucher = Voucher::whereCode($code)->first();
         $checkCode = $this->check($code, $voucher);
-        if($checkCode['success'] === false)
-        {
+        if ($checkCode['success'] === false) {
             return $checkCode;
         }
         $getTbUser = $user->getTbUser()->firstOrFail();
@@ -148,8 +147,8 @@ class VouchersService
 
         SkSilkBuyList::create([
             'UserJID' => $getTbUser->JID,
-            'Silk_Type' => SkSilkBuyList::SilkTypeVoucher,
-            'Silk_Reason' => SkSilkBuyList::SilkReasonWeb,
+            'Silk_Type' => SkSilkBuyList::SILKTYPEVOUCHER,
+            'Silk_Reason' => SkSilkBuyList::SILKREASONWEB,
             'Silk_Offset' => SkSilk::where('JID', $getTbUser->JID)->pluck('silk_own')->first(),
             'Silk_Remain' => SkSilk::where('JID', $getTbUser->JID)->pluck('silk_own')->first() + $voucher->amount,
             'ID' => $getTbUser->JID,
@@ -163,7 +162,8 @@ class VouchersService
 
         SkSilk::where('JID', $getTbUser->JID)
             ->increment(
-                'silk_own', $voucher->amount
+                'silk_own',
+                $voucher->amount
             );
         return $checkCode;
     }

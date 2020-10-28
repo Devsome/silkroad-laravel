@@ -23,6 +23,11 @@ class CreateTicketsTable extends Migration
             $table->text('body');
             $table->integer('ticket_status_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
         });
     }
 

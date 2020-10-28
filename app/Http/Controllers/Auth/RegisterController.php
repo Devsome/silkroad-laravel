@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Model\SRO\Account\SkSilk;
-use App\Model\SRO\Account\TbUser;
+use App\Http\Model\SRO\Account\SkSilk;
+use App\Http\Model\SRO\Account\TbUser;
 use App\User;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;

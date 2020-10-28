@@ -5,23 +5,26 @@ namespace App\Http\Controllers\Backend;
 use App\Backlinks;
 use App\Http\Controllers\Controller;
 use App\Image;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class BacklinksController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
-        return view('backend.backlinks.index', [
+        return view('theme::backend.backlinks.index', [
             'backlinks' => Backlinks::paginate(15)
         ]);
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function create(Request $request)
     {
@@ -37,22 +40,22 @@ class BacklinksController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show()
     {
-        return view('backend.backlinks.create', [
+        return view('theme::backend.backlinks.create', [
             'images' => Image::where('model', Backlinks::class)->orderByDesc('id')->get(),
         ]);
     }
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit($id)
     {
-        return view('backend.backlinks.edit', [
+        return view('theme::backend.backlinks.edit', [
             'backlink' => Backlinks::findOrFail($id),
             'images' => Image::where('model', Backlinks::class)->get(),
         ]);
@@ -61,7 +64,7 @@ class BacklinksController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -79,7 +82,7 @@ class BacklinksController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy($id)
     {

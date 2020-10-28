@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Model\SRO\Account;
+namespace App\Http\Model\SRO\Account;
 
-use App\Model\SRO\Shard\Char;
-use App\Model\SRO\Shard\Chest;
-use App\Model\SRO\Shard\Items;
+use App\Http\Model\SRO\Shard\Char;
+use App\Http\Model\SRO\Shard\Chest;
+use App\Http\Model\SRO\Shard\Items;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -118,7 +118,7 @@ class TbUser extends Model
     public function getChestUser()
     {
         $query = $this->hasMany(Chest::class, 'UserJID', 'JID');
-        $query->where('ItemID','!=', 0);
+        $query->where('ItemID', '!=', 0);
         return $query;
     }
 

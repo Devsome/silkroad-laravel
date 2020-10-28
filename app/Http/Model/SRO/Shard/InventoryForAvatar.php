@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\SRO\Shard;
+namespace App\Http\Model\SRO\Shard;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -58,6 +58,6 @@ class InventoryForAvatar extends Model
      */
     public function getItem()
     {
-        return $this->belongsTo(Items::class,'ItemID', 'ID64');
+        return $this->belongsTo(Items::class, 'ItemID', 'ID64');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Model\SRO\Shard;
 
-use App\Model\SRO\Shard\Guild;
+use App\Http\Model\SRO\Shard\Guild;
 use Illuminate\Database\Eloquent\Model;
 
 class SiegeFortress extends Model

@@ -38,7 +38,7 @@
                 <td>
                     @if($player->getCharOnlineOfflineLoggedIn)
                         @if($player->getCharOnlineOfflineLoggedIn->status ===
-                        \App\Model\SRO\Account\OnlineOfflineLog::STATUS_LOGGED_IN)
+                        \App\Http\Model\SRO\Account\OnlineOfflineLog::STATUS_LOGGED_IN)
                             {{ __('information.player.table.logged-in') }}
                         @endif
                     @else

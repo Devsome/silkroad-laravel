@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateVouchersTable extends Migration
 {
@@ -27,8 +27,14 @@ class CreateVouchersTable extends Migration
             $table->unsignedBigInteger('voucher_id');
             $table->timestamp('redeemed_at');
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('voucher_id')->references('id')->on('vouchers');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreign('voucher_id')
+                ->references('id')->on('vouchers')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

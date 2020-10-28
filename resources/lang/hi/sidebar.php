@@ -49,6 +49,12 @@ return [
         'empty' => 'कोई किला नहीं है',
     ],
 
+    'unique' => [
+        'title' => 'Latest Unique Kills',
+        'killed' => 'Killed',
+        'empty' => 'There is no records!',
+    ],
+
     'job-ranking' => [
         'title' => 'नौकरी रैंकिंग',
         'trader' => 'व्यापारी',

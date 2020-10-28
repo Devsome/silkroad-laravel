@@ -40,7 +40,8 @@ class AuctionsHouseController extends Controller
             ->get();
 
         return view(
-            'frontend.auctionshouse.index', [
+            'theme::frontend.auctionshouse.index',
+            [
                 'items' => $auctionItems
             ]
         );
@@ -60,7 +61,8 @@ class AuctionsHouseController extends Controller
             ->get();
 
         return view(
-            'frontend.auctionshouse.index', [
+            'theme::frontend.auctionshouse.index',
+            [
                 'items' => $auctionItems
             ]
         );
@@ -77,7 +79,8 @@ class AuctionsHouseController extends Controller
             ->firstOrFail();
 
         return view(
-            'frontend.auctionshouse.showitem', [
+            'theme::frontend.auctionshouse.showitem',
+            [
                 'item' => $auctionItem
             ]
         );
@@ -94,7 +97,8 @@ class AuctionsHouseController extends Controller
             ->get();
 
         return view(
-            'frontend.auctionshouse.own', [
+            'theme::frontend.auctionshouse.own',
+            [
                 'items' => $auctionItems
             ]
         );
@@ -111,7 +115,8 @@ class AuctionsHouseController extends Controller
         if (isset($auctionItem->current_bid_user_id)) {
             CharGold::where('user_id', $auctionItem->current_bid_user_id)
                 ->increment(
-                    'gold', $auctionItem->current_user_bid_amount
+                    'gold',
+                    $auctionItem->current_user_bid_amount
                 );
         }
 
@@ -132,7 +137,8 @@ class AuctionsHouseController extends Controller
             ->get();
 
         return view(
-            'frontend.auctionshouse.add', [
+            'theme::frontend.auctionshouse.add',
+            [
                 'webInventory' => $webInventory,
                 'auctionsHouseSettings' => AuctionsHouseSettings::first()
             ]
@@ -238,7 +244,8 @@ class AuctionsHouseController extends Controller
             if (isset($auctionItem->current_bid_user_id)) {
                 CharGold::where('user_id', $auctionItem->current_bid_user_id)
                     ->increment(
-                        'gold', $auctionItem->current_user_bid_amount
+                        'gold',
+                        $auctionItem->current_user_bid_amount
                     );
             }
 
@@ -256,7 +263,8 @@ class AuctionsHouseController extends Controller
             $userGoldGain = $buyNowPrice * ((100 - $fees) / 100);
 
             ServerGold::first()->increment(
-                'gold', $buyNowPrice - $userGoldGain
+                'gold',
+                $buyNowPrice - $userGoldGain
             );
 
             // The Account who sold it need that gold
@@ -271,7 +279,8 @@ class AuctionsHouseController extends Controller
             } else {
                 CharGold::where('user_id', $sellerUserId)
                     ->increment(
-                        'gold', $userGoldGain
+                        'gold',
+                        $userGoldGain
                     );
             }
 
@@ -279,7 +288,8 @@ class AuctionsHouseController extends Controller
             if ($currentAuctionBidUser) {
                 CharGold::where('user_id', $currentAuctionBidUser->current_bid_user_id)
                     ->increment(
-                        'gold', $currentAuctionBidUser->current_user_bid_amount
+                        'gold',
+                        $currentAuctionBidUser->current_user_bid_amount
                     );
             }
 
@@ -314,7 +324,8 @@ class AuctionsHouseController extends Controller
             return back()->with('error', trans('auctionshouse.notification.buy.error'));
         }
 
-        return redirect()->route('auctions-house')->with('success', __('auctionshouse.notification.buy.successfully'));
+        return redirect()->route('auctions-house')
+            ->with('success', __('auctionshouse.notification.buy.successfully'));
     }
 
     /**
@@ -372,7 +383,8 @@ class AuctionsHouseController extends Controller
             if ($currentAuctionItem) {
                 CharGold::where('user_id', $currentAuctionItem->current_bid_user_id)
                     ->increment(
-                        'gold', $currentAuctionItem->current_user_bid_amount
+                        'gold',
+                        $currentAuctionItem->current_user_bid_amount
                     );
                 Notification::create([
                     'user_id' => $currentAuctionItem->current_bid_user_id,
@@ -397,7 +409,8 @@ class AuctionsHouseController extends Controller
 
             AuctionItem::where('id', $id)
                 ->increment(
-                    'bids', 1
+                    'bids',
+                    1
                 );
 
             DB::commit();

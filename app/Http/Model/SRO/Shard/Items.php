@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\SRO\Shard;
+namespace App\Http\Model\SRO\Shard;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -113,7 +113,7 @@ class Items extends Model
      */
     public function getBindingOptionWithItem()
     {
-        return $this->belongsTo(BindingOptionWithItem::class,'ID64', 'nItemDBID')
+        return $this->belongsTo(BindingOptionWithItem::class, 'ID64', 'nItemDBID')
             ->where('nOptValue', '>', 0);
     }
 
@@ -131,6 +131,6 @@ class Items extends Model
     public function getRefObjCommonCanTrade()
     {
         return $this->hasOne(RefObjCommon::class, 'ID', 'RefItemID')
-            ->select('ID','CanTrade');
+            ->select('ID', 'CanTrade');
     }
 }
