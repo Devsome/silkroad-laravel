@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\DonationMethods;
 use App\DonationStripes;
-use App\Http\Model\SRO\Account\SkSilk
+use App\Http\Model\SRO\Account\SkSilk;
 use App\Http\Model\SRO\Account\SkSilkBuyList;
 use App\Notification;
 use App\PaypalInvoices;
