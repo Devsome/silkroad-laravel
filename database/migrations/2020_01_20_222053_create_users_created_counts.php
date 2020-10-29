@@ -14,7 +14,7 @@ class CreateUsersCreatedCounts extends Migration
     public function up()
     {
         Schema::create('users_created_counts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->integer('count');
             $table->timestamp('cached_at')->nullable();
         });

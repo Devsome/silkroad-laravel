@@ -14,7 +14,7 @@ class CreateSupportersonlineTable extends Migration
     public function up()
     {
         Schema::create('supporters_online', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('charname');
             $table->integer('CharID');
             $table->timestamps();

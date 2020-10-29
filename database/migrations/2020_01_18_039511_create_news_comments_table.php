@@ -14,9 +14,9 @@ class CreateNewsCommentsTable extends Migration
     public function up()
     {
         Schema::create('news_comments', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('news_id')->unsigned();
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('news_id');
             $table->text('body');
             $table->timestamps();
             $table->softDeletes();

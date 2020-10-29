@@ -15,7 +15,7 @@ class CreateLoginHistoryLogTable extends Migration
     {
         if (!Schema::connection('log')->hasTable('loginhistory')) {
             Schema::connection('log')->create('loginhistory', function (Blueprint $table) {
-                $table->bigIncrements('id');
+                $table->id();
                 $table->integer('CharID');
                 $table->tinyInteger('status');
                 $table->timestamp('created_at')->useCurrent();

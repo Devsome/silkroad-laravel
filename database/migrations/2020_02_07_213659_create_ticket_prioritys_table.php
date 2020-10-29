@@ -14,7 +14,7 @@ class CreateTicketPrioritysTable extends Migration
     public function up()
     {
         Schema::create('ticket_prioritys', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name');
             $table->enum('color', ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']);
             $table->timestamps();

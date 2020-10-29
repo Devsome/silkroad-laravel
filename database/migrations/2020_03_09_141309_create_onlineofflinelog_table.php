@@ -15,7 +15,7 @@ class CreateOnlineofflinelogTable extends Migration
     {
         if (!Schema::connection('log')->hasTable('onlineofflinelog')) {
             Schema::connection('log')->create('onlineofflinelog', function (Blueprint $table) {
-                $table->bigIncrements('id');
+                $table->id();
                 $table->integer('CharID');
                 $table->tinyInteger('status');
             });

@@ -15,7 +15,7 @@ class CreateHideRankingGuildsTable extends Migration
     {
         if (!Schema::hasTable('hide_ranking_guilds')) {
             Schema::create('hide_ranking_guilds', static function (Blueprint $table) {
-                $table->bigIncrements('id');
+                $table->id();
                 $table->string('guild');
                 $table->integer('guild_id');
                 $table->timestamps();
