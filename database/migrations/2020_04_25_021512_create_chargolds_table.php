@@ -14,7 +14,7 @@ class CreateChargoldsTable extends Migration
     public function up()
     {
         Schema::create('char_gold', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('user_id')->unique();
             $table->bigInteger('gold')->default(0);
             $table->timestamps();

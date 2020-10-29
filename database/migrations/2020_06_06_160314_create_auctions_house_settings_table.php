@@ -14,7 +14,7 @@ class CreateAuctionsHouseSettingsTable extends Migration
     public function up()
     {
         Schema::create('auctions_house_settings', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->json('settings');
         });
     }

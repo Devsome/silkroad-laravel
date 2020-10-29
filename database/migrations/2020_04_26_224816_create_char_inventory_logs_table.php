@@ -14,7 +14,7 @@ class CreateCharInventoryLogsTable extends Migration
     public function up()
     {
         Schema::create('char_inventory_logs', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->integer('from_charid');
             $table->bigInteger('serial64');

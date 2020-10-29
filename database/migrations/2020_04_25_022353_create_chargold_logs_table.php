@@ -14,7 +14,7 @@ class CreateChargoldLogsTable extends Migration
     public function up()
     {
         Schema::create('char_gold_logs', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->integer('from_charid');
             $table->bigInteger('deposit')->nullable();

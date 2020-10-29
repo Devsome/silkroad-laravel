@@ -14,10 +14,10 @@ class CreateBacklinksTable extends Migration
     public function up()
     {
         Schema::create('backlinks', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name');
             $table->string('url');
-            $table->unsignedInteger('image_id')->nullable();
+            $table->unsignedBigInteger('image_id')->nullable();
             $table->timestamps();
 
             $table->foreign('image_id')

@@ -14,7 +14,7 @@ class CreateServerGoldTable extends Migration
     public function up()
     {
         Schema::create('server_gold', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->bigInteger('gold');
             $table->timestamps();
         });

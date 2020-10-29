@@ -14,7 +14,7 @@ class CreateAuctionsHouseLogTable extends Migration
     public function up()
     {
         Schema::create('auctions_house_logs', static function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->integer('price_sold')->nullable();
             $table->unsignedBigInteger('seller_user_id');
             $table->unsignedBigInteger('buyer_user_id')->nullable();

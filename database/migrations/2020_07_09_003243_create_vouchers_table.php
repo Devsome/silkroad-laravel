@@ -12,7 +12,7 @@ class CreateVouchersTable extends Migration
     public function up()
     {
         Schema::create('vouchers', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('code', 32)->unique();
             $table->integer('amount');
             $table->text('data')->nullable();
@@ -22,7 +22,7 @@ class CreateVouchersTable extends Migration
         });
 
         Schema::create('user_vouchers', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('voucher_id');
             $table->timestamp('redeemed_at');

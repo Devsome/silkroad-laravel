@@ -14,7 +14,7 @@ class CreateAuctionItemsTable extends Migration
     public function up()
     {
         Schema::create('auction_items', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('char_inventory');
             $table->timestamp('until')->nullable();
