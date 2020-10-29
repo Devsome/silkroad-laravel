@@ -14,9 +14,9 @@ class CreateTicketAnswersTable extends Migration
     public function up()
     {
         Schema::create('ticket_answers', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('ticket_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->id();
+            $table->unsignedBigInteger('ticket_id');
+            $table->unsignedBigInteger('user_id');
             $table->text('body');
             $table->timestamps();
 

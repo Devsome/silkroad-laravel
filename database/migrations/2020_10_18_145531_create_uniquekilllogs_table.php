@@ -15,7 +15,7 @@ class CreateUniquekilllogsTable extends Migration
     {
         if (!Schema::connection('log')->hasTable('uniquekilllogs')) {
             Schema::connection('log')->create('uniquekilllogs', function (Blueprint $table) {
-                $table->bigIncrements('id');
+                $table->id();
                 $table->string('CharName16');
                 $table->string('UniqueName');
                 $table->timestamp('killed_at')->useCurrent();

@@ -14,7 +14,7 @@ class CreatePaypalInvoicesTable extends Migration
     public function up()
     {
         Schema::create('paypal_invoices', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('payment_id');
             $table->string('name');

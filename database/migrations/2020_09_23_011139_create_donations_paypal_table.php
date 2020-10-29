@@ -14,7 +14,7 @@ class CreateDonationsPaypalTable extends Migration
     public function up()
     {
         Schema::create('donation_paypals', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name');
             $table->string('description');
             $table->double('price', 5);

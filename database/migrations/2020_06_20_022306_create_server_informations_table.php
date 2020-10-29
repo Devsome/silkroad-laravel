@@ -14,7 +14,7 @@ class CreateServerInformationsTable extends Migration
     public function up()
     {
         Schema::create('server_information', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('title');
             $table->longText('body');
             $table->integer('order')->default(0);

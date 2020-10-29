@@ -14,7 +14,7 @@ class CreateTicketStatusTable extends Migration
     public function up()
     {
         Schema::create('ticket_status', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name');
             $table->enum('color', ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']);
             $table->integer('status_id')->nullable();
