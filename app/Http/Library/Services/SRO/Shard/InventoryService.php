@@ -301,7 +301,7 @@ class InventoryService
         $aData['OptLevel'] = data_get($aItem, 'OptLevel', 0);
         $aData['Degree'] = data_get($aItem, 'ItemClass', '0'); // For Blade
         $aData['WebName'] = $this->getItemRealName(
-            str_replace(['_W_', '_M_'], ['_', '_'], $aItem['CodeName128'])
+            $aItem['NameStrID128']
         );
 
         if ($this->isPet($aItem)) {
@@ -520,9 +520,9 @@ class InventoryService
 
             $aList = [];
             foreach ($q as $iKey => $aCurData) {
-                $aList[$aCurData['CodeName']] = [
+                $aList[$aCurData['NameStrID']] = [
                     'realName' => $aCurData['RealName'],
-                    'codeName' => $aCurData['CodeName']
+                    'codeName' => $aCurData['NameStrID']
                 ];
             }
             return $aList;
