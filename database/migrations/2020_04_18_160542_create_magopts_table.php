@@ -15,7 +15,7 @@ class CreateMagoptsTable extends Migration
     {
         if (!Schema::connection('shard')->hasTable('_MagOpt')) {
             Schema::connection('shard')->create('_MagOpt', function (Blueprint $table) {
-                $table->id(); // MagParam ID
+                $table->integer('id'); // MagParam ID
                 $table->string('name');
                 $table->string('desc');
                 $table->integer('mLevel');
