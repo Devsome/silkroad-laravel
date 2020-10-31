@@ -14,7 +14,7 @@ class PvpRecordsLog extends Model
      *
      * @var string
      */
-    protected $connection = 'log';
+    protected $connection = 'cms';
 
     /**
      * Indicates if the model should be timestamped.

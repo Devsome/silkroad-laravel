@@ -20,7 +20,7 @@ class CreateUniquekillogsProcedure extends Migration
                VALUES(@CharName16, @UniqueName);
         ';
 
-        DB::connection('log')->unprepared($procedure);
+        DB::connection('cms')->unprepared($procedure);
     }
 
     /**
@@ -30,6 +30,6 @@ class CreateUniquekillogsProcedure extends Migration
      */
     public function down()
     {
-        DB::connection('log')->unprepared('DROP procedure IF EXISTS _ExecUniquekilllogs');
+        DB::connection('cms')->unprepared('DROP procedure IF EXISTS _ExecUniquekilllogs');
     }
 }

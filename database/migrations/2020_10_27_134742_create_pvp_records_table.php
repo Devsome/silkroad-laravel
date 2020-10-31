@@ -13,8 +13,8 @@ class CreatePvpRecordsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::connection('log')->hasTable('pvp_records')) {
-            Schema::connection('log')->create('pvp_records', function (Blueprint $table) {
+        if (!Schema::connection('cms')->hasTable('pvp_records')) {
+            Schema::connection('cms')->create('pvp_records', static function (Blueprint $table) {
                 $table->id();
                 $table->string('CharName');
                 $table->unsignedBigInteger('CharID');
@@ -35,6 +35,6 @@ class CreatePvpRecordsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('log')->dropIfExists('pvp_records');
+        Schema::connection('cms')->dropIfExists('pvp_records');
     }
 }

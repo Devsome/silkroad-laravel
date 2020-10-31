@@ -13,8 +13,8 @@ class CreateLoginHistoryLogTable extends Migration
      */
     public function up()
     {
-        if (!Schema::connection('log')->hasTable('loginhistory')) {
-            Schema::connection('log')->create('loginhistory', function (Blueprint $table) {
+        if (!Schema::connection('cms')->hasTable('loginhistory')) {
+            Schema::connection('cms')->create('loginhistory', function (Blueprint $table) {
                 $table->id();
                 $table->integer('CharID');
                 $table->tinyInteger('status');
@@ -30,6 +30,6 @@ class CreateLoginHistoryLogTable extends Migration
      */
     public function down()
     {
-        Schema::connection('log')->dropIfExists('loginhistory');
+        Schema::connection('cms')->dropIfExists('loginhistory');
     }
 }

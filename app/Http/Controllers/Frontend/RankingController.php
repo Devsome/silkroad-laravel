@@ -312,7 +312,13 @@ class RankingController extends Controller
                 $type = PvpRecordsLog::where('CharName', $char->CharName)
                     ->where('type', '>', 0)
                     ->first()->type;
-                $chars[$key]['type'] = ($type == 1) ? "Trader" : (($type == 2) ? "Theif" : "Hunter");
+                if ($type === 1) {
+                    $chars[$key]['type'] = 'Trader';
+                } elseif ($type === 2) {
+                    $chars[$key]['type'] = 'Thief';
+                } else {
+                    $chars[$key]['type'] = 'Hunter';
+                }
             }
             //get current page number
             $page = $_GET['page'] ?? 1;

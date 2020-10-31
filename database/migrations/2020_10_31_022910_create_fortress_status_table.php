@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOnlineofflinelogTable extends Migration
+class CreateFortressStatusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateOnlineofflinelogTable extends Migration
      */
     public function up()
     {
-        if (!Schema::connection('cms')->hasTable('onlineofflinelog')) {
-            Schema::connection('cms')->create('onlineofflinelog', static function (Blueprint $table) {
+        if (!Schema::connection('cms')->hasTable('_FortressStatus')) {
+            Schema::connection('cms')->create('_FortressStatus', static function (Blueprint $table) {
                 $table->id();
-                $table->integer('CharID');
-                $table->tinyInteger('status');
+                $table->string('status');
+                $table->timestamp('date');
             });
         }
     }
@@ -29,6 +29,6 @@ class CreateOnlineofflinelogTable extends Migration
      */
     public function down()
     {
-        Schema::connection('cms')->dropIfExists('onlineofflinelog');
+        Schema::connection('cms')->dropIfExists('_FortressStatus');
     }
 }
