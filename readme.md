@@ -12,7 +12,6 @@ We now have a Discord [server](https://discord.gg/MNjY4By) for questions, feedba
 
 Visit [doc.devso.me](https://doc.devso.me) for a full complete Documentation. If you have something to add visit this repository [sdl-Documentation](https://github.com/Devsome/sdl-Documentation/).
 
-
 Hopefully you are good to go with that. 
 <hr>     
 
