@@ -26,7 +26,7 @@ class PlayerCountProvider extends ServiceProvider
     public function boot()
     {
         view()->composer(
-            'theme::layouts.playercount',
+            'theme::*',
             static function ($view) {
                 $playerCount = Cache::remember('playerCount', 60 * 5, static function () {
                     return OnlineOfflineLog::where('status', '!=', OnlineOfflineLog::STATUS_LOGGED_OUT)->count();
