@@ -226,13 +226,13 @@
                                 </div>
                                 <div class="col-8">
                                     <select class="form-control" id="type" name="type">
-                                        <option value="{{ \App\Model\SRO\Account\Punishment::TYPE_BLOCK_LOGIN }}">
+                                        <option value="{{ \App\Http\Model\SRO\Account\Punishment::TYPE_BLOCK_LOGIN }}">
                                             {{ __('backend/tbuser.block-type-login') }}
                                         </option>
-                                        {{--                                        <option value="{{ \App\Model\SRO\Account\Punishment::TYPE_BLOCK_P2P_TRADE }}">--}}
+                                        {{--                                        <option value="{{ \App\Http\Model\SRO\Account\Punishment::TYPE_BLOCK_P2P_TRADE }}">--}}
                                         {{--                                            {{ __('backend/tbuser.block-type-p2p') }}--}}
                                         {{--                                        </option>--}}
-                                        {{--                                        <option value="{{ \App\Model\SRO\Account\Punishment::TYPE_BLOCK_WHOLE_CHAT }}">--}}
+                                        {{--                                        <option value="{{ \App\Http\Model\SRO\Account\Punishment::TYPE_BLOCK_WHOLE_CHAT }}">--}}
                                         {{--                                            {{ __('backend/tbuser.block-type-chat') }}--}}
                                         {{--                                        </option>--}}
                                     </select>

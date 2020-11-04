@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHideRankingsTable extends Migration
+class CreateFortressStatusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateHideRankingsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('hide_rankings')) {
-            Schema::create('hide_rankings', function (Blueprint $table) {
+        if (!Schema::connection('cms')->hasTable('_FortressStatus')) {
+            Schema::connection('cms')->create('_FortressStatus', static function (Blueprint $table) {
                 $table->id();
-                $table->string('charname');
-                $table->timestamps();
+                $table->string('status');
+                $table->timestamp('date');
             });
         }
     }
@@ -29,6 +29,6 @@ class CreateHideRankingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hide_rankings');
+        Schema::connection('cms')->dropIfExists('_FortressStatus');
     }
 }

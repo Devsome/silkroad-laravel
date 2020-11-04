@@ -5,14 +5,14 @@
 
     <ul class="list-group small overflow-auto py-1 pl-1">
         @forelse($UniqueKillsProvider as $Unique)
-            <li>
-                <span class="font-weight-bolder">
+            <li class="font-weight-light">
+                <span class="font-weight-bold">
                     {{ $Unique->CharName16 }}
                 </span> {{ __('sidebar.unique.killed') }}
-                <span class="font-weight-bolder">
+                <span class="font-weight-bold">
                     {{ $Unique->unique_name }}
                 </span>
-                {{\Carbon\Carbon::make($Unique->killed_at)->diffForHumans()}}
+                {{ \Carbon\Carbon::make($Unique->killed_at)->diffForHumans() }}
             </li>
         @empty
             <li>

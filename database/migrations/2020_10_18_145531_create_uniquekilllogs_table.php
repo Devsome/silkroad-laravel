@@ -13,9 +13,9 @@ class CreateUniquekilllogsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::connection('log')->hasTable('uniquekilllogs')) {
-            Schema::connection('log')->create('uniquekilllogs', function (Blueprint $table) {
-                $table->bigIncrements('id');
+        if (!Schema::connection('cms')->hasTable('uniquekilllogs')) {
+            Schema::connection('cms')->create('uniquekilllogs', static function (Blueprint $table) {
+                $table->id();
                 $table->string('CharName16');
                 $table->string('UniqueName');
                 $table->timestamp('killed_at')->useCurrent();
@@ -30,6 +30,6 @@ class CreateUniquekilllogsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('log')->dropIfExists('uniquekilllogs');
+        Schema::connection('cms')->dropIfExists('uniquekilllogs');
     }
 }

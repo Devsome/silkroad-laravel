@@ -14,7 +14,7 @@ class CreateDownloadsTable extends Migration
     public function up()
     {
         Schema::create('downloads', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name', 100);
             $table->string('link', 250);
             $table->unsignedInteger('image_id')->nullable();

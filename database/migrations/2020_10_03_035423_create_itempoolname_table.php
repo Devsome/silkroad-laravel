@@ -14,8 +14,8 @@ class CreateItempoolnameTable extends Migration
     public function up()
     {
         if (!Schema::connection('shard')->hasTable('_ItemPoolName')) {
-            Schema::connection('shard')->create('_ItemPoolName', function (Blueprint $table) {
-                $table->string('CodeName');
+            Schema::connection('shard')->create('_ItemPoolName', static function (Blueprint $table) {
+                $table->string('NameStrID');
                 $table->string('RealName');
             });
         }

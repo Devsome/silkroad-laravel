@@ -14,7 +14,7 @@ class CreateDonationsMethodsTable extends Migration
     public function up()
     {
         Schema::create('donation_methods', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('method')->unique(); // unique payment method
             $table->string('name');
             $table->enum('currency', ['USD', 'EUR'])->default('USD');
