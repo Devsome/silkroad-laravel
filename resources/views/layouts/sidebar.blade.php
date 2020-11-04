@@ -97,6 +97,10 @@
 
     @include('theme::layouts.latestkills')
 
+    @include('theme::layouts.toptenguilds')
+
+    @include('theme::layouts.toptenplayers')
+
     @include('theme::layouts.pvprecords')
 
     @include('theme::layouts.fortress')
