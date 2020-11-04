@@ -55,6 +55,20 @@ return [
         'empty' => 'There is no records!',
     ],
 
+    'topten-guilds' => [
+        'title' => 'Top Ten Guilds',
+        'name' => 'Name',
+        'points' => 'Points',
+        'empty' => 'There is no records!',
+    ],
+
+    'topten-players' => [
+        'title' => 'Top Ten Players',
+        'name' => 'Name',
+        'points' => 'Points',
+        'empty' => 'There is no records!',
+    ],
+
     'pvp' => [
         'title' => 'Latest PVP Records',
         'killed' => 'Killed',

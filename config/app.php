@@ -192,6 +192,8 @@ return [
         \App\Providers\SupportersOnlineProvider::class,
         \App\Providers\LatestUniqueKillsProvider::class,
         \App\Providers\LatestPvpKillsProvider::class,
+        \App\Providers\TopTenGuildsProvider::class,
+        \App\Providers\TopTenPlayersProvider::class,
 
         /*
          * Own Service Providers
