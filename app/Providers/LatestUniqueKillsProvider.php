@@ -29,7 +29,7 @@ class LatestUniqueKillsProvider extends ServiceProvider
     {
 
         view()->composer(
-            'theme::layouts.sidebar',
+            'theme::*',
             static function ($view) {
                 /** @var array $uniques */
                 $all_uniques = app('config')->get('unique');

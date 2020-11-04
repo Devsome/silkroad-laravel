@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         view()->composer(
-            'theme::layouts.footer',
+            'theme::*',
             static function ($view) {
                 $backlinks = Backlinks::all();
                 $view->with('BacklinksProvider', $backlinks);
@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
 
 
         view()->composer(
-            'theme::layouts.navbar',
+            'theme::*',
             static function ($view) {
                 $notificationsCount = 0;
                 if (Auth::id()) {

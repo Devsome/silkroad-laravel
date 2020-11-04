@@ -27,7 +27,7 @@ class LatestPvpKillsProvider extends ServiceProvider
     public function boot()
     {
         view()->composer(
-            'theme::layouts.sidebar',
+            'theme::*',
             static function ($view) {
 
                 // get hide rank
