@@ -25,7 +25,7 @@ class JobRankingProvider extends ServiceProvider
     public function boot()
     {
         view()->composer(
-            'theme::layouts.jobranking',
+            'theme::*',
             static function ($view) {
                 $jobRankingController = new JobRankingController();
                 $data = $jobRankingController->fetch();
