@@ -4,6 +4,10 @@
  * Used for the application language
  */
 return [
+    'tr' => [
+    'name' => 'Türkçe',
+    'icon' => '/image/flags/Turkey.png'
+    ],
     'en' => [
         'name' => 'English',
         'icon' => '/image/flags/United_States_of_America.png'
