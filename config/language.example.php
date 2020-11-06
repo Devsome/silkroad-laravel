@@ -5,8 +5,8 @@
  */
 return [
     'tr' => [
-    'name' => 'Türkçe',
-    'icon' => '/image/flags/Turkey.png'
+        'name' => 'Türkçe',
+        'icon' => '/image/flags/Turkey.png'
     ],
     'en' => [
         'name' => 'English',
