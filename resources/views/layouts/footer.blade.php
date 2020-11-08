@@ -105,5 +105,8 @@
                 {{ config('app.name', 'DevsomeSRO') }}
             </a>
         </p>
+        <div class="text-muted">
+            {!! __('footer.copyrights') !!}
+        </div>
     </div>
 </footer>

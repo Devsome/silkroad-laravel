@@ -21,4 +21,6 @@ return [
         'title' => 'Backlinks',
         'no-backlink' => 'No Backlinks',
     ],
+
+    'copyrights' => 'Coded by <a href="https://doc.devso.me/" class="font-weight-bolder">Devsome</a>',
 ];

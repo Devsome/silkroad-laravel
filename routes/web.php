@@ -28,11 +28,21 @@ Route::group(['prefix' => 'ranking'], static function () {
 // Server Information
 Route::get('/server-information', 'Frontend\IndexController@serverInformation')->name('server-information');
 
+// Styles
+Route::get('/styles', 'Frontend\IndexController@styles')->name('styles');
+
+// FAQ
+Route::get('/FAQ', 'Frontend\IndexController@faq')->name('faq');
+
+// Events
+Route::get('/events', 'Frontend\IndexController@events')->name('events');
+
+
 // Needed to be logged in after that
 Auth::routes(['verify' => true]);
 
 // User Dashboard
-Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function() {
+Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function () {
     Route::get('/', 'Frontend\AccountController@index')->name('home');
     Route::get('/chars', 'Frontend\AccountController@charList')->name('home-chars-list');
     Route::get('/settings', 'Frontend\AccountController@settings')->name('home-settings');
@@ -45,7 +55,7 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function(
     Route::get('/notification', 'Frontend\NotificationController@index')->name('notification');
     Route::get('/notification/{id}', 'Frontend\NotificationController@markAsRead')->name('notification-mark-as-read')->where('id', '[0-9]+');
     Route::get('/notification/mark-all', 'Frontend\NotificationController@markAllAsRead')->name('notification-mark-all');
-    Route::group(['prefix' => 'tickets'], static function() {
+    Route::group(['prefix' => 'tickets'], static function () {
         Route::get('/', 'Frontend\TicketController@tickets')->name('home-tickets');
         Route::get('/new', 'Frontend\TicketController@ticketsNew')->name('home-tickets-new');
         Route::post('/new', 'Frontend\TicketController@ticketsNewSubmit')->name('home-tickets-new-submit');
@@ -118,7 +128,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
     Route::post('/todo/{id}/delete', 'Backend\BackendController@todoDelete')->name('todo-delete-backend');
 
     // Server Information
-    Route::group(['prefix' => 'server-information'], static function() {
+    Route::group(['prefix' => 'server-information'], static function () {
         Route::get('/', 'Backend\ServerInformationController@index')->name('server-information-index-backend');
         Route::get('/create', 'Backend\ServerInformationController@showAdd')->name('server-information-show-add-backend');
         Route::post('/add', 'Backend\ServerInformationController@add')->name('server-information-add-backend');
@@ -127,9 +137,17 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
         Route::delete('/destroy/{id}', 'Backend\ServerInformationController@destroy')->name('server-information-destroy-backend');
     });
 
+    // Pages
+    Route::resource('pages', 'Backend\PagesController', [
+        'except' => [
+            'show',
+        ]
+    ]);
+
+
     // Server Rules
     Route::group(['prefix' => 'rules'], static function () {
-       Route::get('/','Backend\RulesController@index')->name('server-rules-index-backend');
+        Route::get('/', 'Backend\RulesController@index')->name('server-rules-index-backend');
         Route::get('/create', 'Backend\RulesController@showAdd')->name('server-rules-show-add-backend');
         Route::post('/add', 'Backend\RulesController@add')->name('server-rules-add-backend');
         Route::get('/edit/{id}', 'Backend\RulesController@showEdit')->name('server-rules-edit-show-backend');
@@ -207,7 +225,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
 
         Route::get('/auctionshouse', 'Backend\AuctionsHouseController@index')->name('auctionshouse-settings-backend');
         Route::post('/auctionshouse/update', 'Backend\AuctionsHouseController@update')->name('auctionshouse-settings-update-backend');
-        Route::get('/auctionshouse/log','Backend\AuctionsHouseController@showLog')->name('auctionshouse-log-backend');
+        Route::get('/auctionshouse/log', 'Backend\AuctionsHouseController@showLog')->name('auctionshouse-log-backend');
         Route::get('/auctionshouse/log/datatables', 'Backend\AuctionsHouseController@showLogDatatables')->name('auctionshouse-log-datatables-backend');
 
         Route::group(['prefix' => 'downloads'], static function () {
@@ -237,7 +255,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
             Route::post('/{id}/destroy', 'Backend\VoucherController@destroy')->name('voucher-destroy-backend');
         });
 
-        Route::group(['prefix' => 'backlinks'], static function() {
+        Route::group(['prefix' => 'backlinks'], static function () {
             Route::get('/', 'Backend\BacklinksController@index')->name('backlinks-index-backend');
             Route::get('/add', 'Backend\BacklinksController@show')->name('backlinks-add-backend');
             Route::post('/create', 'Backend\BacklinksController@create')->name('backlinks-create-backend');
@@ -252,7 +270,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
             Route::post('/{id}/destroy', 'Backend\SupportersOnlineController@destroy')->name('supporters-online-destroy-backend');
         });
 
-        Route::group(['prefix' => 'donations'], static function (){
+        Route::group(['prefix' => 'donations'], static function () {
             Route::get('/', 'Backend\DonationsController@index')->name('donations-index-backend');
             Route::post('/methods/update', 'Backend\DonationsController@updateMethods')->name('donations-update-methods-backend');
 

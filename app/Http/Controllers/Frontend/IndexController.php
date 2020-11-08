@@ -6,18 +6,25 @@ use App\Download;
 use App\Http\Controllers\Controller;
 use App\Http\Model\SRO\Log\OnlineOfflineLog;
 use App\News;
+use App\Pages;
 use App\Rules;
 use App\ServerInformation;
 use App\SiteSettings;
 use Carbon\Carbon;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 use Response;
 
 class IndexController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -29,7 +36,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function downloads()
     {
@@ -41,7 +48,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function rules()
     {
@@ -52,7 +59,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function serverInformation()
     {
@@ -62,9 +69,42 @@ class IndexController extends Controller
     }
 
     /**
+     * @return Application|Factory|\Illuminate\Contracts\View\View
+     */
+    public function styles()
+    {
+        return view('theme::frontend.other.styles', [
+            'styles' => Pages::whereType('styles')
+                ->orderBy('created_at', 'ASC')->get()
+        ]);
+    }
+
+    /**
+     * @return Application|Factory|\Illuminate\Contracts\View\View
+     */
+    public function faq()
+    {
+        return view('theme::frontend.other.faq', [
+            'faqs' => Pages::whereType('faq')
+                ->orderBy('created_at', 'ASC')->get()
+        ]);
+    }
+
+    /**
+     * @return Application|Factory|\Illuminate\Contracts\View\View
+     */
+    public function events()
+    {
+        return view('theme::frontend.other.events', [
+            'events' => Pages::whereType('event')
+                ->orderBy('created_at', 'ASC')->get()
+        ]);
+    }
+
+    /**
      * @param null $ref
      * @return \Illuminate\Http\Response|null
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function signatureRef($ref = null): ?\Illuminate\Http\Response
     {
@@ -88,7 +128,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function worldmapIndex()
     {
@@ -100,7 +140,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function worldmapApi()
     {
@@ -116,7 +156,7 @@ class IndexController extends Controller
 
     /**
      * @param $lang
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function lang($lang)
     {
