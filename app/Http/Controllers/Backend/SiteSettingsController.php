@@ -46,7 +46,8 @@ class SiteSettingsController extends Controller
             'sro_exp_party' => 'required|numeric',
             'sro_ip_limit' => 'required|numeric',
             'sro_hwid_limit' => 'required|numeric',
-            'image_id' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:700'
+            'image_id' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:700',
+            'hide_gamemaster_char' => 'nullable',
         ]);
 
         if ($validator->fails()) {
@@ -103,6 +104,7 @@ class SiteSettingsController extends Controller
             'sro_ip_limit' => $request->get('sro_ip_limit') ?? '1',
             'sro_hwid_limit' => $request->get('sro_hwid_limit') ?? '1',
             'signature' => $filename ?: '',
+            'hide_gamemaster_char' => $request->get('hide_gamemaster_char') ? true : false,
         ];
 
         $siteSettings = SiteSettings::first();

@@ -11,6 +11,7 @@ return [
     'form' => [
         'title' => 'Add new Charname',
         'charname' => 'Charname:',
+        'hide-gamemaster' => 'Hide all Gamemaster accounts',
         'submit' => 'Save',
     ],
 

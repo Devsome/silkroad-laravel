@@ -6,6 +6,8 @@ return [
         'rank' => 'التصنيف',
         'charname' => 'الشخصية',
         'job-name' => 'Job',
+        'type' => 'Type',
+        'pvp-points' => 'PVP points',
         'guild' => 'النقابة',
         'level' => 'المستوى',
         'job-type' => 'Type',

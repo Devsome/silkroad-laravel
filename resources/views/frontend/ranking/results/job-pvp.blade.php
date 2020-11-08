@@ -3,8 +3,8 @@
     <tr>
         <th scope="col">{{ __('ranking.table.rank') }}</th>
         <th scope="col">{{ __('ranking.table.charname') }}</th>
-        <th scope="col">Type</th>
-        <th scope="col">PVP Points</th>
+        <th scope="col">{{ __('ranking.table.type') }}</th>
+        <th scope="col">{{ __('ranking.table.pvp-points') }}</th>
     </tr>
     </thead>
     <tbody>
@@ -14,13 +14,7 @@
                {{ $char->count }}
             </td>
             <td>
-                <a href="{{ route('information-player', ['CharName16' => Str::lower($char->CharName)]) }}">
-                    {{ $char->CharName }}</a>
-                <a class="small"
-                   href="{{ route('information-player', ['CharName16' => Str::lower($char->CharName)]) }}"
-                   target="_blank">
-                    <i class="fas fa-external-link-alt"></i>
-                </a>
+                {{ $char->CharName }}
             </td>
             <td>{{ $char->type }}</td>
             <td>{{ $char->points }}</td>

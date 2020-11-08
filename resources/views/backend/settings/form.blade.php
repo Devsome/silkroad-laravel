@@ -145,6 +145,28 @@
 
     <hr class="mt-2">
     <h4>
+        {{ __('backend/settings.form.ranking') }}
+    </h4>
+    <div class="form-group row pt-2">
+        <label class="col-sm-4 col-form-label" for="hide_gamemaster_char">
+            {{ __('backend/settings.form.hide-char') }}
+        </label>
+        <div class="col-sm-8">
+            <div class="custom-control custom-checkbox d-block pt-2">
+                <input class="custom-control-input"
+                       type="checkbox" id="hide_gamemaster_char" name="hide_gamemaster_char"
+                @if(array_key_exists('hide_gamemaster_char', $data))
+                    {{ $data['hide_gamemaster_char'] ? 'checked' : '' }}
+                        @endif>
+                <label class="custom-control-label" for="hide_gamemaster_char">
+                    {{ __('backend/settings.form.hide-activate') }}
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <hr class="mt-2">
+    <h4>
         {{ __('backend/settings.form.fortress') }}
     </h4>
 

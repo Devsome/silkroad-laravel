@@ -6,11 +6,13 @@ use App\HideRanking;
 use App\HideRankingGuild;
 use App\Http\Controllers\Controller;
 use App\Http\Library\Services\SRO\Log\UniqueService;
+use App\Http\Model\SRO\Account\TbUser;
 use App\Http\Model\SRO\Log\PvpRecordsLog;
 use App\Http\Model\SRO\Log\UniqueKillLog;
 use App\Http\Model\SRO\Shard\Char;
 use App\Http\Model\SRO\Shard\CharTrijob;
 use App\Http\Model\SRO\Shard\Guild;
+use App\SiteSettings;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -42,13 +44,46 @@ class RankingController extends Controller
      */
     public function index(Request $request, $mode = null)
     {
-        //check for deleted Characters
+        if (isset($mode) && !in_array($mode, [
+                config('ranking.search-charname'),
+                config('ranking.search-guild'),
+                config('ranking.search-trader'),
+                config('ranking.search-hunter'),
+                config('ranking.search-thief'),
+                config('ranking.search-unique'),
+                config('ranking.search-job'),
+                config('ranking.search-free-pvp'),
+                config('ranking.search-job-pvp'),
+            ], true)) {
+            return abort(404);
+        }
+
+        // check for deleted Characters
         $deleted_chars = Char::where('Deleted', true)
             ->pluck('CharName16');
+
+        // check site settings for hide all gamemaster accounts
+        $hideGamemaster = SiteSettings::first();
+        if ($hideGamemaster) {
+            $hideGamemaster = data_get($hideGamemaster->settings, 'hide_gamemaster_char', false);
+            if ($hideGamemaster) {
+                $hideGamemaster = TbUser::where('sec_primary', '!=', 3)
+                    ->where('sec_content', '!=', 3)
+                    ->with(['getShardUser' => static function ($query) {
+                        $query->select('CharName16');
+                    }])
+                    ->get()
+                    ->pluck('getShardUser')
+                    ->collapse()
+                    ->pluck('CharName16');
+            }
+        }
+
         // check for hide ranking and add deleted_chars to it
         $hideRanking = HideRanking::all()
             ->pluck('charname')
-            ->union($deleted_chars);
+            ->union($deleted_chars)
+            ->union($hideGamemaster);
 
         //check for hidden guilds from ranking.
         $hideRankingGuild = HideRankingGuild::all()
@@ -293,7 +328,6 @@ class RankingController extends Controller
                 'data' => $chars
             ])->render();
         }
-
 
         if ($mode === config('ranking.search-job-pvp')) {
             $chars = PvpRecordsLog::whereNotIn('CharName', $hideRanking)

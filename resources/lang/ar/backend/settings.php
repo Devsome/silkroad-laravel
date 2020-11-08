@@ -18,6 +18,10 @@ return [
         'discord-id' => 'Discord ID',
         'discord-id-help' => 'Your Discord Server ID',
 
+        'ranking' => 'Ranking Settings',
+        'hide-char' => 'Hide Gamemaster Character',
+        'hide-activate' => 'Hide',
+
         'fortress' => 'Fortress',
         'fortress-jangan-enabled' => 'Jangan Fortress',
         'fortress-hotan-enabled' => 'Hotan Fortress',
