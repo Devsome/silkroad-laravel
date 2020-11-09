@@ -346,9 +346,9 @@ class RankingController extends Controller
                 $type = PvpRecordsLog::where('CharName', $char->CharName)
                     ->where('type', '>', 0)
                     ->first()->type;
-                if ($type === 1) {
+                if ($type === '1') {
                     $chars[$key]['type'] = 'Trader';
-                } elseif ($type === 2) {
+                } elseif ($type === '2') {
                     $chars[$key]['type'] = 'Thief';
                 } else {
                     $chars[$key]['type'] = 'Hunter';
