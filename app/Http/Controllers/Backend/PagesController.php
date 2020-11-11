@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -134,7 +135,7 @@ class PagesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return RedirectResponse
+     * @return JsonResponse
      * @throws Exception
      */
     public function destroy($id)
@@ -145,9 +146,9 @@ class PagesController extends Controller
             $page->delete();
         } catch (Exception $e) {
             DB::rollBack();
-            return back()->with('error', trans('backend/notification.form-submit.error'));
+            return response()->json(['error' => trans('backend/notification.form-submit.error')]);
         }
         DB::commit();
-        return back()->with('success', trans('backend/notification.form-submit.success'));
+        return response()->json(['success' => trans('backend/notification.form-submit.success')]);
     }
 }

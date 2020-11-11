@@ -61,17 +61,10 @@
                                             </a>
                                         </div>
                                         <div class="col-3">
-                                            <form method="POST" data-form="deleteForm"
-                                                  action="{{ route('pages.destroy', $page->id) }}">
-                                                @method('DELETE')
-                                                @csrf
-                                                <span data-toggle="modal" data-target="#informationModalDelete"
-                                                      data-title="{{ __('backend/pages.modal.title', ['name' => $page->title]) }}"
-                                                      data-message="{{ __('backend/pages.modal.delete-message') }}"
-                                                      class="btn btn-danger btn-circle btn-sm" style="cursor: pointer">
-                                                    <i class="fa fa-trash"></i>
-                                                </span>
-                                            </form>
+                                            <button class="btn btn-danger btn-circle btn-sm"
+                                                    onclick="DeleteData({{$page->id}})" style="cursor: pointer">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         </div>
                                     </div>
 
@@ -91,51 +84,40 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="informationModalDelete" role="dialog" aria-labelledby="informationModalDeleteLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-secondary"
-                            data-dismiss="modal">{{ __('backend/notification.modal.return') }}</button>
-                    <button type="button" class="btn btn-sm btn-danger"
-                            id="confirm">{{ __('backend/notification.modal.submit') }}</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
-@push('javascript')
+@push('theme::javascript')
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#informationModalDelete').find('.modal-footer #confirm').on('click', function () {
-                $(this).data('form').submit();
+        function DeleteData(id) {
+            bootbox.confirm({
+                title: 'Confirmation dialog',
+                message: 'Are you sure that you want to delete this item?',
+                buttons: {
+                    confirm: {
+                        label: 'Delete',
+                        className: 'btn-danger'
+                    },
+                    cancel: {
+                        label: 'Cancel',
+                        className: 'btn-default'
+                    }
+                },
+                callback: function (result) {
+                    if (result == true) {
+                        axios.delete("{{route('pages.destroy', '')}}/" + id)
+                            .then(function (data) {
+                                toastr.success("{{trans('backend/notification.form-submit.success')}}, the page will refresh after 2 seconds.");
+                                /*refresh page*/
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 2000);
+                            })
+                            .catch(function (error) {
+                                toastr.error("{{trans('backend/notification.form-submit.error')}}");
+                            });
+                    }
+                }
             });
-            $('#informationModalDelete').on('show.bs.modal', function (e) {
-                $(this).find('.modal-body p').text($(e.relatedTarget).attr('data-message'));
-                $(this).find('.modal-title').text($(e.relatedTarget).attr('data-title'));
-
-                let form = $(e.relatedTarget).closest('form');
-                $(this).find('.modal-footer #confirm').data('form', form);
-            });
-            $('form[data-form="deleteForm"]').on('click', '.form-delete', function (e) {
-                e.preventDefault();
-                $('#confirm').modal({backdrop: 'static', keyboard: false})
-                    .on('click', '#delete-btn', function () {
-                        $('form[data-form="deleteForm"]').submit();
-                    });
-            });
-        });
+        }
     </script>
 @endpush

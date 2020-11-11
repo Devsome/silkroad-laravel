@@ -15,6 +15,7 @@
           rel="stylesheet">
 
     <link href="{{ asset('css/backend/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/backend/toastr.css') }}" rel="stylesheet">
     @stack('theme::css')
 </head>
 
@@ -41,6 +42,11 @@
 </a>
 
 <script src="{{ asset('js/backend/app.js') }}"></script>
+
+<script src="{{ asset('js/backend/axios.min.js') }}"></script>
+<!-- bootbox code -->
+<script src="{{asset('js/backend/bootbox.all.min.js')}}"></script>
+<script src="{{asset('js/backend/toastr.min.js')}}"></script>
 @stack('theme::javascript')
 </body>
 </html>
