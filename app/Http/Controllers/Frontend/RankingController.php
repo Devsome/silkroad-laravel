@@ -40,7 +40,7 @@ class RankingController extends Controller
      * @return array|Factory|View
      * @throws Throwable
      */
-    public function index(Request $request, $mode = null)
+    public function index(Request $request, $mode = 'charname')
     {
         //check for deleted Characters
         $deleted_chars = Char::where('Deleted', true)
@@ -76,7 +76,7 @@ class RankingController extends Controller
                 ->whereNotIn('CharName16', $hideRanking)
                 ->whereNotIn('GuildID', $hideRankingGuild)
                 ->with('getGuildUser')
-                ->paginate(150);
+                ->paginate(15);
 
             $data = view('theme::frontend.ranking.results.chars', [
                 'data' => $chars,
@@ -98,30 +98,30 @@ class RankingController extends Controller
      */
     private function searching($type, $search, $hideRanking, $hideRankingGuild)
     {
-        if ($type === config('ranking.search-charname')) {
+        if ($type === config('ranking.search-charname') && config('siteSettings.char_ranking')) {
             $chars = Char::orderBy('ItemPoints', 'DESC')
                 ->where('CharName16', 'like', '%' . $search . '%')
                 ->whereNotIn('CharName16', $hideRanking)
                 ->whereNotIn('GuildID', $hideRankingGuild)
                 ->with('getGuildUser')
-                ->paginate(150);
+                ->paginate(15);
             return view('theme::frontend.ranking.results.chars', [
                 'data' => $chars,
             ])->render();
         }
 
-        if ($type === config('ranking.search-guild')) {
+        if ($type === config('ranking.search-guild') && config('siteSettings.guild_ranking')) {
             $guilds = Guild::orderBy('ItemPoints', 'DESC')
                 ->where('Name', 'like', '%' . $search . '%')
                 ->whereNotIn('ID', $hideRankingGuild)
                 ->where('ID', '!=', 0)
-                ->paginate(150);
+                ->paginate(15);
             return view('theme::frontend.ranking.results.guilds', [
                 'data' => $guilds,
             ])->render();
         }
 
-        if ($type === config('ranking.search-job')) {
+        if ($type === config('ranking.search-job') && config('siteSettings.job_ranking')) {
             $jobs = CharTrijob::whereHas(
                 'getCharacter',
                 static function ($q) use ($search, $hideRanking, $hideRankingGuild) {
@@ -134,11 +134,14 @@ class RankingController extends Controller
                 ->whereIn('JobType', [1, 2, 3])
                 ->orderBy('Level', 'DESC')
                 ->orderBy('Exp', 'DESC')
-                ->paginate(150);
+                ->paginate(15);
             return view('theme::frontend.ranking.results.jobs', [
                 'data' => $jobs
             ])->render();
         }
+
+        //abort 404 if non of the above.
+        return abort(404);
     }
 
     /**
@@ -149,28 +152,43 @@ class RankingController extends Controller
      */
     private function mode($mode, $hideRanking, $hideRankingGuild)
     {
-        if ($mode === config('ranking.search-charname')) {
+        if ($mode === config('ranking.search-charname') && config('siteSettings.char_ranking', true)) {
             $chars = Char::orderBy('ItemPoints', 'DESC')
                 ->whereNotIn('CharName16', $hideRanking)
                 ->whereNotIn('GuildID', $hideRankingGuild)
                 ->with('getGuildUser')
-                ->paginate(150);
+                ->paginate(15);
             return view('theme::frontend.ranking.results.chars', [
                 'data' => $chars,
             ])->render();
         }
 
-        if ($mode === config('ranking.search-guild')) {
+        if ($mode === config('ranking.search-guild') && config('siteSettings.guild_ranking', true)) {
             $guilds = Guild::orderBy('ItemPoints', 'DESC')
                 ->whereNotIn('ID', $hideRankingGuild)
                 ->where('ID', '!=', 0)
-                ->paginate(150);
+                ->paginate(15);
             return view('theme::frontend.ranking.results.guilds', [
                 'data' => $guilds,
             ])->render();
         }
 
-        if ($mode === config('ranking.search-trader')) {
+        if ($mode === config('ranking.search-job') && config('siteSettings.job_ranking', true)) {
+            $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking, $hideRankingGuild) {
+                $q->whereNotIn('CharName16', $hideRanking);
+                $q->whereNotIn('GuildID', $hideRankingGuild);
+            })
+                ->with('getCharacter')
+                ->whereIn('JobType', [1, 2, 3])
+                ->orderBy('Level', 'DESC')
+                ->orderBy('Exp', 'DESC')
+                ->paginate(15);
+            return view('theme::frontend.ranking.results.jobs', [
+                'data' => $jobs
+            ]);
+        }
+
+        if ($mode === config('ranking.search-trader') && config('siteSettings.trader_ranking', true)) {
             $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking, $hideRankingGuild) {
                 $q->whereNotIn('CharName16', $hideRanking);
                 $q->whereNotIn('GuildID', $hideRankingGuild);
@@ -179,13 +197,13 @@ class RankingController extends Controller
                 ->where('JobType', 1)
                 ->orderBy('Level', 'DESC')
                 ->orderBy('Exp', 'DESC')
-                ->paginate(150);
+                ->paginate(15);
             return view('theme::frontend.ranking.results.jobs', [
                 'data' => $jobs
             ]);
         }
 
-        if ($mode === config('ranking.search-hunter')) {
+        if ($mode === config('ranking.search-hunter') && config('siteSettings.hunter_ranking', true)) {
             $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking, $hideRankingGuild) {
                 $q->whereNotIn('CharName16', $hideRanking);
                 $q->whereNotIn('GuildID', $hideRankingGuild);
@@ -194,13 +212,13 @@ class RankingController extends Controller
                 ->where('JobType', 3)
                 ->orderBy('Level', 'DESC')
                 ->orderBy('Exp', 'DESC')
-                ->paginate(150);
+                ->paginate(15);
             return view('theme::frontend.ranking.results.jobs', [
                 'data' => $jobs
             ]);
         }
 
-        if ($mode === config('ranking.search-thief')) {
+        if ($mode === config('ranking.search-thief') && config('siteSettings.thief_ranking', true)) {
             $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking, $hideRankingGuild) {
                 $q->whereNotIn('CharName16', $hideRanking);
                 $q->whereNotIn('GuildID', $hideRankingGuild);
@@ -209,13 +227,13 @@ class RankingController extends Controller
                 ->where('JobType', 2)
                 ->orderBy('Level', 'DESC')
                 ->orderBy('Exp', 'DESC')
-                ->paginate(150);
+                ->paginate(15);
             return view('theme::frontend.ranking.results.jobs', [
                 'data' => $jobs
             ]);
         }
 
-        if ($mode === config('ranking.search-unique')) {
+        if ($mode === config('ranking.search-unique') && config('siteSettings.unique_ranking', true)) {
             /** @var array $uniques */
             $all_uniques = app('config')->get('unique');
             foreach ($all_uniques as $key => $unique) {
@@ -257,7 +275,7 @@ class RankingController extends Controller
             ])->render();
         }
 
-        if ($mode === config('ranking.search-free-pvp')) {
+        if ($mode === config('ranking.search-free-pvp') && config('siteSettings.free_pvp_ranking', true)) {
             $chars = PvpRecordsLog::whereNotIn('CharName', $hideRanking)
                 ->whereType(0)
                 ->with([
@@ -294,8 +312,7 @@ class RankingController extends Controller
             ])->render();
         }
 
-
-        if ($mode === config('ranking.search-job-pvp')) {
+        if ($mode === config('ranking.search-job-pvp') && config('siteSettings.job_pvp_ranking', true)) {
             $chars = PvpRecordsLog::whereNotIn('CharName', $hideRanking)
                 ->where('type', '>', 0)
                 ->with([
@@ -342,19 +359,7 @@ class RankingController extends Controller
             ])->render();
         }
 
-        if ($mode === config('ranking.search-job')) {
-            $jobs = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking, $hideRankingGuild) {
-                $q->whereNotIn('CharName16', $hideRanking);
-                $q->whereNotIn('GuildID', $hideRankingGuild);
-            })
-                ->with('getCharacter')
-                ->whereIn('JobType', [1, 2, 3])
-                ->orderBy('Level', 'DESC')
-                ->orderBy('Exp', 'DESC')
-                ->paginate(150);
-            return view('theme::frontend.ranking.results.jobs', [
-                'data' => $jobs
-            ]);
-        }
+        //abort 404 if non of the above.
+        return abort(404);
     }
 }

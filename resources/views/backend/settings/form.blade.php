@@ -15,7 +15,7 @@
                            type="checkbox" id="registration_close" name="registration_close"
                     @if(array_key_exists('registration_close', $data))
                         {{ $data['registration_close'] ? 'checked' : '' }}
-                            @endif>
+                        @endif>
                     <label class="custom-control-label" for="registration_close">
                         {{ __('backend/settings.form.registration-open-checkbox') }}
                     </label>
@@ -143,6 +143,7 @@
         </div>
     </div>
 
+    <!-- Fortress -->
     <hr class="mt-2">
     <h4>
         {{ __('backend/settings.form.fortress') }}
@@ -159,7 +160,7 @@
                            type="checkbox" id="jangan_fortress" name="jangan_fortress"
                     @if(array_key_exists('jangan_fortress', $data))
                         {{ $data['jangan_fortress'] ? 'checked' : '' }}
-                            @endif>
+                        @endif>
                     <label class="custom-control-label" for="jangan_fortress">
                         {{ __('backend/settings.form.fortress-disable') }}
                     </label>
@@ -184,7 +185,7 @@
                            type="checkbox" id="bandit_fortress" name="bandit_fortress"
                     @if(array_key_exists('bandit_fortress', $data))
                         {{ $data['bandit_fortress'] ? 'checked' : '' }}
-                            @endif>
+                        @endif>
                     <label class="custom-control-label" for="bandit_fortress">
                         {{ __('backend/settings.form.fortress-disable') }}
                     </label>
@@ -209,7 +210,7 @@
                            type="checkbox" id="hotan_fortress" name="hotan_fortress"
                     @if(array_key_exists('hotan_fortress', $data))
                         {{ $data['hotan_fortress'] ? 'checked' : '' }}
-                            @endif>
+                        @endif>
                     <label class="custom-control-label" for="hotan_fortress">
                         {{ __('backend/settings.form.fortress-disable') }}
                     </label>
@@ -230,11 +231,12 @@
         <div class="col-sm-8">
             <div class="d-flex flex-wrap justify-content-between align-items-center">
                 <div class="custom-control custom-checkbox d-block pt-2">
-                    <input class="custom-control-input {{ $errors->has('constantinople_fortress') ? ' is-invalid' : '' }}"
-                           type="checkbox" id="constantinople_fortress" name="constantinople_fortress"
+                    <input
+                        class="custom-control-input {{ $errors->has('constantinople_fortress') ? ' is-invalid' : '' }}"
+                        type="checkbox" id="constantinople_fortress" name="constantinople_fortress"
                     @if(array_key_exists('constantinople_fortress', $data))
                         {{ $data['constantinople_fortress'] ? 'checked' : '' }}
-                            @endif>
+                        @endif>
                     <label class="custom-control-label" for="constantinople_fortress">
                         {{ __('backend/settings.form.fortress-disable') }}
                     </label>
@@ -248,7 +250,256 @@
         </div>
     </div>
 
+    <!-- Ranking -->
+    <hr class="mt-2">
+    <h4>
+        {{ __('backend/settings.form.ranking') }}
+    </h4>
 
+    <div class="form-group row pt-2">
+        <label class="col-sm-4 col-form-label">
+            {{ __('backend/settings.form.ranking-char') }}
+        </label>
+        <div class="col-sm-8">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="custom-control custom-checkbox d-block pt-2">
+                    <input class="custom-control-input {{ $errors->has('char_ranking') ? ' is-invalid' : '' }}"
+                           type="checkbox" id="char_ranking" name="char_ranking"
+                           @if(array_key_exists('char_ranking', $data))
+                           {{ $data['char_ranking'] ? 'checked' : '' }}
+                           @else
+                           checked
+                        @endif>
+                    <label class="custom-control-label" for="char_ranking">
+                        {{ __('backend/settings.form.ranking-disable') }}
+                    </label>
+                    @if ($errors->has('char_ranking'))
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('char_ranking') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row pt-2">
+        <label class="col-sm-4 col-form-label">
+            {{ __('backend/settings.form.ranking-guild') }}
+        </label>
+        <div class="col-sm-8">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="custom-control custom-checkbox d-block pt-2">
+                    <input class="custom-control-input {{ $errors->has('guild_ranking') ? ' is-invalid' : '' }}"
+                           type="checkbox" id="guild_ranking" name="guild_ranking"
+                           @if(array_key_exists('guild_ranking', $data))
+                           {{ $data['guild_ranking'] ? 'checked' : '' }}
+                           @else
+                           checked
+                        @endif>
+                    <label class="custom-control-label" for="guild_ranking">
+                        {{ __('backend/settings.form.ranking-disable') }}
+                    </label>
+                    @if ($errors->has('guild_ranking'))
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('guild_ranking') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row pt-2">
+        <label class="col-sm-4 col-form-label">
+            {{ __('backend/settings.form.ranking-job') }}
+        </label>
+        <div class="col-sm-8">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="custom-control custom-checkbox d-block pt-2">
+                    <input class="custom-control-input {{ $errors->has('job_ranking') ? ' is-invalid' : '' }}"
+                           type="checkbox" id="job_ranking" name="job_ranking"
+                           @if(array_key_exists('job_ranking', $data))
+                           {{ $data['job_ranking'] ? 'checked' : '' }}
+                           @else
+                           checked
+                        @endif>
+                    <label class="custom-control-label" for="job_ranking">
+                        {{ __('backend/settings.form.ranking-disable') }}
+                    </label>
+                    @if ($errors->has('job_ranking'))
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('job_ranking') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row pt-2">
+        <label class="col-sm-4 col-form-label">
+            {{ __('backend/settings.form.ranking-trader') }}
+        </label>
+        <div class="col-sm-8">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="custom-control custom-checkbox d-block pt-2">
+                    <input class="custom-control-input {{ $errors->has('trader_ranking') ? ' is-invalid' : '' }}"
+                           type="checkbox" id="trader_ranking" name="trader_ranking"
+                           @if(array_key_exists('trader_ranking', $data))
+                           {{ $data['trader_ranking'] ? 'checked' : '' }}
+                           @else
+                           checked
+                        @endif>
+                    <label class="custom-control-label" for="trader_ranking">
+                        {{ __('backend/settings.form.ranking-disable') }}
+                    </label>
+                    @if ($errors->has('trader_ranking'))
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('trader_ranking') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row pt-2">
+        <label class="col-sm-4 col-form-label">
+            {{ __('backend/settings.form.ranking-hunter') }}
+        </label>
+        <div class="col-sm-8">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="custom-control custom-checkbox d-block pt-2">
+                    <input class="custom-control-input {{ $errors->has('hunter_ranking') ? ' is-invalid' : '' }}"
+                           type="checkbox" id="hunter_ranking" name="hunter_ranking"
+                           @if(array_key_exists('hunter_ranking', $data))
+                           {{ $data['hunter_ranking'] ? 'checked' : '' }}
+                           @else
+                           checked
+                        @endif>
+                    <label class="custom-control-label" for="hunter_ranking">
+                        {{ __('backend/settings.form.ranking-disable') }}
+                    </label>
+                    @if ($errors->has('hunter_ranking'))
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('hunter_ranking') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row pt-2">
+        <label class="col-sm-4 col-form-label">
+            {{ __('backend/settings.form.ranking-thief') }}
+        </label>
+        <div class="col-sm-8">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="custom-control custom-checkbox d-block pt-2">
+                    <input class="custom-control-input {{ $errors->has('thief_ranking') ? ' is-invalid' : '' }}"
+                           type="checkbox" id="thief_ranking" name="thief_ranking"
+                           @if(array_key_exists('thief_ranking', $data))
+                           {{ $data['thief_ranking'] ? 'checked' : '' }}
+                           @else
+                           checked
+                        @endif>
+                    <label class="custom-control-label" for="thief_ranking">
+                        {{ __('backend/settings.form.ranking-disable') }}
+                    </label>
+                    @if ($errors->has('thief_ranking'))
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('thief_ranking') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row pt-2">
+        <label class="col-sm-4 col-form-label">
+            {{ __('backend/settings.form.ranking-unique') }}
+        </label>
+        <div class="col-sm-8">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="custom-control custom-checkbox d-block pt-2">
+                    <input class="custom-control-input {{ $errors->has('unique_ranking') ? ' is-invalid' : '' }}"
+                           type="checkbox" id="unique_ranking" name="unique_ranking"
+                           @if(array_key_exists('unique_ranking', $data))
+                           {{ $data['unique_ranking'] ? 'checked' : '' }}
+                           @else
+                           checked
+                        @endif>
+                    <label class="custom-control-label" for="thief_ranking">
+                        {{ __('backend/settings.form.ranking-disable') }}
+                    </label>
+                    @if ($errors->has('unique_ranking'))
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('unique_ranking') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row pt-2">
+        <label class="col-sm-4 col-form-label">
+            {{ __('backend/settings.form.ranking-free-pvp') }}
+        </label>
+        <div class="col-sm-8">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="custom-control custom-checkbox d-block pt-2">
+                    <input class="custom-control-input {{ $errors->has('free_pvp_ranking') ? ' is-invalid' : '' }}"
+                           type="checkbox" id="free_pvp_ranking" name="free_pvp_ranking"
+                           @if(array_key_exists('free_pvp_ranking', $data))
+                           {{ $data['free_pvp_ranking'] ? 'checked' : '' }}
+                           @else
+                           checked
+                        @endif>
+                    <label class="custom-control-label" for="thief_ranking">
+                        {{ __('backend/settings.form.ranking-disable') }}
+                    </label>
+                    @if ($errors->has('free_pvp_ranking'))
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('free_pvp_ranking') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row pt-2">
+        <label class="col-sm-4 col-form-label">
+            {{ __('backend/settings.form.ranking-job-pvp') }}
+        </label>
+        <div class="col-sm-8">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="custom-control custom-checkbox d-block pt-2">
+                    <input class="custom-control-input {{ $errors->has('job_pvp_ranking') ? ' is-invalid' : '' }}"
+                           type="checkbox" id="job_pvp_ranking" name="job_pvp_ranking"
+                           @if(array_key_exists('job_pvp_ranking', $data))
+                           {{ $data['job_pvp_ranking'] ? 'checked' : '' }}
+                           @else
+                           checked
+                        @endif>
+                    <label class="custom-control-label" for="thief_ranking">
+                        {{ __('backend/settings.form.ranking-disable') }}
+                    </label>
+                    @if ($errors->has('job_pvp_ranking'))
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('job_pvp_ranking') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Silkroad -->
     <hr class="mt-2">
     <h4>
         {{ __('backend/settings.form.silkroad') }}
