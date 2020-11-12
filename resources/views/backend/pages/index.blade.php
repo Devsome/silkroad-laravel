@@ -26,7 +26,7 @@
                     </div>
                 @endif
 
-                <div class="table-responsive">
+                <div class="table-responsive mb-5">
                     <table id="users" class="table table-striped table-hover dataTable">
                         <thead class="thead-dark">
                         <tr>
@@ -80,7 +80,7 @@
                         </tbody>
                     </table>
                 </div>
-
+                {{ $pages->links() }}
             </div>
         </div>
     </div>
@@ -108,7 +108,7 @@
                             .then(function (data) {
                                 toastr.success("{{trans('backend/notification.form-submit.success')}}, the page will refresh after 2 seconds.");
                                 /*refresh page*/
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     location.reload();
                                 }, 2000);
                             })
