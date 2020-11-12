@@ -19,6 +19,8 @@ return [
         'voucher-desc' => 'لديك قسيمة شحن وتريد استبدالها بـ :silk? ثم يمكنك استرداد هذا',
         'web-inventory' => 'حقيبة الويب',
         'web-inventory-help' => 'هنا يمكنك العثور على "المخزون" حيث توجد العناصر التي تم شراؤها أو بيعها.',
+        'voteforsilk' => 'Vote for silk',
+        'voteforsilk-help' => 'You want to gain easy silk? Here you can vote for our Server and gain some.',
     ],
 
     'chars-list' => [

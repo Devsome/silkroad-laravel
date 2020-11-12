@@ -19,6 +19,8 @@ return [
         'voucher-desc' => 'आपके पास एक क्रेडिट नोट है और इसे :silk के लिए भुनाना चाहते हैं? तब आप इसे भुना सकते हैं',
         'web-inventory' => 'वेब इन्वेंटरी',
         'web-inventory-help' => 'यहां आप अपनी "इन्वेंट्री" पा सकते हैं जहां आपके खरीदे या बेचे गए आइटम हैं।',
+        'voteforsilk' => 'Vote for silk',
+        'voteforsilk-help' => 'You want to gain easy silk? Here you can vote for our Server and gain some.',
     ],
 
     'chars-list' => [

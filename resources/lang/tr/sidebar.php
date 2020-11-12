@@ -37,6 +37,7 @@ return [
         'tickets' => 'Ticketlar',
         'vouchers' => 'Açık Artırma',
         'web-inventory' => 'Web Envanteri',
+        'voteforsilk' => 'Vote for silk',
     ],
 
     'fortress' => [

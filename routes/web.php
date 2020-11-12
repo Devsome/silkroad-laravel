@@ -63,6 +63,11 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function(
         Route::get('/inventory', 'Frontend\WebInventoryController@inventory')->name('web-i-inventory');
     });
 
+    Route::group(['prefix' => 'vote-for-silk'], static function () {
+        Route::get('/', 'Frontend\VoteforsilkController@index')->name('vote-for-silk-index');
+        Route::get('/voting/{id}', 'Frontend\VoteforsilkController@voting')->name('vote-for-silk-voting');
+    });
+
     Route::group(['prefix' => 'donations'], static function () {
         Route::get('/', 'Frontend\DonationsController@index')->name('donations-index');
         Route::get('/method/{method?}', 'Frontend\DonationsController@showMethod')->name('donations-method-index');
@@ -134,6 +139,14 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
         Route::post('/add', 'Backend\RulesController@add')->name('server-rules-add-backend');
         Route::get('/edit/{id}', 'Backend\RulesController@showEdit')->name('server-rules-edit-show-backend');
         Route::post('/update/{id}', 'Backend\RulesController@update')->name('server-rules-update-backend');
+    });
+
+    // Vote for Silk
+    Route::group(['prefix' => 'vote-for-silk'], static function () {
+        Route::get('/','Backend\VoteforsilkController@index')->name('vote-for-silk-index-backend');
+        Route::get('/edit/{id}', 'Backend\VoteforsilkController@editVote')->name('vote-edit-backend');
+        Route::post('/edit/{id}', 'Backend\VoteforsilkController@editVoteSubmit')->name('vote-edit-submit-backend');
+        Route::post('/toggle-vote/{id}', 'Backend\VoteforsilkController@toggleVote')->name('vote-toggle-backend');
     });
 
     // Ticket

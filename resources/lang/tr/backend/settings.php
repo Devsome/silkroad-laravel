@@ -23,6 +23,10 @@ return [
         'hide-char' => 'Hide Gamemaster Character',
         'hide-activate' => 'Hide',
 
+        'voteforsilk' => 'Vote for silk',
+        'voteforsilk-help' => 'Should vote for silk enabled?',
+        'voteforsilk-activate' => 'Enable',
+
         'fortress' => 'Fortress',
         'fortress-jangan-enabled' => 'Jangan Fortress',
         'fortress-hotan-enabled' => 'Hotan Fortress',

@@ -37,6 +37,7 @@ return [
         'tickets' => 'تذاكر الدعم',
         'vouchers' => 'قسايم الشحن',
         'web-inventory' => 'حقيبة الويب',
+        'voteforsilk' => 'Vote for silk',
     ],
 
     'fortress' => [

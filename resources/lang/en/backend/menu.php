@@ -31,6 +31,7 @@ return [
     'auctionshouse' => 'Auctions House',
     'serverinformation' => 'Server Information',
     'serverrules' => 'Server Rules',
+    'voteforsilk' => 'Vote for Silk',
 
     'notice' => 'Launcher notice',
     'tbuser' => 'Accounts',

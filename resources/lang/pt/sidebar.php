@@ -37,6 +37,7 @@ return [
         'tickets' => 'Tickets',
         'vouchers' => 'Vouchers',
         'web-inventory' => 'Inventário Virtual',
+        'voteforsilk' => 'Vote for silk',
     ],
 
     'fortress' => [

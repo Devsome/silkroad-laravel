@@ -19,6 +19,8 @@ return [
         'voucher-desc' => 'You have a credit note and want to redeem it for :silk? Then you can redeem this one',
         'web-inventory' => 'Web Inventory',
         'web-inventory-help' => 'Here you can find your "Inventory" where your bought or sold items are.',
+        'voteforsilk' => 'Vote for silk',
+        'voteforsilk-help' => 'You want to gain easy silk? Here you can vote for our Server and gain some.',
     ],
 
     'chars-list' => [
@@ -81,6 +83,14 @@ return [
             'voucher-help' => 'Here you can redeem your credit code',
             'submit' => 'Redeem'
         ],
+    ],
+
+    'voteforsilk' => [
+        'title' => 'Vote for silk',
+        'reward' => 'You will gain :reward ' . config('siteSettings.sro_silk_name', 'Silk') . ' for that vote.',
+        'empty' => 'No votes active until yet',
+        'wait' => 'Wait :time minutes',
+        'submit' => 'Vote now!',
     ],
 
     'tickets' => [

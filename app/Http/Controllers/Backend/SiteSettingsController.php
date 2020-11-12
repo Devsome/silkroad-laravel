@@ -48,6 +48,7 @@ class SiteSettingsController extends Controller
             'sro_hwid_limit' => 'required|numeric',
             'image_id' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:700',
             'hide_gamemaster_char' => 'nullable',
+            'voteforsilk' => 'nullable'
         ]);
 
         if ($validator->fails()) {
@@ -105,6 +106,7 @@ class SiteSettingsController extends Controller
             'sro_hwid_limit' => $request->get('sro_hwid_limit') ?? '1',
             'signature' => $filename ?: '',
             'hide_gamemaster_char' => $request->get('hide_gamemaster_char') ? true : false,
+            'voteforsilk' => $request->get('voteforsilk') ? true : false,
         ];
 
         $siteSettings = SiteSettings::first();
