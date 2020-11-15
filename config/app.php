@@ -195,6 +195,11 @@ return [
         \App\Providers\TopTenGuildsProvider::class,
         \App\Providers\TopTenPlayersProvider::class,
 
+        /**
+         * Datatables
+         */
+        Yajra\DataTables\DataTablesServiceProvider::class,
+
         /*
          * Own Service Providers
          * First you need to install it - more coming later
@@ -259,7 +264,6 @@ return [
         /*
          * Packages
          */
-        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],

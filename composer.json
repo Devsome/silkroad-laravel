@@ -19,6 +19,7 @@
         "omnipay/paypal": "^3.0",
         "spatie/laravel-permission": "^3.4",
         "stripe/stripe-php": "^7.61",
+        "yajra/laravel-datatables": "^1.5",
         "yajra/laravel-datatables-oracle": "^9.8"
     },
     "require-dev": {

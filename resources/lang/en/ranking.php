@@ -17,6 +17,7 @@ return [
         'unique-points' => 'Unique points',
         'exp' => 'Exp',
         'job-level' => 'Level :level with :exp Exp',
+        'kills' => 'Kills',
     ],
     'no-player' => 'No Characters found on that server',
     'no-guild' => 'No Guild found on that server',

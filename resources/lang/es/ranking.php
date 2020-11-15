@@ -16,6 +16,7 @@ return [
         'unique-points' => 'Unique points',
         'exp' => 'Exp',
         'job-level' => 'Nivel :level con :exp Exp',
+        'kills' => 'Kills',
     ],
     'no-player' => 'No se encontraron Personajes en ese servidor',
     'no-guild' => 'No se encontró el Gremio en ese servidor',

@@ -21,8 +21,48 @@ Route::get('/rules', 'Frontend\IndexController@rules')->name('rules-index');
 Route::get('/worldmap', 'Frontend\IndexController@worldmapIndex')->name('worldmap');
 
 // Ranking
-Route::group(['prefix' => 'ranking'], static function () {
-    Route::get('/{mode?}', 'Frontend\RankingController@index')->name('ranking-index');
+Route::group([
+    'prefix' => 'ranking',
+    'as' => 'ranking.'
+], static function () {
+    Route::get('/charname', [
+        'as' => 'char',
+        'uses' => 'Frontend\RankingController@charname',
+    ]);
+
+    Route::get('/guild', [
+        'as' => 'guild',
+        'uses' => 'Frontend\RankingController@guild',
+    ]);
+
+    Route::get('/job', [
+        'as' => 'job',
+        'uses' => 'Frontend\RankingController@job',
+    ]);
+    Route::get('/job/trader', [
+        'as' => 'job.trader',
+        'uses' => 'Frontend\RankingController@trader',
+    ]);
+    Route::get('/job/hunter', [
+        'as' => 'job.hunter',
+        'uses' => 'Frontend\RankingController@hunter',
+    ]);
+    Route::get('/job/thief', [
+        'as' => 'job.thief',
+        'uses' => 'Frontend\RankingController@thief',
+    ]);
+    Route::get('/unique', [
+        'as' => 'unique',
+        'uses' => 'Frontend\RankingController@unique',
+    ]);
+    Route::get('/pvp/free', [
+        'as' => 'pvp.free',
+        'uses' => 'Frontend\RankingController@free_pvp',
+    ]);
+    Route::get('/pvp/job', [
+        'as' => 'pvp.job',
+        'uses' => 'Frontend\RankingController@job_pvp',
+    ]);
 });
 
 // Server Information

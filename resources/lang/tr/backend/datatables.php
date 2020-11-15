@@ -12,4 +12,6 @@ return [
     'last' => 'Last page',
     'next' => 'Next page',
     'prev' => 'Previous page',
+    'searchPlaceholder' => 'Type to filter...',
+    'processing' => '<i class="fa fa-spinner"></i><span> Loading...</span> ',
 ];

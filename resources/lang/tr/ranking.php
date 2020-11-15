@@ -17,6 +17,7 @@ return [
         'unique-points' => 'Unique Puanı',
         'exp' => 'Exp',
         'job-level' => 'Level :level :exp Exp',
+        'kills' => 'Kills',
     ],
     'no-player' => 'Bu sunucuda hiçbir karakter bulunamadı',
     'no-guild' => 'Bu sunucuda hiçbir Guild bulunamadı',

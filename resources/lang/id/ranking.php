@@ -16,6 +16,7 @@ return [
         'unique-points' => 'Unique points',
         'exp' => 'Exp',
         'job-level' => 'Level :level dengan :exp Exp',
+        'kills' => 'Kills',
     ],
     'no-player' => 'Tidak ada Karakter yang ditemukan di server itu',
     'no-guild' => 'Tidak ada Guild yang ditemukan di server itu',
