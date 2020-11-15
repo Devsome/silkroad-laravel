@@ -3,7 +3,7 @@
 return [
     'show-all' => 'عرض الكل',
     'search' => 'بحث',
-    'length' => 'عرض _MENU_ إدخالات في كل صفحة',
+    'length' => 'عرض _MENU_ تسجيل',
     'zero' => 'لاتوجد سجيلات',
     'info' => 'عرض _PAGE_ من _PAGES_ الصفحات',
     'empty' => '',

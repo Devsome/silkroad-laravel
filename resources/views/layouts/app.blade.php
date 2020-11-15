@@ -23,7 +23,8 @@
     @else
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     @endif
-
+    <!-- Datatables -->
+    <link href="{{ mix('/plugins/datatables/css/dataTables.css') }}" rel="stylesheet">
 
     @stack('theme::css')
 </head>
@@ -42,9 +43,13 @@
 </div>
 <script>
     const serverTime = new Date({{ \Carbon\Carbon::now()->format('Y, n, j, G, i, s') }});
-    const currentTimestamp = {{ \Carbon\Carbon::now()->format('U') }} - Math.round(+new Date() / 1000);
+    const currentTimestamp = {{ \Carbon\Carbon::now()->format('U') }} -Math.round(+new Date() / 1000);
 </script>
 <script src="{{ mix('/js/app.js') }}"></script>
+
+<!-- Datatables -->
+<script src="{{ asset('plugins/datatables/js/dataTables.js') }}"></script>
+
 @stack('theme::javascript')
 </body>
 </html>

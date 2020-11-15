@@ -3,7 +3,7 @@
 return [
     'show-all' => 'Mostrar todo',
     'search' => 'Buscar',
-    'length' => 'Mostrar _MENU_ resultados por página',
+    'length' => 'Mostrar _MENU_ resultados',
     'zero' => 'No se encontraron registros',
     'info' => 'Mostrar _PAGE_ de _PAGES_ páginas',
     'empty' => '',

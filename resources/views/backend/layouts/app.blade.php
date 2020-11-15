@@ -11,10 +11,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('image/sdl.png') }}">
 
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-          rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <link href="{{ asset('css/backend/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/datatables/css/datatables.css') }}" rel="stylesheet">
     <link href="{{ asset('css/backend/toastr.css') }}" rel="stylesheet">
     @stack('theme::css')
 </head>
@@ -42,6 +44,7 @@
 </a>
 
 <script src="{{ asset('js/backend/app.js') }}"></script>
+<script src="{{ asset('plugins/datatables/js/dataTables.js') }}"></script>
 
 <script src="{{ asset('js/backend/axios.min.js') }}"></script>
 <!-- bootbox code -->

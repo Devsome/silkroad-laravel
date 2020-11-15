@@ -3,7 +3,7 @@
 return [
     'show-all' => 'Hepsini Göster',
     'search' => 'Ara',
-    'length' => 'Sayfa başına _MENU_ giriş göster.',
+    'length' => '_MENU_ giriş göster.',
     'zero' => 'Kayıt bulunamadı',
     'info' => 'Show _PAGE_ of _PAGES_ pages',
     'empty' => '',
