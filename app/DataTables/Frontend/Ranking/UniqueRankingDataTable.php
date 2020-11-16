@@ -72,6 +72,7 @@ class UniqueRankingDataTable extends DataTable
             ->with([
                 'getCharacter' => static function ($query) use ($hideRankingGuild) {
                     $query->whereNotIn('GuildID', $hideRankingGuild);
+                    $query->where('Deleted', false);
                 }
             ])
             ->with('getCharacter')

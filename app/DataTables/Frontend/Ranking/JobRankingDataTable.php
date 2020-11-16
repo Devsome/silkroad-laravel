@@ -61,13 +61,9 @@ class JobRankingDataTable extends DataTable
      */
     public function query()
     {
-        //check for deleted Characters
-        $deleted_chars = Char::where('Deleted', true)
-            ->pluck('CharName16');
         // check for hide ranking and add deleted_chars to it
         $hideRanking = HideRanking::all()
-            ->pluck('charname')
-            ->union($deleted_chars);
+            ->pluck('charname');
 
         //check for hidden guilds from ranking.
         $hideRankingGuild = HideRankingGuild::all()
@@ -76,6 +72,7 @@ class JobRankingDataTable extends DataTable
 
         $query = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking, $hideRankingGuild) {
             $q->whereNotIn('CharName16', $hideRanking);
+            $q->where('Deleted', false);
             $q->whereNotIn('GuildID', $hideRankingGuild);
         })
             ->with('getCharacter')
