@@ -13,15 +13,26 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('pages', static function (Blueprint $table) {
             $table->id();
-            $table->enum('type', [
-                'styles', 'faq', 'guide', 'event'
-            ]);
+            $table->string('title');
+            $table->string('slug');
+            $table->enum('state', ['active', 'disabled']);
+            $table->timestamps();
+        });
+
+        Schema::create('pages_content', static function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('pages_id');
             $table->text('title');
             $table->longText('body');
             $table->softDeletes('deleted_at');
             $table->timestamps();
+
+            $table->foreign('pages_id')
+                ->references('id')->on('pages')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 
@@ -33,5 +44,7 @@ class CreatePagesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('pages');
+
+        Schema::dropIfExists('pages_content');
     }
 }

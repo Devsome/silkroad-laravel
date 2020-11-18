@@ -28,15 +28,8 @@ Route::group(['prefix' => 'ranking'], static function () {
 // Server Information
 Route::get('/server-information', 'Frontend\IndexController@serverInformation')->name('server-information');
 
-// Styles
-Route::get('/styles', 'Frontend\IndexController@styles')->name('styles');
-
-// FAQ
-Route::get('/FAQ', 'Frontend\IndexController@faq')->name('faq');
-
-// Events
-Route::get('/events', 'Frontend\IndexController@events')->name('events');
-
+// Pages
+Route::get('/pages/{slug}', 'Frontend\IndexController@pagesContent')->name('pages-content');
 
 // Needed to be logged in after that
 Auth::routes(['verify' => true]);
@@ -143,6 +136,8 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
             'show',
         ]
     ]);
+    Route::post('/pages/create/type', 'Backend\PagesController@createType')->name('pages-create-type-backend');
+    Route::get('/pages/type/toggle', 'Backend\PagesController@toggleType')->name('pages-toggle-type-backend');
 
 
     // Server Rules

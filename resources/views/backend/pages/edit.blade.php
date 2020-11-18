@@ -15,7 +15,7 @@
                     {{ __('backend/pages.back') }}
                 </a>
             </div>
-            <div class="container">
+            <div class="container mt-3">
                 @if ($message = Session::get('success'))
                     <div class="alert alert-success alert-block">
                         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -24,7 +24,7 @@
                 @endif
 
                 <form method="POST"
-                      action="{{ route('pages.update', $page->id) }}">
+                      action="{{ route('pages.update', $pagesContent->id) }}">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
@@ -34,7 +34,7 @@
                             <input type="text"
                                    class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
                                    name="title" id="title" autocomplete="off"
-                                   aria-describedby="titleHelp" value="{{ old('title') ?: $page->title }}">
+                                   aria-describedby="titleHelp" value="{{ old('title') ?: $pagesContent->title }}">
                             <small id="titleHelp"
                                    class="form-text text-muted">{{ __('backend/serverinformation.form.title-help') }}</small>
                         </div>
@@ -43,15 +43,16 @@
                             <select name="type" id="type"
                                     class="form-control{{ $errors->has('type') ? ' is-invalid' : '' }}">
                                 <optgroup label="Select Type">
-                                    <option @if(old('type') === 'styles') selected
-                                            @elseif($page->type === 'styles') selected
-                                            @endif value="styles">{{__('backend/pages.enum.styles')}}</option>
-                                    <option @if(old('type') === 'faq') selected
-                                            @elseif($page->type === 'faq') selected
-                                            @endif value="faq">{{__('backend/pages.enum.faq')}}</option>
-                                    <option @if(old('type') === 'event') selected
-                                            @elseif($page->type === 'event') selected
-                                            @endif value="event">{{__('backend/pages.enum.event')}}</option>
+                                    @forelse($pages as $page)
+                                        <option @if($pagesContent->pages_id === $page->id) selected @endif
+                                        value="{{ $page->id }}">
+                                            {{ $page->title }}
+                                        </option>
+                                    @empty
+                                        <option disabled="disabled">
+                                            {{ __('backend/pages.form.disabled') }}
+                                        </option>
+                                    @endforelse
                                 </optgroup>
                             </select>
                             <small id="typeHelper"
@@ -64,14 +65,15 @@
                             <label for="body"
                                    class="col-form-label">{{ __('backend/serverinformation.form.body') }}</label>
                             <textarea class="form-control{{ $errors->has('body') ? ' is-invalid' : '' }}"
-                                      name="body" id="body" rows="10">{{ old('body') ?: $page->body }}</textarea>
+                                      name="body" id="body"
+                                      rows="10">{{ old('body') ?: $pagesContent->body }}</textarea>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-12">
                             <input class="btn btn-primary" type="submit"
-                                   value="{{ __('backend/serverinformation.form.update') }}">
+                                   value="{{ __('backend/pages.form.update') }}">
                         </div>
                     </div>
 

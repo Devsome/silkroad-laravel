@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Model\SRO\Log\OnlineOfflineLog;
 use App\News;
 use App\Pages;
+use App\PagesContent;
 use App\Rules;
 use App\ServerInformation;
 use App\SiteSettings;
@@ -69,35 +70,18 @@ class IndexController extends Controller
     }
 
     /**
-     * @return Application|Factory|\Illuminate\Contracts\View\View
+     * @param $slug
+     * @return Factory|\Illuminate\Contracts\View\View
      */
-    public function styles()
+    public function pagesContent($slug)
     {
-        return view('theme::frontend.other.styles', [
-            'styles' => Pages::whereType('styles')
-                ->orderBy('created_at', 'ASC')->get()
-        ]);
-    }
+        $page = Pages::where('slug', '=', $slug)
+            ->where('state', '=', Pages::PAGE_ACTIVE)
+            ->with('getContent')
+            ->firstOrFail();
 
-    /**
-     * @return Application|Factory|\Illuminate\Contracts\View\View
-     */
-    public function faq()
-    {
-        return view('theme::frontend.other.faq', [
-            'faqs' => Pages::whereType('faq')
-                ->orderBy('created_at', 'ASC')->get()
-        ]);
-    }
-
-    /**
-     * @return Application|Factory|\Illuminate\Contracts\View\View
-     */
-    public function events()
-    {
-        return view('theme::frontend.other.events', [
-            'events' => Pages::whereType('event')
-                ->orderBy('created_at', 'ASC')->get()
+        return view('theme::frontend.other.pages', [
+            'pageContent' => $page
         ]);
     }
 

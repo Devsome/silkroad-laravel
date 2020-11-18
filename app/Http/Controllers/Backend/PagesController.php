@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Pages;
+use App\PagesContent;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -13,7 +14,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
 
 class PagesController extends Controller
 {
@@ -24,12 +24,15 @@ class PagesController extends Controller
      */
     public function index()
     {
-        $pages = Pages::whereDeletedAt(null)
-            ->orderBy('created_at', 'ASC')
+        $pages = PagesContent::with('getPages')
             ->paginate(10);
+
+        $types = Pages::all();
+
         return view('theme::backend.pages.index', [
-            'pages' => $pages
-        ])->render();
+            'pages' => $pages,
+            'types' => $types
+        ]);
     }
 
     /**
@@ -39,7 +42,11 @@ class PagesController extends Controller
      */
     public function create()
     {
-        return view('theme::backend.pages.create');
+        $pages = Pages::all();
+
+        return view('theme::backend.pages.create', [
+            'pages' => $pages
+        ]);
     }
 
     /**
@@ -47,29 +54,20 @@ class PagesController extends Controller
      *
      * @param Request $request
      * @return RedirectResponse
-     * @throws ValidationException
      * @throws Exception
      */
     public function store(Request $request): RedirectResponse
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'type' => ['required', 'IN:styles,faq,event'],
-            'body' => 'required'
+        $data = $request->validate([
+            'pages_id' => ['required', 'integer', 'exists:pages,id'],
+            'title' => 'required|max:24',
+            'body' => 'required|min:5'
         ]);
-        $data = $request->only([
-            'title',
-            'type',
-            'body',
-        ]);
-        DB::beginTransaction();
-        try {
-            Pages::create($data);
-        } catch (Exception $e) {
-            DB::rollBack();
-            return back()->with('error', trans('backend/notification.form-submit.error'));
-        }
-        DB::commit();
+
+        PagesContent::create($data);
+
+        \Cache::forget('pagesCache');
+
         return back()->with('success', trans('backend/notification.form-submit.success'));
     }
 
@@ -81,7 +79,58 @@ class PagesController extends Controller
      */
     public function show($id)
     {
+    }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function createType(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'new_type' => 'required|max:24',
+            'slug' => 'required|max:24'
+        ]);
+
+        Pages::create([
+            'title' => $request->get('new_type'),
+            'slug' => $request->get('slug'),
+            'state' => Pages::PAGE_DISABLED
+        ]);
+
+        \Cache::forget('pagesCache');
+
+        return redirect()->back()->with('success', __('backend/notification.form-submit.success'));
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function toggleType(Request $request): JsonResponse
+    {
+        $page = Pages::where('id', '=', $request->get('type_id'))
+            ->firstOrFail();
+
+        if ($request->get('status') === '1') {
+            $state = Pages::PAGE_ACTIVE;
+        } else {
+            $state = Pages::PAGE_DISABLED;
+        }
+
+        $page->state = $state;
+        $page->save();
+
+        \Cache::forget('pagesCache');
+
+        return response()->json([
+            'message' => __('backend/notification.form-submit.success'),
+            'state' => ucfirst($state)
+        ]);
+    }
+
+    public function deleteType()
+    {
     }
 
     /**
@@ -92,8 +141,12 @@ class PagesController extends Controller
      */
     public function edit($id)
     {
+        $pages = Pages::all();
+        $pagesContent = PagesContent::findOrFail($id);
+
         return view('theme::backend.pages.edit', [
-            'page' => Pages::findOrFail($id)
+            'pages' => $pages,
+            'pagesContent' => $pagesContent
         ]);
     }
 
@@ -107,27 +160,21 @@ class PagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $page = Pages::findOrFail($id);
+        $page = PagesContent::findOrFail($id);
 
-        $this->validate($request, [
-            'title' => 'required',
-            'type' => ['required', 'IN:styles,faq,event'],
-            'body' => 'required'
-        ]);
-        $data = $request->only([
-            'title',
-            'type',
-            'body',
+        $request->validate([
+            'type' => ['required', 'integer', 'exists:pages,id'],
+            'title' => 'required|max:24',
+            'body' => 'required|min:5'
         ]);
 
-        DB::beginTransaction();
-        try {
-            $page->update($data);
-        } catch (Exception $e) {
-            DB::rollBack();
-            return back()->with('error', trans('backend/notification.form-submit.error'));
-        }
-        DB::commit();
+        \Cache::forget('pagesCache');
+
+        $page->pages_id = $request->get('type');
+        $page->title = $request->get('title');
+        $page->body = $request->get('body');
+        $page->save();
+
         return back()->with('success', trans('backend/notification.form-submit.success'));
     }
 

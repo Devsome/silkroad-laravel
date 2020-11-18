@@ -112,7 +112,7 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('pages.index') }}">
-            <i class="fas fa-fw fa-pager"></i>
+            <i class="far fa-fw fa-file"></i>
             <span>{{ __('backend/menu.pages') }}</span>
         </a>
     </li>

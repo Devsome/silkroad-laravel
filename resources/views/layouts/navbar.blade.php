@@ -12,11 +12,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/') }}">
-                        {{ __('navbar.nav.home') }}
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{{ route('downloads-index') }}">
                         {{ __('navbar.nav.download') }}
                     </a>
@@ -34,11 +29,6 @@
                     </li>
                 @endauth
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('server-information') }}">
-                        {{ __('navbar.nav.serverinformation') }}
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{{ route('worldmap') }}">
                         {{ __('navbar.nav.worldmap') }}
                     </a>
@@ -49,30 +39,15 @@
                         {{ __('navbar.nav.pages') }} <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu navbar-dropdown dropdown-menu-right pr-0 pl-0" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item{{(isset($alias) && $alias == 'ServerInformation') ? ' active' : ''}}"
-                           href="{{ route('server-information') }}">
+                        <a class="dropdown-item" href="{{ route('server-information') }}">
                             {{ __('navbar.nav.serverinformation') }}
                         </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item{{(isset($alias) && $alias == 'Styles') ? ' active' : ''}}"
-                           href="{{ route('styles') }}">
-                            {{ __('navbar.nav.pagesinfo.styles') }}
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item{{(isset($alias) && $alias == 'FAQ') ? ' active' : ''}}"
-                           href="{{ route('faq') }}">
-                            {{ __('navbar.nav.pagesinfo.faq') }}
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item{{(isset($alias) && $alias == 'Rules') ? ' active' : ''}}"
-                           href="{{ route('rules-index') }}">
-                            {{ __('navbar.nav.pagesinfo.rules') }}
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item{{(isset($alias) && $alias == 'Events') ? ' active' : ''}}"
-                           href="{{ route('events') }}">
-                            {{ __('navbar.nav.pagesinfo.events') }}
-                        </a>
+                        @foreach($NavbarPagesProvider as $pages)
+                            <a class="dropdown-item"
+                               href="{{ route('pages-content', ['slug' => $pages->slug]) }}">
+                                {{ $pages->title }}
+                            </a>
+                        @endforeach
                     </div>
                 </li>
             </ul>

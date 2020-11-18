@@ -1,25 +1,25 @@
-@extends('theme::layouts.app', ['alias' => 'Events'])
+@extends('theme::layouts.app', ['alias' => 'Styles'])
 
-@section('theme::title', __('seo.events'))
+@section('theme::title', __('seo.styles'))
 
 @section('theme::content')
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 d-none d-lg-block">
-        @forelse($events as $event)
-            <div class="card">
+        @forelse($pageContent->getContent as $page)
+            <div class="card mt-3">
                 <div class="card-header">
-                    <span>{{ $event->title }}</span>
+                    <span>{{ $page->title }}</span>
                 </div>
                 <div class="card-body">
-                    {!! $event->body !!}
+                    {!! $page->body !!}
                 </div>
             </div>
         @empty
             <div class="card">
                 <div class="card-header">
-                    <span>{{ __('events.title') }}</span>
+                    <span>{{ __('pages.title') }}</span>
                 </div>
                 <div class="card-body">
-                    {{ __('events.empty') }}
+                    {{ __('pages.empty') }}
                 </div>
             </div>
         @endforelse

@@ -4,11 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pages extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     /**
      * @var string
@@ -19,15 +18,32 @@ class Pages extends Model
      * @var string[]
      */
     protected $fillable = [
-        'type', 'title', 'body'
+        'title', 'slug', 'state'
     ];
 
     /**
      * @var string[]
      */
     protected $dates = [
-        'deleted_at',
         'created_at',
         'updated_at'
     ];
+
+    /**
+     * When the page is active
+     */
+    public const PAGE_ACTIVE = 'active';
+
+    /**
+     * When the page is disabled
+     */
+    public const PAGE_DISABLED = 'disabled';
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getContent(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(PagesContent::class);
+    }
 }

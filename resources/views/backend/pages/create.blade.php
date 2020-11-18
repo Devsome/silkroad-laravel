@@ -14,7 +14,7 @@
                     {{ __('backend/pages.back') }}
                 </a>
             </div>
-            <div class="container">
+            <div class="container mt-3">
                 @if ($message = Session::get('success'))
                     <div class="alert alert-success alert-block">
                         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -32,24 +32,38 @@
                                    class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
                                    name="title" id="title" autocomplete="off"
                                    aria-describedby="titleHelp" value="{{ old('title') }}">
+                            @if($errors->has('title'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('title') }}
+                                </div>
+                            @endif
                             <small id="titleHelp"
                                    class="form-text text-muted">{{ __('backend/pages.form.title-help') }}</small>
                         </div>
                         <div class="col-6">
-                            <label for="type" class="col-form-label">{{ __('backend/pages.form.type') }}</label>
-                            <select name="type" id="type"
+                            <label for="pages_id" class="col-form-label">{{ __('backend/pages.form.type') }}</label>
+                            <select name="pages_id" id="pages_id"
                                     class="form-control{{ $errors->has('type') ? ' is-invalid' : '' }}">
-                                <optgroup label="Select Type">
-                                    <option @if(old('type') === 'styles') selected
-                                            @endif value="styles">{{__('backend/pages.enum.styles')}}</option>
-                                    <option @if(old('type') === 'faq') selected
-                                            @endif value="faq">{{__('backend/pages.enum.faq')}}</option>
-                                    <option @if(old('type') === 'event') selected
-                                            @endif value="event">{{__('backend/pages.enum.event')}}</option>
+                                <optgroup label="{{ __('backend/pages.form.select') }}">
+                                    @forelse($pages as $page)
+                                        <option value="{{ $page->id }}">
+                                            {{ $page->title }}
+                                        </option>
+                                    @empty
+                                        <option disabled="disabled">
+                                            {{ __('backend/pages.form.disabled') }}
+                                        </option>
+                                    @endforelse
                                 </optgroup>
                             </select>
-                            <small id="typeHelper"
-                                   class="form-text text-muted">{{ __('backend/pages.form.type-help') }}</small>
+                            @if($errors->has('pages_id'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('pages_id') }}
+                                </div>
+                            @endif
+                            <small id="typeHelper" class="form-text text-muted">
+                                {{ __('backend/pages.form.type-help') }}
+                            </small>
                         </div>
                     </div>
 
@@ -59,6 +73,11 @@
                                    class="col-form-label">{{ __('backend/pages.form.body') }}</label>
                             <textarea class="form-control{{ $errors->has('body') ? ' is-invalid' : '' }}"
                                       name="body" id="body" rows="10">{{ old('body') }}</textarea>
+                            @if($errors->has('body'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('body') }}
+                                </div>
+                            @endif
                         </div>
                     </div>
 
