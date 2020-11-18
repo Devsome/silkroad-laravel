@@ -16,6 +16,10 @@ return [
         'name' => 'Español',
         'icon' => '/image/flags/Spain.png'
     ],
+    'vn' => [
+        'name' => 'Vietnam',
+        'icon' => '/image/flags/Vietnam.png'
+    ],
     'hi' => [
         'name' => 'हिन्दी',
         'icon' => '/image/flags/India.png'
