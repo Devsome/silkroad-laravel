@@ -56,12 +56,18 @@ class UniqueService
         });
         $uniquePoints = $uniquePoints->groupBy('CharName16')
             ->map(static function ($d) {
-                return [
-                    'points' => $d->sum('Points')
-                ];
+                $sum = $d->sum('Points');
+                if ($sum > 0) {
+                    return [
+                        'points' => $d->sum('Points')
+                    ];
+                }
             });
         $uniquePoints = $uniquePoints->sortDesc();
         $uniquePoints->values()->all();
+        $uniquePoints = $uniquePoints->filter(static function ($value) {
+            return !is_null($value);
+        });
         return $uniquePoints;
     }
 }

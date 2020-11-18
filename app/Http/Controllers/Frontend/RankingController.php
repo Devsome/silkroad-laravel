@@ -6,11 +6,13 @@ use App\HideRanking;
 use App\HideRankingGuild;
 use App\Http\Controllers\Controller;
 use App\Http\Library\Services\SRO\Log\UniqueService;
+use App\Http\Model\SRO\Account\TbUser;
 use App\Http\Model\SRO\Log\PvpRecordsLog;
 use App\Http\Model\SRO\Log\UniqueKillLog;
 use App\Http\Model\SRO\Shard\Char;
 use App\Http\Model\SRO\Shard\CharTrijob;
 use App\Http\Model\SRO\Shard\Guild;
+use App\SiteSettings;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -42,13 +44,46 @@ class RankingController extends Controller
      */
     public function index(Request $request, $mode = 'charname')
     {
-        //check for deleted Characters
+        if (isset($mode) && !in_array($mode, [
+                config('ranking.search-charname'),
+                config('ranking.search-guild'),
+                config('ranking.search-trader'),
+                config('ranking.search-hunter'),
+                config('ranking.search-thief'),
+                config('ranking.search-unique'),
+                config('ranking.search-job'),
+                config('ranking.search-free-pvp'),
+                config('ranking.search-job-pvp'),
+            ], true)) {
+            return abort(404);
+        }
+
+        // check for deleted Characters
         $deleted_chars = Char::where('Deleted', true)
             ->pluck('CharName16');
+
+        // check site settings for hide all gamemaster accounts
+        $hideGamemaster = SiteSettings::first();
+        if ($hideGamemaster) {
+            $hideGamemaster = data_get($hideGamemaster->settings, 'hide_gamemaster_char', false);
+            if ($hideGamemaster) {
+                $hideGamemaster = TbUser::where('sec_primary', '!=', 3)
+                    ->where('sec_content', '!=', 3)
+                    ->with(['getShardUser' => static function ($query) {
+                        $query->select('CharName16');
+                    }])
+                    ->get()
+                    ->pluck('getShardUser')
+                    ->collapse()
+                    ->pluck('CharName16');
+            }
+        }
+
         // check for hide ranking and add deleted_chars to it
         $hideRanking = HideRanking::all()
             ->pluck('charname')
-            ->union($deleted_chars);
+            ->union($deleted_chars)
+            ->union($hideGamemaster);
 
         //check for hidden guilds from ranking.
         $hideRankingGuild = HideRankingGuild::all()
@@ -233,14 +268,8 @@ class RankingController extends Controller
             ]);
         }
 
-        if ($mode === config('ranking.search-unique') && config('siteSettings.unique_ranking', true)) {
-            /** @var array $uniques */
-            $all_uniques = app('config')->get('unique');
-            foreach ($all_uniques as $key => $unique) {
-                $uniques[] = $key;
-            }
+        if ($mode === config('ranking.search-unique')) {
             $jobs = UniqueKillLog::whereNotIn('CharName16', $hideRanking)
-                ->whereIn('UniqueName', $uniques)
                 ->with([
                     'getCharacter' => static function ($query) use ($hideRankingGuild) {
                         $query->whereNotIn('GuildID', $hideRankingGuild);
@@ -312,7 +341,8 @@ class RankingController extends Controller
             ])->render();
         }
 
-        if ($mode === config('ranking.search-job-pvp') && config('siteSettings.job_pvp_ranking', true)) {
+
+        if ($mode === config('ranking.search-job-pvp')) {
             $chars = PvpRecordsLog::whereNotIn('CharName', $hideRanking)
                 ->where('type', '>', 0)
                 ->with([
@@ -329,9 +359,9 @@ class RankingController extends Controller
                 $type = PvpRecordsLog::where('CharName', $char->CharName)
                     ->where('type', '>', 0)
                     ->first()->type;
-                if ($type === 1) {
+                if ($type === '1') {
                     $chars[$key]['type'] = 'Trader';
-                } elseif ($type === 2) {
+                } elseif ($type === '2') {
                     $chars[$key]['type'] = 'Thief';
                 } else {
                     $chars[$key]['type'] = 'Hunter';

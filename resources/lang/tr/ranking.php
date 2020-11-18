@@ -6,6 +6,8 @@ return [
         'rank' => 'Rank',
         'charname' => 'Karakter adı',
         'job-name' => 'Job',
+        'type' => 'Type',
+        'pvp-points' => 'PVP points',
         'guild' => 'Guild',
         'level' => 'Level',
         'job-type' => 'Type',
