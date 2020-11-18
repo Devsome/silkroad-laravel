@@ -165,7 +165,7 @@ BEGIN
                                     @strDesc VARCHAR(512)
                                 IF (@jobString LIKE 'Trader' OR @jobString LIKE 'Robber' OR @jobString LIKE 'Hunter')
                                     BEGIN
-                                        -- If it's a Job Kill, then write character nicknames
+                                        -- If it's a Job Kill, then write character nicknames.
 
                                         SET @strDesc = '[' + @KillerNickName + '] has killed [' + @KilledNickName +
                                                        '] on [' + @jobDesc + '] at [' +
