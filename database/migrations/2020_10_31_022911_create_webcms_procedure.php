@@ -95,9 +95,7 @@ BEGIN
                                            INNER JOIN [{$databaseShard}].[dbo]._Inventory IV ON IV.CharID = CH.CharID
                                            INNER JOIN [{$databaseShard}].[dbo]._Items IT ON IT.ID64 = IV.ItemID
                                            INNER JOIN [{$databaseShard}].[dbo]._RefObjCommon RO ON IT.RefItemID = RO.ID
-                                           LEFT JOIN [{$databaseShard}].[dbo]._BindingOptionWithItem BOPT
-                                                     ON BOPT.nItemDBID = IT.ID64
-                                  WHERE IV.slot < 13
+[]                                  WHERE IV.slot < 13
                                     AND IV.slot <> 8
                                     AND IV.slot <> 7
                                     AND IV.CharID = CH.CharID
