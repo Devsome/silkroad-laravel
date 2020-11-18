@@ -29,6 +29,18 @@ return [
         'fortress-constantinople-enabled' => 'Constantinople Fortress',
         'fortress-disable' => 'Disable',
 
+        'ranking' => 'Ranking',
+        'ranking-char' => 'Character Ranking',
+        'ranking-guild' => 'Guild Ranking',
+        'ranking-job' => 'Job Ranking',
+        'ranking-trader' => 'Trader Ranking',
+        'ranking-hunter' => 'Hunter Ranking',
+        'ranking-thief' => 'Thief Ranking',
+        'ranking-unique' => 'Unique Ranking',
+        'ranking-free-pvp' => 'Free PVP Ranking',
+        'ranking-job-pvp' => 'Job PVP Ranking',
+        'ranking-disable' => 'Enable',
+
         'silkroad' => 'Silkroad Rates',
         'sro-content-id' => 'Silkroad Content ID*',
         'sro-content-id-help' => 'Standard ID is 22',

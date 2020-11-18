@@ -12,11 +12,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/') }}">
-                        {{ __('navbar.nav.home') }}
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{{ route('downloads-index') }}">
                         {{ __('navbar.nav.download') }}
                     </a>
@@ -34,14 +29,26 @@
                     </li>
                 @endauth
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('server-information') }}">
-                        {{ __('navbar.nav.serverinformation') }}
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{{ route('worldmap') }}">
                         {{ __('navbar.nav.worldmap') }}
                     </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ __('navbar.nav.pages') }} <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu navbar-dropdown dropdown-menu-right pr-0 pl-0" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('server-information') }}">
+                            {{ __('navbar.nav.serverinformation') }}
+                        </a>
+                        @foreach($NavbarPagesProvider as $pages)
+                            <a class="dropdown-item"
+                               href="{{ route('pages-content', ['slug' => $pages->slug]) }}">
+                                {{ $pages->title }}
+                            </a>
+                        @endforeach
+                    </div>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

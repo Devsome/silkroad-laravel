@@ -10,7 +10,7 @@ return [
     'voucher' => 'Voucher - ' . config('app.name'),
     'tickets' => [
         'index' => 'Tickets - ' . config('app.name'),
-        'new' => 'Create new Ticket - ' .config('app.name'),
+        'new' => 'Create new Ticket - ' . config('app.name'),
         'show' => ':name - ' . config('app.name')
     ],
     'webinventory' => 'Web Inventory - ' . config('app.name'),
@@ -36,5 +36,7 @@ return [
         'guild' => 'Guild :name - ' . config('app.name')
     ],
     'serverinformation' => 'Server Information - ' . config('app.name'),
-
+    'faq' => 'FAQ - ' . config('app.name'),
+    'events' => 'Events - ' . config('app.name'),
+    'styles' => 'Styles - ' . config('app.name'),
 ];
