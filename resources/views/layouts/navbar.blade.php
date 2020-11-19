@@ -12,75 +12,51 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link{{(isset($alias) && $alias == 'Home') ? ' active' : ''}}" href="{{ url('/') }}">
+                    <a class="nav-link{{(isset($alias) && $alias === 'Home') ? ' active' : ''}}" href="{{ url('/') }}">
                         {{ __('navbar.nav.home') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link{{(isset($alias) && $alias == 'Downloads') ? ' active' : ''}}"
+                    <a class="nav-link{{(isset($alias) && $alias === 'Downloads') ? ' active' : ''}}"
                        href="{{ route('downloads-index') }}">
                         {{ __('navbar.nav.download') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link{{(isset($alias) && $alias == 'Ranking') ? ' active' : ''}}"
+                    <a class="nav-link{{(isset($alias) && $alias === 'Ranking') ? ' active' : ''}}"
                        href="{{ route('ranking.char') }}">
                         {{ __('navbar.nav.ranking') }}
                     </a>
                 </li>
                 @auth
                     <li class="nav-item">
-                        <a class="nav-link{{(isset($alias) && $alias == 'AuctionHouse') ? ' active' : ''}}"
+                        <a class="nav-link{{(isset($alias) && $alias === 'AuctionHouse') ? ' active' : ''}}"
                            href="{{ route('auctions-house') }}">
                             {{ __('navbar.nav.auction-house') }}
                         </a>
                     </li>
                 @endauth
                 <li class="nav-item">
-                    <a class="nav-link{{(isset($alias) && $alias == 'ServerInfomation') ? ' active' : ''}}"
-                       href="{{ route('server-information') }}">
-                        {{ __('navbar.nav.serverinformation') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link{{(isset($alias) && $alias == 'WorldMap') ? ' active' : ''}}"
+                    <a class="nav-link{{(isset($alias) && $alias === 'WorldMap') ? ' active' : ''}}"
                        href="{{ route('worldmap') }}">
                         {{ __('navbar.nav.worldmap') }}
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a id="navbarDropdown"
-                       class="nav-link dropdown-toggle{{(isset($alias) && in_array($alias, ['Styles','FAQ','Rules','Events',])) ? ' active' : ''}}"
-                       href="#" role="button"
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle{{(isset($alias) && $alias === 'pages') ? ' active' : ''}}" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ __('navbar.nav.pages') }} <span class="caret"></span>
                     </a>
-                    <div class="dropdown-menu navbar-dropdown dropdown-menu-right pr-0 pl-0"
-                         aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item{{(isset($alias) && $alias == 'ServerInformation') ? ' active' : ''}}"
-                           href="{{ route('server-information') }}">
+                    <div class="dropdown-menu navbar-dropdown dropdown-menu-right pr-0 pl-0" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item{{(isset($alias) && $alias === 'ServerInfomation') ? ' active' : ''}}" href="{{ route('server-information') }}">
                             {{ __('navbar.nav.serverinformation') }}
                         </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item{{(isset($alias) && $alias == 'Styles') ? ' active' : ''}}"
-                           href="{{ route('styles') }}">
-                            {{ __('navbar.nav.pagesinfo.styles') }}
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item{{(isset($alias) && $alias == 'FAQ') ? ' active' : ''}}"
-                           href="{{ route('faq') }}">
-                            {{ __('navbar.nav.pagesinfo.faq') }}
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item{{(isset($alias) && $alias == 'Rules') ? ' active' : ''}}"
-                           href="{{ route('rules-index') }}">
-                            {{ __('navbar.nav.pagesinfo.rules') }}
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item{{(isset($alias) && $alias == 'Events') ? ' active' : ''}}"
-                           href="{{ route('events') }}">
-                            {{ __('navbar.nav.pagesinfo.events') }}
-                        </a>
+                        @foreach($NavbarPagesProvider as $pages)
+                            <a class="dropdown-item{{(isset($slug) && $slug === $pages->slug) ? ' active' : ''}}"
+                               href="{{ route('pages-content', ['slug' => $pages->slug]) }}">
+                                {{ $pages->title }}
+                            </a>
+                        @endforeach
                     </div>
                 </li>
             </ul>
