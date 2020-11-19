@@ -103,7 +103,7 @@ class RankingController extends Controller
      * @param FreePvpRankingDataTable $dataTable
      * @return mixed
      */
-    public function FreePvp(FreePvpRankingDataTable $dataTable)
+    public function free_pvp(FreePvpRankingDataTable $dataTable)
     {
         if (config('siteSettings.free_pvp_ranking', true)) {
             return $dataTable->render('theme::frontend.ranking.index', ['mode' => config('ranking.search-free-pvp')]);
@@ -115,7 +115,7 @@ class RankingController extends Controller
      * @param JobPvpRankingDataTable $dataTable
      * @return mixed
      */
-    public function JobPvp(JobPvpRankingDataTable $dataTable)
+    public function job_pvp(JobPvpRankingDataTable $dataTable)
     {
         if (config('siteSettings.job_pvp_ranking', true)) {
             return $dataTable->render('theme::frontend.ranking.index', ['mode' => config('ranking.search-job-pvp')]);

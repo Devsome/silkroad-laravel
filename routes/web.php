@@ -62,12 +62,12 @@ Route::group([
 
     Route::get('/pvp/free', [
         'as' => 'pvp.free',
-        'uses' => 'Frontend\RankingController@FreePvp',
+        'uses' => 'Frontend\RankingController@free_pvp',
     ]);
 
     Route::get('/pvp/job', [
         'as' => 'pvp.job',
-        'uses' => 'Frontend\RankingController@JobPvp',
+        'uses' => 'Frontend\RankingController@job_pvp',
     ]);
 });
 

@@ -200,7 +200,6 @@ return [
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
 
-
         /*
          * Own Service Providers
          * First you need to install it - more coming later
