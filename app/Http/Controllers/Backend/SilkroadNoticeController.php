@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Model\SRO\Account\Notice;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Validator;
 
 /**
@@ -17,7 +19,7 @@ class SilkroadNoticeController extends Controller
 {
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function noticeIndex()
     {
@@ -27,7 +29,7 @@ class SilkroadNoticeController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function noticeCreate()
     {
@@ -51,20 +53,19 @@ class SilkroadNoticeController extends Controller
                 ->withInput();
         }
 
-        $notice = new Notice();
-        $notice->Subject = $request->get('title');
-        $notice->ContentID = config('siteSettings.sro_content_id', 22);
-        $notice->Article = $request->get('body');
-        $notice->EditDate = Carbon::now()->format('Y-m-d H:i:s');
-
-        $notice->save();
+        Notice::create([
+            'Subject' => $request->get('title'),
+            'ContentID' => config('siteSettings.sro_content_id', 22),
+            'Article' => $request->get('body'),
+            'EditDate' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
 
         return back()->with('success', trans('backend/notification.form-submit.success'));
     }
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function noticeEdit($id)
     {
@@ -92,9 +93,10 @@ class SilkroadNoticeController extends Controller
         }
 
         $notice = Notice::findOrFail($id);
-        $notice->Subject = $request->get('title');
-        $notice->Article = $request->get('body');
-        $notice->save();
+        $notice->update([
+            'Subject' => $request->title,
+            'Article' => $request->body,
+        ]);
 
         return back()->with('success', trans('backend/notification.form-submit.success'));
     }
