@@ -17,7 +17,7 @@
             </tr>
         @empty
             <tr>
-                <td>{{ __('sidebar.topten-guilds.empty') }}</td>
+                <td colspan="3">{{ __('sidebar.topten-guilds.empty') }}</td>
             </tr>
         @endforelse
         </tbody>

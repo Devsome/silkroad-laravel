@@ -39,6 +39,7 @@ return [
     ],
 
     'table' => [
+        'item' => 'Item',
         'name' => 'Adı',
         'price' => 'Fiyat',
         'price_instead' => 'Hemen Al fiyatı',

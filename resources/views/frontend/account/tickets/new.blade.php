@@ -1,7 +1,7 @@
-@extends('theme::layouts.app')
+@extends('theme::layouts.app', ['alias' => 'Account'])
 @section('theme::title', __('seo.tickets.new'))
 @section('theme::sidebar')
-    @include('theme::frontend.account.sidebar')
+    @include('theme::frontend.account.sidebar', ['account_alias'=>'Tickets'])
 @endsection
 
 @section('theme::content')

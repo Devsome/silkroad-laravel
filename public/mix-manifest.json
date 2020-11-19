@@ -1,13 +1,13 @@
 {
-    "/css/backend/app.css": "/css/backend/app.css?id=7148525f7c4b207661cc",
-    "/css/app.css": "/css/app.css?id=198e401287b42733fd8c",
-    "/css/app-rtl.css": "/css/app-rtl.css?id=14d156c8f08e77ba8602",
+    "/css/backend/app.css": "/css/backend/app.css?id=dccd454d72e3624f1592",
+    "/css/app.css": "/css/app.css?id=5f7d1c7777de3273b405",
+    "/css/app-rtl.css": "/css/app-rtl.css?id=1c9b03c6a02a5375cb6f",
     "/plugins/datatables/css/dataTables.css": "/plugins/datatables/css/dataTables.css?id=09c9dc65cec1e3968a54",
     "/css/leaflet.css": "/css/leaflet.css?id=4fcf8e1539e3dc9ba602",
     "/js/worldmap.min.js": "/js/worldmap.min.js?id=8373c3066777bf258578",
     "/css/components.css": "/css/components.css?id=5e57075f7adcdf195487",
-    "/js/backend/app.js": "/js/backend/app.js?id=15880d6cb3455dec7d55",
-    "/js/app.js": "/js/app.js?id=961e39d4ace57fec12ec",
+    "/js/backend/app.js": "/js/backend/app.js?id=ed32f519d103929e5c55",
+    "/js/app.js": "/js/app.js?id=344fedc392a4eba54513",
     "/js/webinventory.js": "/js/webinventory.js?id=993041bc22d2b73ce063",
-    "/plugins/datatables/js/dataTables.js": "/plugins/datatables/js/dataTables.js?id=5a086f1835b69bd54671"
+    "/plugins/datatables/js/dataTables.js": "/plugins/datatables/js/dataTables.js?id=bdd84afb431e18716750"
 }

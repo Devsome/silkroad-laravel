@@ -49,7 +49,7 @@ class CharacterRankingDataTable extends DataTable
                 }
                 return "-";
             })
-            ->addIndexColumn()
+            ->escapeColumns()
             ->rawColumns([
                 'char',
                 'guild',

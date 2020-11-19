@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\AuctionsHouseLog;
 use App\AuctionsHouseSettings;
+use App\DataTables\Frontend\AuctionHouse\AuctionHouseDataTable;
 use App\Http\Controllers\Controller;
 use App\Model\Frontend\AuctionItem;
 use App\Model\Frontend\CharGold;
@@ -11,10 +12,16 @@ use App\Model\Frontend\CharInventory;
 use App\Notification;
 use App\Notifications\AuctionDiscordServer;
 use App\ServerGold;
-use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 use Throwable;
 
 class AuctionsHouseController extends Controller
@@ -30,47 +37,32 @@ class AuctionsHouseController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param AuctionHouseDataTable $dataTable
+     * @param string $mode
+     * @return void
      */
-    public function index()
+    public function index(AuctionHouseDataTable $dataTable, $mode = 'all')
     {
-        $auctionItems = AuctionItem::where('until', '>', Carbon::now())
-            ->with('getItemInformation')
-            ->orderBy('until', 'ASC')
-            ->get();
+        if (!in_array($mode, ['all', 'own', 'filter'], true)) {
+            return abort(404);
+        }
 
-        return view(
-            'theme::frontend.auctionshouse.index',
-            [
-                'items' => $auctionItems
-            ]
-        );
+        return $dataTable->with(['mode' => $mode])->render('theme::frontend.auctionshouse.index', ['mode' => $mode, 'filter' => 'none']);
     }
 
     /**
-     * @param $type
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param AuctionHouseDataTable $dataTable
+     * @param null $type
+     * @return Factory|View
      */
-    public function filterType($type = null)
+    public function filterType(AuctionHouseDataTable $dataTable, $type = null)
     {
-        $type = ucwords(str_replace('-', ' ', $type));
-        $auctionItems = AuctionItem::whereHas('getItemInformation', static function ($q) use ($type) {
-            $q->where('sort', $type);
-        })
-            ->orderBy('until', 'ASC')
-            ->get();
-
-        return view(
-            'theme::frontend.auctionshouse.index',
-            [
-                'items' => $auctionItems
-            ]
-        );
+        return $dataTable->with(['mode' => 'filter', 'type' => $type])->render('theme::frontend.auctionshouse.index', ['mode' => 'filter', 'filter' => $type]);
     }
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showItem($id)
     {
@@ -81,52 +73,41 @@ class AuctionsHouseController extends Controller
         return view(
             'theme::frontend.auctionshouse.showitem',
             [
-                'item' => $auctionItem
-            ]
-        );
-    }
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function showOwn()
-    {
-        $auctionItems = AuctionItem::where('user_id', '=', Auth::user()->id)
-            ->with('getItemInformation')
-            ->orderBy('until', 'ASC')
-            ->get();
-
-        return view(
-            'theme::frontend.auctionshouse.own',
-            [
-                'items' => $auctionItems
+                'item' => $auctionItem,
+                'filter' => null
             ]
         );
     }
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return JsonResponse
+     * @throws Exception
      */
     public function cancelOwn($id)
     {
-        $auctionItem = AuctionItem::where('id', $id)->firstOrFail();
+        $auctionItem = AuctionItem::find($id);
 
-        if (isset($auctionItem->current_bid_user_id)) {
-            CharGold::where('user_id', $auctionItem->current_bid_user_id)
-                ->increment(
-                    'gold',
-                    $auctionItem->current_user_bid_amount
-                );
+        DB::beginTransaction();
+        try {
+            if (isset($auctionItem->current_bid_user_id)) {
+                CharGold::where('user_id', $auctionItem->current_bid_user_id)
+                    ->increment(
+                        'gold',
+                        $auctionItem->current_user_bid_amount
+                    );
+            }
+            $auctionItem->delete();
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json('error', 500);
         }
-
-        $auctionItem->delete();
-
-        return back()->with('success', __('auctionshouse.notification.cancel.successfully'));
+        DB::commit();
+        return response()->json('success', 200);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showAddItem()
     {
@@ -140,15 +121,16 @@ class AuctionsHouseController extends Controller
             'theme::frontend.auctionshouse.add',
             [
                 'webInventory' => $webInventory,
-                'auctionsHouseSettings' => AuctionsHouseSettings::first()
+                'auctionsHouseSettings' => AuctionsHouseSettings::first(),
+                'filter' => null
             ]
         );
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function submitAddItem(Request $request)
     {
@@ -184,7 +166,7 @@ class AuctionsHouseController extends Controller
         if (config('services.discord.auction')) {
             try {
                 $auctionItem->notify(new AuctionDiscordServer($auctionItem, $isThisHisItem->first()));
-            } catch (\Exception $exception) {
+            } catch (Exception $exception) {
                 return back()->with('success', trans('auctionshouse.notification.add.successfully'));
             }
         }
@@ -195,8 +177,9 @@ class AuctionsHouseController extends Controller
     /**
      * @param $id
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @return RedirectResponse
+     * @throws ValidationException
+     * @throws Exception
      */
     public function submitBuyItemNow($id, Request $request)
     {
@@ -331,8 +314,9 @@ class AuctionsHouseController extends Controller
     /**
      * @param $id
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @return RedirectResponse
+     * @throws ValidationException
+     * @throws Exception
      */
     public function submitBidItem($id, Request $request)
     {
