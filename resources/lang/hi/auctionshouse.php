@@ -38,6 +38,7 @@ return [
     ],
 
     'table' => [
+        'item' => 'Item',
         'name' => 'नाम',
         'price' => 'कीमत',
         'price_instead' => 'अभी खरीदने के लिए कीमत',

@@ -55,6 +55,8 @@ mix.scripts([
     'resources/vendor/chart.js/Chart.bundle.min.js',
     'resources/js/backend/moment.js',
     'resources/js/backend/vmenuModule.js',
+    'resources/vendor/axios/axios.min.js',
+    'resources/vendor/bootbox/bootbox.all.min.js',
 ], 'public/js/backend/app.js');
 
 // Frontend css
@@ -86,6 +88,8 @@ mix.scripts([
     'resources/js/frontend/timers.js',
     'resources/js/frontend/minimap.js',
     'resources/js/backend/vmenuModule.js',
+    'resources/vendor/axios/axios.min.js',
+    'resources/vendor/bootbox/bootbox.all.min.js',
 ], 'public/js/app.js');
 
 
