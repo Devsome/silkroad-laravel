@@ -12,4 +12,7 @@ return [
     'last' => 'Halaman terakhir',
     'next' => 'Halaman selanjutnya',
     'prev' => 'Halaman sebelumnya',
+    'reload' => 'Reload',
+    'print' => 'Print',
+    'colvis' => 'Columns Visibility',
 ];

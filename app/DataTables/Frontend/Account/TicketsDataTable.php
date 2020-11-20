@@ -88,6 +88,11 @@ class TicketsDataTable extends DataTable
                     'searchPlaceholder' => __('datatables.searchPlaceholder'),
                     'lengthMenu' => __('datatables.length'),
                     'processing' => __('datatables.processing'),
+                    'buttons' => [
+                        'reload' => __('datatables.reload'),
+                        'print' => __('datatables.print'),
+                        'colvis' => __('datatables.colvis'),
+                    ]
                 ],
                 'buttons' => [
                     'reload',
