@@ -12,6 +12,18 @@
         <div class="row">
             <div class="container">
                 <div class="col-12">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @endif
+                        <div class="alert alert-primary col-12">
+                            <strong>{{ __('backend/voteforsilk.pingback-strong') }}</strong>
+                            {!! __('backend/voteforsilk.pingback', [
+                                'site' => route('api-vote-pingback')
+                            ])  !!}
+                        </div>
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0">

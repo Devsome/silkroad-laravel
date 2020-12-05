@@ -47,4 +47,29 @@ class VoteforsilkController extends Controller
             'data' => $data
         ]);
     }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editVoteSubmit(Request $request, $id): \Illuminate\Http\RedirectResponse
+    {
+        $request->validate([
+            'name' => 'required|min:1|max:64',
+            'reward' => 'required|integer',
+            'waiting_hours' => 'required|integer',
+            'pingback' => ['required', 'regex:/{JID}/']
+        ]);
+
+        Voteforsilk::where('id', '=', $id)
+            ->update([
+                'name' => $request->get('name'),
+                'reward' => $request->get('reward'),
+                'waiting_hours' => $request->get('waiting_hours'),
+                'pingback' => $request->get('pingback')
+            ]);
+
+        return back()->with('success', __('backend/notification.form-submit.success'));
+    }
 }

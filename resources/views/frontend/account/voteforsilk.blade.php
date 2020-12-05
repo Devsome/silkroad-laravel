@@ -27,7 +27,7 @@
                                                 ]) }}
                                             </span>
                                             <span class="col-12 mt-2">
-                                                @if(\Carbon\Carbon::create($vote->getVoted->vote_again_at)->isPast())
+                                                @if(!$vote->getVoted || \Carbon\Carbon::create($vote->getVoted->vote_again_at)->isPast())
                                                     <a class="btn btn-primary" target="_blank" rel="noopener noreferrer"
                                                        href="{{ route('vote-for-silk-voting', ['id' => $vote->id]) }}">
                                                         {{ __('home.voteforsilk.submit') }}

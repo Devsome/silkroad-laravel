@@ -11,6 +11,12 @@
         </div>
         <div class="row">
             <div class="col-12">
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{{ $message }}</strong>
+                    </div>
+                @endif
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
@@ -60,13 +66,33 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-6">
+                                        <label for="pingback" class="col-form-label">
+                                            {{ __('backend/voteforsilk.table.pingback') }}
+                                        </label>
+                                        <input type="text"
+                                               class="form-control col-12 {{ $errors->has('pingback') ? ' is-invalid' : '' }}"
+                                               id="pingback" name="pingback"
+                                               value="{{ $data->pingback ?? Request::old('pingback') }}">
+                                        <small class="form-text text-muted">
+                                            {{ __('backend/voteforsilk.table.pingback-help') }}
+                                        </small>
+                                        <small class="text-warning">
+                                            {{ __('backend/voteforsilk.table.pingback-info') }}
+                                        </small>
+                                        @if ($errors->has('pingback'))
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('pingback') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <div class="col-6">
                                         <label for="waiting_hours" class="col-form-label">
                                             {{ __('backend/voteforsilk.table.waiting') }}
                                         </label>
                                         <input type="number"
                                                class="form-control col-12 {{ $errors->has('waiting_hours') ? ' is-invalid' : '' }}"
                                                id="waiting_hours" name="waiting_hours"
-                                               value="{{ $data->reward ?? Request::old('waiting_hours') }}">
+                                               value="{{ $data->waiting_hours ?? Request::old('waiting_hours') }}">
                                         <small class="form-text text-muted">
                                             {{ __('backend/voteforsilk.table.waiting-help') }}
                                         </small>

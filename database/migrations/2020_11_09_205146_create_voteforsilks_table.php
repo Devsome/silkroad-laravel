@@ -17,6 +17,7 @@ class CreateVoteforsilksTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('pingback');
+            $table->ipAddress('ip');
             $table->integer('reward')->default(1);
             $table->boolean('active')->default(0);
             $table->integer('waiting_hours')->default(12);
