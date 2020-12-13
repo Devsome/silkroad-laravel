@@ -27,15 +27,18 @@ class CharacterRankingDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables($query)
-            ->editColumn('id', function ($data = '$query'){
+            ->editColumn('id', function ($data = '$query') {
                 return ++$this->count;
             })
             ->editColumn('char', function ($data = '$query') {
                 return '
-                <img src="' . asset('image/sro/chars/' . $data->RefObjID . '.gif') . '" loading="lazy" class="img-fluid d-none d-sm-inline" width="16" height="16" alt="' . $data->CharName16 . '">
+                <img src="' . asset('image/sro/chars/' . $data->RefObjID . '.gif') .
+                    '" loading="lazy" class="img-fluid d-none d-sm-inline" width="16" height="16" alt="' .
+                    $data->CharName16 . '">
                 <a href="' . route('information-player', ['CharName16' => Str::lower($data->CharName16)]) . '">
                  ' . $data->CharName16 . '</a>
-                <a class="small" href="' . route('information-player', ['CharName16' => Str::lower($data->CharName16)]) . '" target="_blank">
+                <a class="small" href="' . route('information-player', [
+                        'CharName16' => Str::lower($data->CharName16)]) . '" target="_blank">
                     <i class="fas fa-external-link-alt"></i>
                 </a>
                 ';
@@ -43,13 +46,14 @@ class CharacterRankingDataTable extends DataTable
             ->editColumn('guild', function ($data = '$query') {
                 if (isset($data->getGuildUser)) {
                     return '
-                <a class="small" href="' . route('information-guild', ['name' => Str::lower($data->getGuildUser->Name)]) . '" target="_blank">
+                <a class="small" href="' . route('information-guild', [
+                            'name' => Str::lower($data->getGuildUser->Name)]) . '" target="_blank">
                 ' . $data->getGuildUser->Name . '
                 </a>';
                 }
                 return "-";
             })
-            ->addIndexColumn()
+            ->escapeColumns()
             ->rawColumns([
                 'char',
                 'guild',

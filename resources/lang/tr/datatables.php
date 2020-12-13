@@ -12,4 +12,7 @@ return [
     'last' => 'Son sayfa',
     'next' => 'Sonraki sayfa',
     'prev' => 'Önceki sayfa',
+    'reload' => 'Reload',
+    'print' => 'Print',
+    'colvis' => 'Columns Visibility',
 ];

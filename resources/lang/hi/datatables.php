@@ -12,4 +12,7 @@ return [
     'last' => 'अंतिम पृष्ठ',
     'next' => 'अगला पृष्ठ',
     'prev' => 'पिछला पृष्ठ',
+    'reload' => 'Reload',
+    'print' => 'Print',
+    'colvis' => 'Columns Visibility',
 ];

@@ -6,7 +6,8 @@
 
     <div class="list-group small">
         @forelse($GoldProvider['filter'] as $filter)
-            <a href="{{ route('auction-house-filter', ['type' => Str::slug($filter, '-')]) }}" class="list-group-item list-group-item-action">
+            <a href="{{ route('auction-house-filter', ['type' => Str::slug($filter, '-')]) }}"
+               class="list-group-item list-group-item-action{{(isset($filter_type) && $filter_type == Str::slug($filter, '-')) ? ' active' : ''}}">
                 {{ $filter }}
             </a>
         @empty

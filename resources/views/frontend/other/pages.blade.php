@@ -1,4 +1,4 @@
-@extends('theme::layouts.app', ['alias' => 'Styles'])
+@extends('theme::layouts.app', ['alias' => 'pages', 'slug'=>$slug])
 
 @section('theme::title', __('seo.styles'))
 

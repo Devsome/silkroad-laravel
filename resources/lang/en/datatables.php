@@ -14,4 +14,7 @@ return [
     'prev' => 'Previous page',
     'searchPlaceholder' => 'Type to filter...',
     'processing' => '<i class="fa fa-spinner"></i><span> Loading...</span> ',
+    'reload' => 'Reload',
+    'print' => 'Print',
+    'colvis' => 'Columns Visibility',
 ];

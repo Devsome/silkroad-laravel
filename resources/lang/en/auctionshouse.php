@@ -39,6 +39,7 @@ return [
     ],
 
     'table' => [
+        'item' => 'Item',
         'name' => 'Name',
         'price' => 'Price',
         'price_instead' => 'Buy now Price',

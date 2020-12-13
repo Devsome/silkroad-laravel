@@ -15,9 +15,16 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <link href="{{ asset('css/backend/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('/css/backend/app.css') }}" rel="stylesheet">
+
+    <!-- Datatables -->
     <link href="{{ asset('plugins/datatables/css/datatables.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/backend/toastr.css') }}" rel="stylesheet">
+
+    <!-- toastr -->
+    <link href="{{ asset('plugins/toastr/css/toastr.css') }}" rel="stylesheet">
+
+    <!-- select2 -->
+    <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet">
     @stack('theme::css')
 </head>
 
@@ -44,12 +51,16 @@
 </a>
 
 <script src="{{ asset('js/backend/app.js') }}"></script>
+
+<!-- Datatables -->
 <script src="{{ asset('plugins/datatables/js/dataTables.js') }}"></script>
 
-<script src="{{ asset('js/backend/axios.min.js') }}"></script>
-<!-- bootbox code -->
-<script src="{{asset('js/backend/bootbox.all.min.js')}}"></script>
-<script src="{{asset('js/backend/toastr.min.js')}}"></script>
+<!-- toastr -->
+<script src="{{ asset('plugins/toastr/js/toastr.min.js') }}"></script>
+<!-- select2 -->
+<script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- custom -->
+<script src="{{ asset('js/custom.js') }}"></script>
 @stack('theme::javascript')
 </body>
 </html>

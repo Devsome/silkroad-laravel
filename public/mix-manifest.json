@@ -1,13 +1,13 @@
 {
-    "/css/backend/app.css": "/css/backend/app.css?id=7148525f7c4b207661cc",
-    "/css/app.css": "/css/app.css?id=198e401287b42733fd8c",
-    "/css/app-rtl.css": "/css/app-rtl.css?id=14d156c8f08e77ba8602",
-    "/plugins/datatables/css/dataTables.css": "/plugins/datatables/css/dataTables.css?id=09c9dc65cec1e3968a54",
-    "/css/leaflet.css": "/css/leaflet.css?id=4fcf8e1539e3dc9ba602",
-    "/js/worldmap.min.js": "/js/worldmap.min.js?id=8373c3066777bf258578",
-    "/css/components.css": "/css/components.css?id=5e57075f7adcdf195487",
-    "/js/backend/app.js": "/js/backend/app.js?id=15880d6cb3455dec7d55",
-    "/js/app.js": "/js/app.js?id=961e39d4ace57fec12ec",
-    "/js/webinventory.js": "/js/webinventory.js?id=993041bc22d2b73ce063",
-    "/plugins/datatables/js/dataTables.js": "/plugins/datatables/js/dataTables.js?id=5a086f1835b69bd54671"
+    "/css/backend/app.css": "/css/backend/app.css?id=a7605748fce415cf14d0",
+    "/css/app.css": "/css/app.css?id=8155120bef27e3c37f50",
+    "/css/app-rtl.css": "/css/app-rtl.css?id=3db42f5f8ae0f970acd9",
+    "/plugins/datatables/css/dataTables.css": "/plugins/datatables/css/dataTables.css?id=91296392f793fae591e2",
+    "/css/leaflet.css": "/css/leaflet.css?id=fbdb704d770437cb954b",
+    "/js/worldmap.min.js": "/js/worldmap.min.js?id=2765e3a6ebe5bcb88383",
+    "/css/components.css": "/css/components.css?id=18a1483fb1cab7dd852c",
+    "/js/backend/app.js": "/js/backend/app.js?id=836c0a4dd3fe981125af",
+    "/js/app.js": "/js/app.js?id=4558a341d45c0de33805",
+    "/js/webinventory.js": "/js/webinventory.js?id=55602d8d21968a6738cf",
+    "/plugins/datatables/js/dataTables.js": "/plugins/datatables/js/dataTables.js?id=0e09bb9bd7249d62c441"
 }

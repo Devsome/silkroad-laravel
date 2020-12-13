@@ -1,7 +1,7 @@
-@extends('theme::layouts.app')
+@extends('theme::layouts.app', ['alias' => 'AuctionHouse'])
 @section('theme::title', __('seo.auctionshouse.index'))
 @section('theme::sidebar')
-    @include('theme::frontend.account.auctionsidebar')
+    @include('theme::frontend.account.auctionsidebar', ['filter_type' => $filter])
 @endsection
 
 @section('theme::content')
@@ -12,7 +12,6 @@
                     <h1>
                         {{ __('auctionshouse.title') }}
                     </h1>
-
                     @if(session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session()->get('success') }}
@@ -22,127 +21,39 @@
                         </div>
                     @endif
 
-                    <div class="row">
-                        <div class="ml-auto mr-3">
-                            <a href="{{ route('auction-house-show-own') }}" type="button" class="btn btn-primary">
-                                {{ __('auctionshouse.your') }}
-                            </a>
-                            <a href="{{ route('auctions-house-add-item') }}" type="button" class="btn btn-secondary">
-                                {{ __('auctionshouse.new') }}
-                            </a>
-                        </div>
+                    <div class="row mb-5">
+                        @if(isset($mode) && $mode === 'all')
+                            <div class="ml-auto mr-3">
+                                <a href="{{ route('auctions-house', 'own') }}" type="button"
+                                   class="btn btn-primary">
+                                    {{ __('auctionshouse.your') }}
+                                </a>
+                            </div>
+                        @elseif(isset($mode) && $mode === 'own')
+                            <div class="ml-auto mr-3">
+                                <a href="{{ route('auctions-house', 'all') }}" type="button" class="btn btn-primary">
+                                    {{ __('auctionshouse.title') }}
+                                </a>
+                                <a href="{{ route('auctions-house-add-item') }}" type="button"
+                                   class="btn btn-secondary">
+                                    {{ __('auctionshouse.new') }}
+                                </a>
+                            </div>
+                        @endif
                     </div>
-
-                    <div class="table-responsive pt-4">
-                        <table id="items" class="table table-striped table-hover dataTable">
-                            <thead class="thead-default">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">{{ __('auctionshouse.table.name') }}</th>
-                                <th scope="col">{{ __('auctionshouse.table.price') }}</th>
-                                <th scope="col">{{ __('auctionshouse.table.price_instead') }}</th>
-                                <th scope="col">{{ __('auctionshouse.table.until') }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($items as $item)
-                                @if($item->user_id !== Auth::user()->id)
-                                <tr role="row" class="odd">
-                                    <td>
-                                        <div id="selectInventory">
-                                            <div class="itemslot">
-                                                <div class="image"
-                                                     style="background:url('{{ $item->getItemInformation->imgpath }}')
-                                                             no-repeat; background-size: 34px 34px;"
-                                                     data-iteminfo="1">
-                                                    <span class="qinfo">
-                                                        @if($item->getItemInformation->amount > 0)
-                                                            {{ $item->getItemInformation->amount }}
-                                                        @endisset
-                                                    </span>
-                                                    @isset($item->getItemInformation->special)
-                                                        @if($item->getItemInformation->special)
-                                                            <span class="plus"></span>
-                                                        @endif
-                                                    @endisset
-                                                </div>
-                                            </div>
-                                            <div class="itemInfo">
-                                                @isset($item->getItemInformation->data)
-                                                    {!! $item->getItemInformation->data !!}
-                                                @endisset
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('auctions-house-show-item', ['id' => $item->id]) }}">
-                                            {{ $item->getItemInformation->name }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        {{ number_format($item->price, 0, ',', '.') }}
-                                    </td>
-                                    <td>
-                                        {{ number_format($item->price_instead, 0, ',', '.') }}
-                                    </td>
-                                    <td>
-                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->until)->diffForHumans() }}
-                                    </td>
-                                </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
+                    {!! $dataTable->table(['class' => 'table table-hover table-bordered table-striped w-100'], true) !!}
                 </div>
             </div>
         </div>
     </div>
 @endsection
 @push('theme::javascript')
-    <script>
+    {!! $dataTable->scripts() !!}
+    <script type="text/javascript">
         $(document).ready(function () {
-            $('#items').DataTable({
-                columnDefs: [
-                    {
-                        "targets": 0,
-                        "orderable": false,
-                        "searchable": false,
-                    }
-                ],
-                "aaSorting": [],
-                "lengthMenu": [[10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "{{ __('datatables.show-all') }}"]],
-                "language": {
-                    "search": "{{ __('datatables.search') }}",
-                    "lengthMenu": "{{ __('datatables.length') }}",
-                    "zeroRecords": "{{ __('datatables.zero') }}",
-                    "info": "{{ __('datatables.info') }}",
-                    "infoEmpty": "{{ __('datatables.empty') }}",
-                    "infoFiltered": "{{ __('datatables.info-filtered') }}",
-                    "paginate": {
-                        "first": "{{ __('datatables.first') }}",
-                        "last": "{{ __('datatables.last') }}",
-                        "next": "{{ __('datatables.next') }}",
-                        "previous": "{{ __('datatables.prev') }}"
-                    }
-                },
-                "classes": {
-                    "sPageButton": "button small",
-                    "sPageButtonActive": "green",
-                    "sPageButtonDisabled": "helper hide"
-                },
-                "select": {
-                    "style": "os",
-                    "className": "row-selected"
-                },
-            });
-            $('div.dataTables_filter input').addClass('search-input form-control');
-            $('select').addClass('search-input form-control');
-
-            $(document).tooltip({
+            $('tbody').tooltip({
                 items: "[data-itemInfo], [title]",
-                position: {my: "left+5 center", at: "right center"},
+                position: {my: "left+10 center", at: "right center"},
                 content: function () {
                     let element = jQuery(this);
                     if (jQuery(this).prop("tagName").toUpperCase() === 'IFRAME') {
@@ -162,7 +73,39 @@
                     $(".ui-helper-hidden-accessible").remove();
                 }
             });
-
         });
+        @if($mode === 'own')
+        function DeleteData(id) {
+            bootbox.confirm({
+                title: "{{__('bootbox.delete.title')}}",
+                message: "{{__('bootbox.delete.message')}}",
+                buttons: {
+                    confirm: {
+                        label: "{{ __('bootbox.delete.buttons.submit') }}",
+                        className: 'btn-danger'
+                    },
+                    cancel: {
+                        label: "{{ __('bootbox.delete.buttons.cancel') }}",
+                        className: 'btn-default'
+                    }
+                },
+                callback: function (result) {
+                    if (result == true) {
+                        let url = "{{route('auction-house-cancel-own', ['id' => ':id'])}}";
+                        url = url.replace(':id', id);
+                        axios.delete(url)
+                            .then(function (data) {
+                                toastr.success("{{__('auctionshouse.notification.cancel.successfully')}}.");
+                                /*refresh table*/
+                                $('#dataTableBuilder_wrapper').find('.buttons-reload').click();
+                            })
+                            .catch(function (error) {
+                                toastr.error("{{trans('backend/notification.form-submit.error')}}");
+                            });
+                    }
+                }
+            });
+        }
+        @endif
     </script>
 @endpush

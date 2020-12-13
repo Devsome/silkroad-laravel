@@ -109,3 +109,45 @@
     border: 1px solid #ddd;
     outline: 0;
 }
+
+.rtl .dataTables_wrapper .dropdown-menu, [dir=rtl] .dataTables_wrapper .dropdown-menu {
+    right: auto !important;
+}
+
+.dataTables_wrapper .dropdown-menu {
+    width: 138px;
+}
+
+/**
+RTL DATA
+ */
+[dir=rtl] .dataTables_wrapper .dt-buttons {
+    float: left !important;
+}
+
+[dir=rtl] .dataTables_wrapper .dataTables_paginate {
+    float: left !important;
+    text-align: left;
+}
+
+[dir=rtl] .dataTables_wrapper .dataTables_info {
+    float: right !important;
+}
+
+[dir=rtl] .dataTables_wrapper .dataTables_filter {
+    float: right !important;
+}
+
+[dir=rtl] .dataTables_wrapper .dataTables_length {
+    float: right !important;
+}
+
+[dir=rtl] .dataTables_wrapper .dt-buttons > .btn + .btn {
+    margin-right: -1px !important;
+    margin-left: 0 !important;
+}
+
+[dir=rtl] .dataTables_wrapper .dataTables_filter input {
+    margin-left: 0 !important;
+    margin-right: .5em !important;
+}

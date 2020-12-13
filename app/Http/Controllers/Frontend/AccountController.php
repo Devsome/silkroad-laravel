@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\DataTables\Frontend\Account\ReferralDataTable;
+use App\DataTables\Frontend\Account\VouchersDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Library\Services\VouchersService;
 use App\SiteSettings;
 use App\User;
 use App\UserVoucher;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 use Validator;
 use Yajra\DataTables\DataTables;
 
@@ -29,7 +37,7 @@ class AccountController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function index()
     {
@@ -39,7 +47,7 @@ class AccountController extends Controller
     /**
      * Show all the Accounts Characters
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function charList()
     {
@@ -57,7 +65,7 @@ class AccountController extends Controller
     /**
      * Show the settings for the Account
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function settings()
     {
@@ -70,9 +78,10 @@ class AccountController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param ReferralDataTable $dataTable
+     * @return Factory|View
      */
-    public function referral()
+    public function referral(ReferralDataTable $dataTable)
     {
         $account = User::where('id', Auth::id())
             ->firstOrFail();
@@ -84,60 +93,37 @@ class AccountController extends Controller
         } else {
             $signature = null;
         }
-
-        return view('theme::frontend.account.referral', [
+        return $dataTable->render('theme::frontend.account.referral', [
             'account' => $account,
             'signature' => $signature
         ]);
     }
 
-    /**
-     * @return mixed
-     * @throws \Exception
-     */
-    public function referralDatatables()
-    {
-        return DataTables::of(
-            User::query()
-                ->where('referrer_id', Auth::id())
-        )->make(true);
-    }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param VouchersDataTable $dataTable
+     * @return Factory|View
      */
-    public function voucher()
+    public function voucher(VouchersDataTable $dataTable)
     {
         $account = User::where('id', Auth::id())
             ->firstOrFail();
 
-        return view('theme::frontend.account.voucher', [
+        return $dataTable->render('theme::frontend.account.voucher', [
             'account' => $account
         ]);
     }
 
-    /**
-     * @return mixed
-     * @throws \Exception
-     */
-    public function voucherDatatables()
-    {
-        return Datatables::of(
-            UserVoucher::query()
-                ->with('getVoucher')
-                ->where('user_id', Auth::id())
-        )->make(true);
-    }
 
     /**
      * @param Request $request
      * @param VouchersService $vouchersService
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function voucherUse(
         Request $request,
-        VouchersService $vouchersService)
-    {
+        VouchersService $vouchersService
+    ) {
         $validator = Validator::make($request->all(), [
             'voucher' => 'required',
         ]);
@@ -165,8 +151,8 @@ class AccountController extends Controller
      * Udapting the Account settings (web and Silkroad)
      *
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function settingsUpdate(Request $request)
     {

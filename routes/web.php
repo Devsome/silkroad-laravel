@@ -39,18 +39,23 @@ Route::group([
         'as' => 'job',
         'uses' => 'Frontend\RankingController@job',
     ]);
+
+
     Route::get('/job/trader', [
         'as' => 'job.trader',
         'uses' => 'Frontend\RankingController@trader',
     ]);
+
     Route::get('/job/hunter', [
         'as' => 'job.hunter',
         'uses' => 'Frontend\RankingController@hunter',
     ]);
+
     Route::get('/job/thief', [
         'as' => 'job.thief',
         'uses' => 'Frontend\RankingController@thief',
     ]);
+
     Route::get('/unique', [
         'as' => 'unique',
         'uses' => 'Frontend\RankingController@unique',
@@ -62,6 +67,14 @@ Route::group([
     Route::get('/pvp/job', [
         'as' => 'pvp.job',
         'uses' => 'Frontend\RankingController@JobPvp',
+    ]);
+    Route::get('/pvp/free', [
+        'as' => 'pvp.free',
+        'uses' => 'Frontend\RankingController@free_pvp',
+    ]);
+    Route::get('/pvp/job', [
+        'as' => 'pvp.job',
+        'uses' => 'Frontend\RankingController@job_pvp',
     ]);
 });
 
@@ -136,13 +149,15 @@ Route::get('/guild/{name}', 'Frontend\InformationController@guild')->name('infor
 // Auctions House
 Auth::routes(['verify' => true]);
 Route::group(['prefix' => 'auctions-house'], static function () {
-    Route::get('/', 'Frontend\AuctionsHouseController@index')->name('auctions-house');
-    Route::get('/filter/{type?}', 'Frontend\AuctionsHouseController@filterType')->name('auction-house-filter');
-    Route::get('/show/{id}', 'Frontend\AuctionsHouseController@showItem')->name('auctions-house-show-item');
-    Route::get('/own', 'Frontend\AuctionsHouseController@showOwn')->name('auction-house-show-own');
-    Route::post('/own/{id}/cancel', 'Frontend\AuctionsHouseController@cancelOwn')->name('auction-house-cancel-own');
+    // add section
     Route::get('/add', 'Frontend\AuctionsHouseController@showAddItem')->name('auctions-house-add-item');
     Route::post('/add-auction', 'Frontend\AuctionsHouseController@submitAddItem')->name('auctions-house-submit-add-item');
+
+    Route::get('/{mode?}', 'Frontend\AuctionsHouseController@index')->name('auctions-house');
+    Route::get('/filter/{type?}', 'Frontend\AuctionsHouseController@filterType')->name('auction-house-filter');
+    Route::get('/show/{id}', 'Frontend\AuctionsHouseController@showItem')->name('auctions-house-show-item');
+    Route::delete('/own/{id}/cancel', 'Frontend\AuctionsHouseController@cancelOwn')->name('auction-house-cancel-own');
+
 
     Route::post('/show/{id}/bid', 'Frontend\AuctionsHouseController@submitBidItem')->name('auctions-house-bid-item');
     Route::post('/show/{id}/buy', 'Frontend\AuctionsHouseController@submitBuyItemNow')->name('auctions-house-buy-item-now');

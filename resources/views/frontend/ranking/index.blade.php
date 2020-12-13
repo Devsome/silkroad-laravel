@@ -1,4 +1,4 @@
-@extends('theme::layouts.app')
+@extends('theme::layouts.app', ['alias' => 'Ranking'])
 @section('theme::title', __('seo.ranking.index', ['name' => Str::ucfirst($mode)]))
 @section('theme::content')
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
