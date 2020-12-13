@@ -90,7 +90,7 @@ BEGIN
                                                   WHEN RO.CodeName128 LIKE '%_B_RARE' THEN RO.ReqLevel1 + 10
                                                   WHEN RO.CodeName128 LIKE '%_C_RARE' THEN RO.ReqLevel1 + 15
                                                   ELSE RO.ReqLevel1
-                            END) + SUM(ISNULL(BOPT.nOptValue, 0)) + SUM(ISNULL(IT.OptLevel, 0)) ItemPoints
+                            END) + SUM(ISNULL(IT.OptLevel, 0)) ItemPoints
                                   FROM [{$databaseShard}].[dbo].[_Char] CH
                                            INNER JOIN [{$databaseShard}].[dbo]._Inventory IV ON IV.CharID = CH.CharID
                                            INNER JOIN [{$databaseShard}].[dbo]._Items IT ON IT.ID64 = IV.ItemID
