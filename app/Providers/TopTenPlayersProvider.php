@@ -27,7 +27,7 @@ class TopTenPlayersProvider extends ServiceProvider
     public function boot()
     {
         view()->composer(
-            'theme::*',
+            'theme::layouts.toptenplayers',
             static function ($view) {
                 //check for deleted Characters
                 $deleted_chars = Char::where('Deleted', true)

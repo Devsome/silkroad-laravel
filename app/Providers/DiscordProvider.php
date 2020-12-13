@@ -25,7 +25,7 @@ class DiscordProvider extends ServiceProvider
     public function boot()
     {
         view()->composer(
-            'theme::*',
+            'theme::layouts.discord',
             static function ($view) {
                 $discord = new DiscordController;
                 $data = $discord->fetch();
