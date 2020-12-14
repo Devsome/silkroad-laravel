@@ -1,6 +1,27 @@
 <?php
 
+use App\Helpers\Images;
+
 Auth::routes();
+
+/**
+ * Images
+ */
+
+//get Images
+Route::get('images/normal/{image?}', function ($image = null) {
+    return Images::GetImage($image);
+})->name('images.image')->where(['image' => '(.*)']);
+
+//get fort Images
+Route::get('images/fortress/{image?}', function ($image = null) {
+    return Images::GetFortImage($image);
+})->name('images.fortress')->where(['image' => '(.*)']);
+
+//get Characters Images
+Route::get('images/characters/{image?}', function ($image = null) {
+    return Images::GetCharacterImage($image);
+})->name('images.characters')->where(['image' => '(.*)']);
 
 
 Route::get('/', 'Frontend\IndexController@index')->name('index');
@@ -70,11 +91,11 @@ Route::group([
     ]);
     Route::get('/pvp/free', [
         'as' => 'pvp.free',
-        'uses' => 'Frontend\RankingController@free_pvp',
+        'uses' => 'Frontend\RankingController@FreePvp',
     ]);
     Route::get('/pvp/job', [
         'as' => 'pvp.job',
-        'uses' => 'Frontend\RankingController@job_pvp',
+        'uses' => 'Frontend\RankingController@JobPvp',
     ]);
 });
 
