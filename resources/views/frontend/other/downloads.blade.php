@@ -11,7 +11,7 @@
                             <div class="col-md-4">
                                 <div class="card download-card">
                                     @if(isset($download->image))
-                                        <img src="{{ Storage::disk('images')->url($download->image->filename) }}"
+                                        <img src="{{ route('images.image', ['image'=> ($download->image) ? $download->image->filename : null]) }}"
                                              class="card-img-top"
                                              loading="lazy"
                                              alt="{{ $download->name }}">

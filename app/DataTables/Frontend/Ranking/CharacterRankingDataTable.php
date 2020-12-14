@@ -32,7 +32,7 @@ class CharacterRankingDataTable extends DataTable
             })
             ->editColumn('char', function ($data = '$query') {
                 return '
-                <img src="' . asset('image/sro/chars/' . $data->RefObjID . '.gif') .
+                <img src="' . route('images.characters', ['image' => $data->RefObjID.'.gif']) .
                     '" loading="lazy" class="img-fluid d-none d-sm-inline" width="16" height="16" alt="' .
                     $data->CharName16 . '">
                 <a href="' . route('information-player', ['CharName16' => Str::lower($data->CharName16)]) . '">

@@ -25,7 +25,7 @@ class HunterRankingDataTable extends DataTable
             ->editColumn('name', function ($data = '$data') {
                 return '
                 <span>
-                <img src="' . asset('image/sro/chars/' . $data->getCharacter->RefObjID . '.gif') . '" loading="lazy" class="img-fluid d-none d-sm-inline" width="16" height="16" alt="' . $data->getCharacter->CharName16 . '"/>
+                <img src="' . route('images.characters', ['image' => $data->getCharacter->RefObjID.'.gif']) . '" loading="lazy" class="img-fluid d-none d-sm-inline" width="16" height="16" alt="' . $data->getCharacter->CharName16 . '"/>
                  ' . $data->getCharacter->NickName16 . '
                  </span>
                 ';
