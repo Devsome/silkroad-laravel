@@ -19,6 +19,8 @@ return [
         'voucher-desc' => 'Anda memiliki catatan kredit dan ingin menebusnya :silk? Kemudian Anda dapat menebus yang ini',
         'web-inventory' => 'Inventaris Web',
         'web-inventory-help' => 'Di sini Anda dapat menemukan "Inventaris" tempat item yang dibeli atau dijual.',
+        'voteforsilk' => 'Vote for silk',
+        'voteforsilk-help' => 'You want to gain easy silk? Here you can vote for our Server and gain some.',
     ],
 
     'chars-list' => [

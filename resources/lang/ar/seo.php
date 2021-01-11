@@ -7,6 +7,7 @@ return [
     'donations' => 'الشحن - ' . config('app.name'),
     'settings' => 'إعدادات - ' . config('app.name'),
     'referral' => 'الإحالة - ' . config('app.name'),
+    'voteforsilk' => 'Vote for silk - ' . config('app.name'),
     'voucher' => 'قسايم الشحن - ' . config('app.name'),
     'tickets' => [
         'index' => 'تذاكر الدعم - ' . config('app.name'),

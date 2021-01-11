@@ -19,6 +19,8 @@ return [
         'voucher-desc' => '¿Tienes una nota de crédito y quieres canjearla por :silk? Aquí puedes canjearla',
         'web-inventory' => 'Inventario Web',
         'web-inventory-help' => 'Aquí puedes encontrar tu "Inventario" donde se encuentran tus items comprados o vendidos.',
+        'voteforsilk' => 'Vote for silk',
+        'voteforsilk-help' => 'You want to gain easy silk? Here you can vote for our Server and gain some.',
     ],
 
     'chars-list' => [

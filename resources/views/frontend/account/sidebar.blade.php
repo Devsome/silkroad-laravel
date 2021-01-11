@@ -80,5 +80,8 @@
         <a href="{{ route('web-inventory-index') }}" class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'WebInventory') ? ' active' : ''}}">
             {{ __('sidebar.home.web-inventory') }}
         </a>
+        <a href="{{ route('vote-for-silk-index') }}" class="list-group-item list-group-item-action">
+            {{ __('sidebar.home.voteforsilk') }}
+        </a>
     </div>
 </div>

@@ -7,6 +7,7 @@ return [
     'donations' => 'डोनेशन - ' . config('app.name'),
     'settings' => 'समायोजन - ' . config('app.name'),
     'referral' => 'रेफरल - ' . config('app.name'),
+    'voteforsilk' => 'Vote for silk - ' . config('app.name'),
     'voucher' => 'वाउचर - ' . config('app.name'),
     'tickets' => [
         'index' => 'टिकट - ' . config('app.name'),

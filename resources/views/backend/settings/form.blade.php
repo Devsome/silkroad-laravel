@@ -168,6 +168,30 @@
 
     <hr class="mt-2">
     <h4>
+        {{ __('backend/settings.form.voteforsilk') }}
+    </h4>
+    <div class="form-group row pt-2">
+        <label class="col-sm-4 col-form-label" for="hide_gamemaster_char">
+            {{ __('backend/settings.form.voteforsilk-help') }}
+        </label>
+        <div class="col-sm-8">
+            <div class="custom-control custom-checkbox d-block pt-2">
+                <input class="custom-control-input"
+                       type="checkbox" id="voteforsilk" name="voteforsilk"
+                @if(array_key_exists('voteforsilk', $data))
+                    {{ $data['voteforsilk'] ? 'checked' : '' }}
+                        @endif>
+                <label class="custom-control-label" for="voteforsilk">
+                    {{ __('backend/settings.form.voteforsilk-activate') }}
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+
+    <hr class="mt-2">
+    <h4>
         {{ __('backend/settings.form.fortress') }}
     </h4>
 

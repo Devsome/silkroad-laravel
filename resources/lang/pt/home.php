@@ -19,6 +19,8 @@ return [
         'voucher-desc' => 'Você tem um bilhete de crédito e quer resgatar para :silk? Aqui você pode resgatá-lo',
         'web-inventory' => 'Inventário virtual',
         'web-inventory-help' => 'Aqui você pode encontrar o seu "Inventário" onde seus intens comprados e vendidos estão.',
+        'voteforsilk' => 'Vote for silk',
+        'voteforsilk-help' => 'You want to gain easy silk? Here you can vote for our Server and gain some.',
     ],
 
     'chars-list' => [

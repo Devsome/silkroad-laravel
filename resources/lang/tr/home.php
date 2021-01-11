@@ -19,6 +19,8 @@ return [
         'voucher-desc' => 'Bir kuponunuz var ve onu :silk için mi kullanmak istiyorsunuz? O zaman bu alanı kullanabilirsiniz.',
         'web-inventory' => 'Web Envanteri',
         'web-inventory-help' => 'Burada, satın aldığınız veya sattığınız ürünlerin olduğu "Envanterinizi" bulabilirsiniz',
+        'voteforsilk' => 'Vote for silk',
+        'voteforsilk-help' => 'You want to gain easy silk? Here you can vote for our Server and gain some.',
     ],
 
     'chars-list' => [

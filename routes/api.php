@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/worldmap', 'Frontend\IndexController@worldmapApi')->name('api-worldmap');
+Route::any('/vote/pingback', 'Frontend\VoteforsilkController@pingback')->name('api-vote-pingback');

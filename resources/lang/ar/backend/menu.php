@@ -32,6 +32,7 @@ return [
     'serverinformation' => 'Server Information',
     'pages' => 'Pages',
     'serverrules' => 'Server Rules',
+    'voteforsilk' => 'Vote for Silk',
 
     'notice' => 'Launcher notice',
     'tbuser' => 'Accounts',

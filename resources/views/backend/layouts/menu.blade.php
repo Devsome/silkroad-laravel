@@ -123,6 +123,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('vote-for-silk-index-backend') }}">
+            <i class="fas fa-fw fa-vote-yea"></i>
+            <span>{{ __('backend/menu.voteforsilk') }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('site-settings-backend') }}">
             <i class="fas fa-fw fa-cog"></i>
             <span>{{ __('backend/menu.settings') }}</span>
