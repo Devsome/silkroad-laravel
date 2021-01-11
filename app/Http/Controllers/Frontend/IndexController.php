@@ -6,18 +6,24 @@ use App\Download;
 use App\Http\Controllers\Controller;
 use App\Http\Model\SRO\Log\OnlineOfflineLog;
 use App\News;
+use App\Pages;
 use App\Rules;
 use App\ServerInformation;
 use App\SiteSettings;
 use Carbon\Carbon;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 use Response;
 
 class IndexController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -29,7 +35,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function downloads()
     {
@@ -41,7 +47,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function rules()
     {
@@ -52,7 +58,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function serverInformation()
     {
@@ -62,9 +68,26 @@ class IndexController extends Controller
     }
 
     /**
+     * @param $slug
+     * @return Factory|\Illuminate\Contracts\View\View
+     */
+    public function pagesContent($slug)
+    {
+        $page = Pages::where('slug', '=', $slug)
+            ->where('state', '=', Pages::PAGE_ACTIVE)
+            ->with('getContent')
+            ->firstOrFail();
+
+        return view('theme::frontend.other.pages', [
+            'pageContent' => $page,
+            'slug' => $slug
+        ]);
+    }
+
+    /**
      * @param null $ref
      * @return \Illuminate\Http\Response|null
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function signatureRef($ref = null): ?\Illuminate\Http\Response
     {
@@ -88,7 +111,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function worldmapIndex()
     {
@@ -100,7 +123,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function worldmapApi()
     {
@@ -116,7 +139,7 @@ class IndexController extends Controller
 
     /**
      * @param $lang
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function lang($lang)
     {

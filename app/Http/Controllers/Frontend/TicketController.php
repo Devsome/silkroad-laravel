@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\DataTables\Frontend\Account\TicketsDataTable;
 use App\Http\Controllers\Controller;
 use App\Tickets\Ticket;
 use App\Tickets\TicketAnswer;
@@ -10,8 +11,12 @@ use App\Tickets\TicketPrioritys;
 use App\Tickets\TicketStatus;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
 class TicketController extends Controller
@@ -19,38 +24,25 @@ class TicketController extends Controller
     /**
      * Showing all the Tickets from the Account
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param TicketsDataTable $dataTable
+     * @return Factory|View
      */
-    public function tickets()
+    public function tickets(TicketsDataTable $dataTable)
     {
         $account = User::where('id', Auth::id())
             ->with('getTbUser.getSkSilk')
             ->firstOrFail();
 
-        return view('theme::frontend.account.tickets.index', [
+        return $dataTable->render('theme::frontend.account.tickets.index', [
             'account' => $account
         ]);
     }
 
-    /**
-     * Getting for the Datatables the Ticket for the Account
-     * @return mixed
-     * @throws \Exception
-     */
-    public function ticketsDatatables()
-    {
-        return DataTables::of(
-            Ticket::query()
-                ->with('getStatusName')
-                ->with('getPriorityName')
-                ->where('user_id', Auth::id())
-        )->make(true);
-    }
 
     /**
      * Showing the form for creating a new Ticket
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function ticketsNew()
     {
@@ -72,8 +64,8 @@ class TicketController extends Controller
      * Submitting a new Ticket for this Account
      *
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function ticketsNewSubmit(Request $request)
     {
@@ -111,7 +103,7 @@ class TicketController extends Controller
 
     /**
      * @param $ticketId
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function ticketShow($ticketId)
     {
@@ -136,8 +128,8 @@ class TicketController extends Controller
     /**
      * @param Request $request
      * @param $ticketId
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function ticketShowSubmit(Request $request, $ticketId)
     {
@@ -150,7 +142,7 @@ class TicketController extends Controller
             ->where('user_id', Auth::id())
             ->get();
 
-        if($ticketCheck->isEmpty()) {
+        if ($ticketCheck->isEmpty()) {
             return redirect()->back()->with('error', __('home.tickets.show.form.wrong-owner'));
         }
 

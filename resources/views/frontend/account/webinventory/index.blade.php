@@ -1,7 +1,7 @@
-@extends('theme::layouts.app')
+@extends('theme::layouts.app', ['alias' => 'Account'])
 @section('theme::title', __('seo.webinventory'))
 @section('theme::sidebar')
-    @include('theme::frontend.account.sidebar')
+    @include('theme::frontend.account.sidebar', ['account_alias'=>'WebInventory'])
 @endsection
 
 @section('theme::content')

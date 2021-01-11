@@ -1,0 +1,153 @@
+@import "../datatables/css/dataTables.bootstrap4.min.css";
+@import "../datatables/css/autoFill.bootstrap4.min.css";
+@import "../datatables/css/buttons.bootstrap4.min.css";
+@import "../datatables/css/colReorder.bootstrap4.min.css";
+@import "../datatables/css/fixedColumns.bootstrap4.min.css";
+@import "../datatables/css/fixedHeader.bootstrap4.min.css";
+@import "../datatables/css/keyTable.bootstrap4.min.css";
+@import "../datatables/css/responsive.bootstrap4.min.css";
+@import "../datatables/css/rowGroup.bootstrap4.min.css";
+@import "../datatables/css/rowReorder.bootstrap4.min.css";
+@import "../datatables/css/scroller.bootstrap4.min.css";
+@import "../datatables/css/searchBuilder.bootstrap4.min.css";
+@import "../datatables/css/searchPanes.bootstrap4.min.css";
+@import "../datatables/css/select.bootstrap4.min.css";
+
+.dataTables_filter {
+    position: relative;
+    display: block;
+    float: left;
+    margin: 0 0 1.25rem 1.25rem;
+}
+
+.dataTables_length {
+    float: right;
+    display: inline-block;
+    margin: 0 0 1.25rem 1.25rem;
+}
+
+.dataTables_wrapper .dataTables_info {
+    clear: both;
+    float: left;
+    padding-top: 0.755em;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    float: right;
+    text-align: right;
+    padding-top: 0.25em;
+}
+
+.dt-buttons > .btn:first-child {
+    border-top-left-radius: .1875rem;
+    border-bottom-left-radius: .1875rem;
+}
+
+.dt-buttons {
+    position: relative;
+    float: right;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0 0 1.25rem 1.25rem;
+}
+
+.dt-button.btn-light {
+    color: #333 !important;
+    background-color: #fafafa !important;
+    border-color: #ddd !important;
+}
+
+.dt-button.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #333;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .4375rem .875rem;
+    font-size: .8125rem;
+    line-height: 1.5385;
+    border-radius: .1875rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.dt-buttons > .btn + .btn {
+    margin-left: -1px;
+}
+
+.dt-buttons > .btn {
+    border-radius: 0;
+}
+
+.dataTables_filter input {
+    outline: 0;
+    width: 12.5rem;
+    padding: .4375rem .875rem;
+    padding-right: 2rem;
+    font-size: .8125rem;
+    line-height: 1.5385;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: .1875rem;
+}
+
+.dataTables_length select {
+    height: calc(1.5385em + .875rem + 2px);
+    padding: .4375rem .875rem;
+    font-size: .8125rem;
+    line-height: 1.5385;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    outline: 0;
+}
+
+.rtl .dataTables_wrapper .dropdown-menu, [dir=rtl] .dataTables_wrapper .dropdown-menu {
+    right: auto !important;
+}
+
+.dataTables_wrapper .dropdown-menu {
+    width: 138px;
+}
+
+/**
+RTL DATA
+ */
+[dir=rtl] .dataTables_wrapper .dt-buttons {
+    float: left !important;
+}
+
+[dir=rtl] .dataTables_wrapper .dataTables_paginate {
+    float: left !important;
+    text-align: left;
+}
+
+[dir=rtl] .dataTables_wrapper .dataTables_info {
+    float: right !important;
+}
+
+[dir=rtl] .dataTables_wrapper .dataTables_filter {
+    float: right !important;
+}
+
+[dir=rtl] .dataTables_wrapper .dataTables_length {
+    float: right !important;
+}
+
+[dir=rtl] .dataTables_wrapper .dt-buttons > .btn + .btn {
+    margin-right: -1px !important;
+    margin-left: 0 !important;
+}
+
+[dir=rtl] .dataTables_wrapper .dataTables_filter input {
+    margin-left: 0 !important;
+    margin-right: .5em !important;
+}

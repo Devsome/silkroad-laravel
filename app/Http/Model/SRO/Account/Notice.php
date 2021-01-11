@@ -45,7 +45,7 @@ class Notice extends Model
      * @var array
      */
     protected $fillable = [
-        'ContentId',
+        'ContentID',
         'Subject',
         'Article',
         'EditDate'

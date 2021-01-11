@@ -11,7 +11,7 @@ return [
     'voucher' => 'قسايم الشحن - ' . config('app.name'),
     'tickets' => [
         'index' => 'تذاكر الدعم - ' . config('app.name'),
-        'new' => 'إنشاء تذكرة جديدة - ' .config('app.name'),
+        'new' => 'إنشاء تذكرة جديدة - ' . config('app.name'),
         'show' => ':name - ' . config('app.name')
     ],
     'webinventory' => 'حقيبة الويب - ' . config('app.name'),
@@ -37,5 +37,7 @@ return [
         'guild' => 'النقابة :name - ' . config('app.name')
     ],
     'serverinformation' => 'معلومات - ' . config('app.name'),
-
+    'faq' => 'الأسئله المتكرره - ' . config('app.name'),
+    'events' => 'الأحداث - ' . config('app.name'),
+    'styles' => 'الأنماط - ' . config('app.name'),
 ];

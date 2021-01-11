@@ -21,4 +21,6 @@ return [
         'title' => 'الروابط الخارجية',
         'no-backlink' => 'لاتوجد روابط خارجية',
     ],
+
+    'copyrights' => 'تمت برمجته بواسطه <a href="https://doc.devso.me/" class="text-white">Devsome</a>',
 ];

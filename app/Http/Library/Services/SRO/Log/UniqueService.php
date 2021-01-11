@@ -55,19 +55,30 @@ class UniqueService
             return $data;
         });
         $uniquePoints = $uniquePoints->groupBy('CharName16')
-            ->map(static function ($d) {
+            ->map(static function ($d) use ($uniquePoints) {
                 $sum = $d->sum('Points');
+
                 if ($sum > 0) {
                     return [
+                        'name' => $d->first()->CharName16,
                         'points' => $d->sum('Points')
                     ];
                 }
             });
         $uniquePoints = $uniquePoints->sortDesc();
+
         $uniquePoints->values()->all();
         $uniquePoints = $uniquePoints->filter(static function ($value) {
             return !is_null($value);
         });
-        return $uniquePoints;
+        /** @var array $ranking */
+        foreach ($uniquePoints as $uniquePoint) {
+            $ranking[] = $uniquePoint;
+        }
+        $collection = collect($ranking);
+        $sorted = $collection->sortByDesc('points');
+
+        $sorted->values()->all();
+        return $sorted;
     }
 }

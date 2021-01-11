@@ -1,4 +1,4 @@
-@extends('theme::layouts.app')
+@extends('theme::layouts.app', ['alias' => 'Home'])
 @section('theme::title', __('seo.index'))
 @section('theme::content')
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 news-container">
@@ -24,7 +24,7 @@
                     @forelse($news as $newsData)
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="post-box"
-                                 style="background-image: url('{{ Storage::disk('images')->url($newsData->image->filename) }}');">
+                                 style="background-image: url('{{ route('images.image', ['image' => $newsData->image->filename]) }}');">
                                 <div class="post-link">
                                     <a href="{{ route('news-slug', ['slug' => $newsData->slug]) }}">
                                         {{ $newsData->title }}

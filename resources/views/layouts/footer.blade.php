@@ -65,7 +65,7 @@
                         <li>
                             <a href="{{ $backlink->url }}" target="_blank" rel="noopener">
                                 @if($backlink->image)
-                                    <img src="{{ Storage::disk('images')->url($backlink->image->filename) }}"
+                                    <img src="{{ route('images.image', ['image'=> $backlink->image->filename]) }}"
                                          loading="lazy"
                                          class="img-fluid d-none d-sm-inline"
                                          width="24" height="24" alt="{{ $backlink->name }}">
@@ -105,5 +105,8 @@
                 {{ config('app.name', 'DevsomeSRO') }}
             </a>
         </p>
+        <div class="text-muted">
+            {!! __('footer.copyrights') !!}
+        </div>
     </div>
 </footer>

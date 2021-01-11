@@ -30,6 +30,7 @@ return [
     'settings' => 'Site Settings',
     'auctionshouse' => 'Auctions House',
     'serverinformation' => 'Server Information',
+    'pages' => 'Pages',
     'serverrules' => 'Server Rules',
     'voteforsilk' => 'Vote for Silk',
 

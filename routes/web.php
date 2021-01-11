@@ -1,6 +1,27 @@
 <?php
 
+use App\Helpers\Images;
+
 Auth::routes();
+
+/**
+ * Images
+ */
+
+//get Images
+Route::get('images/normal/{image?}', function ($image = null) {
+    return Images::GetImage($image);
+})->name('images.image')->where(['image' => '(.*)']);
+
+//get fort Images
+Route::get('images/fortress/{image?}', function ($image = null) {
+    return Images::GetFortImage($image);
+})->name('images.fortress')->where(['image' => '(.*)']);
+
+//get Characters Images
+Route::get('images/characters/{image?}', function ($image = null) {
+    return Images::GetCharacterImage($image);
+})->name('images.characters')->where(['image' => '(.*)']);
 
 
 Route::get('/', 'Frontend\IndexController@index')->name('index');
@@ -21,18 +42,74 @@ Route::get('/rules', 'Frontend\IndexController@rules')->name('rules-index');
 Route::get('/worldmap', 'Frontend\IndexController@worldmapIndex')->name('worldmap');
 
 // Ranking
-Route::group(['prefix' => 'ranking'], static function () {
-    Route::get('/{mode?}', 'Frontend\RankingController@index')->name('ranking-index');
+Route::group([
+    'prefix' => 'ranking',
+    'as' => 'ranking.'
+], static function () {
+    Route::get('/charname', [
+        'as' => 'char',
+        'uses' => 'Frontend\RankingController@charname',
+    ]);
+
+    Route::get('/guild', [
+        'as' => 'guild',
+        'uses' => 'Frontend\RankingController@guild',
+    ]);
+
+    Route::get('/job', [
+        'as' => 'job',
+        'uses' => 'Frontend\RankingController@job',
+    ]);
+
+
+    Route::get('/job/trader', [
+        'as' => 'job.trader',
+        'uses' => 'Frontend\RankingController@trader',
+    ]);
+
+    Route::get('/job/hunter', [
+        'as' => 'job.hunter',
+        'uses' => 'Frontend\RankingController@hunter',
+    ]);
+
+    Route::get('/job/thief', [
+        'as' => 'job.thief',
+        'uses' => 'Frontend\RankingController@thief',
+    ]);
+
+    Route::get('/unique', [
+        'as' => 'unique',
+        'uses' => 'Frontend\RankingController@unique',
+    ]);
+    Route::get('/pvp/free', [
+        'as' => 'pvp.free',
+        'uses' => 'Frontend\RankingController@FreePvp',
+    ]);
+    Route::get('/pvp/job', [
+        'as' => 'pvp.job',
+        'uses' => 'Frontend\RankingController@JobPvp',
+    ]);
+    Route::get('/pvp/free', [
+        'as' => 'pvp.free',
+        'uses' => 'Frontend\RankingController@FreePvp',
+    ]);
+    Route::get('/pvp/job', [
+        'as' => 'pvp.job',
+        'uses' => 'Frontend\RankingController@JobPvp',
+    ]);
 });
 
 // Server Information
 Route::get('/server-information', 'Frontend\IndexController@serverInformation')->name('server-information');
 
+// Pages
+Route::get('/pages/{slug}', 'Frontend\IndexController@pagesContent')->name('pages-content');
+
 // Needed to be logged in after that
 Auth::routes(['verify' => true]);
 
 // User Dashboard
-Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function() {
+Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function () {
     Route::get('/', 'Frontend\AccountController@index')->name('home');
     Route::get('/chars', 'Frontend\AccountController@charList')->name('home-chars-list');
     Route::get('/settings', 'Frontend\AccountController@settings')->name('home-settings');
@@ -45,7 +122,7 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function(
     Route::get('/notification', 'Frontend\NotificationController@index')->name('notification');
     Route::get('/notification/{id}', 'Frontend\NotificationController@markAsRead')->name('notification-mark-as-read')->where('id', '[0-9]+');
     Route::get('/notification/mark-all', 'Frontend\NotificationController@markAllAsRead')->name('notification-mark-all');
-    Route::group(['prefix' => 'tickets'], static function() {
+    Route::group(['prefix' => 'tickets'], static function () {
         Route::get('/', 'Frontend\TicketController@tickets')->name('home-tickets');
         Route::get('/new', 'Frontend\TicketController@ticketsNew')->name('home-tickets-new');
         Route::post('/new', 'Frontend\TicketController@ticketsNewSubmit')->name('home-tickets-new-submit');
@@ -98,13 +175,15 @@ Route::get('/guild/{name}', 'Frontend\InformationController@guild')->name('infor
 // Auctions House
 Auth::routes(['verify' => true]);
 Route::group(['prefix' => 'auctions-house'], static function () {
-    Route::get('/', 'Frontend\AuctionsHouseController@index')->name('auctions-house');
-    Route::get('/filter/{type?}', 'Frontend\AuctionsHouseController@filterType')->name('auction-house-filter');
-    Route::get('/show/{id}', 'Frontend\AuctionsHouseController@showItem')->name('auctions-house-show-item');
-    Route::get('/own', 'Frontend\AuctionsHouseController@showOwn')->name('auction-house-show-own');
-    Route::post('/own/{id}/cancel', 'Frontend\AuctionsHouseController@cancelOwn')->name('auction-house-cancel-own');
+    // add section
     Route::get('/add', 'Frontend\AuctionsHouseController@showAddItem')->name('auctions-house-add-item');
     Route::post('/add-auction', 'Frontend\AuctionsHouseController@submitAddItem')->name('auctions-house-submit-add-item');
+
+    Route::get('/{mode?}', 'Frontend\AuctionsHouseController@index')->name('auctions-house');
+    Route::get('/filter/{type?}', 'Frontend\AuctionsHouseController@filterType')->name('auction-house-filter');
+    Route::get('/show/{id}', 'Frontend\AuctionsHouseController@showItem')->name('auctions-house-show-item');
+    Route::delete('/own/{id}/cancel', 'Frontend\AuctionsHouseController@cancelOwn')->name('auction-house-cancel-own');
+
 
     Route::post('/show/{id}/bid', 'Frontend\AuctionsHouseController@submitBidItem')->name('auctions-house-bid-item');
     Route::post('/show/{id}/buy', 'Frontend\AuctionsHouseController@submitBuyItemNow')->name('auctions-house-buy-item-now');
@@ -123,7 +202,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
     Route::post('/todo/{id}/delete', 'Backend\BackendController@todoDelete')->name('todo-delete-backend');
 
     // Server Information
-    Route::group(['prefix' => 'server-information'], static function() {
+    Route::group(['prefix' => 'server-information'], static function () {
         Route::get('/', 'Backend\ServerInformationController@index')->name('server-information-index-backend');
         Route::get('/create', 'Backend\ServerInformationController@showAdd')->name('server-information-show-add-backend');
         Route::post('/add', 'Backend\ServerInformationController@add')->name('server-information-add-backend');
@@ -132,9 +211,19 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
         Route::delete('/destroy/{id}', 'Backend\ServerInformationController@destroy')->name('server-information-destroy-backend');
     });
 
+    // Pages
+    Route::resource('pages', 'Backend\PagesController', [
+        'except' => [
+            'show',
+        ]
+    ]);
+    Route::post('/pages/create/type', 'Backend\PagesController@createType')->name('pages-create-type-backend');
+    Route::get('/pages/type/toggle', 'Backend\PagesController@toggleType')->name('pages-toggle-type-backend');
+
+
     // Server Rules
     Route::group(['prefix' => 'rules'], static function () {
-       Route::get('/','Backend\RulesController@index')->name('server-rules-index-backend');
+        Route::get('/', 'Backend\RulesController@index')->name('server-rules-index-backend');
         Route::get('/create', 'Backend\RulesController@showAdd')->name('server-rules-show-add-backend');
         Route::post('/add', 'Backend\RulesController@add')->name('server-rules-add-backend');
         Route::get('/edit/{id}', 'Backend\RulesController@showEdit')->name('server-rules-edit-show-backend');
@@ -220,7 +309,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
 
         Route::get('/auctionshouse', 'Backend\AuctionsHouseController@index')->name('auctionshouse-settings-backend');
         Route::post('/auctionshouse/update', 'Backend\AuctionsHouseController@update')->name('auctionshouse-settings-update-backend');
-        Route::get('/auctionshouse/log','Backend\AuctionsHouseController@showLog')->name('auctionshouse-log-backend');
+        Route::get('/auctionshouse/log', 'Backend\AuctionsHouseController@showLog')->name('auctionshouse-log-backend');
         Route::get('/auctionshouse/log/datatables', 'Backend\AuctionsHouseController@showLogDatatables')->name('auctionshouse-log-datatables-backend');
 
         Route::group(['prefix' => 'downloads'], static function () {
@@ -250,7 +339,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
             Route::post('/{id}/destroy', 'Backend\VoucherController@destroy')->name('voucher-destroy-backend');
         });
 
-        Route::group(['prefix' => 'backlinks'], static function() {
+        Route::group(['prefix' => 'backlinks'], static function () {
             Route::get('/', 'Backend\BacklinksController@index')->name('backlinks-index-backend');
             Route::get('/add', 'Backend\BacklinksController@show')->name('backlinks-add-backend');
             Route::post('/create', 'Backend\BacklinksController@create')->name('backlinks-create-backend');
@@ -265,7 +354,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
             Route::post('/{id}/destroy', 'Backend\SupportersOnlineController@destroy')->name('supporters-online-destroy-backend');
         });
 
-        Route::group(['prefix' => 'donations'], static function (){
+        Route::group(['prefix' => 'donations'], static function () {
             Route::get('/', 'Backend\DonationsController@index')->name('donations-index-backend');
             Route::post('/methods/update', 'Backend\DonationsController@updateMethods')->name('donations-update-methods-backend');
 

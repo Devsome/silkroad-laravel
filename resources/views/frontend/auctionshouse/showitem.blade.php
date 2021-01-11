@@ -1,7 +1,7 @@
-@extends('theme::layouts.app')
+@extends('theme::layouts.app', ['alias' => 'AuctionHouse'])
 @section('theme::title', __('seo.auctionshouse.showitem', ['name' => $item->getItemInformation->name]))
 @section('theme::sidebar')
-    @include('theme::frontend.account.auctionsidebar')
+    @include('theme::frontend.account.auctionsidebar', ['filter_type' => $filter])
 @endsection
 
 @section('theme::content')

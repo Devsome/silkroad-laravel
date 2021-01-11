@@ -20,7 +20,7 @@
             </tr>
         @empty
             <tr>
-                <td>{{ __('sidebar.topten-players.empty') }}</td>
+                <td colspan="3">{{ __('sidebar.topten-players.empty') }}</td>
             </tr>
         @endforelse
         </tbody>

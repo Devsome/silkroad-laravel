@@ -1,4 +1,4 @@
-@extends('theme::layouts.app')
+@extends('theme::layouts.app', ['alias' => 'Downloads'])
 @section('theme::title', __('seo.downloads'))
 @section('theme::content')
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
@@ -11,7 +11,7 @@
                             <div class="col-md-4">
                                 <div class="card download-card">
                                     @if(isset($download->image))
-                                        <img src="{{ Storage::disk('images')->url($download->image->filename) }}"
+                                        <img src="{{ route('images.image', ['image'=> ($download->image) ? $download->image->filename : null]) }}"
                                              class="card-img-top"
                                              loading="lazy"
                                              alt="{{ $download->name }}">

@@ -12,6 +12,7 @@
         "ext-json": "*",
         "awssat/discord-notification-channel": "^1.1",
         "fideloper/proxy": "^4.0",
+        "intervention/image": "^2.5",
         "laravel/framework": "^8.0",
         "laravel/legacy-factories": "^1.0",
         "laravel/tinker": "^2.4.1",
@@ -19,6 +20,7 @@
         "omnipay/paypal": "^3.0",
         "spatie/laravel-permission": "^3.4",
         "stripe/stripe-php": "^7.61",
+        "yajra/laravel-datatables": "^1.5",
         "yajra/laravel-datatables-oracle": "^9.8"
     },
     "require-dev": {

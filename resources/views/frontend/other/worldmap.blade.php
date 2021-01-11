@@ -1,4 +1,4 @@
-@extends('theme::layouts.app')
+@extends('theme::layouts.app', ['alias' => 'WorldMap'])
 @section('theme::title', __('seo.worldmap'))
 @section('theme::sidebar')
     <!-- clear it -->

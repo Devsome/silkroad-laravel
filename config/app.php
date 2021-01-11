@@ -195,6 +195,15 @@ return [
         \App\Providers\TopTenGuildsProvider::class,
         \App\Providers\TopTenPlayersProvider::class,
 
+        /**
+         * Datatables
+         */
+        Yajra\DataTables\DataTablesServiceProvider::class,
+
+        /**
+         * Intervention Images
+         */
+        Intervention\Image\ImageServiceProvider::class
         /*
          * Own Service Providers
          * First you need to install it - more coming later
@@ -256,10 +265,14 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /**
+         * Intervention Images
+         */
+        'Image' => Intervention\Image\Facades\Image::class,
+
         /*
          * Packages
          */
-        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],

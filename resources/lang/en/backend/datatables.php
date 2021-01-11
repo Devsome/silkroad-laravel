@@ -3,7 +3,7 @@
 return [
     'show-all' => 'all',
     'search' => 'Search',
-    'length' => 'Show _MENU_ logs each page',
+    'length' => 'Show _MENU_ entries',
     'zero' => 'Zero records found',
     'info' => 'Show _PAGE_ page of _PAGES_',
     'empty' => 'Information is empty',
@@ -12,4 +12,6 @@ return [
     'last' => 'Last page',
     'next' => 'Next page',
     'prev' => 'Previous page',
+    'searchPlaceholder' => 'Type to filter...',
+    'processing' => '<i class="fa fa-spinner"></i><span> Loading...</span> ',
 ];
