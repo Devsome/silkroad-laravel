@@ -38,7 +38,7 @@ class VoteforsilkController extends Controller
         $data = Voteforsilk::with('getVoted')
             ->get();
 
-        return view('frontend.account.voteforsilk', [
+        return view('theme::frontend.account.voteforsilk', [
             'data' => $data
         ]);
     }

@@ -26,7 +26,7 @@ class TopTenGuildsProvider extends ServiceProvider
     public function boot()
     {
         view()->composer(
-            'theme::*',
+            'theme::layouts.toptenguilds',
             static function ($view) {
                 // get hide guild rank
                 $hideRankingGuild = HideRankingGuild::all()

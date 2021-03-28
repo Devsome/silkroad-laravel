@@ -29,13 +29,17 @@ class LatestUniqueKillsProvider extends ServiceProvider
     {
 
         view()->composer(
-            'theme::*',
+            'theme::layouts.latestkills',
             static function ($view) {
-                /** @var array $uniques */
+                /** @var array $unique_names */
+                /** @var array $unique_codes */
                 $all_uniques = app('config')->get('unique');
                 foreach ($all_uniques as $key => $unique) {
-                    $uniques[] = $key;
+                    $unique_names[] = $unique['name'];
+                    $unique_codes[] = $key;
                 }
+                //set all uniques whether it's name or code in the array.
+                $uniques[] = array_merge($unique_names, $unique_codes);
 
                 //check for deleted Characters
                 $deleted_chars = Char::where('Deleted', true)

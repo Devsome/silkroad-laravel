@@ -38,7 +38,7 @@ class TimersProvider extends ServiceProvider
         ];
 
         view()->composer(
-            'theme::*',
+            'theme::layouts.timers',
             static function ($view) use ($data) {
                 $view->with('TimersProvider', $data);
             }
