@@ -66,7 +66,7 @@ class LatestUniqueKillsProvider extends ServiceProvider
                     ->get();
 
                 foreach ($UniquesKills as $key => $UniqueKill) {
-                    $UniquesKills[$key]['unique_name'] = $all_uniques[$UniqueKill->UniqueName]['name'];
+                    $UniquesKills[$key]['unique_name'] = (isset($all_uniques[$UniqueKill->UniqueName]) ? $all_uniques[$UniqueKill->UniqueName]['name'] : $UniqueKill->UniqueName);
                 }
                 $view->with('UniqueKillsProvider', $UniquesKills);
             }
