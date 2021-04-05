@@ -6,6 +6,7 @@ use App\HideRanking;
 use App\HideRankingGuild;
 use App\Http\Model\SRO\Log\UniqueKillLog;
 use App\Http\Model\SRO\Shard\Char;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 
 class LatestUniqueKillsProvider extends ServiceProvider
@@ -27,19 +28,28 @@ class LatestUniqueKillsProvider extends ServiceProvider
      */
     public function boot()
     {
-
         view()->composer(
             'theme::layouts.latestkills',
             static function ($view) {
                 /** @var array $unique_names */
                 /** @var array $unique_codes */
                 $all_uniques = app('config')->get('unique');
+
+                // If the unique example is not copied - Fallback
+                if (File::exists(config_path() . '/unique.php')) {
+                    if(isset($all_uniques['example'])){
+                        unset($all_uniques['example']);
+                    }
+                } else{
+                    $all_uniques = config('unique.example');
+                }
+
                 foreach ($all_uniques as $key => $unique) {
                     $unique_names[] = $unique['name'];
                     $unique_codes[] = $key;
                 }
                 //set all uniques whether it's name or code in the array.
-                $uniques[] = array_merge($unique_names, $unique_codes);
+                $uniques = array_merge($unique_names, $unique_codes);
 
                 //check for deleted Characters
                 $deleted_chars = Char::where('Deleted', true)
