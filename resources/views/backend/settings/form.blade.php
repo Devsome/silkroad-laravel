@@ -478,7 +478,7 @@
                            @else
                            checked
                         @endif>
-                    <label class="custom-control-label" for="thief_ranking">
+                    <label class="custom-control-label" for="unique_ranking">
                         {{ __('backend/settings.form.ranking-disable') }}
                     </label>
                     @if ($errors->has('unique_ranking'))
@@ -505,7 +505,7 @@
                            @else
                            checked
                         @endif>
-                    <label class="custom-control-label" for="thief_ranking">
+                    <label class="custom-control-label" for="free_pvp_ranking">
                         {{ __('backend/settings.form.ranking-disable') }}
                     </label>
                     @if ($errors->has('free_pvp_ranking'))
@@ -532,7 +532,7 @@
                            @else
                            checked
                         @endif>
-                    <label class="custom-control-label" for="thief_ranking">
+                    <label class="custom-control-label" for="job_pvp_ranking">
                         {{ __('backend/settings.form.ranking-disable') }}
                     </label>
                     @if ($errors->has('job_pvp_ranking'))
