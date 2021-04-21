@@ -44,7 +44,7 @@
                             <li class="list-group-item">
                                 <span style="padding-right: 25px; max-width: 140px">
                                     <img src="{{ asset('/image/donations/' . $method->image) }}"
-                                         class="img-fluid" alt="{{ $method->name }}">
+                                         class="img-fluid" alt="{{ $method->name }}" width="140">
                                 </span>
                                 <a href="{{ route('donations-method-index', ['method' => $method->method]) }}">
                                     {{ $method->name }}</a>
