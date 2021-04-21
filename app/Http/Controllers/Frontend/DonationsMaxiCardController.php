@@ -23,7 +23,7 @@ class DonationsMaxiCardController extends Controller
      */
     public function buy()
     {
-        return view('frontend.account.donations.maxicard.buy');
+        return view('theme::frontend.account.donations.maxicard.buy');
     }
 
     /**
