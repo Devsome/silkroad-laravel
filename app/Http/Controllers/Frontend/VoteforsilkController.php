@@ -76,6 +76,7 @@ class VoteforsilkController extends Controller
      */
     public function pingback(Request $request): void
     {
+        \Log::info('$request' . $request);
         $requestMethod = null;
         switch ($request->method()) {
             case 'GET':
@@ -89,6 +90,7 @@ class VoteforsilkController extends Controller
 
         //store requesting IP in a variable | compatibility with CloudFlare
         $votingIp = $_SERVER['HTTP_CF_CONNECTING_IP'] ?? $_SERVER['REMOTE_ADDR'];
+        \Log::info('$votingIp' . $votingIp);
 
         if (!array_key_exists($votingIp, $this->whitelist)) {
             echo 'Using wrong ip from that Server: ' . $votingIp;
@@ -96,6 +98,7 @@ class VoteforsilkController extends Controller
         }
 
         $result = $this->checkVotePingback($requestMethod, $votingIp);
+        \Log::info('$result' . $result);
         // log $result
         echo $result;
     }
@@ -126,6 +129,7 @@ class VoteforsilkController extends Controller
      */
     private function checkVotePingback($request, $ip): string
     {
+
         switch ($ip) {
             case '199.59.161.214': //xtremetop100
                 $result = $this->doReward($request['custom'], $ip);
@@ -187,13 +191,17 @@ class VoteforsilkController extends Controller
      */
     private function checkVoted($voteId): bool
     {
+        \Log::info('checkVoted' . $voteId);
         $voted = VoteforsilkVoted::where('user_id', \Auth::id())
             ->where('voteforsilks_id', '=', $voteId)
             ->first();
 
+
         if (!$voted) {
+            \Log::info('checkVoted' . 'true');
             return true;
         }
+        \Log::info('checkVoted' . 'false');
 
         $isPast = Carbon::create($voted->vote_again_at)->isPast();
 
