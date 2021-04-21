@@ -33,7 +33,7 @@ class DonationsController extends Controller
             ->firstOrFail();
 
         if ($donationMethod->active !== 1) {
-            return back()->with('error', trans('donations.paypal.disabled'));
+            return redirect()->route('donations-index')->with(['error' => __('donations.paypal.disabled')]);
         }
 
         if ($method === 'paypal') {

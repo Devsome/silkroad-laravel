@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\DonationMaxiCard;
 use App\DonationMaxiCardLog;
+use App\DonationMethods;
 use App\Helpers\MaxiCard\MaxiCardApiHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Model\SRO\Account\SkSilk;
@@ -19,10 +20,19 @@ use Illuminate\Support\Facades\DB;
 class DonationsMaxiCardController extends Controller
 {
     /**
-     * @return Application|Factory|View
+     * @return Application|Factory|View|RedirectResponse
      */
     public function buy()
     {
+        //check whether method is enabled or not
+        $method_enabled = DonationMethods::where('method', 'maxicard')
+            ->first();
+
+        //return error if method not found or not active
+        if (!$method_enabled || !$method_enabled->active) {
+            return redirect()->route('donations-index')->with(['error' => __('donations.maxicard.disabled')]);
+        }
+
         return view('theme::frontend.account.donations.maxicard.buy');
     }
 
@@ -33,6 +43,15 @@ class DonationsMaxiCardController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        //check whether method is enabled or not
+        $method_enabled = DonationMethods::where('method', 'maxicard')
+            ->first();
+
+        //return error if method not found or not active
+        if (!$method_enabled || !$method_enabled->active) {
+            return redirect()->route('donations-index')->with(['error' => __('donations.maxicard.disabled')]);
+        }
+
         //validate data
         $request->validate([
             'code' => ['required'],
