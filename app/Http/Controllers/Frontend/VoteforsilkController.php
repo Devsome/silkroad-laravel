@@ -126,8 +126,10 @@ class VoteforsilkController extends Controller
      */
     private function checkVotePingback($request, $ip): string
     {
-        \Log::info('checkVotePingback request: ' . $request);
-        \Log::info('checkVotePingback ip: ' . $ip);
+        \Log::info('checkVotePingback request: ');
+        \Log::info(json_encode($request));
+        \Log::info('checkVotePingback ip: ');
+        \Log::info(json_encode($ip));
         switch ($ip) {
             case '199.59.161.214': //xtremetop100
                 $result = $this->doReward($request['custom'], $ip);
