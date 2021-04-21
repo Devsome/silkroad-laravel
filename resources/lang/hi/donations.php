@@ -9,6 +9,14 @@ return [
         'submit' => 'अभी खरीदें!',
         'pending' => 'आपके पास भुगतान लंबित है!',
     ],
+
+    'maxicard' => [
+        'title' => 'Pay with MaxiCard E-Pin',
+        'disabled' => 'यह विधि वर्तमान में अक्षम है।',
+        'empty' => 'वर्तमान में कोई भी मूल्य पैकेज नहीं जोड़े गए हैं, कृपया समर्थन से संपर्क करें।',
+        'pay-text' => ':amount के :silk_name के लिए :price :currency',
+        'submit' => 'अभी खरीदें!',
+    ],
     'notification' => [
         'buy' => [
             'success-title' => 'हॊ गया',

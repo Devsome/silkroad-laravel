@@ -10,6 +10,13 @@ return [
 
         'pending' => 'You have pending payments!',
     ],
+    'maxicard' => [
+        'title' => 'Pay with MaxiCard E-Pin',
+        'disabled' => 'This method is currently disabled.',
+        'empty' => 'Currently are none price packages added, please contact the support.',
+        'pay-text' => 'Pay :price :currency for :amount :silk_name',
+        'submit' => 'Buy now!',
+    ],
     'stripe' => [
         'title' => 'Pay with Stripe',
         'disabled' => 'This method is currently disabled.',

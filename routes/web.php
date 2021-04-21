@@ -158,6 +158,11 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function 
             Route::get('/error/{id}', 'Frontend\DonationsPaypalController@error')->name('donate-paypal-error');
         });
 
+        Route::group(['prefix' => 'maxicard'], static function () {
+            Route::get('/buy', 'Frontend\DonationsMaxiCardController@buy')->name('donate-maxicard-buy');
+            Route::post('/buy', 'Frontend\DonationsMaxiCardController@store')->name('donate-maxicard-buy-post');
+        });
+
         Route::group(['prefix' => 'stripe'], static function () {
             Route::get('/buy/{id}', 'Frontend\DonationsStripeController@buy')->where('id', '[0-9]+')->name('donate-stripe');
             Route::post('/buy/{id}', 'Frontend\DonationsStripeController@buyPost')->where('id', '[0-9]+')->name('donate-stripe-post');

@@ -10,6 +10,14 @@ return [
 
         'pending' => 'Anda memiliki pembayaran yang tertunda!',
     ],
+
+    'maxicard' => [
+        'title' => 'Beli dengan MaxiCard E-Pin',
+        'disabled' => 'Saat ini metode dinonaktifkan.',
+        'empty' => 'Saat ini tidak ada paket harga yang ditambahkan, silakan hubungi dukungan.',
+        'pay-text' => 'Beli :price :currency untuk :amount :silk_name',
+        'submit' => 'Beli Sekarang!',
+    ],
     'notification' => [
         'buy' => [
             'success-title' => 'Selesai',

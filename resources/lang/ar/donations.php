@@ -10,6 +10,13 @@ return [
 
         'pending' => 'لديك مدفوعات معلقة!',
     ],
+    'maxicard' => [
+        'title' => 'إدفع بواسطه MaxiCard E-Pin',
+        'disabled' => 'هذا النظام غير متاح حاليا',
+        'empty' => 'حاليا لا يوجد اي قائمه، برجاء التوجه للإداره للمزيد من المعلومات!',
+        'pay-text' => 'إدفع :price :currency لتحصل علي :amount :silk_name',
+        'submit' => 'إشتري الأن',
+    ],
     'notification' => [
         'buy' => [
             'success-title' => 'تم',
