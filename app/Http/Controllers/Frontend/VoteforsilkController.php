@@ -35,8 +35,9 @@ class VoteforsilkController extends Controller
      */
     public function index()
     {
-        $data = Voteforsilk::with('getVoted')
-            ->get();
+        $data = Voteforsilk::with(['getVoted' => static function ($query) {
+            $query->where('user_id', '=', \Auth::id());
+        }])->get();
 
         return view('theme::frontend.account.voteforsilk', [
             'data' => $data
