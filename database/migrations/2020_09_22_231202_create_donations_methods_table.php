@@ -17,7 +17,7 @@ class CreateDonationsMethodsTable extends Migration
             $table->id();
             $table->string('method')->unique(); // unique payment method
             $table->string('name');
-            $table->enum('currency', ['USD', 'EUR'])->default('USD');
+            $table->enum('currency', ['USD', 'EUR', 'TL'])->default('USD');
             $table->string('image'); // Found at /public/image/donations
             $table->boolean('active')->default(0);
             $table->timestamps();

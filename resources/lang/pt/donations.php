@@ -10,6 +10,14 @@ return [
 
         'pending' => 'Você tem pagamentos pendentes!',
     ],
+
+    'maxicard' => [
+        'title' => 'Pague com MaxiCard E-Pin',
+        'disabled' => 'Esse método está desativado atualmente.',
+        'empty' => 'Não há pacotes de preço adicionados atualmente, por favor entre em contato com o suporte.',
+        'pay-text' => 'Pague :price :currency por :amount :silk_name',
+        'submit' => 'Comprar agora!',
+    ],
     'notification' => [
         'buy' => [
             'success-title' => 'Feito',

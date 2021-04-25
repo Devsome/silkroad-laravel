@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\DonationMaxiCard;
 use App\DonationMethods;
 use App\DonationPaypals;
 use App\DonationStripes;
@@ -32,7 +33,7 @@ class DonationsController extends Controller
             ->firstOrFail();
 
         if ($donationMethod->active !== 1) {
-            return back()->with('error', trans('donations.paypal.disabled'));
+            return redirect()->route('donations-index')->with(['error' => __('donations.paypal.disabled')]);
         }
 
         if ($method === 'paypal') {
@@ -52,6 +53,14 @@ class DonationsController extends Controller
             return view('theme::frontend.account.donations.stripe.index', [
                 'method' => $donationMethod,
                 'stripe' => $stripe
+            ]);
+        }
+
+        if ($method === 'maxicard') {
+            $maxicard = DonationMaxiCard::all();
+            return view('theme::frontend.account.donations.maxicard.index', [
+                'method' => $donationMethod,
+                'maxicard' => $maxicard
             ]);
         }
         return back();

@@ -37,5 +37,17 @@ class DonationMethodsSeeder extends Seeder
                 'active' => 0,
                 'created_at' => \Carbon\Carbon::now(),
             ]);
+
+        DB::table('donation_methods')->updateOrInsert(
+            [
+                'method' => 'maxicard'
+            ],
+            [
+                'name' => 'MaxiCard',
+                'image' => 'maxicard.png',
+                'currency' => 'TL',
+                'active' => 0,
+                'created_at' => \Carbon\Carbon::now(),
+            ]);
     }
 }

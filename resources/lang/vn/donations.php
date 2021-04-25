@@ -10,6 +10,13 @@ return [
 
         'pending' => 'Đang Đợi Sử Lý!',
     ],
+    'maxicard' => [
+        'title' => 'Thanh Toán Bằng MaxiCard E-Pin',
+        'disabled' => 'Phương Pháp Này Hiện Đang Bị Vô Hiệu Hóa.',
+        'empty' => 'Hiện Tại Không Có Gói Giá Nào Được Thêm Vào, Vui Lòng Liên Hệ Với Bộ Phận Hỗ Trợ.',
+        'pay-text' => 'Thanh Toán :price :currency Cho :amount :silk_name',
+        'submit' => 'Mua Ngay!',
+    ],
     'stripe' => [
         'title' => 'Thanh Toán Bằng Stripe',
         'disabled' => 'Phương Pháp Này Hiện Đang Bị Vô Hiệu Hóa.',

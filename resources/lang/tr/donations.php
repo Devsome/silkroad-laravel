@@ -10,6 +10,14 @@ return [
 
         'pending' => 'Bekleyen işlemleriniz bulunuyor!',
     ],
+
+    'maxicard' => [
+        'title' => 'MaxiCard E-Pin ile Öde',
+        'disabled' => 'Bu yöntem şu anda devre dışı.',
+        'empty' => 'Şu anda hiçbir fiyat paketi eklenmedi, lütfen destek ile iletişime geçin.',
+        'pay-text' => ':amount :silk_name için :price öde',
+        'submit' => 'Şimdi satın al!',
+    ],
     'stripe' => [
         'title' => 'Stripe ile Öde',
         'disabled' => 'Bu yöntem şu anda devre dışı.',

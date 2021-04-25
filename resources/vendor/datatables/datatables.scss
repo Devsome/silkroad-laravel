@@ -151,3 +151,8 @@ RTL DATA
     margin-left: 0 !important;
     margin-right: .5em !important;
 }
+
+.dataTable thead, .dataTable tfoot {
+    background: #9a9a9a;
+    color: white;
+}

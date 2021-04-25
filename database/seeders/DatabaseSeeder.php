@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MagOptSeeder::class);
         $this->call(ServerGoldSeeder::class);
         $this->call(DonationMethodsSeeder::class);
+        $this->call(MaxiCardSeeder::class);
     }
 }
