@@ -14,7 +14,7 @@
         "bootstrap": "^4.5.3",
         "cross-env": "^5.1",
         "dot-prop": "^6.0.0",
-        "elliptic": ">=6.5.3",
+        "elliptic": ">=6.5.4",
         "jquery": "^3.5.1",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.20",
