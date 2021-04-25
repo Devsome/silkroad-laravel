@@ -25,9 +25,9 @@
                                     <div class="card-body">
                                         <h6 class="card-subtitle mb-2 text-muted">
                                             {{ __('donations.maxicard.pay-text', [
-                                                'price' => $data->epin_amount,
+                                                'price' => $data->price,
                                                 'currency' => $method->currency,
-                                                'amount' => $data->silk_amount,
+                                                'amount' => $data->silk,
                                                 'silk_name' => config('siteSettings.sro_silk_name', 'Silk')
                                             ]) }}
                                         </h6>

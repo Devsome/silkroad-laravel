@@ -18,7 +18,9 @@ class DonationMaxiCard extends Model
      * @var string[]
      */
     protected $fillable = [
-        'epin_amount',
-        'silk_amount'
+        'name',
+        'description',
+        'price',
+        'silk'
     ];
 }

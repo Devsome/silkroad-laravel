@@ -77,6 +77,9 @@
                 <a class="collapse-item" href="{{ route('method-stripe-backend') }}">
                     {{ __('backend/menu.donations.stripe') }}
                 </a>
+                <a class="collapse-item" href="{{ route('method-maxicard-backend') }}">
+                    {{ __('backend/menu.donations.maxicard') }}
+                </a>
                 @if(Route::has('dev.payop.index'))
                     <a class="collapse-item" href="#">
                         {{ __('backend/menu.donations.payop') }}

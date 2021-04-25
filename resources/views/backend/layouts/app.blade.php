@@ -25,6 +25,10 @@
 
     <!-- select2 -->
     <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+
+    <!-- alpaca -->
+    <link href="{{ asset('plugins/alpaca/css/alpaca.min.css') }}" rel="stylesheet">
+
     @stack('theme::css')
 </head>
 
@@ -59,6 +63,9 @@
 <script src="{{ asset('plugins/toastr/js/toastr.min.js') }}"></script>
 <!-- select2 -->
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- alpaca -->
+<script src="{{ asset('plugins/alpaca/js/handlebars.min.js') }}"></script>
+<script src="{{ asset('plugins/alpaca/js/alpaca.min.js') }}"></script>
 <!-- custom -->
 <script src="{{ asset('js/custom.js') }}"></script>
 @stack('theme::javascript')

@@ -369,6 +369,13 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
                 Route::post('/paypal/{id}/destroy', 'Backend\DonationsController@methodPaypalDestroy')->name('method-paypal-destroy-backend');
                 Route::get('/paypal-logging-datatables', 'Backend\DonationsController@loggingPaypalDatatables')->name('donations-logging-paypal-datatables-backend');
 
+                Route::get('/maxicard', 'Backend\DonationsController@methodMaxicard')->name('method-maxicard-backend');
+                Route::post('/maxicard/add', 'Backend\DonationsController@methodMaxicardAdding')->name('method-maxicard-add-backend');
+                Route::put('/maxicard/edit/{id}', 'Backend\DonationsController@methodMaxicardEdit')->name('method-maxicard-edit-backend');
+                Route::delete('/maxicard/delete/{id}', 'Backend\DonationsController@methodMaxicardDestroy')->name('method-maxicard-destroy-backend');
+                Route::get('/maxicard-logging-datatables', 'Backend\DonationsController@loggingMaxicardDatatables')->name('donations-logging-maxicard-datatables-backend');
+                Route::get('/maxicard/data/get/{id}', 'Backend\DonationsController@getMaxicardData')->name('maxicard-data-get-backend');
+
                 Route::get('/stripe', 'Backend\DonationsController@methodStripe')->name('method-stripe-backend');
                 Route::post('/stripe/add', 'Backend\DonationsController@methodStripeAdding')->name('method-stripe-add-backend');
                 Route::post('/stripe/{id}/destroy', 'Backend\DonationsController@methodStripeDestroy')->name('method-stripe-destroy-backend');

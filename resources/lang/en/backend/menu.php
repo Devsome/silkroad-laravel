@@ -24,6 +24,7 @@ return [
         'paypal' => 'PayPal',
         'stripe' => 'Stripe',
         'payop' => 'PayOp',
+        'maxicard' => 'Maxicard',
     ],
     'backlinks' => 'Backlinks',
     'supporters' => 'Supporters',

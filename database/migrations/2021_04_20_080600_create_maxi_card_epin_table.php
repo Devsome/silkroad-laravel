@@ -15,8 +15,10 @@ class CreateMaxiCardEpinTable extends Migration
     {
         Schema::create('maxi_card_epin', function (Blueprint $table) {
             $table->id();
-            $table->integer('epin_amount');
-            $table->integer('silk_amount');
+            $table->string('name')->unique();
+            $table->mediumText('description');
+            $table->integer('price');
+            $table->integer('silk');
             $table->timestamps();
         });
     }

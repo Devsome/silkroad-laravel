@@ -41,3 +41,13 @@ $('.select2all').select2({
     allowClear: true,
     minimumInputLength: 0,
 });
+
+/*is Json*/
+function isJson(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}

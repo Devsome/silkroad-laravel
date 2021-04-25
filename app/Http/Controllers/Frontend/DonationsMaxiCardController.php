@@ -78,14 +78,14 @@ class DonationsMaxiCardController extends Controller
                 return redirect()->back()->with(['error' => 'This epin is invalid, Please try a valid one']);
             }
             //get epin amount
-            $epin = DonationMaxiCard::where('epin_amount', $amount)
+            $epin = DonationMaxiCard::where('price', $amount)
                 ->first();
 
             //set silk amount
             if ($epin) {
-                $silk_amount = $epin->silk_amount;
+                $silk = $epin->silk;
             } else {
-                $silk_amount = $amount;
+                $silk = $amount;
             }
 
             DB::beginTransaction();
@@ -94,7 +94,7 @@ class DonationsMaxiCardController extends Controller
                 SkSilk::where('JID', $user->jid)
                     ->increment(
                         'silk_own',
-                        $silk_amount
+                        $silk
                     );
 
                 //add log
@@ -104,7 +104,7 @@ class DonationsMaxiCardController extends Controller
                     'epin_code' => $request->get('code'),
                     'epin_password' => $request->get('password'),
                     'epin_amount_id' => $epin ? $epin->id : null,
-                    'epin_amount' => $silk_amount,
+                    'epin_amount' => $silk,
                     'commission' => $commission
                 ]);
             } catch (Exception $e) {
@@ -114,11 +114,11 @@ class DonationsMaxiCardController extends Controller
             DB::commit();
 
             //silk amount
-            $silk = SkSilk::where('JID', $user->jid)
+            $current_silk = SkSilk::where('JID', $user->jid)
                 ->first()
                 ->silk_own;
 
-            return redirect()->back()->with(['success' => "You've successfully purchased {$silk_amount} and your current balance is {$silk}"]);
+            return redirect()->back()->with(['success' => "You've successfully purchased {$silk} and your current balance is {$current_silk}"]);
         } else if (trim($response->params->durum) === 'bayi_hata') {
 
             //return error with wrong api if the data is wrong in env

@@ -33,6 +33,14 @@ class DonationMaxiCardLog extends Model
      */
     public function epin(): BelongsTo
     {
-        return $this->belongsTo(DonationMaxiCard::class, 'user_id', 'id');
+        return $this->belongsTo(DonationMaxiCard::class, 'epin_amount_id', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
