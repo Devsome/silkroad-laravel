@@ -38,6 +38,7 @@ return [
         'vouchers' => 'Vouchers',
         'web-inventory' => 'Web Inventory',
         'voteforsilk' => 'Vote for silk',
+        'web-mall' => 'Web Mall',
     ],
 
     'fortress' => [

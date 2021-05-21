@@ -1,19 +1,19 @@
-<img src="{{ asset('/image/sro/equipment/com_itemsign.PNG') }}" class="img-clear" loading="lazy">
-    @if($aItem['info']['sox'] || count($aItem['blues']) >= 1)
-        @php
-            $color = $aItem['info']['sox'] ? '#f2e43d' : '#50cecd';
-        @endphp
-        <span style="color:{{ $color }};font-weight: bold;">
-    @endif
-    {{ $aItem['info']['WebName'] }}
-    @if(($aItem['OptLevel'] + $aItem['nOptValue']) > 0)
-        (+{{ $aItem['OptLevel'] + $aItem['nOptValue'] }})
-    @endif
-
-    @if($aItem['info']['sox'] || count($aItem['blues']) >= 1)
-        </span>
-    @endif
-
+<img src="{{route('images.items',['image'=>'equipment/com_itemsign.PNG'])}}" class="img-clear" loading="lazy">
+@if($aItem['info']['sox'] || count($aItem['blues']) >= 1)
+    @php
+        $color = $aItem['info']['sox'] ? '#f2e43d' : '#50cecd';
+    @endphp
+    <span style="color:{{ $color }};font-weight: bold;">
+        {{ $aItem['info']['WebName'] }}
+        @if(($aItem['OptLevel'] + $aItem['nOptValue']) > 0)
+            (+{{ $aItem['OptLevel'] + $aItem['nOptValue'] }})
+        @endif
+    </span>
+@else
+    <span style="font-weight: bold;">
+        {{ $aItem['info']['WebName'] }}
+    </span>
+@endif
 @if($aItem['amount'] > 1)
     <br>
     <br>
@@ -38,8 +38,11 @@
     <br/>
     {{ __('inventory.pet-name', ['name' => data_get($aItem['info'], 'PetName') ?: 'No Name']) }}
     <br>
+    @isset($aItem['info']['ReqLevel1'])
+        {{ __('inventory.require', ['level' => $aItem['info']['ReqLevel1']]) }}
+    @endisset
     <br>
-    @if(data_get($aItem['info'], 'PetType') === 1)
+    @if(data_get($aItem['info'], 'PetType') == 1)
         {{ __('inventory.pet-level', ['level' => data_get($aItem['info'], 'PetLevel', 0)]) }}
     @else
         <span style="color:#efdaa4;font-weight:bold;">
@@ -60,16 +63,15 @@
         <br>
         {{ __('inventory.pet-inventory-size', ['size' => data_get($aItem['info'], 'inventorySize', 'unknown')]) }}
     @endif
-    @else
-
+@else
     @if($aItem['info']['Degree'] >= '1')
         @isset($aItem['info']['sox'])
             <br>
             @if($aItem['info']['sox'])
                 <br>
                 <span style="color:#f2e43d;font-weight: bold;">
-                {{ $aItem['info']['sox'] }}
-            </span>
+                    {{ $aItem['info']['sox'] }}
+                </span>
             @endif
         @endisset
         <br>
@@ -79,42 +81,42 @@
         {{--    @endif--}}
 
         <span style="color:#efdaa4;">
-        {{ __('inventory.sort', ['type' => data_get($aItem['info'], 'Type', '')]) }}
-        <br>
-        @isset($aItem['info']['Detail'])
+            {{ __('inventory.sort', ['type' => data_get($aItem['info'], 'Type', '')]) }}
+            <br>
+            @isset($aItem['info']['Detail'])
                 {{ __('inventory.mounting', ['detail' => data_get($aItem['info'], 'Detail', '')]) }}
                 <br>
             @endisset
             {{ __('inventory.degree', ['degree' => data_get($aItem['info'], 'Degree', '')]) }}
-    </span>
+        </span>
         <br>
         <br>
 
         @foreach($aItem['whitestats'] as $iKey => $sWhites)
-            {{ $sWhites }} <br>
+            {{ $sWhites }}
+            <br>
         @endforeach
-
         <br>
 
         @isset($aItem['info']['ReqLevel1'])
             {{ __('inventory.require', ['level' => $aItem['info']['ReqLevel1']]) }}
             <br>
-        @endif
+        @endisset
         @isset($aItem['info']['Sex'])
             {{ $aItem['info']['Sex'] }}
             <br>
-        @endif
+        @endisset
 
         <span style="color:#efdaa4;">
-        {{ __('inventory.max-unit', ['max' => $aItem['MaxMagicOptCount']]) }}
-    </span>
+            {{ __('inventory.max-unit', ['max' => $aItem['MaxMagicOptCount']]) }}
+        </span>
         <br>
         @if($aItem['blues'])
             <br>
             @foreach($aItem['blues'] as $iKey => $aBlues)
                 <span style="color:{{ '#' . $aBlues['color'] }};font-weight: bold;">
-                {{ $aBlues['name'] }}
-            </span>
+                    {{ $aBlues['name'] }}
+                </span>
                 <br>
             @endforeach
         @endif
@@ -127,7 +129,7 @@
             </b>
         @endif
         <br>
-    @elseif ($aItem['info']['Degree'])
+    @elseif($aItem['info']['Degree'])
         <br>
         <br>
         <span style="color:#efdaa4;">
@@ -162,16 +164,16 @@
         @endisset
     @endif
 @endif
-
-
-@role('administrator')
-<div id="gm-info" class="text-danger">
-    <br>
-    <p>
-        {{ __('inventory.gm.title') }}<br>
-        {{ __('inventory.gm.itemid', ['id' => $aItem['ID64'] ?: '-']) }}<br>
-        {{ __('inventory.gm.refitemid', ['id' => $aItem['RefItemID'] ?: '-']) }}<br>
-        {{ __('inventory.gm.serial64', ['id' => $aItem['Serial64'] ?: '-']) }}<br>
-    </p>
-</div>
-@endrole
+@if(!isset($gm_info))
+    @role('administrator')
+    <div id="gm-info" class="text-danger">
+        <br>
+        <p>
+            {{ __('inventory.gm.title') }}<br>
+            {{ __('inventory.gm.itemid', ['id' => $aItem['ID64'] ?: '-']) }}<br>
+            {{ __('inventory.gm.refitemid', ['id' => $aItem['RefItemID'] ?: '-']) }}<br>
+            {{ __('inventory.gm.serial64', ['id' => $aItem['Serial64'] ?: '-']) }}<br>
+        </p>
+    </div>
+    @endrole
+@endif

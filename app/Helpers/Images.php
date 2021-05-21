@@ -68,4 +68,25 @@ class Images
 
         return Image::make($storagePath)->response();
     }
+
+    /*
+    * Get Items image
+    */
+    public static function GetItemImage($image = null)
+    {
+        if (!is_null($image)) {
+            if (File::exists('image/sro/' . $image)) {
+                $storagePath = 'image/sro/' . $image;
+            } else {
+                $storagePath = 'image/sro/icon_default.jpg';
+            }
+            return redirect($storagePath);
+        }
+
+
+        //Set default image
+        $storagePath = 'image/sro/icon_default.jpg';
+
+        return Image::make($storagePath)->response();
+    }
 }

@@ -24,6 +24,14 @@ Route::get('images/characters/{image?}', function ($image = null) {
 })->name('images.characters')->where(['image' => '(.*)']);
 
 
+//get items Images
+Route::get('images/items/{image?}', function ($image = null) {
+    return Images::GetItemImage($image);
+})->name('images.items')->where(['image' => '(.*)']);
+
+
+/****************************************************************/
+//index
 Route::get('/', 'Frontend\IndexController@index')->name('index');
 
 // Signature
@@ -107,6 +115,16 @@ Route::get('/pages/{slug}', 'Frontend\IndexController@pagesContent')->name('page
 
 // Needed to be logged in after that
 Auth::routes(['verify' => true]);
+
+/**
+ * Web Mall
+ */
+Route::group(['prefix' => 'web-mall', 'middleware' => ['auth']], static function () {
+    Route::get('/', 'Frontend\WebMall\WebMallController@index')->name('webmall.index');
+    Route::post('/', 'Frontend\WebMall\WebMallController@filter')->name('webmall.filter');
+    Route::post('/purchase/{id}', 'Frontend\WebMall\WebMallController@purchaseItem')->name('webmall.purchase');
+});
+
 
 // User Dashboard
 Route::group(['prefix' => 'account', 'middleware' => ['auth']], static function () {
@@ -237,7 +255,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
 
     // Vote for Silk
     Route::group(['prefix' => 'vote-for-silk'], static function () {
-        Route::get('/','Backend\VoteforsilkController@index')->name('vote-for-silk-index-backend');
+        Route::get('/', 'Backend\VoteforsilkController@index')->name('vote-for-silk-index-backend');
         Route::get('/edit/{id}', 'Backend\VoteforsilkController@editVote')->name('vote-edit-backend');
         Route::post('/edit/{id}', 'Backend\VoteforsilkController@editVoteSubmit')->name('vote-edit-submit-backend');
         Route::post('/toggle-vote/{id}', 'Backend\VoteforsilkController@toggleVote')->name('vote-toggle-backend');
@@ -394,4 +412,15 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
     Route::get('/users-blocked-datatables', 'Backend\BackendController@blockedAccountsDatatables')->name('users-blocked-datatables-backend');
 
     Route::get('/worldmap', 'Backend\BackendController@worldmapIndex')->name('worldmap-index-backend');
+
+    //item mall
+    Route::resource('/web-mall', 'Backend\WebMall\WebMallController', [
+        'only' => [
+            'index',
+            'store',
+            'destroy'
+        ]
+    ]);
+    Route::get('/web-mall/logs', 'Backend\WebMall\WebMallController@getLogs')->name('web-mall.logs');
+
 });

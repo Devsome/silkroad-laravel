@@ -37,6 +37,7 @@ return [
         'tickets' => 'Thư',
         'vouchers' => 'Phiếu Thưởng',
         'web-inventory' => 'Thùng Đồ Website',
+        'web-mall' => 'Web Mall',
     ],
 
     'fortress' => [

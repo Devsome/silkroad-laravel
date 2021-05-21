@@ -8,6 +8,7 @@ return [
     'settings' => 'समायोजन - ' . config('app.name'),
     'referral' => 'रेफरल - ' . config('app.name'),
     'voteforsilk' => 'Vote for silk - ' . config('app.name'),
+    'web-mall' => 'Web mall - ' . config('app.name'),
     'voucher' => 'वाउचर - ' . config('app.name'),
     'tickets' => [
         'index' => 'टिकट - ' . config('app.name'),
