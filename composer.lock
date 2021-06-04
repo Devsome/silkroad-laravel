@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9fbe77f085d8331f6e6126feef217dfc",
+    "content-hash": "f6bde91b6e009bfd46f70358576d4af0",
     "packages": [
         {
             "name": "awssat/discord-notification-channel",
@@ -12270,7 +12270,8 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^7.4",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-simplexml": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
