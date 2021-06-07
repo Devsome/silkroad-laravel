@@ -38,6 +38,7 @@ return [
         'vouchers' => 'Açık Artırma',
         'web-inventory' => 'Web Envanteri',
         'voteforsilk' => 'Vote for silk',
+        'web-mall' => 'Web Mall',
     ],
 
     'fortress' => [

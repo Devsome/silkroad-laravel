@@ -21,6 +21,8 @@ return [
         'web-inventory-help' => 'Aqui você pode encontrar o seu "Inventário" onde seus intens comprados e vendidos estão.',
         'voteforsilk' => 'Vote for silk',
         'voteforsilk-help' => 'You want to gain easy silk? Here you can vote for our Server and gain some.',
+        'web-mall' => 'Web Mall',
+        'web-mall-help' => 'Here you can buy items from "Web Mall" using silk, it will be added instantly to your storage.',
     ],
 
     'chars-list' => [

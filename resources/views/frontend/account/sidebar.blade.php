@@ -56,32 +56,45 @@
     </p>
 
     <div class="list-group small">
-        <a href="{{ route('home') }}" class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'Dashboard') ? ' active' : ''}}">
+        <a href="{{ route('home') }}"
+           class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'Dashboard') ? ' active' : ''}}">
             {{ __('sidebar.home.dashboard') }}
         </a>
-        <a href="{{ route('home-chars-list') }}" class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'CharacterList') ? ' active' : ''}}">
+        <a href="{{ route('home-chars-list') }}"
+           class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'CharacterList') ? ' active' : ''}}">
             {{ __('sidebar.home.charlist') }}
         </a>
-        <a href="{{ route('home-settings') }}" class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'Settings') ? ' active' : ''}}">
+        <a href="{{ route('home-settings') }}"
+           class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'Settings') ? ' active' : ''}}">
             {{ __('sidebar.home.settings') }}
         </a>
-        <a href="{{ route('donations-index') }}" class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'Donate') ? ' active' : ''}}">
+        <a href="{{ route('donations-index') }}"
+           class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'Donate') ? ' active' : ''}}">
             {{ __('sidebar.home.donate') }}
         </a>
-        <a href="{{ route('home-referral') }}" class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'Referral') ? ' active' : ''}}">
+        <a href="{{ route('home-referral') }}"
+           class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'Referral') ? ' active' : ''}}">
             {{ __('sidebar.home.ref') }}
         </a>
-        <a href="{{ route('home-tickets') }}" class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'Tickets') ? ' active' : ''}}">
+        <a href="{{ route('home-tickets') }}"
+           class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'Tickets') ? ' active' : ''}}">
             {{ __('sidebar.home.tickets') }}
         </a>
-        <a href="{{ route('home-voucher') }}" class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'Vouchers') ? ' active' : ''}}">
+        <a href="{{ route('home-voucher') }}"
+           class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'Vouchers') ? ' active' : ''}}">
             {{ __('sidebar.home.vouchers') }}
         </a>
-        <a href="{{ route('web-inventory-index') }}" class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'WebInventory') ? ' active' : ''}}">
+        <a href="{{ route('web-inventory-index') }}"
+           class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'WebInventory') ? ' active' : ''}}">
             {{ __('sidebar.home.web-inventory') }}
         </a>
-        <a href="{{ route('vote-for-silk-index') }}" class="list-group-item list-group-item-action">
+        <a href="{{ route('vote-for-silk-index') }}"
+           class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias == 'voteforsilk') ? ' active' : ''}}">
             {{ __('sidebar.home.voteforsilk') }}
+        </a>
+        <a href="{{ route('webmall.index') }}"
+           class="list-group-item list-group-item-action{{(isset($account_alias) && $account_alias === 'WebMall') ? ' active' : ''}}">
+            {{ __('sidebar.home.web-mall') }}
         </a>
     </div>
 </div>

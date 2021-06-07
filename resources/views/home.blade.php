@@ -119,22 +119,38 @@
                             </div>
                         </div>
                         @if(config('siteSettings.voteforsilk'))
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <div class="box box-small-icon-alt">
+                                    <a href="{{ route('vote-for-silk-index') }}"
+                                       class="dashboard-link d-none d-sm-block">
+                                        <i class="fa fa-3x fa-vote-yea text-dark box-icon box-icon-outline"></i>
+                                    </a>
+                                    <a href="{{ route('vote-for-silk-index') }}" class="dashboard-link">
+                                        <h4 class="box-title">
+                                            {{ __('home.grid.voteforsilk') }}
+                                        </h4>
+                                    </a>
+                                    <p class="box-description">
+                                        {{ __('home.grid.voteforsilk-help') }}
+                                    </p>
+                                </div>
+                            </div>
+                        @endif
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="box box-small-icon-alt">
-                                <a href="{{ route('vote-for-silk-index') }}" class="dashboard-link d-none d-sm-block">
-                                    <i class="fa fa-3x fa-vote-yea text-dark box-icon box-icon-outline"></i>
+                                <a href="{{ route('webmall.index') }}" class="dashboard-link d-none d-sm-block">
+                                    <i class="fas fa-3x fa-shopping-cart text-orange box-icon box-orange box-icon-outline"></i>
                                 </a>
-                                <a href="{{ route('vote-for-silk-index') }}" class="dashboard-link">
+                                <a href="{{ route('webmall.index') }}" class="dashboard-link">
                                     <h4 class="box-title">
-                                        {{ __('home.grid.voteforsilk') }}
+                                        {{ __('home.grid.web-mall') }}
                                     </h4>
                                 </a>
                                 <p class="box-description">
-                                    {{ __('home.grid.voteforsilk-help') }}
+                                    {{ __('home.grid.web-mall-help') }}
                                 </p>
                             </div>
                         </div>
-                        @endif
                     </div>
                 </div>
             </div>

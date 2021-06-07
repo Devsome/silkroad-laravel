@@ -137,8 +137,12 @@
             <span>{{ __('backend/menu.settings') }}</span>
         </a>
     </li>
-
-
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('web-mall.index') }}">
+            <i class="fas fa-fw fa-shopping-cart"></i>
+            <span>{{__('webmall/webmall.title')}}</span>
+        </a>
+    </li>
     <div class="sidebar-heading">
         {{ __('backend/menu.silkroad') }}
     </div>

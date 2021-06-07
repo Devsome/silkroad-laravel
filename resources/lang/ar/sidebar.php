@@ -38,6 +38,7 @@ return [
         'vouchers' => 'قسايم الشحن',
         'web-inventory' => 'حقيبة الويب',
         'voteforsilk' => 'Vote for silk',
+        'web-mall' => 'Web Mall',
     ],
 
     'fortress' => [

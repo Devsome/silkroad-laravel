@@ -75,7 +75,7 @@ class UniqueService
         foreach ($uniquePoints as $uniquePoint) {
             $ranking[] = $uniquePoint;
         }
-        $collection = collect($ranking);
+        $collection = collect($ranking ?? null);
         $sorted = $collection->sortByDesc('points');
 
         $sorted->values()->all();

@@ -8,6 +8,7 @@ return [
     'settings' => 'Pengaturan - ' . config('app.name'),
     'referral' => 'Referral - ' . config('app.name'),
     'voteforsilk' => 'Vote for silk - ' . config('app.name'),
+    'web-mall' => 'Web mall - ' . config('app.name'),
     'voucher' => 'Voucher - ' . config('app.name'),
     'tickets' => [
         'index' => 'Tiket - ' . config('app.name'),
