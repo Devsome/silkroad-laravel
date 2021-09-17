@@ -5,7 +5,7 @@
     @forelse($SiegeFortressProvider as $fortress)
         <li class="pb-1">
             <span class="pull-left">
-                <img src="{{ route('images.fortress', ['image' => $fortress->FortressImage]) }}" class="img-fluid img-rounded"
+                <img src="{{ $fortress->FortressImage }}" class="img-fluid img-rounded"
                      loading="lazy" style="max-width: 20px"/>
             </span>
             {{ $fortress->FortressName }}
