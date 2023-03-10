@@ -45,12 +45,14 @@ class LatestPvpKillsProvider extends ServiceProvider
                     ->whereNotIn('KilledCharName', $hideRanking)
                     ->with([
                         'getKillerCharacter' => static function ($query) use ($hideRankingGuild) {
-                            $query->whereNotIn('GuildID', $hideRankingGuild);
+                            $query->whereNotIn('GuildID', $hideRankingGuild)
+								->where('Deleted', false);
                         }
                     ])
                     ->with([
                         'getKilledCharacter' => static function ($query) use ($hideRankingGuild) {
-                            $query->whereNotIn('GuildID', $hideRankingGuild);
+                            $query->whereNotIn('GuildID', $hideRankingGuild)
+								->where('Deleted', false);
                         }
                     ])
                     ->select('CharName', 'KilledCharName', 'killed_at')
