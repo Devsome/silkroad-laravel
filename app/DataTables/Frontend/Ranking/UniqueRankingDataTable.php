@@ -55,13 +55,10 @@ class UniqueRankingDataTable extends DataTable
     public function query(UniqueService $uniqueService)
     {
         $this->count = 0;
-        //check for deleted Characters
-        $deleted_chars = Char::where('Deleted', true)
-            ->pluck('CharName16');
+
         // check for hide ranking and add deleted_chars to it
         $hideRanking = HideRanking::all()
-            ->pluck('charname')
-            ->union($deleted_chars);
+            ->pluck('charname');
 
         //check for hidden guilds from ranking.
         $hideRankingGuild = HideRankingGuild::all()
@@ -71,7 +68,8 @@ class UniqueRankingDataTable extends DataTable
         $jobs = UniqueKillLog::whereNotIn('CharName16', $hideRanking)
             ->with([
                 'getCharacter' => static function ($query) use ($hideRankingGuild) {
-                    $query->whereNotIn('GuildID', $hideRankingGuild);
+                    $query->whereNotIn('GuildID', $hideRankingGuild)
+						->where('Deleted', false);
                 }
             ])
             ->with('getCharacter')

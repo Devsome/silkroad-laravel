@@ -56,13 +56,9 @@ class FreePvpRankingDataTable extends DataTable
     public function query(UniqueService $uniqueService)
     {
         $this->count = 0;
-        //check for deleted Characters
-        $deleted_chars = Char::where('Deleted', true)
-            ->pluck('CharName16');
         // check for hide ranking and add deleted_chars to it
         $hideRanking = HideRanking::all()
-            ->pluck('charname')
-            ->union($deleted_chars);
+            ->pluck('charname');
 
         //check for hidden guilds from ranking.
         $hideRankingGuild = HideRankingGuild::all()
@@ -73,7 +69,8 @@ class FreePvpRankingDataTable extends DataTable
             ->whereType(0)
             ->with([
                 'getKillerCharacter' => static function ($query) use ($hideRankingGuild) {
-                    $query->whereNotIn('GuildID', $hideRankingGuild);
+                    $query->whereNotIn('GuildID', $hideRankingGuild)
+						->where('Deleted', false);
                 }
             ])
             ->select(DB::raw('count(pvp_records.CharName) as points'), 'CharName')

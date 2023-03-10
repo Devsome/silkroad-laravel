@@ -75,8 +75,9 @@ class JobRankingDataTable extends DataTable
             ->diff([0]);
 
         $query = CharTrijob::whereHas('getCharacter', static function ($q) use ($hideRanking, $hideRankingGuild) {
-            $q->whereNotIn('CharName16', $hideRanking);
-            $q->whereNotIn('GuildID', $hideRankingGuild);
+            $q->whereNotIn('CharName16', $hideRanking)
+				->where('Deleted', false)
+				->whereNotIn('GuildID', $hideRankingGuild);
         })
             ->with('getCharacter')
             ->whereIn('JobType', [1, 2, 3])
