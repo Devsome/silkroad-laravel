@@ -51,13 +51,9 @@ class LatestUniqueKillsProvider extends ServiceProvider
                 //set all uniques whether it's name or code in the array.
                 $uniques = array_merge($unique_names, $unique_codes);
 
-                //check for deleted Characters
-                $deleted_chars = Char::where('Deleted', true)
-                    ->pluck('CharName16');
                 // check for hide ranking and add deleted_chars to it
                 $hideRanking = HideRanking::all()
-                    ->pluck('charname')
-                    ->union($deleted_chars);
+                    ->pluck('charname');
 
                 $hideRankingGuild = HideRankingGuild::all()
                     ->pluck('guild_id')
@@ -67,7 +63,8 @@ class LatestUniqueKillsProvider extends ServiceProvider
                     ->whereIn('UniqueName', $uniques)
                     ->with([
                         'getCharacter' => static function ($query) use ($hideRankingGuild) {
-                            $query->whereNotIn('GuildID', $hideRankingGuild);
+                            $query->whereNotIn('GuildID', $hideRankingGuild)
+								->where('Deleted', false);
                         }
                     ])
                     ->with('getCharacter')

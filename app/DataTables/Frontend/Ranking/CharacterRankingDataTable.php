@@ -68,13 +68,9 @@ class CharacterRankingDataTable extends DataTable
     public function query()
     {
         $this->count = 0;
-        //check for deleted Characters
-        $deleted_chars = Char::where('Deleted', true)
-            ->pluck('CharName16');
         // check for hide ranking and add deleted_chars to it
         $hideRanking = HideRanking::all()
-            ->pluck('charname')
-            ->union($deleted_chars);
+            ->pluck('charname');
 
         //check for hidden guilds from ranking.
         $hideRankingGuild = HideRankingGuild::all()
@@ -82,6 +78,7 @@ class CharacterRankingDataTable extends DataTable
             ->diff([0]);
 
         $query = Char::whereNotIn('CharName16', $hideRanking)
+			->where('Deleted', false)
             ->whereNotIn('GuildID', $hideRankingGuild)
             ->with('getGuildUser')
             ->orderBy('ItemPoints', 'DESC')
