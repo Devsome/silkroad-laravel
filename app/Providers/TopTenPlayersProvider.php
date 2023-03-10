@@ -29,13 +29,9 @@ class TopTenPlayersProvider extends ServiceProvider
         view()->composer(
             'theme::layouts.toptenplayers',
             static function ($view) {
-                //check for deleted Characters
-                $deleted_chars = Char::where('Deleted', true)
-                    ->pluck('CharName16');
                 // check for hide ranking and add deleted_chars to it
                 $hideRanking = HideRanking::all()
-                    ->pluck('charname')
-                    ->union($deleted_chars);
+                    ->pluck('charname');
 
                 // get hide guild rank
                 $hideRankingGuild = HideRankingGuild::all()
@@ -44,6 +40,7 @@ class TopTenPlayersProvider extends ServiceProvider
 
                 // get pvp kills (Free PVP Only)
                 $chars = Char::orderBy('ItemPoints', 'DESC')
+					->where('Deleted', false)
                     ->whereNotIn('CharName16', $hideRanking)
                     ->whereNotIn('GuildID', $hideRankingGuild)
                     ->with('getGuildUser')
